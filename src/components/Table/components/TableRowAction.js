@@ -14,10 +14,10 @@ export default function TableRowAction({
   deletePopConfirmProps,
 }) {
   return (
-    <RSpace>
+    <RSpace  justifyContent="flex-start" spacing={0} >
       <RSpace.Item>
-        <IconButton size="small" color="primary" {...viewButtonProps}>
-          {viewButton || <VisibilityOutlinedIcon />}
+        <IconButton size="small" color="primary"  {...viewButtonProps}>
+          {viewButton || <VisibilityOutlinedIcon style={{fontSize:18}}/>}
         </IconButton>
       </RSpace.Item>
 
@@ -25,7 +25,7 @@ export default function TableRowAction({
         <RPopconfirm
           anchorElement={
             <AppButton asIconButton={true} color="danger" size="small" {...deleteButtonProps}>
-              {deleteButton || <DeleteOutlinedIcon />}
+              {deleteButton || <DeleteOutlinedIcon style={{fontSize:18}}/>}
             </AppButton>
           }
           message="Really want to delete this item?"

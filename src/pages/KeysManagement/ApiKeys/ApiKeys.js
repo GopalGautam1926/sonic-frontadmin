@@ -8,14 +8,12 @@ import { format } from "date-fns";
 import { isExpired } from "../../../utils/general.utils";
 import RSpace from "../../../components/rcomponents/RSpace";
 import { log } from "../../../utils/app.debug";
-import { Chip as MuiChip } from "@material-ui/core";
-import withAppColor from "../../../components/hoc/withAppColors";
 import { useStore } from "../../../stores";
 import DataFetchingStateComponent from "../../../components/common/DataFetchingStateComponent";
 import apikeysHttps from "../../../services/https/resources/apikeys.https";
 import { toast } from "react-toastify";
+import Badge from '../../../components/Badge/Badge';
 
-const Chip = withAppColor(MuiChip);
 function ApiKeys() {
   const [state, setState] = useState({
     isDeleting: false,
@@ -59,22 +57,22 @@ function ApiKeys() {
           const statusItem = [];
           if (rowData?.disabled) {
             statusItem.push(
-              <Chip color="rose" size="small" label="Disabled" />
+              <Badge color="rose" size="small" label="Disabled" />
             );
           }
           if (rowData?.suspended) {
             statusItem.push(
-              <Chip color="warning" size="small" label="Suspended" />
+              <Badge color="warning" size="small" label="Suspended" />
             );
           }
           if (isExpired(rowData?.validity)) {
             statusItem.push(
-              <Chip color="danger" size="small" label="Expired" />
+              <Badge color="danger" size="small" label="Expired" />
             );
           }
           if (statusItem.length == 0) {
             statusItem.push(
-              <Chip color="success" size="small" label="Active" />
+              <Badge color="success" size="small" label="Active" />
             );
           }
 

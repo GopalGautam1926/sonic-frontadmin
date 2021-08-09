@@ -62,7 +62,7 @@ export default function AddApiKey({ closeDialog }) {
             <Grid container spacing={1}>
               <Grid item xs={12} sm={6} md={6}>
                 <AppTextInput
-                  labelText="Customer Id or Sub"
+                  labelText="Customer Id or Sub (take it from cognito)"
                   id="customer"
                   formControlProps={{
                     fullWidth: true,

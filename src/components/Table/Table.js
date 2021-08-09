@@ -50,10 +50,11 @@ export default function Table({ title, data, columns, options, components }) {
       style: {
         whiteSpace: "normal",
         wordWrap: "break-word",
+        fontSize: 12
       },
     }),
     setCellHeaderProps: (value) => ({
-      style: { color: theme.palette.primary.light },
+      style: { color: theme.palette.primary.main},
     }),
   };
 
