@@ -13,6 +13,7 @@ import {
 import { AxiosRequestConfig } from "axios";
 import { log } from "../../utils/app.debug";
 import licensekeysHttps from "../../services/https/resources/licensekeys.https";
+import deepmerge from 'deepmerge'
 
 class LicenseKeyStore {
   @observable loading = false;
@@ -47,6 +48,13 @@ class LicenseKeyStore {
   fetchLicenseKeys(options = {}) {
     this.loading = true;
     this.error = null;
+    const defaultOptions={
+      params:{
+        sort:'-createdAt',
+        limit:1000
+      },
+    }
+    options=deepmerge(defaultOptions,options)
     licensekeysHttps
     .fetchLicenseKeys(options)
     .then(({ data }) => {
@@ -68,7 +76,7 @@ class LicenseKeyStore {
    */
   @action
   addLicenseKey(licenseKey) {
-    this.licenseKeys.docs.push(licenseKey);
+    this.licenseKeys.docs.unshift(licenseKey);
     this.licenseKeys.totalDocs += 1;
   }
   /**

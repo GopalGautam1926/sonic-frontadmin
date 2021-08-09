@@ -12,6 +12,7 @@ import {
 import { AxiosRequestConfig } from "axios";
 import { log } from "../../utils/app.debug";
 import apikeysHttps from "../../services/https/resources/apikeys.https";
+import deepmerge from 'deepmerge'
 
 class ApiKeyStore {
   @observable loading = false;
@@ -46,6 +47,13 @@ class ApiKeyStore {
   fetchApiKeys(options = {}) {
     this.loading = true;
     this.error = null;
+    const defaultOptions={
+      params:{
+        sort:'-createdAt',
+        limit:1000
+      },
+    }
+    options=deepmerge(defaultOptions,options)
     apikeysHttps
       .fetchApiKeys(options)
       .then(({ data }) => {
@@ -66,7 +74,7 @@ class ApiKeyStore {
    */
   @action
   addApiKey(apiKey) {
-    this.apiKeys.docs.push(apiKey);
+    this.apiKeys.docs.unshift(apiKey);
     this.apiKeys.totalDocs += 1;
   }
   /**

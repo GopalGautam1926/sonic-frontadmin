@@ -1,6 +1,5 @@
 import { AxiosRequestConfig } from "axios";
 import { AppWebRequest } from "../NetworkManager";
-import { sessionStore } from "../../../stores/session/session.store";
 import { licenseKeyStore } from "../../../stores/core/licensekey.store";
 
 class LicenseKeysHttps {

@@ -27,7 +27,13 @@ ReactDOM.render(
       <App />
     </StoreProvider>
   </ThemeProvider>
-  <ToastContainer />
+  <ToastContainer 
+  position="top-center"
+  newestOnTop
+  hideProgressBar
+  autoClose={3000}
+  pauseOnFocusLoss={false}
+  />
   </BrowserRouter>,
   document.getElementById("root")
 );

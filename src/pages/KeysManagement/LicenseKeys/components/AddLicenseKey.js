@@ -15,7 +15,7 @@ import { useStore } from "../../../../stores";
 const initialLicense = {
   name: "",
   maxEncodeUses: "",
-  maxDecodeUses: "",
+  maxDecodeUses: 0,
   validity: new Date(),
   disabled: false,
   suspended: false,
@@ -110,7 +110,6 @@ export default function AddLicenseKey({ closeDialog }) {
                   inputProps={{
                     type: "number",
                     min: "0",
-                    required: true,
                     placeholder: "eg. 1000",
                     value: license.maxDecodeUses,
                     onChange: (e) =>
