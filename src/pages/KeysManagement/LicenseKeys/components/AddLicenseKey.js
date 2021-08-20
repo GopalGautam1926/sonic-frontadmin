@@ -53,10 +53,10 @@ export default function AddLicenseKey({ closeDialog }) {
             {(headerClasses) => (
               <>
                 <h4 className={headerClasses.cardTitleWhite}>
-                  Create New License Key
+                  Create New License
                 </h4>
                 <p className={headerClasses.cardCategoryWhite}>
-                  Add new license key
+                  Add new license
                 </p>
               </>
             )}
@@ -75,7 +75,7 @@ export default function AddLicenseKey({ closeDialog }) {
                   }}
                   inputProps={{
                     required: true,
-                    placeholder: "Name for this license key",
+                    placeholder: "Name for this license",
                     value: license.name,
                     onChange: (e) =>
                       setLicense({ ...license, name: e.target.value }),
@@ -135,7 +135,7 @@ export default function AddLicenseKey({ closeDialog }) {
             </Grid>
 
             <Grid container>
-              <Grid item>
+              {/* <Grid item>
                 <SwitchWithLabel
                   label="disabled"
                   checked={license.disabled}
@@ -143,7 +143,7 @@ export default function AddLicenseKey({ closeDialog }) {
                     setLicense({ ...license, disabled: e.target.checked })
                   }
                 />
-              </Grid>
+              </Grid> */}
               <Grid item>
                 <SwitchWithLabel
                   label="suspended"

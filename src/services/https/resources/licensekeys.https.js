@@ -52,6 +52,41 @@ class LicenseKeysHttps {
   }
 
   /**
+   * add owner to this license
+   * @param {string} key
+   * @param {string} usernameOrSub
+   * @returns
+   */
+  addOwnerToLicense(key,usernameOrSub) {
+    return AppWebRequest({
+      method: "put",
+      url: `/license-keys/${key}/owners`,
+      data: {
+        usernameOrSub:usernameOrSub
+      },
+    }).then((res) => {
+      licenseKeyStore.updateLicenseKey(key,res?.data);
+      return res;
+    });
+  }
+
+   /**
+   * remove owner from this license
+   * @param {string} key
+   * @param {string} usernameOrSub
+   * @returns
+   */
+  removeOwnerFromLicense(key,usernameOrSub) {
+    return AppWebRequest({
+      method: "delete",
+      url: `/license-keys/${key}/owners/${usernameOrSub}`,
+    }).then((res) => {
+      licenseKeyStore.updateLicenseKey(key,res?.data);
+      return res;
+    });
+  }
+
+  /**
    * get license by key
    * @param {string} key
    * @returns

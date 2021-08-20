@@ -13,6 +13,21 @@ import RPopconfirm from "../../../../components/rcomponents/RPopconfirm/RPopconf
 import licensekeysHttps from "../../../../services/https/resources/licensekeys.https";
 import DataFetchingStateComponent from "../../../../components/common/DataFetchingStateComponent";
 import { toast } from "react-toastify";
+import AddIcon from "@material-ui/icons/Add";
+import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutline";
+import {
+  Avatar,
+  ListItemText,
+  List,
+  ListItem,
+  ListItemAvatar,
+  Typography,
+} from "@material-ui/core";
+import { Divider } from "@material-ui/core";
+import RDialog from "../../../../components/rcomponents/RDialog";
+import RPopover from "../../../../components/rcomponents/RPopover/index";
+import { InputAdornment } from "@material-ui/core";
+import usersHttps from "../../../../services/https/resources/users.https";
 
 export default function ViewLicenseKey({ closeDialog }) {
   const [state, setState] = useState({
@@ -23,6 +38,10 @@ export default function ViewLicenseKey({ closeDialog }) {
     suspendLoading: false,
     error: null,
     oldKey: {},
+    newUsernameOrId: "",
+    removingUserId: "",
+    addingNewUserLoading: false,
+    removingUserLoading: false,
   });
   let { licenseId } = useParams();
   const location = useLocation();
@@ -74,6 +93,53 @@ export default function ViewLicenseKey({ closeDialog }) {
       .catch((err) => {
         setState({ ...state, editLoading: false });
         toast.error(err.message || "Error while creating..");
+      });
+  };
+
+  const onAddNewUser = (handleClose) => {
+    setState({ ...state, addingNewUserLoading: true });
+    licensekeysHttps
+      .addOwnerToLicense(license.key, state.newUsernameOrId)
+      .then(({ data }) => {
+        setState({
+          ...state,
+          newUser: {
+            ...state,
+            addingNewUserLoading: false,
+          },
+        });
+        setLicense(data);
+        toast.success("Added");
+        handleClose?.()
+      })
+      .catch((err) => {
+        setState({ ...state, addingNewUserLoading: false });
+        toast.error(err.message || "Error adding new owner");
+      });
+  };
+
+  const onRemoveUser = (usernameOrId) => {
+    setState({
+      ...state,
+      removingUserLoading: true,
+      removingUserId: usernameOrId,
+    });
+    licensekeysHttps
+      .removeOwnerFromLicense(license.key, usernameOrId)
+      .then(({ data }) => {
+        setState({
+          ...state,
+          newUser: {
+            ...state,
+            removingUserLoading: false,
+          },
+        });
+        setLicense(data);
+        toast.success("Removed");
+      })
+      .catch((err) => {
+        setState({ ...state, removingUserLoading: false });
+        toast.error(err.message || "Error removing owner");
       });
   };
 
@@ -135,7 +201,7 @@ export default function ViewLicenseKey({ closeDialog }) {
           <FancyCard.CardHeader color="purple">
             {(headerClasses) => (
               <>
-                <h4 className={headerClasses.cardTitleWhite}>License Key</h4>
+                <h4 className={headerClasses.cardTitleWhite}>License</h4>
                 <p className={headerClasses.cardCategoryWhite}>
                   {licenseId || "--"}
                 </p>
@@ -197,7 +263,7 @@ export default function ViewLicenseKey({ closeDialog }) {
                     anchorElement={
                       <AppButton
                         loading={state.suspendLoading}
-                        color="warning"
+                        color="danger"
                         type="button"
                       >
                         {license.suspended ? "suspended" : "suspend"}
@@ -206,10 +272,10 @@ export default function ViewLicenseKey({ closeDialog }) {
                     onClickYes={() => onUpdateWithState("suspended")}
                     message={`Really want to ${
                       license.suspended ? "unsuspend" : "suspend"
-                    } this license key?`}
+                    } this license?`}
                   />
                 </RSpace.Item>
-                <RSpace.Item>
+                {/* <RSpace.Item>
                   <RPopconfirm
                     anchorElement={
                       <AppButton
@@ -223,9 +289,9 @@ export default function ViewLicenseKey({ closeDialog }) {
                     onClickYes={() => onUpdateWithState("disabled")}
                     message={`Really want to ${
                       license.disabled ? "enable" : "disable"
-                    } this license key?`}
+                    } this license?`}
                   />
-                </RSpace.Item>
+                </RSpace.Item> */}
               </RSpace>
               <Grid container spacing={1}>
                 <Grid item xs={12} sm={3} md={3}>
@@ -237,7 +303,7 @@ export default function ViewLicenseKey({ closeDialog }) {
                     }}
                     inputProps={{
                       readOnly: !state.editMode,
-                      placeholder: "Name for this license key",
+                      placeholder: "Name for this license",
                       value: license.name,
                       required: true,
                       onChange: (e) =>
@@ -321,7 +387,7 @@ export default function ViewLicenseKey({ closeDialog }) {
               </Grid>
 
               <Grid container>
-                <Grid item>
+                {/* <Grid item>
                   <SwitchWithLabel
                     label="disabled"
                     disabled={!state.editMode}
@@ -330,7 +396,7 @@ export default function ViewLicenseKey({ closeDialog }) {
                       setLicense({ ...license, disabled: e.target.checked })
                     }
                   />
-                </Grid>
+                </Grid> */}
                 <Grid item>
                   <SwitchWithLabel
                     label="suspended"
@@ -355,14 +421,88 @@ export default function ViewLicenseKey({ closeDialog }) {
                 containerStyle={{ marginTop: 5 }}
               />
 
-              <InputLabel style={{ marginTop: 15 }}>
-                Owners ({license?.owners?.length})
+              <Divider style={{ marginTop: 20, marginBottom: 10 }} />
+              <InputLabel style={{ display: "flex", alignItems: "center" }}>
+                <div>Owners ({license?.owners?.length})</div>
+                <RPopover
+                  paperStyle={{ minWidth: 500 }}
+                  TransitionProps={{
+                    onExit:()=>setState({...state,newUsernameOrId:''})
+                  }}
+                  anchorElement={
+                    <AppButton
+                      asIconButton={true}
+                      variant="container"
+                      color="success"
+                      size="small"
+                    >
+                      {<AddIcon style={{ fontSize: 20 }} />}
+                    </AppButton>
+                  }
+                >
+                  {({ handleClose }) => (
+                    <div style={{ padding: 15 }}>
+                      <AppTextInput
+                        labelText="Username or sub"
+                        id="usernameforlicense"
+                        formControlProps={{
+                          fullWidth: true,
+                        }}
+                        success={state.newUsernameOrId ? true : false}
+                        inputProps={{
+                          value: state.newUsernameOrId,
+                          onChange: (e) => {
+                            setState({
+                              ...state,
+                              newUsernameOrId: e.target.value,
+                            });
+                          },
+                          placeholder: "username or sub",
+                        }}
+                      />
+                      <AppButton
+                        color="success"
+                        onClick={()=>onAddNewUser(handleClose)}
+                        disabled={state.newUsernameOrId ? false : true}
+                        loading={state.addingNewUserLoading}
+                      >
+                        Add
+                      </AppButton>
+                    </div>
+                  )}
+                </RPopover>
               </InputLabel>
-              <ul style={{ color: "grey" }}>
+
+              <List>
                 {license?.owners?.map((owner, index) => (
-                  <li key={index}>{owner.ownerId}</li>
+                  <ListItem alignItems="flex-start" key={index}>
+                    <ListItemAvatar>
+                      <Avatar>{owner.username?.charAt?.(0) || "U"}</Avatar>
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={owner.username || owner.ownerId}
+                      secondary={owner.email || "--"}
+                    />
+                    <RPopconfirm
+                      anchorElement={
+                        <AppButton
+                          asIconButton={true}
+                          color="danger"
+                          size="small"
+                          loading={
+                            owner.ownerId == state.removingUserId &&
+                            state.removingUserLoading
+                          }
+                        >
+                          <DeleteOutlinedIcon style={{ fontSize: 18 }} />
+                        </AppButton>
+                      }
+                      onClickYes={() => onRemoveUser(owner.ownerId)}
+                      message="Really want to delete this item?"
+                    />
+                  </ListItem>
                 ))}
-              </ul>
+              </List>
             </DataFetchingStateComponent>
           </FancyCard.CardContent>
         </form>

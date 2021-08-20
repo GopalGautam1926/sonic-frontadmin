@@ -10,6 +10,7 @@ export default function TableRowAction({
   viewButton,
   viewButtonProps,
   deleteButton,
+  enableDelete=true,
   deleteButtonProps,
   deletePopConfirmProps,
 }) {
@@ -21,7 +22,7 @@ export default function TableRowAction({
         </IconButton>
       </RSpace.Item>
 
-      <RSpace.Item>
+     {enableDelete && <RSpace.Item>
         <RPopconfirm
           anchorElement={
             <AppButton asIconButton={true} color="danger" size="small" {...deleteButtonProps}>
@@ -31,7 +32,7 @@ export default function TableRowAction({
           message="Really want to delete this item?"
           {...deletePopConfirmProps}
         />
-      </RSpace.Item>
+      </RSpace.Item>}
     </RSpace>
   );
 }

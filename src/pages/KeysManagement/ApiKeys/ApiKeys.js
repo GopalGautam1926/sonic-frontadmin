@@ -97,6 +97,7 @@ function ApiKeys() {
           );
           return (
             <Table.TableRowAction
+            enableDelete={false}
               viewButtonProps={{
                 onClick: () => {
                   const path = `${

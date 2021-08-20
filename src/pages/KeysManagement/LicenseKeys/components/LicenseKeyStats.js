@@ -28,7 +28,7 @@ export const  LicenseKeyStats = observer(()=> {
                 <VpnKeyIcon />
               </FancyCard.CardIcon>
               <div style={{ marginTop: 10, textAlign: "right" }}>
-                <p className={headerClasses.cardCategory}>License Keys</p>
+                <p className={headerClasses.cardCategory}>Licenses</p>
                 <h3 className={headerClasses.cardTitle}>
                   {count}
                 </h3>

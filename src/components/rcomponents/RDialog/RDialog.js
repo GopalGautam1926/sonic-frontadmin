@@ -14,6 +14,7 @@ const Transition = forwardRef(function Transition(props, ref) {
 const CustomDialog = ({
   controlled = false,
   anchorElement,
+  disabled=false,
   anchorElementContainerStyle,
   altAnchorElementWithCustomClick,
   open,
@@ -52,7 +53,7 @@ const CustomDialog = ({
     <React.Fragment>
       <div style={{ position: "relative" }}>
         <div
-          onClick={handleClickOpen}
+          onClick={!disabled&&handleClickOpen}
           style={{ cursor: "pointer", ...anchorElementContainerStyle }}
         >
           {anchorElement}
@@ -94,6 +95,7 @@ const RDialog = ({
   open,
   onClose,
   buttons,
+  disabled=false,
   ...props
 }) => {
   const [isOpen, setIsOpen] = React.useState(open || false);
@@ -175,7 +177,7 @@ const RDialog = ({
     <React.Fragment>
       <div style={{ position: "relative" }}>
         <div
-          onClick={handleClickOpen}
+          onClick={!disabled&&handleClickOpen}
           style={{ cursor: "pointer", ...anchorElementContainerStyle }}
         >
           {anchorElement}

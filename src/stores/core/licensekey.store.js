@@ -40,6 +40,13 @@ class LicenseKeyStore {
     return toJS(this.licenseKeys);
   }
 
+  createTableData(data=this.getLicenseKeys?.docs||[]) {
+    return data.map(obj=>{
+      obj["totalUsers"]=obj?.owners?.length || 0
+      return obj
+    })
+  }
+
   /**
    * @param {AxiosRequestConfig} options
    * @returns {Promise<any>}

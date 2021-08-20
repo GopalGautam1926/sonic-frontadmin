@@ -26,7 +26,7 @@ export const routesData = [
     routes: [
       {
         path: "/keys-management/license-keys",
-        name: "License Keys",
+        name: "Licenses",
         component: observer(LicenseKeys),
         exact:true,
         sidebar:true,
@@ -37,7 +37,7 @@ export const routesData = [
             exact:true,
             sidebar:false,
             path: "/keys-management/license-keys/view/:licenseId",
-            name: "View License Key",
+            name: "View License",
             component: ViewLicenseKey,
             layout: "/admin",
             key:"km_licensekeys_view", 

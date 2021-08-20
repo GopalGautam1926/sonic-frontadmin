@@ -53,6 +53,13 @@ function LicenseKeys() {
       }
     },
     {
+      label: "Total Owners",
+      name: "totalUsers",
+      options:{
+        filter: false,
+      }
+    },
+    {
       label: "Validity",
       name: "validity",
       options: {
@@ -119,6 +126,7 @@ function LicenseKeys() {
           );
           return (
             <Table.TableRowAction
+            enableDelete={false}
               viewButtonProps={{
                 onClick: () => {
                   const path = `${
@@ -166,9 +174,9 @@ function LicenseKeys() {
           <FancyCard.CardHeader color="purple">
             {(headerClasses) => (
               <>
-                <h4 className={headerClasses.cardTitleWhite}>License Keys</h4>
+                <h4 className={headerClasses.cardTitleWhite}>Licenses</h4>
                 <p className={headerClasses.cardCategoryWhite}>
-                  List of all license keys
+                  List of all licenses
                 </p>
               </>
             )}
@@ -190,7 +198,7 @@ function LicenseKeys() {
                   componentInsideDialog={<AddLicenseKeys />}
                 />
               }
-              data={licenseKeyStore.getLicenseKeys?.docs || []}
+              data={licenseKeyStore.createTableData()}
               columns={columns}
               options={{
                 count:licenseKeyStore.getLicenseKeys.totalDocs

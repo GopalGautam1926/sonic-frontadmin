@@ -1,4 +1,4 @@
-import { Grid } from "@material-ui/core";
+import { Grid, Radio } from "@material-ui/core";
 import React, { useState } from "react";
 import AppButton from "../../../../components/AppButton/AppButton";
 import AppTextInput from "../../../../components/AppTextInput/AppTextInput";
@@ -9,11 +9,16 @@ import DatePicker from "../../../../components/DatePicker/DatePicker";
 import KeyValue from "../../../../components/KeyValue/KeyValue";
 import apikeysHttps from "../../../../services/https/resources/apikeys.https";
 import { toast } from "react-toastify";
+import { RadioGroup, FormControlLabel } from "@material-ui/core";
+import { FormControl } from "@material-ui/core";
+import { FormLabel } from "@material-ui/core";
 
 const initialApiKey = {
   customer: "",
+  type: "Individual",
+  groups: [],
   validity: new Date(),
-  disabledByAdmin:false,
+  disabledByAdmin: false,
   metaData: {},
 };
 export default function AddApiKey({ closeDialog }) {
@@ -29,9 +34,9 @@ export default function AddApiKey({ closeDialog }) {
       .createNewApiKey(apiKey)
       .then(({ data }) => {
         setState({ ...state, loading: false });
-        setApiKey(initialApiKey)
+        setApiKey(initialApiKey);
         toast.success("Created successfully");
-        closeDialog?.()
+        closeDialog?.();
       })
       .catch((err) => {
         setState({ ...state, loading: false });
@@ -59,9 +64,33 @@ export default function AddApiKey({ closeDialog }) {
       >
         <form onSubmit={onSubmit}>
           <FancyCard.CardContent>
+            <Grid container>
+              <FormControl component="fieldset">
+                <FormLabel component="legend">Type</FormLabel>
+                <RadioGroup
+                  aria-label="type"
+                  name="type"
+                  value={apiKey.type}
+                  onChange={(e) =>
+                    setApiKey({ ...apiKey, type: e.target.value })
+                  }
+                >
+                  <FormControlLabel
+                    value="Individual"
+                    control={<Radio />}
+                    label="Individual"
+                  />
+                  <FormControlLabel
+                    value="Group"
+                    control={<Radio />}
+                    label="Group"
+                  />
+                </RadioGroup>
+              </FormControl>
+            </Grid>
             <Grid container spacing={1}>
               <Grid item xs={12} sm={6} md={6}>
-                <AppTextInput
+               {apiKey.type=="Individual" ?<AppTextInput
                   labelText="Customer Id or Sub (take it from cognito)"
                   id="customer"
                   formControlProps={{
@@ -74,16 +103,27 @@ export default function AddApiKey({ closeDialog }) {
                     onChange: (e) =>
                       setApiKey({ ...apiKey, customer: e.target.value }),
                   }}
-                />
+                />:<AppTextInput
+                labelText="Group (take it from cognito)"
+                id="group"
+                formControlProps={{
+                  fullWidth: true,
+                }}
+                inputProps={{
+                  required: true,
+                  placeholder: "Group for this api key",
+                  value: apiKey.groups[0],
+                  onChange: (e) =>
+                    setApiKey({ ...apiKey, groups: [e.target.value] }),
+                }}
+              />}
               </Grid>
               <Grid item xs={12} sm={6} md={6}>
                 <DatePicker
                   required={true}
                   label="Validity"
                   selected={new Date(apiKey.validity)}
-                  onChange={(date) =>
-                    setApiKey({ ...apiKey, validity: date })
-                  }
+                  onChange={(date) => setApiKey({ ...apiKey, validity: date })}
                   showYearDropdown
                   dateFormatCalendar="MMMM"
                   yearDropdownItemNumber={15}
@@ -121,7 +161,13 @@ export default function AddApiKey({ closeDialog }) {
             <AppButton color="danger" onClick={() => closeDialog?.()}>
               Close
             </AppButton>
-            <AppButton type="submit" loadingText="Creating.." loading={state.loading}>Create</AppButton>
+            <AppButton
+              type="submit"
+              loadingText="Creating.."
+              loading={state.loading}
+            >
+              Create
+            </AppButton>
           </FancyCard.CardActions>
         </form>
       </FancyCard>

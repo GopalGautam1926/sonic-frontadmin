@@ -70,18 +70,22 @@ const AppButton = ({
 
 const CustomButton = ({
   children,
-  textColor,
-  backgroundColor,
+  loading = false,
+  loadingText = "Loading...",
+  startIcon,
   style,
   ...props
 }) => {
   return (
-    <AppButton
-      style={{ color: textColor, backgroundColor: backgroundColor, ...style }}
+    <Button
+      style={{ ...style }}
+      startIcon={
+        loading ? <CircularProgress size={15} color="inherit" /> : startIcon
+      }
       {...props}
     >
-      {children}
-    </AppButton>
+      {loading ? loadingText : children}
+    </Button>
   );
 };
 
