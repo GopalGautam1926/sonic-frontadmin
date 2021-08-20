@@ -18,7 +18,7 @@ const initialApiKey = {
   type: "Individual",
   groups: [],
   validity: new Date(),
-  disabledByAdmin: false,
+  disabled: false,
   metaData: {},
 };
 export default function AddApiKey({ closeDialog }) {
@@ -66,7 +66,7 @@ export default function AddApiKey({ closeDialog }) {
           <FancyCard.CardContent>
             <Grid container>
               <FormControl component="fieldset">
-                <FormLabel component="legend">Type</FormLabel>
+                <FormLabel component="legend">Are you</FormLabel>
                 <RadioGroup
                   aria-label="type"
                   name="type"
@@ -104,14 +104,14 @@ export default function AddApiKey({ closeDialog }) {
                       setApiKey({ ...apiKey, customer: e.target.value }),
                   }}
                 />:<AppTextInput
-                labelText="Group (take it from cognito)"
+                labelText="Group name (take it from cognito)"
                 id="group"
                 formControlProps={{
                   fullWidth: true,
                 }}
                 inputProps={{
                   required: true,
-                  placeholder: "Group for this api key",
+                  placeholder: "Group name for this api key",
                   value: apiKey.groups[0],
                   onChange: (e) =>
                     setApiKey({ ...apiKey, groups: [e.target.value] }),
@@ -137,9 +137,9 @@ export default function AddApiKey({ closeDialog }) {
               <Grid item>
                 <SwitchWithLabel
                   label="disabled"
-                  checked={apiKey.disabledByAdmin}
+                  checked={apiKey.disabled}
                   onChange={(e) =>
-                    setApiKey({ ...apiKey, disabledByAdmin: e.target.checked })
+                    setApiKey({ ...apiKey, disabled: e.target.checked })
                   }
                 />
               </Grid>
