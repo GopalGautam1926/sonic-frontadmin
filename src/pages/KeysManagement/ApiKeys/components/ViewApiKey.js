@@ -13,6 +13,13 @@ import RPopconfirm from "../../../../components/rcomponents/RPopconfirm/RPopconf
 import apikeysHttps from "../../../../services/https/resources/apikeys.https";
 import DataFetchingStateComponent from "../../../../components/common/DataFetchingStateComponent";
 import { toast } from "react-toastify";
+import {
+  FormLabel,
+  FormControl,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+} from "@material-ui/core";
 
 export default function ViewApiKey({ closeDialog }) {
   const [state, setState] = useState({
@@ -186,23 +193,75 @@ export default function ViewApiKey({ closeDialog }) {
                   />
                 </RSpace.Item>
               </RSpace>
+              <Grid container>
+                <FormControl component="fieldset">
+                  <FormLabel component="legend">Are you</FormLabel>
+                  <RadioGroup
+                    aria-label="type"
+                    name="type"
+                    value={apiKey.type}
+                    onChange={(e) =>
+                      setApiKey({
+                        ...apiKey,
+                        type: e.target.value,
+                        customer: "",
+                        groups: [],
+                      })
+                    }
+                    required
+                  >
+                    <FormControlLabel
+                      value="Individual"
+                      control={<Radio />}
+                      label="Individual"
+                      disabled={!state.editMode}
+                    />
+                    <FormControlLabel
+                      value="Group"
+                      control={<Radio />}
+                      label="Group"
+                      disabled={!state.editMode}
+                    />
+                  </RadioGroup>
+                </FormControl>
+              </Grid>
+
               <Grid container spacing={1}>
                 <Grid item xs={12} sm={6} md={6}>
-                  <AppTextInput
-                    labelText="Customer Id or Sub"
-                    id="customer"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                    inputProps={{
-                      readOnly: !state.editMode,
-                      required: true,
-                      placeholder: "Customer id or sub for this api key",
-                      value: apiKey.customer,
-                      onChange: (e) =>
-                        setApiKey({ ...apiKey, customer: e.target.value }),
-                    }}
-                  />
+                  {apiKey.type == "Individual" && (
+                    <AppTextInput
+                      labelText="Customer Id or Sub (take it from cognito)"
+                      id="customer"
+                      formControlProps={{
+                        fullWidth: true,
+                      }}
+                      inputProps={{
+                        required: true,
+                        readOnly: !state.editMode,
+                        placeholder: "Customer id or sub for this api key",
+                        value: apiKey.customer,
+                        onChange: (e) =>
+                          setApiKey({ ...apiKey, customer: e.target.value }),
+                      }}
+                    />
+                  )}
+                  {apiKey.type == "Group" && (
+                    <AppTextInput
+                      labelText="Group name (take it from cognito)"
+                      id="group"
+                      formControlProps={{
+                        fullWidth: true,
+                      }}
+                      inputProps={{
+                        required: true,
+                        readOnly: !state.editMode,
+                        placeholder: "Group name for this api key",
+                        value: apiKey.groups?.[0],
+                        onChange: (e) =>
+                          setApiKey({ ...apiKey, groups: [e.target.value] }),
+                      }}
+                    />
+                  )}
                 </Grid>
                 <Grid item xs={12} sm={6} md={6}>
                   <DatePicker

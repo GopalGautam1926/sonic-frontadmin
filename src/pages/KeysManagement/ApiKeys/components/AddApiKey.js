@@ -71,9 +71,16 @@ export default function AddApiKey({ closeDialog }) {
                   aria-label="type"
                   name="type"
                   value={apiKey.type}
-                  onChange={(e) =>
-                    setApiKey({ ...apiKey, type: e.target.value })
-                  }
+                  onChange={(e) => {
+                    const type = e.target.value;
+                    setApiKey({
+                      ...apiKey,
+                      type: type,
+                      customer: "",
+                      groups: [],
+                    });
+                  }}
+                  required
                 >
                   <FormControlLabel
                     value="Individual"
@@ -90,33 +97,41 @@ export default function AddApiKey({ closeDialog }) {
             </Grid>
             <Grid container spacing={1}>
               <Grid item xs={12} sm={6} md={6}>
-               {apiKey.type=="Individual" ?<AppTextInput
-                  labelText="Customer Id or Sub (take it from cognito)"
-                  id="customer"
-                  formControlProps={{
-                    fullWidth: true,
-                  }}
-                  inputProps={{
-                    required: true,
-                    placeholder: "Customer id or sub for this api key",
-                    value: apiKey.customer,
-                    onChange: (e) =>
-                      setApiKey({ ...apiKey, customer: e.target.value }),
-                  }}
-                />:<AppTextInput
-                labelText="Group name (take it from cognito)"
-                id="group"
-                formControlProps={{
-                  fullWidth: true,
-                }}
-                inputProps={{
-                  required: true,
-                  placeholder: "Group name for this api key",
-                  value: apiKey.groups[0],
-                  onChange: (e) =>
-                    setApiKey({ ...apiKey, groups: [e.target.value] }),
-                }}
-              />}
+                {apiKey.type == "Individual" && (
+                  <AppTextInput
+                    labelText="Customer Id or Sub (take it from cognito)"
+                    id="customer"
+                    formControlProps={{
+                      fullWidth: true,
+                    }}
+                    inputProps={{
+                      id: "customer",
+                      required: true,
+                      placeholder: "Customer id or sub for this api key",
+                      value: apiKey.customer,
+                      onChange: (e) =>
+                        setApiKey({ ...apiKey, customer: e.target.value }),
+                    }}
+                  />
+                )}
+
+                {apiKey.type == "Group" && (
+                  <AppTextInput
+                    labelText="Group name (take it from cognito)"
+                    id="group"
+                    formControlProps={{
+                      fullWidth: true,
+                    }}
+                    inputProps={{
+                      required: true,
+                      id: "group",
+                      placeholder: "Group name for this api key",
+                      value: apiKey.groups?.[0],
+                      onChange: (e) =>
+                        setApiKey({ ...apiKey, groups: [e.target.value] }),
+                    }}
+                  />
+                )}
               </Grid>
               <Grid item xs={12} sm={6} md={6}>
                 <DatePicker
