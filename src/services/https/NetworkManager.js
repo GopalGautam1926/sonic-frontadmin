@@ -10,8 +10,6 @@ const appAxiosInstance = axios.create({
 //request interceptor that will add auth token to every request
 appAxiosInstance.interceptors.request.use(function (config) {
   const token = sessionStore.getAccessToken
-  log("token",token)
-  log("request interceptor")
   if (token) {
     config.headers["Authorization"] = `Bearer ${token}`;
   }
