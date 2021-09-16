@@ -50,6 +50,7 @@ export default function ViewLicenseKey({ closeDialog }) {
     key: "",
     maxEncodeUses: "",
     maxDecodeUses: "",
+    maxMonitoringUses: "",
     validity: new Date(),
     disabled: false,
     suspended: false,
@@ -338,6 +339,35 @@ export default function ViewLicenseKey({ closeDialog }) {
                     }}
                   />
                 </Grid>
+
+                <Grid item xs={12} sm={3} md={3}>
+                  <AppTextInput
+                    labelText="Max Monitoring Uses"
+                    id="max-monitoring-uses"
+                    formControlProps={{
+                      fullWidth: true,
+                    }}
+                    inputProps={{
+                      type: "number",
+                      min: "0",
+                      required: true,
+                      readOnly: !state.editMode,
+                      placeholder: "eg. 1000",
+                      value: license.maxMonitoringUses,
+                      onChange: (e) => {
+                        if (e.target.value <= 0)
+                          return toast.error(
+                            "Only number greater than 0 is allowed"
+                          );
+                        setLicense({
+                          ...license,
+                          maxMonitoringUses: e.target.value,
+                        });
+                      },
+                    }}
+                  />
+                </Grid>
+                
                 <Grid item xs={12} sm={3} md={3}>
                   <AppTextInput
                     labelText="Max Decode Uses (Unused)"

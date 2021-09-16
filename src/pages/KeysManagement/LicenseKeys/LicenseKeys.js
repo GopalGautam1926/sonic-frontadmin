@@ -31,15 +31,35 @@ function LicenseKeys() {
       name: "key",
     },
     {
-      label: "Max Uses (encode)",
+      label: "Max uses (encode)",
       name: "maxEncodeUses",
+      options:{
+        display:true
+      }
     },
     {
       label: "Uses (encode)",
       name: "encodeUses",
+      options:{
+        display:false
+      }
     },
     {
-      label: "Max Uses (decode)",
+      label: "Max uses (monitor)",
+      name: "maxMonitoringUses",
+      options:{
+        display:true
+      }
+    },
+    {
+      label: "Uses (monitor)",
+      name: "monitoringUses",
+      options:{
+        display:false
+      }
+    },
+    {
+      label: "Max uses (decode)",
       name: "maxDecodeUses",
       options:{
         display:false
@@ -53,7 +73,7 @@ function LicenseKeys() {
       }
     },
     {
-      label: "Total Owners",
+      label: "Total owners",
       name: "totalUsers",
       options:{
         filter: false,

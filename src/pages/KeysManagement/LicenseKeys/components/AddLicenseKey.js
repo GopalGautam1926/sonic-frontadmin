@@ -16,6 +16,7 @@ const initialLicense = {
   name: "",
   maxEncodeUses: "",
   maxDecodeUses: 0,
+  maxMonitoringUses: "",
   validity: new Date(),
   disabled: false,
   suspended: false,
@@ -100,6 +101,26 @@ export default function AddLicenseKey({ closeDialog }) {
                   }}
                 />
               </Grid>
+
+              <Grid item xs={12} sm={3} md={3}>
+                <AppTextInput
+                  labelText="Max Monitoring Uses"
+                  id="max-monitoring-uses"
+                  formControlProps={{
+                    fullWidth: true,
+                  }}
+                  inputProps={{
+                    type: "number",
+                    required: true,
+                    min: "0",
+                    placeholder: "eg. 1000",
+                    value: license.maxMonitoringUses,
+                    onChange: (e) =>
+                      setLicense({ ...license, maxMonitoringUses: e.target.value }),
+                  }}
+                />
+              </Grid>
+
               <Grid item xs={12} sm={3} md={3}>
                 <AppTextInput
                   labelText="Max Decode Uses (Unused)"
