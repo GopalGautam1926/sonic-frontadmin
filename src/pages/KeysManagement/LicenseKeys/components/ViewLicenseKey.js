@@ -51,6 +51,8 @@ export default function ViewLicenseKey({ closeDialog }) {
     maxEncodeUses: "",
     maxDecodeUses: "",
     maxMonitoringUses: "",
+    isUnlimitedEncode:true,
+  isUnlimitedMonitor:true,
     validity: new Date(),
     disabled: false,
     suspended: false,
@@ -323,9 +325,9 @@ export default function ViewLicenseKey({ closeDialog }) {
                       type: "number",
                       min: "0",
                       required: true,
-                      readOnly: !state.editMode,
-                      placeholder: "eg. 1000",
-                      value: license.maxEncodeUses,
+                      readOnly: !state.editMode || license.isUnlimitedEncode,
+                      placeholder: license.isUnlimitedEncode?"unlimited":"eg. 1000",
+                      value: license.isUnlimitedEncode?Number.POSITIVE_INFINITY:license.maxEncodeUses,
                       onChange: (e) => {
                         if (e.target.value <= 0)
                           return toast.error(
@@ -351,9 +353,9 @@ export default function ViewLicenseKey({ closeDialog }) {
                       type: "number",
                       min: "0",
                       required: true,
-                      readOnly: !state.editMode,
-                      placeholder: "eg. 1000",
-                      value: license.maxMonitoringUses,
+                      readOnly: !state.editMode||license.isUnlimitedMonitor,
+                      placeholder: license.isUnlimitedMonitor?"unlimited":"eg. 1000",
+                      value: license.isUnlimitedMonitor?Number.POSITIVE_INFINITY:license.maxMonitoringUses,
                       onChange: (e) => {
                         if (e.target.value <= 0)
                           return toast.error(
@@ -368,33 +370,6 @@ export default function ViewLicenseKey({ closeDialog }) {
                   />
                 </Grid>
                 
-                <Grid item xs={12} sm={3} md={3}>
-                  <AppTextInput
-                    labelText="Max Decode Uses (Unused)"
-                    id="max-decode-uses"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                    inputProps={{
-                      type: "number",
-                      min: "0",
-                      required: true,
-                      readOnly: !state.editMode,
-                      placeholder: "eg. 1000",
-                      value: license.maxDecodeUses,
-                      onChange: (e) => {
-                        if (e.target.value <= 0)
-                          return toast.error(
-                            "Only number greater than 0 is allowed"
-                          );
-                        setLicense({
-                          ...license,
-                          maxDecodeUses: e.target.value,
-                        });
-                      },
-                    }}
-                  />
-                </Grid>
                 <Grid item xs={12} sm={3} md={3}>
                   <DatePicker
                     label="Validity"
@@ -437,6 +412,27 @@ export default function ViewLicenseKey({ closeDialog }) {
                     }
                   />
                 </Grid>
+                <Grid item>
+                <SwitchWithLabel
+                  label="Unlimited encode"
+                  checked={license.isUnlimitedEncode}
+                  disabled={!state.editMode}
+                  onChange={(e) =>
+                    setLicense({ ...license, isUnlimitedEncode: e.target.checked })
+                  }
+                />
+              </Grid>
+
+              <Grid item>
+                <SwitchWithLabel
+                  label="Unlimited monitor"
+                  checked={license.isUnlimitedMonitor}
+                  disabled={!state.editMode}
+                  onChange={(e) =>
+                    setLicense({ ...license, isUnlimitedMonitor: e.target.checked })
+                  }
+                />
+              </Grid>
               </Grid>
 
               <InputLabel style={{ marginTop: 15 }}>

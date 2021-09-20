@@ -58,20 +58,20 @@ function LicenseKeys() {
         display:false
       }
     },
-    {
-      label: "Max uses (decode)",
-      name: "maxDecodeUses",
-      options:{
-        display:false
-      }
-    },
-    {
-      label: "Uses (decode)",
-      name: "decodeUses",
-      options:{
-        display:false
-      }
-    },
+    // {
+    //   label: "Max uses (decode)",
+    //   name: "maxDecodeUses",
+    //   options:{
+    //     display:false
+    //   }
+    // },
+    // {
+    //   label: "Uses (decode)",
+    //   name: "decodeUses",
+    //   options:{
+    //     display:false
+    //   }
+    // },
     {
       label: "Total owners",
       name: "totalUsers",

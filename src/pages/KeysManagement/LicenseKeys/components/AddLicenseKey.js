@@ -14,9 +14,11 @@ import { useStore } from "../../../../stores";
 
 const initialLicense = {
   name: "",
-  maxEncodeUses: "",
+  maxEncodeUses: 0,
+  isUnlimitedEncode:true,
+  isUnlimitedMonitor:true,
   maxDecodeUses: 0,
-  maxMonitoringUses: "",
+  maxMonitoringUses: 0,
   validity: new Date(),
   disabled: false,
   suspended: false,
@@ -92,10 +94,11 @@ export default function AddLicenseKey({ closeDialog }) {
                   }}
                   inputProps={{
                     type: "number",
+                    readOnly:license.isUnlimitedEncode,
                     required: true,
                     min: "0",
-                    placeholder: "eg. 1000",
-                    value: license.maxEncodeUses,
+                    placeholder: license.isUnlimitedEncode?"unlimited":"eg. 1000",
+                    value: license.isUnlimitedEncode?Number.POSITIVE_INFINITY:license.maxEncodeUses,
                     onChange: (e) =>
                       setLicense({ ...license, maxEncodeUses: e.target.value }),
                   }}
@@ -110,31 +113,14 @@ export default function AddLicenseKey({ closeDialog }) {
                     fullWidth: true,
                   }}
                   inputProps={{
+                    readOnly:license.isUnlimitedMonitor,
                     type: "number",
                     required: true,
                     min: "0",
-                    placeholder: "eg. 1000",
-                    value: license.maxMonitoringUses,
+                    placeholder: license.isUnlimitedMonitor?"unlimited":"eg. 1000",
+                    value: license.isUnlimitedMonitor?Number.POSITIVE_INFINITY:license.maxMonitoringUses,
                     onChange: (e) =>
                       setLicense({ ...license, maxMonitoringUses: e.target.value }),
-                  }}
-                />
-              </Grid>
-
-              <Grid item xs={12} sm={3} md={3}>
-                <AppTextInput
-                  labelText="Max Decode Uses (Unused)"
-                  id="max-decode-uses"
-                  formControlProps={{
-                    fullWidth: true,
-                  }}
-                  inputProps={{
-                    type: "number",
-                    min: "0",
-                    placeholder: "eg. 1000",
-                    value: license.maxDecodeUses,
-                    onChange: (e) =>
-                      setLicense({ ...license, maxDecodeUses: e.target.value }),
                   }}
                 />
               </Grid>
@@ -171,6 +157,26 @@ export default function AddLicenseKey({ closeDialog }) {
                   checked={license.suspended}
                   onChange={(e) =>
                     setLicense({ ...license, suspended: e.target.checked })
+                  }
+                />
+              </Grid>
+
+              <Grid item>
+                <SwitchWithLabel
+                  label="Unlimited encode"
+                  checked={license.isUnlimitedEncode}
+                  onChange={(e) =>
+                    setLicense({ ...license, isUnlimitedEncode: e.target.checked })
+                  }
+                />
+              </Grid>
+
+              <Grid item>
+                <SwitchWithLabel
+                  label="Unlimited monitor"
+                  checked={license.isUnlimitedMonitor}
+                  onChange={(e) =>
+                    setLicense({ ...license, isUnlimitedMonitor: e.target.checked })
                   }
                 />
               </Grid>

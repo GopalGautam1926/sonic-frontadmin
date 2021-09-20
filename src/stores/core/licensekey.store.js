@@ -43,6 +43,8 @@ class LicenseKeyStore {
   createTableData(data=this.getLicenseKeys?.docs||[]) {
     return data.map(obj=>{
       obj["totalUsers"]=obj?.owners?.length || 0
+      obj["maxEncodeUses"]=obj.isUnlimitedEncode?"Unlimited":obj.maxEncodeUses
+      obj["maxMonitoringUses"]=obj.isUnlimitedEncode?"Unlimited":obj.maxMonitoringUses
       return obj
     })
   }
