@@ -14,6 +14,7 @@ import { AxiosRequestConfig } from "axios";
 import { log } from "../../utils/app.debug";
 import licensekeysHttps from "../../services/https/resources/licensekeys.https";
 import deepmerge from 'deepmerge'
+import {cloneDeep} from 'lodash'
 
 class LicenseKeyStore {
   @observable loading = false;
@@ -41,7 +42,8 @@ class LicenseKeyStore {
   }
 
   createTableData(data=this.getLicenseKeys?.docs||[]) {
-    return data.map(obj=>{
+    const dataSource = cloneDeep(data)
+    return dataSource.map(obj=>{
       obj["totalUsers"]=obj?.owners?.length || 0
       obj["maxEncodeUses"]=obj.isUnlimitedEncode?"Unlimited":obj.maxEncodeUses
       obj["maxMonitoringUses"]=obj.isUnlimitedEncode?"Unlimited":obj.maxMonitoringUses
