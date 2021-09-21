@@ -50,7 +50,7 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
-    "release": "react-node-cli g",
+    "make:release": "react-node-cli g",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
