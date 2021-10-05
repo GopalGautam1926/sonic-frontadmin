@@ -1,9 +1,11 @@
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
+import RadioIcon from '@material-ui/icons/Radio';
 import Dashboard from "../pages/Dashboard/Dashboard";
 import LicenseKeys from '../pages/KeysManagement/LicenseKeys/LicenseKeys';
 import ApiKeys from '../pages/KeysManagement/ApiKeys/ApiKeys';
 import ViewLicenseKey from '../pages/KeysManagement/LicenseKeys/components/ViewLicenseKey';
+import RadioStation from '../pages/RadioManagement/RadioStation/RadioStation';
 import { observer } from 'mobx-react';
 import ViewApiKey from '../pages/KeysManagement/ApiKeys/components/ViewApiKey';
 
@@ -61,6 +63,35 @@ export const routesData = [
             component: observer(ViewApiKey),
             layout: "/admin",
             key:"km_apikeys_view", 
+          },
+        ]
+      },
+    ],
+  },
+  {
+    icon: <RadioIcon />,
+    name: "Radio Management",
+    sidebar:true,
+    parentPath:'/radio-management',
+    layout: "/admin",
+    routes: [
+      {
+        path: "/radio-management/radio-station",
+        name: "Radio Station",
+        component: observer(RadioStation),
+        exact:true,
+        sidebar:true,
+        layout: "/admin",
+        key:"radio_station",
+        routes:[
+          {
+            exact:true,
+            sidebar:false,
+            path: "/radio-management/radio-station/view/:licenseId",
+            name: "Radio Station",
+            component: ViewLicenseKey,
+            layout: "/admin",
+            key:"radiostation_view", 
           },
         ]
       },
