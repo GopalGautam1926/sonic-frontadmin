@@ -84,6 +84,13 @@ export const routesData = [
     }, []);
   };
 
+/**
+ * This will returnns routes in array
+ * format: 
+    {
+      "key":"path"
+    }
+ */
 export const getRouteNames = ()=>{
     var result = flattenRoutes().reduce(function(map, obj) {
         map[obj.key] = obj.layout + obj.path;
