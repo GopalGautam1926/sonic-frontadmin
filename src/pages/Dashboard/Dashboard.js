@@ -3,6 +3,7 @@ import React from "react";
 import useStyles from "./styles";
 import { LicenseKeyStats } from "../KeysManagement/LicenseKeys/components/LicenseKeyStats";
 import ApiKeyStats from "../KeysManagement/ApiKeys/components/ApiKeyStats";
+import { RadioStationStats } from "../RadioManagement/RadioStation/components/RadioStationStats";
 
 export default function Dashboard() {
   const classes = useStyles();
@@ -15,6 +16,10 @@ export default function Dashboard() {
 
         <Grid item xs={12} sm={6} md={3}>
          <ApiKeyStats/>
+        </Grid>
+
+        <Grid item xs={12} sm={6} md={3}>
+         <RadioStationStats/>
         </Grid>
       </Grid>
     </div>

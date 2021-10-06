@@ -14,9 +14,10 @@ export const useStore = () => {
 };
 
 export const fetchInitialData = ()=>{
-  const {licenseKeyStore,apiKeyStore} = rootStore
+  const {licenseKeyStore,apiKeyStore,radioStationStore} = rootStore
   licenseKeyStore.fetchLicenseKeys()
   apiKeyStore.fetchApiKeys()
+  radioStationStore.fetchRadioStations()
 }
 
 export function withStore(WrapperComponent) {

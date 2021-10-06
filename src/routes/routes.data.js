@@ -8,6 +8,7 @@ import ViewLicenseKey from '../pages/KeysManagement/LicenseKeys/components/ViewL
 import RadioStation from '../pages/RadioManagement/RadioStation/RadioStation';
 import { observer } from 'mobx-react';
 import ViewApiKey from '../pages/KeysManagement/ApiKeys/components/ViewApiKey';
+import ViewRadioStation from "../pages/RadioManagement/RadioStation/components/ViewRadioStation";
 
 export const routesData = [
   {
@@ -87,9 +88,9 @@ export const routesData = [
           {
             exact:true,
             sidebar:false,
-            path: "/radio-management/radio-station/view/:licenseId",
+            path: "/radio-management/radio-station/view/:radioStationId",
             name: "Radio Station",
-            component: ViewLicenseKey,
+            component: ViewRadioStation,
             layout: "/admin",
             key:"radiostation_view", 
           },
