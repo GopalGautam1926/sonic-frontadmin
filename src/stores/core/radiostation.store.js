@@ -99,6 +99,18 @@ import {
       const elementsIndex = this.radioStations.docs.findIndex(element => element._id == key )
       this.radioStations.docs[elementsIndex]={...this.radioStations.docs[elementsIndex],...payload}
      }
+
+      /**
+     *play radio station from store
+     * @param {string} key
+     */
+    @action
+    playRadioStation(key) {
+      this.radioStations.docs = this.radioStations.docs.filter(
+        (api) => api?._id !== key
+      );
+      this.radioStations.totalDocs -= 1;
+    }
   }
   
   export const radioStationStore = new RadioStationStore();

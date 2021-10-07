@@ -213,7 +213,7 @@ export default function ViewRadioStation({ closeDialog }) {
                                                 color="danger"
                                                 type="button"
                                             >
-                                                {license.suspended ? "suspended" : "suspend"}
+                                                {radioStation.suspended ? "suspended" : "suspend"}
                                             </AppButton>
                                         }
                                         onClickYes={() => onUpdateWithState("suspended")}
@@ -225,7 +225,7 @@ export default function ViewRadioStation({ closeDialog }) {
 
 
                             </RSpace>
-                            {/* <Grid container spacing={1}>
+                            <Grid container spacing={1}>
                                 <Grid item xs={12} sm={3} md={3}>
                                     <AppTextInput
                                         labelText="Name"
@@ -235,235 +235,76 @@ export default function ViewRadioStation({ closeDialog }) {
                                         }}
                                         inputProps={{
                                             readOnly: !state.editMode,
-                                            placeholder: "Name for this license",
-                                            value: license.name,
+                                            placeholder: "Name for this Radio Station",
+                                            value: radioStation.name,
                                             required: true,
                                             onChange: (e) =>
-                                                setLicense({ ...license, name: e.target.value }),
-                                        }}
-                                    />
-                                </Grid>
-                                <Grid item xs={12} sm={3} md={3}>
-                                    <AppTextInput
-                                        labelText="Max Encode Uses"
-                                        id="max-encode-uses"
-                                        formControlProps={{
-                                            fullWidth: true,
-                                        }}
-                                        inputProps={{
-                                            type: "number",
-                                            min: "0",
-                                            required: true,
-                                            readOnly: !state.editMode || license.isUnlimitedEncode,
-                                            placeholder: license.isUnlimitedEncode
-                                                ? "unlimited"
-                                                : "eg. 1000",
-                                            value: license.isUnlimitedEncode
-                                                ? Number.POSITIVE_INFINITY
-                                                : license.maxEncodeUses,
-                                            onChange: (e) => {
-                                                if (e.target.value <= 0)
-                                                    return toast.error(
-                                                        "Only number greater than 0 is allowed"
-                                                    );
-                                                setLicense({
-                                                    ...license,
-                                                    maxEncodeUses: e.target.value,
-                                                });
-                                            },
+                                            setRadioStation({ ...radioStation, name: e.target.value }),
                                         }}
                                     />
                                 </Grid>
 
                                 <Grid item xs={12} sm={3} md={3}>
                                     <AppTextInput
-                                        labelText="Max Monitoring Uses"
-                                        id="max-monitoring-uses"
+                                        labelText="Streaming Url"
+                                        id="streamingUrl"
                                         formControlProps={{
                                             fullWidth: true,
                                         }}
                                         inputProps={{
-                                            type: "number",
-                                            min: "0",
+                                            readOnly: !state.editMode,
+                                            placeholder: "Streaming URL",
+                                            value: radioStation.streamingUrl,
                                             required: true,
-                                            readOnly: !state.editMode || license.isUnlimitedMonitor,
-                                            placeholder: license.isUnlimitedMonitor
-                                                ? "unlimited"
-                                                : "eg. 1000",
-                                            value: license.isUnlimitedMonitor
-                                                ? Number.POSITIVE_INFINITY
-                                                : license.maxMonitoringUses,
-                                            onChange: (e) => {
-                                                if (e.target.value <= 0)
-                                                    return toast.error(
-                                                        "Only number greater than 0 is allowed"
-                                                    );
-                                                setLicense({
-                                                    ...license,
-                                                    maxMonitoringUses: e.target.value,
-                                                });
-                                            },
+                                            onChange: (e) =>
+                                            setRadioStation({ ...radioStation, streamingUrl: e.target.value }),
                                         }}
                                     />
                                 </Grid>
 
                                 <Grid item xs={12} sm={3} md={3}>
-                                    <DatePicker
-                                        label="Validity"
-                                        selected={new Date(license.validity)}
-                                        onChange={(date) =>
-                                            setLicense({ ...license, validity: date })
-                                        }
-                                        required={true}
-                                        disabled={!state.editMode}
-                                        inputProps={{
-                                            required: true,
+                                    <AppTextInput
+                                        labelText="Website"
+                                        id="website"
+                                        formControlProps={{
+                                            fullWidth: true,
                                         }}
-                                        showYearDropdown
-                                        dateFormatCalendar="MMMM"
-                                        yearDropdownItemNumber={15}
-                                        scrollableYearDropdown
-                                        showMonthDropdown
-                                    />
-                                </Grid>
-                            </Grid> */}
-
-                            {/* <Grid container>
-
-
-                                <Grid item>
-                                    <SwitchWithLabel
-                                        label="suspended"
-                                        checked={license.suspended}
-                                        disabled={!state.editMode}
-                                        onChange={(e) =>
-                                            setLicense({ ...license, suspended: e.target.checked })
-                                        }
-                                    />
-                                </Grid>
-                                <Grid item>
-                                    <SwitchWithLabel
-                                        label="Unlimited encode"
-                                        checked={license.isUnlimitedEncode}
-                                        disabled={!state.editMode}
-                                        onChange={(e) =>
-                                            setLicense({
-                                                ...license,
-                                                isUnlimitedEncode: e.target.checked,
-                                            })
-                                        }
+                                        inputProps={{
+                                            readOnly: !state.editMode,
+                                            placeholder: "Website",
+                                            value: radioStation.website,
+                                            required: true,
+                                            onChange: (e) =>
+                                            setRadioStation({ ...radioStation, website: e.target.value }),
+                                        }}
                                     />
                                 </Grid>
 
-                                <Grid item>
-                                    <SwitchWithLabel
-                                        label="Unlimited monitor"
-                                        checked={license.isUnlimitedMonitor}
-                                        disabled={!state.editMode}
-                                        onChange={(e) =>
-                                            setLicense({
-                                                ...license,
-                                                isUnlimitedMonitor: e.target.checked,
-                                            })
-                                        }
+                                <Grid item xs={12} sm={3} md={3}>
+                                    <AppTextInput
+                                        labelText="Country"
+                                        id="country"
+                                        formControlProps={{
+                                            fullWidth: true,
+                                        }}
+                                        inputProps={{
+                                            readOnly: !state.editMode,
+                                            placeholder: "Country Name",
+                                            value: radioStation.country,
+                                            required: true,
+                                            onChange: (e) =>
+                                            setRadioStation({ ...radioStation, country: e.target.value }),
+                                        }}
                                     />
                                 </Grid>
-                            </Grid> */}
+                            </Grid>
+                            
 
-                            {/* <InputLabel style={{ marginTop: 15 }}>
-                                Metadata (Key/Value)
-                            </InputLabel>
-                            <KeyValue
-                                data={license.metaData}
-                                onChangeData={(newData) => {
-                                    setLicense({ ...license, metaData: newData });
-                                }}
-                                disabled={!state.editMode}
-                                containerStyle={{ marginTop: 5 }}
-                            />
+                        
 
                             <Divider style={{ marginTop: 20, marginBottom: 10 }} />
-                            <InputLabel style={{ display: "flex", alignItems: "center" }}>
-                                <div>Owners ({license?.owners?.length})</div>
-                                <RPopover
-                                    paperStyle={{ minWidth: 500 }}
-                                    TransitionProps={{
-                                        onExit: () => setState({ ...state, newUsernameOrId: "" }),
-                                    }}
-                                    anchorElement={
-                                        <AppButton
-                                            asIconButton={true}
-                                            variant="container"
-                                            color="success"
-                                            size="small"
-                                        >
-                                            {<AddIcon style={{ fontSize: 20 }} />}
-                                        </AppButton>
-                                    }
-                                >
-                                    {({ handleClose }) => (
-                                        <div style={{ padding: 15 }}>
-                                            <AppTextInput
-                                                labelText="Username or sub"
-                                                id="usernameforlicense"
-                                                formControlProps={{
-                                                    fullWidth: true,
-                                                }}
-                                                success={state.newUsernameOrId ? true : false}
-                                                inputProps={{
-                                                    value: state.newUsernameOrId,
-                                                    onChange: (e) => {
-                                                        setState({
-                                                            ...state,
-                                                            newUsernameOrId: e.target.value,
-                                                        });
-                                                    },
-                                                    placeholder: "username or sub",
-                                                }}
-                                            />
-                                            <AppButton
-                                                color="success"
-                                                onClick={() => onAddNewUser(handleClose)}
-                                                disabled={state.newUsernameOrId ? false : true}
-                                                loading={state.addingNewUserLoading}
-                                            >
-                                                Add
-                                            </AppButton>
-                                        </div>
-                                    )}
-                                </RPopover>
-                            </InputLabel> */}
-
-                            {/* <List>
-                                {license?.owners?.map((owner, index) => (
-                                    <ListItem alignItems="flex-start" key={index}>
-                                        <ListItemAvatar>
-                                            <Avatar>{owner.username?.charAt?.(0) || "U"}</Avatar>
-                                        </ListItemAvatar>
-                                        <ListItemText
-                                            primary={owner.username || owner.ownerId}
-                                            secondary={owner.email || "--"}
-                                        />
-                                        <RPopconfirm
-                                            anchorElement={
-                                                <AppButton
-                                                    asIconButton={true}
-                                                    color="danger"
-                                                    size="small"
-                                                    loading={
-                                                        owner.ownerId == state.removingUserId &&
-                                                        state.removingUserLoading
-                                                    }
-                                                >
-                                                    <DeleteOutlinedIcon style={{ fontSize: 18 }} />
-                                                </AppButton>
-                                            }
-                                            onClickYes={() => onRemoveUser(owner.ownerId)}
-                                            message="Really want to delete this item?"
-                                        />
-                                    </ListItem>
-                                ))}
-                            </List> */}
+                            
+                            
                         </DataFetchingStateComponent>
                     </FancyCard.CardContent>
                 </form>

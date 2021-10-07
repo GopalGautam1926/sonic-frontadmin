@@ -67,6 +67,22 @@ class RadioStationsHttps {
   }
 
   /**
+   * Playing radio station
+   * @param {string} key
+   * @returns
+   */
+   playRadioStation(key) {
+    return AppWebRequest({
+      method: "put",
+      url: `/radiostations/${key}/start-listening-stream`,
+    }).then((res) => {
+      radioStationStore.playRadioStation(key);
+      return res;
+    });
+  }
+
+
+  /**
  * get license by key
  * @param {string} key
  * @returns

@@ -3,6 +3,7 @@ import MUIDataTable from "mui-datatables";
 import useStyles from "./styles";
 import _ from "lodash";
 import { useTheme } from "@material-ui/core/styles";
+import RadioTableRowAction from "./components/RadioTableRowAction";
 import TableRowAction from './components/TableRowAction';
 import TableActions from './components/TableActions';
 import { log } from '../../utils/app.debug';
@@ -93,5 +94,6 @@ export default function Table({ title, data, columns, options, components }) {
   );
 }
 
+Table.RadioTableRowAction=RadioTableRowAction
 Table.TableRowAction=TableRowAction
 Table.TableActions=TableActions

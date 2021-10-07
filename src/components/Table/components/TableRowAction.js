@@ -1,9 +1,6 @@
 import React from "react";
 import RSpace from "../../rcomponents/RSpace/RSpace";
 import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
-import PlayCircleFilledWhiteOutlinedIcon from '@material-ui/icons/PlayCircleFilledWhiteOutlined';
-import PlayCircleFilledWhiteRoundedIcon from '@material-ui/icons/PlayCircleFilledWhiteRounded';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import { IconButton } from "@material-ui/core";
 import RPopconfirm from "../../rcomponents/RPopconfirm";
@@ -13,62 +10,23 @@ export default function TableRowAction({
   viewButton,
   viewButtonProps,
   deleteButton,
-  enableDelete = true,
-  enableStart = true,
-  enableStop = true,
-  enablePlay = true,
+  enableDelete=true,
   deleteButtonProps,
   deletePopConfirmProps,
 }) {
   return (
-    <RSpace justifyContent="flex-start" spacing={0} >
+    <RSpace  justifyContent="flex-start" spacing={0} >
       <RSpace.Item>
         <IconButton size="small" color="primary"  {...viewButtonProps}>
-          {viewButton || <VisibilityOutlinedIcon style={{ fontSize: 18 }} />}
+          {viewButton || <VisibilityOutlinedIcon style={{fontSize:18}}/>}
         </IconButton>
       </RSpace.Item>
 
-      {enableStart && <RSpace.Item>
-        <RPopconfirm
-          anchorElement={
-            <AppButton asIconButton={true} color="primary" size="small" {...deleteButtonProps}>
-              {deleteButton || <PlayCircleFilledWhiteOutlinedIcon style={{ fontSize: 18 }} />}
-            </AppButton>
-          }
-          message="Really want to delete this item?"
-          {...deletePopConfirmProps}
-        />
-      </RSpace.Item>}
-
-      {enableStop && <RSpace.Item>
+     {enableDelete && <RSpace.Item>
         <RPopconfirm
           anchorElement={
             <AppButton asIconButton={true} color="danger" size="small" {...deleteButtonProps}>
-              {deleteButton || <PlayCircleFilledWhiteRoundedIcon style={{ fontSize: 18 }} />}
-            </AppButton>
-          }
-          message="Really want to delete this item?"
-          {...deletePopConfirmProps}
-        />
-      </RSpace.Item>}
-
-      {enablePlay && <RSpace.Item>
-        <RPopconfirm
-          anchorElement={
-            <AppButton asIconButton={true} color="primary" size="small" {...deleteButtonProps}>
-              {deleteButton || <PlayArrowIcon style={{ fontSize: 18 }} />}
-            </AppButton>
-          }
-          message="Really want to delete this item?"
-          {...deletePopConfirmProps}
-        />
-      </RSpace.Item>}
-
-      {enableDelete && <RSpace.Item>
-        <RPopconfirm
-          anchorElement={
-            <AppButton asIconButton={true} color="danger" size="small" {...deleteButtonProps}>
-              {deleteButton || <DeleteOutlinedIcon style={{ fontSize: 18 }} />}
+              {deleteButton || <DeleteOutlinedIcon style={{fontSize:18}}/>}
             </AppButton>
           }
           message="Really want to delete this item?"

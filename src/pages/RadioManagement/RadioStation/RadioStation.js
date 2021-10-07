@@ -18,7 +18,9 @@ import AddRadioStation from "./components/AddRadioStation";
 function RadioStation() {
   const [state, setState] = useState({
     isDeleting: false,
-    deletigKey:''
+    deletigKey:'',
+    isPlaying: false,
+    playingKey:''
   });
   const history = useHistory();
   const { radioStationStore } = useStore();
@@ -35,14 +37,74 @@ function RadioStation() {
     {
       label: "Streaming URL",
       name: "streamingUrl",
+      // options: {
+      //   filter: false,
+      //   customBodyRender: (value, { columnIndex }, updateValue) => {
+      //     // const validity = value ? format(new Date(value), "dd/MM/yyyy") : "--";
+      //     const urlShortText = value?.length > 20 ? value?.slice(0, 20) + "..." : value;
+      //     return urlShortText;
+      //   },
+      // },
     },
     {
       label: "Website",
       name: "website",
+      options: {
+        filter: false,
+        customBodyRender: (value, { columnIndex }, updateValue) => {
+          // const validity = value ? format(new Date(value), "dd/MM/yyyy") : "--";
+          const urlShortText = value?.length > 20 ? value?.slice(0, 20) + "..." : value;
+          return urlShortText;
+        },
+      },
     },
     {
       label: "Country",
       name: "country",
+    },
+    {
+      label: "Status",
+      name: "_id",
+      options: {
+        filter: false,
+        customBodyRender: (
+          value,
+          { rowIndex, columnIndex, currentTableData },
+          updateValue
+        ) => {
+          const rowData = radioStationStore.getRadioStations.docs.find(
+            (itm) => itm._id == value
+          );
+          const statusItem = [];
+          if (rowData?.isStreamStarted === true) {
+            statusItem.push(
+              <Badge color="success" size="small" label={<div style={{fontSize:11}}>Listening</div>} />
+            );
+          } else if (rowData?.isStreamStarted === false && rowData?.error === null){
+            statusItem.push(
+              <Badge color="warning" size="small" label={<div style={{fontSize:11, marginLeft:0}}>Not Listening</div>} />
+            );
+          }
+          else if(rowData?.isStreamStarted === false && rowData?.error !== null) {
+            statusItem.push(
+              <Badge color="rose" size="small" label={<div style={{fontSize:11}}>Error</div>} />
+            );
+          }
+          // if (statusItem.length === 0) {
+          //   statusItem.push(
+          //     <Badge color="success" size="small" label="Active" />
+          //   );
+          // }
+
+          return (
+            <RSpace>
+              {statusItem.map((status) => (
+                <RSpace.Item>{status}</RSpace.Item>
+              ))}
+            </RSpace>
+          );
+        },
+      },
     },
     {
       label: "Actions",
@@ -54,7 +116,7 @@ function RadioStation() {
             (itm) => itm.key == value
           );
           return (
-            <Table.TableRowAction
+            <Table.RadioTableRowAction
             enableDelete={true}
               viewButtonProps={{
                 onClick: () => {
