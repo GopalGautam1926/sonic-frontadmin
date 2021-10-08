@@ -14,6 +14,7 @@ export default function RadioTableRowAction({
   viewButtonProps,
   startButton,
   startButtonProps,
+  startPopConfirmProps,
   stopButton,
   stopButtonProps,
   playButton,
@@ -35,14 +36,10 @@ export default function RadioTableRowAction({
       </RSpace.Item>
 
       {enableStart && <RSpace.Item>
-        <RPopconfirm
-          anchorElement={
+        
             <AppButton asIconButton={true} color="primary" size="small" {...startButtonProps}>
               {startButton || <PlayCircleFilledWhiteOutlinedIcon style={{ fontSize: 18 }} />}
             </AppButton>
-          }
-          message="Start radio?"
-        />
       </RSpace.Item>}
 
       {enableStop && <RSpace.Item>

@@ -23,24 +23,36 @@ export default function AddRadioStation({ closeDialog }) {
     const { radioStationStore } = useStore();
     const [state, setState] = useState({
         loading: false,
+        validateLoading: false,
     });
+    const [checkInputs, setCheckInputs] = useState();
 
+    console.log("radiochecking", checkInputs);
     const onSubmit = (e) => {
         e.preventDefault();
         setState({ ...state, loading: true });
-        RadioStationsHttps
-            .createNewRadioStation(radio)
+        if (radio === checkInputs) {
+            RadioStationsHttps
+                .createNewRadioStation(radio)
             .then(({ data }) => {
                 setState({ ...state, loading: false });
                 setRadioStation(initialRadioStation)
                 toast.success("Created successfully");
                 closeDialog?.()
+                createNewStation.style.display = "none";
+
             })
             .catch((err) => {
                 setState({ ...state, loading: false });
                 toast.error(err.message || "Error while creating..");
             });
+        } else {
+            setState({ ...state, loading: false });
+            toast.error("Error...");
+        }
     };
+
+    const createNewStation = document.getElementById('create');
 
     return (
         <div>
@@ -75,7 +87,7 @@ export default function AddRadioStation({ closeDialog }) {
                                         placeholder: "Name",
                                         value: radio.name,
                                         onChange: (e) =>
-                                        setRadioStation({ ...radio, name: e.target.value }),
+                                            setRadioStation({ ...radio, name: e.target.value }),
                                     }}
                                 />
                             </Grid>
@@ -91,7 +103,7 @@ export default function AddRadioStation({ closeDialog }) {
                                         placeholder: "Country",
                                         value: radio.country,
                                         onChange: (e) =>
-                                        setRadioStation({ ...radio, country: e.target.value }),
+                                            setRadioStation({ ...radio, country: e.target.value }),
                                     }}
                                 />
                             </Grid>
@@ -108,7 +120,7 @@ export default function AddRadioStation({ closeDialog }) {
                                         placeholder: "Streaming URL",
                                         value: radio.streamingUrl,
                                         onChange: (e) =>
-                                        setRadioStation({ ...radio, streamingUrl: e.target.value }),
+                                            setRadioStation({ ...radio, streamingUrl: e.target.value }),
                                     }}
                                 />
                             </Grid>
@@ -124,20 +136,49 @@ export default function AddRadioStation({ closeDialog }) {
                                         placeholder: "Website",
                                         value: radio.website,
                                         onChange: (e) =>
-                                        setRadioStation({ ...radio, website: e.target.value }),
+                                            setRadioStation({ ...radio, website: e.target.value }),
                                     }}
                                 />
                             </Grid>
                         </Grid>
 
-                        
+
                     </FancyCard.CardContent>
+
+                    <FancyCard.CardActions>
+                        <AppButton onClick={(e) => {
+                            e.preventDefault();
+                            setState({ ...state, validateLoading: true });
+                            if (radio.name === "" && radio.country === "" && radio.streamingUrl == "" && radio.website === "") {
+                                toast.error("Please fill all the fields..");
+                                setState({ ...state, validateLoading: false });
+                            } else {
+                                setState({ ...state, validateLoading: true });
+                                const audio = new Audio(radio.streamingUrl)
+                                console.log("audio:", audio.play());
+                                audio?.play().then(() => {
+                                    setState({ ...state, validateLoading: true });
+                                    toast.success("Streaming URL working");
+                                    setCheckInputs({ ...radio });
+                                    setTimeout(() => {
+                                        audio.pause();
+                                        setState({ ...state, validateLoading: false });
+                                    }, 10000);
+                                    createNewStation.style.display = "flex";
+                                }).catch(() => {
+                                    toast.error("Not valid");
+                                    setState({ ...state, validateLoading: false });
+                                })
+                            }
+
+                        }} loadingText="Validating.." loading={state.validateLoading}>Validate</AppButton>
+                    </FancyCard.CardActions>
 
                     <FancyCard.CardActions>
                         <AppButton color="danger" onClick={() => closeDialog?.()}>
                             Close
                         </AppButton>
-                        <AppButton type="submit" loadingText="Creating.." loading={state.loading}>Create</AppButton>
+                        <AppButton id="create" style={{ display: 'none' }} type="submit" loadingText="Creating.." loading={state.loading}>Create</AppButton>
                     </FancyCard.CardActions>
                 </form>
             </FancyCard>

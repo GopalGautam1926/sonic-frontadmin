@@ -14,37 +14,57 @@ import radiostationHttps from "../../../services/https/resources/radiostation.ht
 import { toast } from "react-toastify";
 import Badge from '../../../components/Badge/Badge';
 import AddRadioStation from "./components/AddRadioStation";
+import { Tooltip } from "@material-ui/core";
 
 function RadioStation() {
   const [state, setState] = useState({
     isDeleting: false,
     deletigKey:'',
     isPlaying: false,
-    playingKey:''
+    playingKey:'',
+    onStart: false,
+    onStop:false,
   });
   const history = useHistory();
   const { radioStationStore } = useStore();
 
   const columns = [
-    // {
-    //   label: "Logo",
-    //   name: "logo",
-    // },
     {
       label: "Name",
       name: "name",
     },
     {
+      label: "Logo",
+      name: "_id",
+      options: {
+        filter: false,
+        customBodyRender: (value, { columnIndex }, updateValue) => {
+          const rowData = radioStationStore.getRadioStations.docs.find(
+            (itm) => itm._id == value
+          );
+          const favIconUrl = `https://s2.googleusercontent.com/s2/favicons?domain_url=${rowData.website||rowData.streamingUrl}`;
+          return <img src={favIconUrl}/>;
+        },
+      },
+    },
+    {
       label: "Streaming URL",
       name: "streamingUrl",
-      // options: {
-      //   filter: false,
-      //   customBodyRender: (value, { columnIndex }, updateValue) => {
-      //     // const validity = value ? format(new Date(value), "dd/MM/yyyy") : "--";
-      //     const urlShortText = value?.length > 20 ? value?.slice(0, 20) + "..." : value;
-      //     return urlShortText;
-      //   },
-      // },
+      options: {
+        filter: false,
+        customBodyRender: (value, { columnIndex }, updateValue) => {
+          // const validity = value ? format(new Date(value), "dd/MM/yyyy") : "--";
+          // const urlShortText = value?.length > 20 ? value?.slice(0, 20) + "..." : value;
+          return <Tooltip title={value}><div style={{
+            whiteSpace: "nowrap",
+                            textOverflow: "ellipsis",
+                            maxWidth: 100,
+                            wordWrap: "none",
+                            cursor:"pointer",
+                            overflow: "hidden",}
+          }>{value}</div></Tooltip>;
+        },
+      },
     },
     {
       label: "Website",
@@ -53,8 +73,15 @@ function RadioStation() {
         filter: false,
         customBodyRender: (value, { columnIndex }, updateValue) => {
           // const validity = value ? format(new Date(value), "dd/MM/yyyy") : "--";
-          const urlShortText = value?.length > 20 ? value?.slice(0, 20) + "..." : value;
-          return urlShortText;
+          // const urlShortText = value?.length > 20 ? value?.slice(0, 20) + "..." : value;
+          return <Tooltip title={value}><div style={{
+            whiteSpace: "nowrap",
+                            textOverflow: "ellipsis",
+                            maxWidth: 100,
+                            wordWrap: "none",
+                            cursor:"pointer",
+                            overflow: "hidden",}
+          }>{value}</div></Tooltip>;
         },
       },
     },
@@ -76,16 +103,16 @@ function RadioStation() {
             (itm) => itm._id == value
           );
           const statusItem = [];
-          if (rowData?.isStreamStarted === true) {
+          if (rowData?.isStreamStarted === false) {
             statusItem.push(
-              <Badge color="success" size="small" label={<div style={{fontSize:11}}>Listening</div>} />
+              <Badge color="warning" size="small" label={<div style={{fontSize:11}}>Not Listening</div>} />
             );
-          } else if (rowData?.isStreamStarted === false && rowData?.error === null){
+          }if (rowData?.isStreamStarted === true){
             statusItem.push(
-              <Badge color="warning" size="small" label={<div style={{fontSize:11, marginLeft:0}}>Not Listening</div>} />
+              <Badge color="success" size="small" label={<div style={{fontSize:11, marginLeft:0}}>Listening</div>} />
             );
           }
-          else if(rowData?.isStreamStarted === false && rowData?.error !== null) {
+          if(rowData?.isError === true) {
             statusItem.push(
               <Badge color="rose" size="small" label={<div style={{fontSize:11}}>Error</div>} />
             );
@@ -113,7 +140,7 @@ function RadioStation() {
         filter: false,
         customBodyRender: (value, { columnIndex }, updateValue) => {
           const rowData = radioStationStore.getRadioStations.docs.find(
-            (itm) => itm.key == value
+            (itm) => itm._id == value
           );
           return (
             <Table.RadioTableRowAction
@@ -137,6 +164,17 @@ function RadioStation() {
               deleteButtonProps={{
                 loading: (state.isDeleting && value==state.deletigKey),
               }}
+              startButtonProps={{
+                onClick: () => {
+                  const play = rowData.streamingUrl;
+                  
+                  // alert("hello Krishna");
+                  // const rowData = radioStationStore.getRadioStations.docs.streamingUrl;
+                  console.log("data for play for radio", play);
+                  // const audio = new Audio(rowData.streamingUrl)
+                  // audio.play();
+                }
+              }}
             />
             
           );
@@ -158,6 +196,15 @@ function RadioStation() {
         setState({ ...state, isDeleting: false,deletigKey:'' });
       });
   };
+
+  // const onStartRadio = (key)=>{
+  //                 const rowData = radioStationStore.getRadioStations.docs.find(
+  //                   (itm) => itm.key == value
+  //                 );
+  //                 console.log("data for play for radio", rowData);
+  //                 const audio = new Audio(rowData.streamingUrl)
+  //                 audio.play();
+  //               }
 
   return (
     <div>

@@ -6,7 +6,7 @@ class RadioStationsHttps {
   constructor() { }
 
   /**
-   * Fetch all license keys
+   * Fetch all license ids
    * @param {AxiosRequestConfig} options
    * @returns {Promise<any>}
    */
@@ -36,61 +36,75 @@ class RadioStationsHttps {
 
   /**
    * update new radio station
-   * @param {string} key
+   * @param {string} id
    * @param {object} payload
    * @returns
    */
-  updateRadioStation(key, payload) {
+  updateRadioStation(id, payload) {
     return AppWebRequest({
       method: "put",
-      url: `/radiostations/${key}`,
+      url: `/radiostations/${id}`,
       data: payload,
     }).then((res) => {
-      radioStationStore.updateRadioStation(key, res?.data);
+      radioStationStore.updateRadioStation(id, res?.data);
       return res;
     });
   }
 
   /**
    * delete radio station
-   * @param {string} key
+   * @param {string} id
    * @returns
    */
-  deleteRadioStation(key) {
+  deleteRadioStation(id) {
     return AppWebRequest({
       method: "delete",
-      url: `/radiostations/${key}`,
+      url: `/radiostations/${id}`,
     }).then((res) => {
-      radioStationStore.removeRadioStation(key);
+      radioStationStore.removeRadioStation(id);
       return res;
     });
   }
 
   /**
-   * Playing radio station
-   * @param {string} key
+   * Start radio station
+   * @param {string} id
    * @returns
    */
-   playRadioStation(key) {
+  startListeningRadioStation(id) {
     return AppWebRequest({
       method: "put",
-      url: `/radiostations/${key}/start-listening-stream`,
+      url: `/radiostations/${id}/start-listening-stream`,
     }).then((res) => {
-      radioStationStore.playRadioStation(key);
+      radioStationStore.updateRadioStation(id, res?.data);
       return res;
     });
   }
 
+  /**
+  * Stop radio station
+  * @param {string} id
+  * @returns
+  */
+  stopListeningRadioStation(id) {
+    return AppWebRequest({
+      method: "put",
+      url: `/radiostations/${id}/stop-listening-stream`,
+    }).then((res) => {
+      radioStationStore.updateRadioStation(id, res?.data);
+      return res;
+    });
+  }
 
   /**
- * get license by key
- * @param {string} key
+ * get license by id
+ * @param {string} id
  * @returns
  */
-  findByKey(key) {
+  findByid(id) {
     return AppWebRequest({
       method: "get",
-      url: `/radiostations/${key}`,
+      url: `/radiostations/${id}`,
     }).then((res) => {
       return res;
     });

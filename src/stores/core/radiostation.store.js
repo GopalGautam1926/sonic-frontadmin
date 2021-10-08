@@ -79,35 +79,35 @@ import {
     }
     /**
      *remove radio station from store
-     * @param {string} key
+     * @param {string} id
      */
     @action
-    removeRadioStation(key) {
+    removeRadioStation(id) {
       this.radioStations.docs = this.radioStations.docs.filter(
-        (api) => api?._id !== key
+        (api) => api?._id !== id
       );
       this.radioStations.totalDocs -= 1;
     }
   
     /**
      *update radio station to store
-     * @param {string} key
+     * @param {string} id
      * @param {object} payload
      */
      @action
-     updateRadioStation(key,payload) {
-      const elementsIndex = this.radioStations.docs.findIndex(element => element._id == key )
+     updateRadioStation(id,payload) {
+      const elementsIndex = this.radioStations.docs.findIndex(element => element._id == id )
       this.radioStations.docs[elementsIndex]={...this.radioStations.docs[elementsIndex],...payload}
      }
 
       /**
      *play radio station from store
-     * @param {string} key
+     * @param {string} id
      */
     @action
-    playRadioStation(key) {
+    playRadioStation(id) {
       this.radioStations.docs = this.radioStations.docs.filter(
-        (api) => api?._id !== key
+        (api) => api?._id !== id
       );
       this.radioStations.totalDocs -= 1;
     }
