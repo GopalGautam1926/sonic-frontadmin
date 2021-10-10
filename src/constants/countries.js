@@ -1,4 +1,4 @@
-[
+const countries = [
   {
     "name": "Afghanistan",
     "phoneCode": "+93",
@@ -1404,3 +1404,5 @@
     "alpha3code": "ZWE"
   }
 ]
+
+export default countries;

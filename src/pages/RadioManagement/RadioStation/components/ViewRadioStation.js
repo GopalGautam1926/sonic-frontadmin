@@ -48,6 +48,7 @@ export default function ViewRadioStation({ closeDialog }) {
     console.log("radioStationId", radioStationId);
     console.log("location", location);
     const [radioStation, setRadioStation] = useState({
+        _id:"",
         name: "",
         country: "",
         streamingUrl: "",
@@ -78,7 +79,7 @@ export default function ViewRadioStation({ closeDialog }) {
         e.preventDefault();
         setState({ ...state, editLoading: true });
         radiostationHttps
-            .updateRadioStation(radioStation.name, radioStation)
+            .updateRadioStation(radioStation._id, radioStation)
             .then(({ data }) => {
                 setState({
                     ...state,

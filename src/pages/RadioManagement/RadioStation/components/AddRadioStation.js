@@ -11,6 +11,7 @@ import { log } from "../../../../utils/app.debug";
 import RadioStationsHttps from "../../../../services/https/resources/radiostation.https";
 import { toast } from "react-toastify";
 import { useStore } from "../../../../stores";
+import countries from "../../../../constants/countries";
 
 const initialRadioStation = {
     name: "",
@@ -20,6 +21,7 @@ const initialRadioStation = {
 };
 export default function AddRadioStation({ closeDialog }) {
     const [radio, setRadioStation] = useState(initialRadioStation);
+    const [createButton, setCreateButton] = useState(false);
     const { radioStationStore } = useStore();
     const [state, setState] = useState({
         loading: false,
@@ -27,29 +29,30 @@ export default function AddRadioStation({ closeDialog }) {
     });
     const [checkInputs, setCheckInputs] = useState();
 
-    console.log("radiochecking", checkInputs);
+    React.useEffect(() => {
+        if (radio === checkInputs) {
+            setCreateButton(true);
+        } else {
+            setCreateButton(false);
+        }
+    }, [radio])
+
     const onSubmit = (e) => {
         e.preventDefault();
         setState({ ...state, loading: true });
-        if (radio === checkInputs) {
-            RadioStationsHttps
-                .createNewRadioStation(radio)
+        RadioStationsHttps
+            .createNewRadioStation(radio)
             .then(({ data }) => {
                 setState({ ...state, loading: false });
                 setRadioStation(initialRadioStation)
                 toast.success("Created successfully");
                 closeDialog?.()
-                createNewStation.style.display = "none";
 
             })
             .catch((err) => {
                 setState({ ...state, loading: false });
                 toast.error(err.message || "Error while creating..");
             });
-        } else {
-            setState({ ...state, loading: false });
-            toast.error("Error...");
-        }
     };
 
     const createNewStation = document.getElementById('create');
@@ -92,6 +95,11 @@ export default function AddRadioStation({ closeDialog }) {
                                 />
                             </Grid>
                             <Grid item xs={12} sm={3} md={3}>
+                                {/* {countries.map((country) => (
+                                    <select id={country.phoneCode}>
+                                        <option>{country.name}</option>
+                                    </select>
+                                ))} */}
                                 <AppTextInput
                                     labelText="Country"
                                     id="country"
@@ -164,7 +172,7 @@ export default function AddRadioStation({ closeDialog }) {
                                         audio.pause();
                                         setState({ ...state, validateLoading: false });
                                     }, 10000);
-                                    createNewStation.style.display = "flex";
+                                    setCreateButton(true);
                                 }).catch(() => {
                                     toast.error("Not valid");
                                     setState({ ...state, validateLoading: false });
@@ -178,7 +186,7 @@ export default function AddRadioStation({ closeDialog }) {
                         <AppButton color="danger" onClick={() => closeDialog?.()}>
                             Close
                         </AppButton>
-                        <AppButton id="create" style={{ display: 'none' }} type="submit" loadingText="Creating.." loading={state.loading}>Create</AppButton>
+                        {createButton && <AppButton id="create" type="submit" loadingText="Creating.." loading={state.loading}>Create</AppButton>}
                     </FancyCard.CardActions>
                 </form>
             </FancyCard>

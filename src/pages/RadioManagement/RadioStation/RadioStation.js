@@ -19,11 +19,13 @@ import { Tooltip } from "@material-ui/core";
 function RadioStation() {
   const [state, setState] = useState({
     isDeleting: false,
-    deletigKey:'',
+    deletigKey: '',
     isPlaying: false,
-    playingKey:'',
+    playingKey: '',
     onStart: false,
-    onStop:false,
+    startId: '',
+    onStop: false,
+    stopId: ''
   });
   const history = useHistory();
   const { radioStationStore } = useStore();
@@ -42,8 +44,8 @@ function RadioStation() {
           const rowData = radioStationStore.getRadioStations.docs.find(
             (itm) => itm._id == value
           );
-          const favIconUrl = `https://s2.googleusercontent.com/s2/favicons?domain_url=${rowData.website||rowData.streamingUrl}`;
-          return <img src={favIconUrl}/>;
+          const favIconUrl = `https://s2.googleusercontent.com/s2/favicons?domain_url=${rowData.website || rowData.streamingUrl}`;
+          return <img src={favIconUrl} />;
         },
       },
     },
@@ -57,11 +59,12 @@ function RadioStation() {
           // const urlShortText = value?.length > 20 ? value?.slice(0, 20) + "..." : value;
           return <Tooltip title={value}><div style={{
             whiteSpace: "nowrap",
-                            textOverflow: "ellipsis",
-                            maxWidth: 100,
-                            wordWrap: "none",
-                            cursor:"pointer",
-                            overflow: "hidden",}
+            textOverflow: "ellipsis",
+            maxWidth: 100,
+            wordWrap: "none",
+            cursor: "pointer",
+            overflow: "hidden",
+          }
           }>{value}</div></Tooltip>;
         },
       },
@@ -76,11 +79,12 @@ function RadioStation() {
           // const urlShortText = value?.length > 20 ? value?.slice(0, 20) + "..." : value;
           return <Tooltip title={value}><div style={{
             whiteSpace: "nowrap",
-                            textOverflow: "ellipsis",
-                            maxWidth: 100,
-                            wordWrap: "none",
-                            cursor:"pointer",
-                            overflow: "hidden",}
+            textOverflow: "ellipsis",
+            maxWidth: 100,
+            wordWrap: "none",
+            cursor: "pointer",
+            overflow: "hidden",
+          }
           }>{value}</div></Tooltip>;
         },
       },
@@ -105,16 +109,16 @@ function RadioStation() {
           const statusItem = [];
           if (rowData?.isStreamStarted === false) {
             statusItem.push(
-              <Badge color="warning" size="small" label={<div style={{fontSize:11}}>Not Listening</div>} />
+              <Badge color="warning" size="small" label={<div style={{ fontSize: 11 }}>Not Listening</div>} />
             );
-          }if (rowData?.isStreamStarted === true){
+          } if (rowData?.isStreamStarted === true) {
             statusItem.push(
-              <Badge color="success" size="small" label={<div style={{fontSize:11, marginLeft:0}}>Listening</div>} />
+              <Badge color="success" size="small" label={<div style={{ fontSize: 11, marginLeft: 0 }}>Listening</div>} />
             );
           }
-          if(rowData?.isError === true) {
+          if (rowData?.isError === true) {
             statusItem.push(
-              <Badge color="rose" size="small" label={<div style={{fontSize:11}}>Error</div>} />
+              <Badge color="rose" size="small" label={<div style={{ fontSize: 11 }}>Error</div>} />
             );
           }
           // if (statusItem.length === 0) {
@@ -144,67 +148,101 @@ function RadioStation() {
           );
           return (
             <Table.RadioTableRowAction
-            enableDelete={true}
+              enableDelete={true}
               viewButtonProps={{
                 onClick: () => {
-                  const path = `${
-                    getRouteNames()["radio_station"]
-                  }/view/${value}`;
+                  const path = `${getRouteNames()["radio_station"]
+                    }/view/${value}`;
                   history.push({
-                    pathname:path,
-                    state:{
-                      radioStation:rowData
+                    pathname: path,
+                    state: {
+                      radioStation: rowData
                     }
                   });
                 },
               }}
               deletePopConfirmProps={{
-                onClickYes: () =>onDeleteKey(value)
+                onClickYes: () => onDeleteKey(value)
               }}
               deleteButtonProps={{
-                loading: (state.isDeleting && value==state.deletigKey),
+                loading: (state.isDeleting && value == state.deletigKey),
               }}
               startButtonProps={{
-                onClick: () => {
-                  const play = rowData.streamingUrl;
-                  
-                  // alert("hello Krishna");
-                  // const rowData = radioStationStore.getRadioStations.docs.streamingUrl;
-                  console.log("data for play for radio", play);
-                  // const audio = new Audio(rowData.streamingUrl)
-                  // audio.play();
-                }
+                onClick: () => onStartRadio(value)
+              }}
+              stopButtonProps={{
+                onClick: () => onStopRadio(value)
+              }}
+              playPopConfirmProps={{
+                onClickYes: () => onPlayKey(value, rowData)
+              }}
+              playButtonProps={{
+                loading: (state.isPlaying && value == state.playingKey),
               }}
             />
-            
+
           );
         },
       },
     },
   ];
 
-  const onDeleteKey = (key) => {
-    setState({ ...state, isDeleting: true,deletigKey:key });
+  const onDeleteKey = (id) => {
+    setState({ ...state, isDeleting: true, deletigKey: id });
     radiostationHttps
-      .deleteRadioStation(key)
+      .deleteRadioStation(id)
       .then(({ data }) => {
         toast.success("Deleted");
-        setState({ ...state, isDeleting: false,deletigKey:'' });
+        setState({ ...state, isDeleting: false, deletigKey: '' });
       })
       .catch((err) => {
         toast.error("Error while deteting");
-        setState({ ...state, isDeleting: false,deletigKey:'' });
+        setState({ ...state, isDeleting: false, deletigKey: '' });
       });
   };
 
-  // const onStartRadio = (key)=>{
-  //                 const rowData = radioStationStore.getRadioStations.docs.find(
-  //                   (itm) => itm.key == value
-  //                 );
-  //                 console.log("data for play for radio", rowData);
-  //                 const audio = new Audio(rowData.streamingUrl)
-  //                 audio.play();
-  //               }
+  const onStartRadio = (id) => {
+    setState({ ...state, onStart: true, startId: id });
+    radiostationHttps
+      .startListeningRadioStation(id)
+      .then(({ data }) => {
+        toast.success("Radio Listening");
+        setState({ ...state, onStart: false, startId: '' });
+      })
+      .catch((err) => {
+        toast.error("Error while listening");
+        setState({ ...state, onStart: false, startId: '' });
+      });
+  }
+
+  const onStopRadio = (id) => {
+    setState({ ...state, onStop: true, stopId: id });
+    radiostationHttps
+      .stopListeningRadioStation(id)
+      .then(({ data }) => {
+        toast.success("Radio Stopped");
+        setState({ ...state, onStop: false, stopId: '' });
+      })
+      .catch((err) => {
+        toast.error("Error while radio stopped");
+        setState({ ...state, onStop: false, stopId: '' });
+      });
+  }
+
+  const onPlayKey = (id, rowData) => {
+    setState({ ...state, isPlaying: true, playingKey: id });
+    const audio = new Audio(rowData.streamingUrl)
+    audio?.play().then(() => {
+      toast.success("Radio Playing");
+      setTimeout(() => {
+        audio.pause();
+      }, 10000);
+      setState({ ...state, isPlaying: false, playingKey: '' });
+    }).catch(() => {
+      toast.error("Error Occured");
+      setState({ ...state, isPlaying: false, playingKey: '' });
+    })
+  }
 
   return (
     <div>
@@ -240,7 +278,7 @@ function RadioStation() {
               data={radioStationStore.getRadioStations?.docs || []}
               columns={columns}
               options={{
-                count:radioStationStore.getRadioStations.totalDocs
+                count: radioStationStore.getRadioStations.totalDocs
               }}
             />
           </DataFetchingStateComponent>
