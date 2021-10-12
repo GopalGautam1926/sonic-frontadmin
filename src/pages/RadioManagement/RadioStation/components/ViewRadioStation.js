@@ -1,4 +1,4 @@
-import { Grid } from "@material-ui/core";
+import { CircularProgress, FormHelperText, Grid } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import AppButton from "../../../../components/AppButton/AppButton";
 import AppTextInput from "../../../../components/AppTextInput/AppTextInput";
@@ -12,6 +12,7 @@ import { useParams, useLocation } from "react-router-dom";
 import RPopconfirm from "../../../../components/rcomponents/RPopconfirm/RPopconfirm";
 import radiostationHttps from "../../../../services/https/resources/radiostation.https";
 import DataFetchingStateComponent from "../../../../components/common/DataFetchingStateComponent";
+import VolumeDownIcon from '@material-ui/icons/VolumeDown';
 import { toast } from "react-toastify";
 import AddIcon from "@material-ui/icons/Add";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutline";
@@ -28,6 +29,7 @@ import RDialog from "../../../../components/rcomponents/RDialog";
 import RPopover from "../../../../components/rcomponents/RPopover/index";
 import { InputAdornment } from "@material-ui/core";
 import usersHttps from "../../../../services/https/resources/users.https";
+import CountryDropDown from "../../../../components/AppTextInput/CountryDropDown";
 
 export default function ViewRadioStation({ closeDialog }) {
     const [state, setState] = useState({
@@ -43,17 +45,21 @@ export default function ViewRadioStation({ closeDialog }) {
         addingNewUserLoading: false,
         removingUserLoading: false,
     });
+    const [stateData, setStateData] = useState({
+        loading: false,
+        validateLoading: false,
+    });
     let { radioStationId } = useParams();
     const location = useLocation();
-    console.log("radioStationId", radioStationId);
-    console.log("location", location);
     const [radioStation, setRadioStation] = useState({
-        _id:"",
+        _id: "",
+        adminEmail: "",
         name: "",
         country: "",
         streamingUrl: "",
         website: "",
     });
+    const [updateBtn, setUpdateBtn] = useState(false);
 
     const getAndSetRadioStation = async () => {
         try {
@@ -95,52 +101,6 @@ export default function ViewRadioStation({ closeDialog }) {
             });
     };
 
-    //   const onAddNewUser = (handleClose) => {
-    //     setState({ ...state, addingNewUserLoading: true });
-    //     licensekeysHttps
-    //       .addOwnerToLicense(license.key, state.newUsernameOrId)
-    //       .then(({ data }) => {
-    //         setState({
-    //           ...state,
-    //           newUser: {
-    //             ...state,
-    //             addingNewUserLoading: false,
-    //           },
-    //         });
-    //         setLicense(data);
-    //         toast.success("Added");
-    //         handleClose?.();
-    //       })
-    //       .catch((err) => {
-    //         setState({ ...state, addingNewUserLoading: false });
-    //         toast.error(err.message || "Error adding new owner");
-    //       });
-    //   };
-
-    //   const onRemoveUser = (usernameOrId) => {
-    //     setState({
-    //       ...state,
-    //       removingUserLoading: true,
-    //       removingUserId: usernameOrId,
-    //     });
-    //     licensekeysHttps
-    //       .removeOwnerFromLicense(license.key, usernameOrId)
-    //       .then(({ data }) => {
-    //         setState({
-    //           ...state,
-    //           newUser: {
-    //             ...state,
-    //             removingUserLoading: false,
-    //           },
-    //         });
-    //         setLicense(data);
-    //         toast.success("Removed");
-    //       })
-    //       .catch((err) => {
-    //         setState({ ...state, removingUserLoading: false });
-    //         toast.error(err.message || "Error removing owner");
-    //       });
-    //   };
 
     return (
         <div>
@@ -181,7 +141,7 @@ export default function ViewRadioStation({ closeDialog }) {
                                     </RSpace.Item>
                                 )}
 
-                                {state.editMode && (
+                                {state.editMode && updateBtn && (
                                     <RSpace.Item>
                                         <AppButton
                                             loading={state.editLoading}
@@ -206,27 +166,26 @@ export default function ViewRadioStation({ closeDialog }) {
                                     </RSpace.Item>
                                 )}
 
-                                {/* <RSpace.Item>
-                                    <RPopconfirm
-                                        anchorElement={
-                                            <AppButton
-                                                loading={state.suspendLoading}
-                                                color="danger"
-                                                type="button"
-                                            >
-                                                {radioStation.suspended ? "suspended" : "suspend"}
-                                            </AppButton>
-                                        }
-                                        onClickYes={() => onUpdateWithState("suspended")}
-                                        message={`Really want to ${license.suspended ? "unsuspend" : "suspend"
-                                            } this license?`}
-                                    />
-                                </RSpace.Item> */}
-
-
 
                             </RSpace>
                             <Grid container spacing={1}>
+                                <Grid item xs={12} sm={3} md={3}>
+                                    <AppTextInput
+                                        labelText="Admin Email"
+                                        id="adminEmail"
+                                        formControlProps={{
+                                            fullWidth: true,
+                                        }}
+                                        inputProps={{
+                                            readOnly: !state.editMode,
+                                            placeholder: "Admin Email",
+                                            value: radioStation.adminEmail,
+                                            required: true,
+                                            onChange: (e) =>
+                                                setRadioStation({ ...radioStation, adminEmail: e.target.value }),
+                                        }}
+                                    />
+                                </Grid>
                                 <Grid item xs={12} sm={3} md={3}>
                                     <AppTextInput
                                         labelText="Name"
@@ -240,25 +199,7 @@ export default function ViewRadioStation({ closeDialog }) {
                                             value: radioStation.name,
                                             required: true,
                                             onChange: (e) =>
-                                            setRadioStation({ ...radioStation, name: e.target.value }),
-                                        }}
-                                    />
-                                </Grid>
-
-                                <Grid item xs={12} sm={3} md={3}>
-                                    <AppTextInput
-                                        labelText="Streaming Url"
-                                        id="streamingUrl"
-                                        formControlProps={{
-                                            fullWidth: true,
-                                        }}
-                                        inputProps={{
-                                            readOnly: !state.editMode,
-                                            placeholder: "Streaming URL",
-                                            value: radioStation.streamingUrl,
-                                            required: true,
-                                            onChange: (e) =>
-                                            setRadioStation({ ...radioStation, streamingUrl: e.target.value }),
+                                                setRadioStation({ ...radioStation, name: e.target.value }),
                                         }}
                                     />
                                 </Grid>
@@ -276,13 +217,13 @@ export default function ViewRadioStation({ closeDialog }) {
                                             value: radioStation.website,
                                             required: true,
                                             onChange: (e) =>
-                                            setRadioStation({ ...radioStation, website: e.target.value }),
+                                                setRadioStation({ ...radioStation, website: e.target.value }),
                                         }}
                                     />
                                 </Grid>
 
                                 <Grid item xs={12} sm={3} md={3}>
-                                    <AppTextInput
+                                    {/* <AppTextInput
                                         labelText="Country"
                                         id="country"
                                         formControlProps={{
@@ -294,18 +235,76 @@ export default function ViewRadioStation({ closeDialog }) {
                                             value: radioStation.country,
                                             required: true,
                                             onChange: (e) =>
-                                            setRadioStation({ ...radioStation, country: e.target.value }),
+                                                setRadioStation({ ...radioStation, country: e.target.value }),
                                         }}
-                                    />
+                                    /> */}
+                                    <CountryDropDown
+                                    labelText="Country"
+                                    id="country"
+                                    formControlProps={{
+                                        fullWidth: true,
+                                    }}
+                                    inputProps={{
+                                        required: true,
+                                        placeholder: "Country",
+                                        value: radioStation.country,
+                                        onChange: (e) =>
+                                            setRadioStation({ ...radioStation, country: e.target.value }),
+                                    }}
+                                ></CountryDropDown>
                                 </Grid>
                             </Grid>
-                            
+                            <Grid container spacing={1} style={{ display: 'flex', alignItems: 'center' }}>
+                                <Grid item xs={12} sm={3} md={3}>
+                                    <AppTextInput
+                                        labelText="Streaming Url"
+                                        id="streamingUrl"
+                                        formControlProps={{
+                                            fullWidth: true,
+                                        }}
+                                        inputProps={{
+                                            readOnly: !state.editMode,
+                                            placeholder: "Streaming URL",
+                                            value: radioStation.streamingUrl,
+                                            required: true,
+                                            onChange: (e) =>
+                                                setRadioStation({ ...radioStation, streamingUrl: e.target.value }),
+                                        }}
+                                    />
+                                    <FormHelperText style={{ marginTop: '-10px' }}>Click on icon to validate the url</FormHelperText>
+                                </Grid>
+                                { state.editMode ? stateData.validateLoading ? <CircularProgress size={20} /> : <VolumeDownIcon style={{cursor:"pointer"}} onClick={(e) => {
+                                    e.preventDefault();
+                                    setStateData({ ...stateData, validateLoading: true });
+                                    let Emailverification = (new RegExp(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,15}/g).test(radioStation.adminEmail));
+                                    if (radioStation.name === "" || radioStation.country === "" || radioStation.streamingUrl == "" || radioStation.website === "" || radioStation.adminEmail === "" || Emailverification !== true) {
+                                        toast.error("Please fill all the fields and Valid Email");
+                                        setStateData({ ...stateData, validateLoading: false });
+                                    } else {
+                                        setStateData({ ...stateData, validateLoading: true });
+                                        const audio = new Audio(radioStation.streamingUrl)
+                                        audio?.play().then(() => {
+                                            setStateData({ ...stateData, validateLoading: true });
+                                            toast.success("Streaming URL working");
+                                            setTimeout(() => {
+                                                audio.pause();
+                                                setState({ ...state, editMode: true });
+                                                setStateData({ ...stateData, validateLoading: false });
+                                                setUpdateBtn(true);
+                                            }, 3000);
+                                        }).catch(() => {
+                                            toast.error("Not valid URL");
+                                            setStateData({ ...stateData, validateLoading: false });
+                                        })
+                                    }
+                                }}/> : null}
+                            </Grid>
 
-                        
+
 
                             <Divider style={{ marginTop: 20, marginBottom: 10 }} />
-                            
-                            
+
+
                         </DataFetchingStateComponent>
                     </FancyCard.CardContent>
                 </form>

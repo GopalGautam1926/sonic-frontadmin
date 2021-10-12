@@ -4,8 +4,6 @@ import Table from "../../../components/Table/Table";
 // import AddApiKey from "./components/AddApiKey";
 import { useHistory, useLocation } from "react-router-dom";
 import { getRouteNames } from "../../../routes/routes.data";
-import { format } from "date-fns";
-import { isExpired } from "../../../utils/general.utils";
 import RSpace from "../../../components/rcomponents/RSpace";
 import { log } from "../../../utils/app.debug";
 import { useStore } from "../../../stores";
@@ -14,7 +12,7 @@ import radiostationHttps from "../../../services/https/resources/radiostation.ht
 import { toast } from "react-toastify";
 import Badge from '../../../components/Badge/Badge';
 import AddRadioStation from "./components/AddRadioStation";
-import { Tooltip } from "@material-ui/core";
+import { Box, CircularProgress, Dialog, DialogContent, Tooltip } from "@material-ui/core";
 
 function RadioStation() {
   const [state, setState] = useState({
@@ -27,9 +25,12 @@ function RadioStation() {
     onStop: false,
     stopId: ''
   });
+  const [values, setValues] = React.useState({
+    openPlayingModal: false,
+    stopPlayingIn: 0
+  })
   const history = useHistory();
   const { radioStationStore } = useStore();
-
   const columns = [
     {
       label: "Name",
@@ -55,8 +56,6 @@ function RadioStation() {
       options: {
         filter: false,
         customBodyRender: (value, { columnIndex }, updateValue) => {
-          // const validity = value ? format(new Date(value), "dd/MM/yyyy") : "--";
-          // const urlShortText = value?.length > 20 ? value?.slice(0, 20) + "..." : value;
           return <Tooltip title={value}><div style={{
             whiteSpace: "nowrap",
             textOverflow: "ellipsis",
@@ -75,8 +74,6 @@ function RadioStation() {
       options: {
         filter: false,
         customBodyRender: (value, { columnIndex }, updateValue) => {
-          // const validity = value ? format(new Date(value), "dd/MM/yyyy") : "--";
-          // const urlShortText = value?.length > 20 ? value?.slice(0, 20) + "..." : value;
           return <Tooltip title={value}><div style={{
             whiteSpace: "nowrap",
             textOverflow: "ellipsis",
@@ -117,16 +114,12 @@ function RadioStation() {
             );
           }
           if (rowData?.isError === true) {
+            const errorMessage = rowData.error.message;
             statusItem.push(
-              <Badge color="rose" size="small" label={<div style={{ fontSize: 11 }}>Error</div>} />
+
+              <Badge color="rose" size="small" style={{cursor: "pointer"}} label={<Tooltip title={errorMessage}><div style={{ fontSize: 11 }}>Error</div></Tooltip>} />
             );
           }
-          // if (statusItem.length === 0) {
-          //   statusItem.push(
-          //     <Badge color="success" size="small" label="Active" />
-          //   );
-          // }
-
           return (
             <RSpace>
               {statusItem.map((status) => (
@@ -161,12 +154,6 @@ function RadioStation() {
                   });
                 },
               }}
-              deletePopConfirmProps={{
-                onClickYes: () => onDeleteKey(value)
-              }}
-              deleteButtonProps={{
-                loading: (state.isDeleting && value == state.deletigKey),
-              }}
               startButtonProps={{
                 onClick: () => onStartRadio(value)
               }}
@@ -186,20 +173,6 @@ function RadioStation() {
       },
     },
   ];
-
-  const onDeleteKey = (id) => {
-    setState({ ...state, isDeleting: true, deletigKey: id });
-    radiostationHttps
-      .deleteRadioStation(id)
-      .then(({ data }) => {
-        toast.success("Deleted");
-        setState({ ...state, isDeleting: false, deletigKey: '' });
-      })
-      .catch((err) => {
-        toast.error("Error while deteting");
-        setState({ ...state, isDeleting: false, deletigKey: '' });
-      });
-  };
 
   const onStartRadio = (id) => {
     setState({ ...state, onStart: true, startId: id });
@@ -230,19 +203,24 @@ function RadioStation() {
   }
 
   const onPlayKey = (id, rowData) => {
-    setState({ ...state, isPlaying: true, playingKey: id });
+    setValues({ ...values, openPlayingModal: true })
     const audio = new Audio(rowData.streamingUrl)
     audio?.play().then(() => {
-      toast.success("Radio Playing");
+      toast.success("Radio started...");
       setTimeout(() => {
         audio.pause();
+        setValues({ ...values, openPlayingModal: false })
       }, 10000);
-      setState({ ...state, isPlaying: false, playingKey: '' });
     }).catch(() => {
-      toast.error("Error Occured");
-      setState({ ...state, isPlaying: false, playingKey: '' });
+      toast.error("Error Occured...");
+      setValues({ ...values, openPlayingModal: false })
+
     })
   }
+  const closePlayingModal = () => {
+    setValues({ ...values, openPlayingModal: false })
+  }
+
 
   return (
     <div>
@@ -284,6 +262,23 @@ function RadioStation() {
           </DataFetchingStateComponent>
         </FancyCard.CardContent>
       </FancyCard>
+
+      <Dialog
+        open={values?.openPlayingModal}
+        onClose={closePlayingModal}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        disableBackdropClick={true}
+      >
+        <DialogContent style={{ display: "flex", justifyContent: "center", alignItems: "center" }} className="mb-2" >
+          <div style={{ marginRight: "10px" }}>Radio playing for 10 seconds...</div>
+          <Box position="relative" display="inline-flex">
+            <CircularProgress color="secondary" />
+          </Box>
+        </DialogContent>
+      </Dialog>
+
+
     </div>
   );
 }

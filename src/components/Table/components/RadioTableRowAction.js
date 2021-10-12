@@ -3,11 +3,11 @@ import RSpace from "../../rcomponents/RSpace/RSpace";
 import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
 import PlayCircleFilledWhiteOutlinedIcon from '@material-ui/icons/PlayCircleFilledWhiteOutlined';
 import PlayCircleFilledWhiteRoundedIcon from '@material-ui/icons/PlayCircleFilledWhiteRounded';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import { IconButton } from "@material-ui/core";
 import RPopconfirm from "../../rcomponents/RPopconfirm";
 import AppButton from "../../AppButton/AppButton";
+import VolumeDownIcon from '@material-ui/icons/VolumeDown';
 
 export default function RadioTableRowAction({
   viewButton,
@@ -19,13 +19,9 @@ export default function RadioTableRowAction({
   stopButtonProps,
   playButton,
   playButtonProps,
-  deleteButton,
-  enableDelete = true,
   enableStart = true,
   enableStop = true,
   enablePlay = true,
-  deleteButtonProps,
-  deletePopConfirmProps,
 }) {
   return (
     <RSpace justifyContent="flex-start" spacing={0} >
@@ -51,23 +47,11 @@ export default function RadioTableRowAction({
         <RPopconfirm
           anchorElement={
             <AppButton asIconButton={true} color="primary" size="small" {...playButtonProps}>
-              {playButton || <PlayArrowIcon style={{ fontSize: 18 }} />}
+              {playButton || <VolumeDownIcon style={{ fontSize: 18 }} />}
             </AppButton>
           }
           message="Play radio?"
           {...playPopConfirmProps}
-        />
-      </RSpace.Item>}
-
-      {enableDelete && <RSpace.Item>
-        <RPopconfirm
-          anchorElement={
-            <AppButton asIconButton={true} color="danger" size="small" {...deleteButtonProps}>
-              {deleteButton || <DeleteOutlinedIcon style={{ fontSize: 18 }} />}
-            </AppButton>
-          }
-          message="Really want to delete this item?"
-          {...deletePopConfirmProps}
         />
       </RSpace.Item>}
     </RSpace>

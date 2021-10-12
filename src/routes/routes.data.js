@@ -89,7 +89,7 @@ export const routesData = [
             exact:true,
             sidebar:false,
             path: "/radio-management/radio-station/view/:radioStationId",
-            name: "Radio Station",
+            name: "View Radio Station",
             component: ViewRadioStation,
             layout: "/admin",
             key:"radiostation_view", 
