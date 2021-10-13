@@ -50,7 +50,36 @@ import {
       const defaultOptions={
         params:{
           sort:'-createdAt',
-          limit:1000
+          limit:1000,
+          // country:'Russia',
+        },
+      }
+      options=deepmerge(defaultOptions,options)
+      radiostationHttps
+        .fetchRadioStations(options)
+        .then(({ data }) => {
+          log("radioStations", data);
+          this.radioStations = data;
+          this.loading = false;
+        })
+        .catch((err) => {
+          log("radioStations err", err);
+          this.loading = false;
+          this.error = err;
+        });
+    }
+
+    SearchByCountryAndStatus(options = {}) {
+      log("Options for search",options)
+      this.loading = true;
+      this.error = null;
+      const defaultOptions={
+        params:{
+          sort:'-createdAt',
+          limit:1000,
+          country:options.country,
+          isStreamStarted:options.status==='Listening'?true:false,
+          isError:options.status==='Error'?true:false,
         },
       }
       options=deepmerge(defaultOptions,options)

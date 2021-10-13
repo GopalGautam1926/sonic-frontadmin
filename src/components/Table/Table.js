@@ -18,9 +18,6 @@ import Empty from "../common/Empty";
       selectIcon:{
         color:`${primary} !important`,
       }
-
-
-
     },
  */
 export default function Table({ title, data, columns, options, components }) {

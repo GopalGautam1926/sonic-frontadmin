@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 import Badge from '../../../components/Badge/Badge';
 import AddRadioStation from "./components/AddRadioStation";
 import { Box, CircularProgress, Dialog, DialogContent, Tooltip } from "@material-ui/core";
+import Timer from "./components/Timer";
 
 function RadioStation() {
   const [state, setState] = useState({
@@ -27,10 +28,11 @@ function RadioStation() {
   });
   const [values, setValues] = React.useState({
     openPlayingModal: false,
-    stopPlayingIn: 0
   })
   const history = useHistory();
   const { radioStationStore } = useStore();
+  const [stop, setStop] = useState(false);
+
   const columns = [
     {
       label: "Name",
@@ -104,7 +106,7 @@ function RadioStation() {
             (itm) => itm._id == value
           );
           const statusItem = [];
-          if (rowData?.isStreamStarted === false) {
+          if (rowData?.isStreamStarted === false && !rowData?.isError) {
             statusItem.push(
               <Badge color="warning" size="small" label={<div style={{ fontSize: 11 }}>Not Listening</div>} />
             );
@@ -113,11 +115,11 @@ function RadioStation() {
               <Badge color="success" size="small" label={<div style={{ fontSize: 11, marginLeft: 0 }}>Listening</div>} />
             );
           }
-          if (rowData?.isError === true) {
+          if (rowData?.isError === true && !rowData?.isStreamStarted) {
             const errorMessage = rowData.error.message;
             statusItem.push(
 
-              <Badge color="rose" size="small" style={{cursor: "pointer"}} label={<Tooltip title={errorMessage}><div style={{ fontSize: 11 }}>Error</div></Tooltip>} />
+              <Badge color="rose" size="small" style={{ cursor: "pointer" }} label={<Tooltip title={errorMessage}><div style={{ fontSize: 11 }}>Error</div></Tooltip>} />
             );
           }
           return (
@@ -210,7 +212,7 @@ function RadioStation() {
       setTimeout(() => {
         audio.pause();
         setValues({ ...values, openPlayingModal: false })
-      }, 10000);
+      }, 9000);
     }).catch(() => {
       toast.error("Error Occured...");
       setValues({ ...values, openPlayingModal: false })
@@ -218,7 +220,7 @@ function RadioStation() {
     })
   }
   const closePlayingModal = () => {
-    setValues({ ...values, openPlayingModal: false })
+    stop && setValues({ ...values, openPlayingModal: false })
   }
 
 
@@ -250,6 +252,9 @@ function RadioStation() {
                   refreshButtonProps={{
                     onClick: () => radioStationStore.fetchRadioStations(),
                   }}
+                  // searchButtonProps={{ 
+                  //   onClick: () => radioStationStore.SearchByCountryAndStatus(searchButtonProps),
+                  // }}
                   componentInsideDialog={<AddRadioStation />}
                 />
               }
@@ -271,7 +276,7 @@ function RadioStation() {
         disableBackdropClick={true}
       >
         <DialogContent style={{ display: "flex", justifyContent: "center", alignItems: "center" }} className="mb-2" >
-          <div style={{ marginRight: "10px" }}>Radio playing for 10 seconds...</div>
+          <div style={{ marginRight: "10px" }}>Radio playing for <Timer setStop={setStop} /> seconds...</div>
           <Box position="relative" display="inline-flex">
             <CircularProgress color="secondary" />
           </Box>

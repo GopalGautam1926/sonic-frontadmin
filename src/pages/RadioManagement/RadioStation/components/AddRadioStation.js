@@ -98,7 +98,7 @@ export default function AddRadioStation({ closeDialog }) {
                                             setRadioStation({ ...radio, adminEmail: e.target.value }),
                                     }}
                                 />
-                                <FormHelperText style={{ marginTop: '-10px' }}>Enter your valid Email..</FormHelperText>
+                                <FormHelperText style={{ marginTop: '-10px' }}>Please provide a valid admin email in order to get notification upon error.</FormHelperText>
                             </Grid>
                             <Grid item xs={12} sm={3} md={3}>
                                 <AppTextInput
@@ -176,14 +176,12 @@ export default function AddRadioStation({ closeDialog }) {
                                     e.preventDefault();
                                     setState({ ...state, validateLoading: true });
                                     let Emailverification = (new RegExp(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,15}/g).test(radio.adminEmail));
-                                    console.log("Emailverification =", Emailverification)
                                     if (radio.name === "" || radio.country === "" || radio.streamingUrl == "" || radio.website === "" || radio.adminEmail === "" || Emailverification !== true) {
                                         toast.error("Please fill all the fields and Valid Email");
                                         setState({ ...state, validateLoading: false });
                                     } else {
                                         setState({ ...state, validateLoading: true });
                                         const audio = new Audio(radio.streamingUrl)
-                                        console.log("audio:", audio.play());
                                         audio?.play().then(() => {
                                             setState({ ...state, validateLoading: true });
                                             toast.success("Streaming URL working");

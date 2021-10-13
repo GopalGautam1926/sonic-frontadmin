@@ -49,6 +49,7 @@ export default function ViewRadioStation({ closeDialog }) {
         loading: false,
         validateLoading: false,
     });
+    const [emailCheck,setEmailCheck] = useState(false);
     let { radioStationId } = useParams();
     const location = useLocation();
     const [radioStation, setRadioStation] = useState({
@@ -59,7 +60,14 @@ export default function ViewRadioStation({ closeDialog }) {
         streamingUrl: "",
         website: "",
     });
-    const [updateBtn, setUpdateBtn] = useState(false);
+    const [onEdit, setOnEdit] = useState(false);
+    const [checkInputs, setCheckInputs] = useState();
+
+    useEffect(() => {
+        if (checkInputs) {
+            setOnEdit(true);
+        }
+    }, [checkInputs]);
 
     const getAndSetRadioStation = async () => {
         try {
@@ -84,7 +92,9 @@ export default function ViewRadioStation({ closeDialog }) {
     const onUpdateSubmit = (e) => {
         e.preventDefault();
         setState({ ...state, editLoading: true });
-        radiostationHttps
+        if(emailCheck === true)
+        {
+            radiostationHttps
             .updateRadioStation(radioStation._id, radioStation)
             .then(({ data }) => {
                 setState({
@@ -99,6 +109,9 @@ export default function ViewRadioStation({ closeDialog }) {
                 setState({ ...state, editLoading: false });
                 toast.error(err.message || "Error while creating..");
             });
+        }else{
+            setState({ ...state, editLoading: false });
+        }
     };
 
 
@@ -141,17 +154,26 @@ export default function ViewRadioStation({ closeDialog }) {
                                     </RSpace.Item>
                                 )}
 
-                                {state.editMode && updateBtn && (
+                                {!onEdit ? state.editMode && (
                                     <RSpace.Item>
                                         <AppButton
                                             loading={state.editLoading}
                                             loadingText="Updating..."
                                             type="submit"
+                                            onClick={()=>{
+                                                let Emailverification = (new RegExp(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,15}/g).test(radioStation.adminEmail));
+                                                if(Emailverification===false){
+                                                    toast.error("Not valid Email..");
+                                                    setEmailCheck(false)
+                                                }else{
+                                                    setEmailCheck(true)
+                                                }
+                                            }}
                                         >
                                             Update
                                         </AppButton>
                                     </RSpace.Item>
-                                )}
+                                ) : null}
 
                                 {!state.editMode && (
                                     <RSpace.Item>
@@ -170,7 +192,7 @@ export default function ViewRadioStation({ closeDialog }) {
                             </RSpace>
                             <Grid container spacing={1}>
                                 <Grid item xs={12} sm={3} md={3}>
-                                    <AppTextInput
+                                    <AppTextInput 
                                         labelText="Admin Email"
                                         id="adminEmail"
                                         formControlProps={{
@@ -185,6 +207,7 @@ export default function ViewRadioStation({ closeDialog }) {
                                                 setRadioStation({ ...radioStation, adminEmail: e.target.value }),
                                         }}
                                     />
+                                    <FormHelperText style={{ marginTop: '-10px' }}>Please provide a valid admin email in order to get notification upon error.</FormHelperText>
                                 </Grid>
                                 <Grid item xs={12} sm={3} md={3}>
                                     <AppTextInput
@@ -239,22 +262,22 @@ export default function ViewRadioStation({ closeDialog }) {
                                         }}
                                     /> */}
                                     <CountryDropDown
-                                    labelText="Country"
-                                    id="country"
-                                    formControlProps={{
-                                        fullWidth: true,
-                                    }}
-                                    inputProps={{
-                                        required: true,
-                                        placeholder: "Country",
-                                        value: radioStation.country,
-                                        onChange: (e) =>
-                                            setRadioStation({ ...radioStation, country: e.target.value }),
-                                    }}
-                                ></CountryDropDown>
+                                        labelText="Country"
+                                        id="country"
+                                        formControlProps={{
+                                            fullWidth: true,
+                                        }}
+                                        inputProps={{
+                                            required: true,
+                                            placeholder: "Country",
+                                            value: radioStation.country,
+                                            onChange: (e) =>
+                                                setRadioStation({ ...radioStation, country: e.target.value }),
+                                        }}
+                                    ></CountryDropDown>
                                 </Grid>
                             </Grid>
-                            <Grid container spacing={1} style={{ display: 'flex', alignItems: 'center' }}>
+                            <Grid container spacing={1} style={{ display: 'flex', alignItems: 'center',marginTop:"10px" }}>
                                 <Grid item xs={12} sm={3} md={3}>
                                     <AppTextInput
                                         labelText="Streaming Url"
@@ -267,13 +290,15 @@ export default function ViewRadioStation({ closeDialog }) {
                                             placeholder: "Streaming URL",
                                             value: radioStation.streamingUrl,
                                             required: true,
-                                            onChange: (e) =>
-                                                setRadioStation({ ...radioStation, streamingUrl: e.target.value }),
+                                            onChange: (e) => {
+                                                setRadioStation({ ...radioStation, streamingUrl: e.target.value })
+                                                setCheckInputs(e.target.value)
+                                            },
                                         }}
                                     />
                                     <FormHelperText style={{ marginTop: '-10px' }}>Click on icon to validate the url</FormHelperText>
                                 </Grid>
-                                { state.editMode ? stateData.validateLoading ? <CircularProgress size={20} /> : <VolumeDownIcon style={{cursor:"pointer"}} onClick={(e) => {
+                                {state.editMode && onEdit ? stateData.validateLoading ? <CircularProgress size={20} /> : <VolumeDownIcon style={{ cursor: "pointer" }} onClick={(e) => {
                                     e.preventDefault();
                                     setStateData({ ...stateData, validateLoading: true });
                                     let Emailverification = (new RegExp(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,15}/g).test(radioStation.adminEmail));
@@ -290,14 +315,14 @@ export default function ViewRadioStation({ closeDialog }) {
                                                 audio.pause();
                                                 setState({ ...state, editMode: true });
                                                 setStateData({ ...stateData, validateLoading: false });
-                                                setUpdateBtn(true);
                                             }, 3000);
+                                            setOnEdit(false);
                                         }).catch(() => {
                                             toast.error("Not valid URL");
                                             setStateData({ ...stateData, validateLoading: false });
                                         })
                                     }
-                                }}/> : null}
+                                }} /> : null}
                             </Grid>
 
 
