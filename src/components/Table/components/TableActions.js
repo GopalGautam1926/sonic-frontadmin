@@ -16,7 +16,7 @@ const initialRadioStation = {
 
 export default function TableActions({
   refreshButtonProps,
-  searchButtonProps,
+  search,
   addButtonProps,
   openDialogWhenClickAdd = true,
   componentInsideDialog,
@@ -72,7 +72,7 @@ export default function TableActions({
           </AppButton>
         )}
       </Grid>
-      <Grid item xs={12} sm={3} md={3}>
+      {search && <Grid item xs={12} sm={3} md={3}>
         <CountryDropDown
           labelText="Country"
           id="country"
@@ -87,8 +87,8 @@ export default function TableActions({
               setRadioStation({ ...radio, country: e.target.value }),
           }}
         />
-      </Grid>
-      <Grid item xs={12} sm={3} md={3}>
+      </Grid>}
+      {search &&<Grid item xs={12} sm={3} md={3}>
         <StatusDropDown
           labelText="Status"
           id="status"
@@ -103,12 +103,12 @@ export default function TableActions({
               setRadioStation({ ...radio, status: e.target.value }),
           }}
         />
-      </Grid>
-      <Grid item >
+      </Grid>}
+      {search && <Grid item >
         <AppButton onClick={()=>{
           radioStationStore.SearchByCountryAndStatus({country:radio.country,status:radio.status})
         }}>Search</AppButton>
-      </Grid>
+      </Grid>}
     </Grid>
   );
 }

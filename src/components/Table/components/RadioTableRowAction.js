@@ -3,7 +3,6 @@ import RSpace from "../../rcomponents/RSpace/RSpace";
 import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
 import PlayCircleFilledWhiteOutlinedIcon from '@material-ui/icons/PlayCircleFilledWhiteOutlined';
 import PlayCircleFilledWhiteRoundedIcon from '@material-ui/icons/PlayCircleFilledWhiteRounded';
-import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import { IconButton } from "@material-ui/core";
 import RPopconfirm from "../../rcomponents/RPopconfirm";
 import AppButton from "../../AppButton/AppButton";
@@ -32,15 +31,15 @@ export default function RadioTableRowAction({
       </RSpace.Item>
 
       {enableStart && <RSpace.Item>
-            <AppButton asIconButton={true} color="primary" size="small" {...startButtonProps}>
-              {startButton || <PlayCircleFilledWhiteOutlinedIcon style={{ fontSize: 18 }} />}
-            </AppButton>
+        <AppButton asIconButton={true} color="primary" size="small" {...startButtonProps}>
+          {startButton || <PlayCircleFilledWhiteOutlinedIcon style={{ fontSize: 18 }} />}
+        </AppButton>
       </RSpace.Item>}
 
       {enableStop && <RSpace.Item>
-            <AppButton asIconButton={true} color="danger" size="small" {...stopButtonProps}>
-              {stopButton || <PlayCircleFilledWhiteRoundedIcon style={{ fontSize: 18 }} />}
-            </AppButton>
+        <AppButton asIconButton={true} color="danger" size="small" {...stopButtonProps}>
+          {stopButton || <PlayCircleFilledWhiteRoundedIcon style={{ fontSize: 18 }} />}
+        </AppButton>
       </RSpace.Item>}
 
       {enablePlay && <RSpace.Item>

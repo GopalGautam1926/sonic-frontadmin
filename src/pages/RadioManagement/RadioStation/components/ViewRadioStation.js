@@ -3,32 +3,13 @@ import React, { useState, useEffect } from "react";
 import AppButton from "../../../../components/AppButton/AppButton";
 import AppTextInput from "../../../../components/AppTextInput/AppTextInput";
 import FancyCard from "../../../../components/FancyCard/FancyCard";
-import { SwitchWithLabel } from "../../../../components/Switch/Switch";
-import InputLabel from "@material-ui/core/InputLabel";
-import DatePicker from "../../../../components/DatePicker/DatePicker";
-import KeyValue from "../../../../components/KeyValue/KeyValue";
 import RSpace from "../../../../components/rcomponents/RSpace";
 import { useParams, useLocation } from "react-router-dom";
-import RPopconfirm from "../../../../components/rcomponents/RPopconfirm/RPopconfirm";
 import radiostationHttps from "../../../../services/https/resources/radiostation.https";
 import DataFetchingStateComponent from "../../../../components/common/DataFetchingStateComponent";
 import VolumeDownIcon from '@material-ui/icons/VolumeDown';
 import { toast } from "react-toastify";
-import AddIcon from "@material-ui/icons/Add";
-import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutline";
-import {
-    Avatar,
-    ListItemText,
-    List,
-    ListItem,
-    ListItemAvatar,
-    Typography,
-} from "@material-ui/core";
 import { Divider } from "@material-ui/core";
-import RDialog from "../../../../components/rcomponents/RDialog";
-import RPopover from "../../../../components/rcomponents/RPopover/index";
-import { InputAdornment } from "@material-ui/core";
-import usersHttps from "../../../../services/https/resources/users.https";
 import CountryDropDown from "../../../../components/AppTextInput/CountryDropDown";
 
 export default function ViewRadioStation({ closeDialog }) {
@@ -49,7 +30,7 @@ export default function ViewRadioStation({ closeDialog }) {
         loading: false,
         validateLoading: false,
     });
-    const [emailCheck,setEmailCheck] = useState(false);
+    const [emailCheck, setEmailCheck] = useState(false);
     let { radioStationId } = useParams();
     const location = useLocation();
     const [radioStation, setRadioStation] = useState({
@@ -92,24 +73,23 @@ export default function ViewRadioStation({ closeDialog }) {
     const onUpdateSubmit = (e) => {
         e.preventDefault();
         setState({ ...state, editLoading: true });
-        if(emailCheck === true)
-        {
+        if (emailCheck === true) {
             radiostationHttps
-            .updateRadioStation(radioStation._id, radioStation)
-            .then(({ data }) => {
-                setState({
-                    ...state,
-                    editLoading: false,
-                    editMode: false,
-                    oldKey: data,
+                .updateRadioStation(radioStation._id, radioStation)
+                .then(({ data }) => {
+                    setState({
+                        ...state,
+                        editLoading: false,
+                        editMode: false,
+                        oldKey: data,
+                    });
+                    toast.success("Updated successfully");
+                })
+                .catch((err) => {
+                    setState({ ...state, editLoading: false });
+                    toast.error(err.message || "Error while creating..");
                 });
-                toast.success("Updated successfully");
-            })
-            .catch((err) => {
-                setState({ ...state, editLoading: false });
-                toast.error(err.message || "Error while creating..");
-            });
-        }else{
+        } else {
             setState({ ...state, editLoading: false });
         }
     };
@@ -160,12 +140,12 @@ export default function ViewRadioStation({ closeDialog }) {
                                             loading={state.editLoading}
                                             loadingText="Updating..."
                                             type="submit"
-                                            onClick={()=>{
+                                            onClick={() => {
                                                 let Emailverification = (new RegExp(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,15}/g).test(radioStation.adminEmail));
-                                                if(Emailverification===false){
+                                                if (Emailverification === false) {
                                                     toast.error("Not valid Email..");
                                                     setEmailCheck(false)
-                                                }else{
+                                                } else {
                                                     setEmailCheck(true)
                                                 }
                                             }}
@@ -192,7 +172,7 @@ export default function ViewRadioStation({ closeDialog }) {
                             </RSpace>
                             <Grid container spacing={1}>
                                 <Grid item xs={12} sm={3} md={3}>
-                                    <AppTextInput 
+                                    <AppTextInput
                                         labelText="Admin Email"
                                         id="adminEmail"
                                         formControlProps={{
@@ -246,21 +226,6 @@ export default function ViewRadioStation({ closeDialog }) {
                                 </Grid>
 
                                 <Grid item xs={12} sm={3} md={3}>
-                                    {/* <AppTextInput
-                                        labelText="Country"
-                                        id="country"
-                                        formControlProps={{
-                                            fullWidth: true,
-                                        }}
-                                        inputProps={{
-                                            readOnly: !state.editMode,
-                                            placeholder: "Country Name",
-                                            value: radioStation.country,
-                                            required: true,
-                                            onChange: (e) =>
-                                                setRadioStation({ ...radioStation, country: e.target.value }),
-                                        }}
-                                    /> */}
                                     <CountryDropDown
                                         labelText="Country"
                                         id="country"
@@ -277,7 +242,7 @@ export default function ViewRadioStation({ closeDialog }) {
                                     ></CountryDropDown>
                                 </Grid>
                             </Grid>
-                            <Grid container spacing={1} style={{ display: 'flex', alignItems: 'center',marginTop:"10px" }}>
+                            <Grid container spacing={1} style={{ display: 'flex', alignItems: 'center', marginTop: "10px" }}>
                                 <Grid item xs={12} sm={3} md={3}>
                                     <AppTextInput
                                         labelText="Streaming Url"

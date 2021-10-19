@@ -249,12 +249,10 @@ function RadioStation() {
             <Table
               title={
                 <Table.TableActions
+                search
                   refreshButtonProps={{
                     onClick: () => radioStationStore.fetchRadioStations(),
                   }}
-                  // searchButtonProps={{ 
-                  //   onClick: () => radioStationStore.SearchByCountryAndStatus(searchButtonProps),
-                  // }}
                   componentInsideDialog={<AddRadioStation />}
                 />
               }

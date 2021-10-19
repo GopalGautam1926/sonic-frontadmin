@@ -1,17 +1,11 @@
-import { CircularProgress, FormHelperText, Grid, MenuItem, Select } from "@material-ui/core";
+import { CircularProgress, FormHelperText, Grid } from "@material-ui/core";
 import React, { useState } from "react";
 import AppButton from "../../../../components/AppButton/AppButton";
 import AppTextInput from "../../../../components/AppTextInput/AppTextInput";
 import FancyCard from "../../../../components/FancyCard/FancyCard";
-import { SwitchWithLabel } from "../../../../components/Switch/Switch";
-import InputLabel from "@material-ui/core/InputLabel";
-import DatePicker from "../../../../components/DatePicker/DatePicker";
-import KeyValue from "../../../../components/KeyValue/KeyValue";
-import { log } from "../../../../utils/app.debug";
 import RadioStationsHttps from "../../../../services/https/resources/radiostation.https";
 import { toast } from "react-toastify";
 import { useStore } from "../../../../stores";
-import countries from "../../../../constants/countries";
 import VolumeDownIcon from '@material-ui/icons/VolumeDown';
 import CountryDropDown from "../../../../components/AppTextInput/CountryDropDown";
 
@@ -83,7 +77,7 @@ export default function AddRadioStation({ closeDialog }) {
                 <form onSubmit={onSubmit}>
                     <FancyCard.CardContent>
                         <Grid container spacing={1}>
-                        <Grid item xs={12} sm={3} md={3}>
+                            <Grid item xs={12} sm={3} md={3}>
                                 <AppTextInput
                                     labelText="Admin Email"
                                     id="adminEmail"
@@ -131,10 +125,7 @@ export default function AddRadioStation({ closeDialog }) {
                                             setRadioStation({ ...radio, country: e.target.value }),
                                     }}
                                 ></CountryDropDown>
-
                             </Grid>
-
-                            
 
                             <Grid item xs={12} sm={3} md={3}>
                                 <AppTextInput
@@ -170,41 +161,37 @@ export default function AddRadioStation({ closeDialog }) {
                                     }}
                                 />
                                 <FormHelperText style={{ marginTop: '-10px' }}>Click on icon to validate the url</FormHelperText>
-                                
-                            </Grid>
-                            {state.validateLoading ? <CircularProgress size={20} /> : <VolumeDownIcon style={{cursor:"pointer"}} onClick={(e) => {
-                                    e.preventDefault();
-                                    setState({ ...state, validateLoading: true });
-                                    let Emailverification = (new RegExp(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,15}/g).test(radio.adminEmail));
-                                    if (radio.name === "" || radio.country === "" || radio.streamingUrl == "" || radio.website === "" || radio.adminEmail === "" || Emailverification !== true) {
-                                        toast.error("Please fill all the fields and Valid Email");
-                                        setState({ ...state, validateLoading: false });
-                                    } else {
-                                        setState({ ...state, validateLoading: true });
-                                        const audio = new Audio(radio.streamingUrl)
-                                        audio?.play().then(() => {
-                                            setState({ ...state, validateLoading: true });
-                                            toast.success("Streaming URL working");
-                                            setCheckInputs({ ...radio });
-                                            setTimeout(() => {
-                                                audio.pause();
-                                                setState({ ...state, validateLoading: false });
-                                            }, 5000);
-                                            setCreateButton(true);
-                                        }).catch(() => {
-                                            toast.error("Not valid URL");
-                                            setState({ ...state, validateLoading: false });
-                                        })
-                                    }
 
-                                }}/>}
+                            </Grid>
+                            {state.validateLoading ? <CircularProgress size={20} /> : <VolumeDownIcon style={{ cursor: "pointer" }} onClick={(e) => {
+                                e.preventDefault();
+                                setState({ ...state, validateLoading: true });
+                                let Emailverification = (new RegExp(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,15}/g).test(radio.adminEmail));
+                                if (radio.name === "" || radio.country === "" || radio.streamingUrl == "" || radio.website === "" || radio.adminEmail === "" || Emailverification !== true) {
+                                    toast.error("Please fill all the fields and Valid Email");
+                                    setState({ ...state, validateLoading: false });
+                                } else {
+                                    setState({ ...state, validateLoading: true });
+                                    const audio = new Audio(radio.streamingUrl)
+                                    audio?.play().then(() => {
+                                        setState({ ...state, validateLoading: true });
+                                        toast.success("Streaming URL working");
+                                        setCheckInputs({ ...radio });
+                                        setTimeout(() => {
+                                            audio.pause();
+                                            setState({ ...state, validateLoading: false });
+                                        }, 5000);
+                                        setCreateButton(true);
+                                    }).catch(() => {
+                                        toast.error("Not valid URL");
+                                        setState({ ...state, validateLoading: false });
+                                    })
+                                }
+
+                            }} />}
                         </Grid>
-                        
+
                     </FancyCard.CardContent>
-{/* 
-                    <FancyCard.CardActions>
-                        <AppButton loadingText="Validating.." loading={state.validateLoading}>Validate</AppButton>
-                    </FancyCard.CardActions> */}
 
                     <FancyCard.CardActions>
                         <AppButton color="danger" onClick={() => closeDialog?.()}>
