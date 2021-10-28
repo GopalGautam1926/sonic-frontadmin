@@ -251,7 +251,7 @@ export default function ViewRadioStation({ closeDialog }) {
                                             fullWidth: true,
                                         }}
                                         inputProps={{
-                                            readOnly: !state.editMode,
+                                            readOnly: !state.editMode && !radioStation.isError,
                                             placeholder: "Streaming URL",
                                             value: radioStation.streamingUrl,
                                             required: true,

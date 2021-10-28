@@ -30,7 +30,7 @@ export default function RadioTableRowAction({
         </IconButton>
       </RSpace.Item>
 
-      {enableStart && <RSpace.Item>
+      {/* {enableStart && <RSpace.Item>
         <AppButton asIconButton={true} color="primary" size="small" {...startButtonProps}>
           {startButton || <PlayCircleFilledWhiteOutlinedIcon style={{ fontSize: 18 }} />}
         </AppButton>
@@ -40,7 +40,7 @@ export default function RadioTableRowAction({
         <AppButton asIconButton={true} color="danger" size="small" {...stopButtonProps}>
           {stopButton || <PlayCircleFilledWhiteRoundedIcon style={{ fontSize: 18 }} />}
         </AppButton>
-      </RSpace.Item>}
+      </RSpace.Item>} */}
 
       {enablePlay && <RSpace.Item>
         <RPopconfirm
