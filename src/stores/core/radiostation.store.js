@@ -78,9 +78,27 @@ class RadioStationStore {
         sort: '-createdAt',
         limit: 1000,
         country: options.country,
-        isStreamStarted: options.status === 'Listening' ? true : false,
-        isError: options.status === 'Error' ? true : false,
+        // isStreamStarted: options.status === 'Listening' ? true : false,
+        // isError: options.status === 'Error' ? true : false,
       },
+    }
+    switch (options.status) {
+      case 'Listening':
+        defaultOptions.params['isStreamStarted']=true
+        defaultOptions.params['isError']=false
+        break;
+
+        case 'Not Listening':
+          defaultOptions.params['isStreamStarted']=false
+          break;
+
+          case 'Error':
+          defaultOptions.params['isError']=true
+          defaultOptions.params['isStreamStarted']=true
+          break;
+    
+      default:
+        break;
     }
     options = deepmerge(defaultOptions, options)
     radiostationHttps

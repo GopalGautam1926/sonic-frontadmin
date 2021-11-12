@@ -106,22 +106,37 @@ function RadioStation() {
             (itm) => itm._id == value
           );
           const statusItem = [];
-          if (rowData?.isStreamStarted === false && !rowData?.isError) {
+          if(rowData.isError){
+            const errorMessage = rowData.error.message;
             statusItem.push(
-              <Badge color="warning" size="small" label={<div style={{ fontSize: 11 }}>Not Listening</div>} />
+              <Badge color="rose" size="small" style={{ cursor: "pointer" }} label={<Tooltip title={errorMessage}><div style={{ fontSize: 11 }}>Error</div></Tooltip>} />
             );
-          } if (rowData?.isStreamStarted === true) {
+          }else if(rowData.isStreamStarted){
             statusItem.push(
               <Badge color="success" size="small" label={<div style={{ fontSize: 11, marginLeft: 0 }}>Listening</div>} />
             );
-          }
-          if (rowData?.isError === true && !rowData?.isStreamStarted) {
-            const errorMessage = rowData.error.message;
+          }else{
             statusItem.push(
-
-              <Badge color="rose" size="small" style={{ cursor: "pointer" }} label={<Tooltip title={errorMessage}><div style={{ fontSize: 11 }}>Error</div></Tooltip>} />
+              <Badge color="warning" size="small" label={<div style={{ fontSize: 11 }}>Not Listening</div>} />
             );
           }
+          
+          // if (rowData?.isStreamStarted === false && !rowData?.isError) {
+          //   statusItem.push(
+          //     <Badge color="warning" size="small" label={<div style={{ fontSize: 11 }}>Not Listening</div>} />
+          //   );
+          // } if (rowData?.isStreamStarted === true) {
+          //   statusItem.push(
+          //     <Badge color="success" size="small" label={<div style={{ fontSize: 11, marginLeft: 0 }}>Listening</div>} />
+          //   );
+          // }
+          // if (rowData?.isError === true && !rowData?.isStreamStarted) {
+          //   const errorMessage = rowData.error.message;
+          //   statusItem.push(
+
+          //     <Badge color="rose" size="small" style={{ cursor: "pointer" }} label={<Tooltip title={errorMessage}><div style={{ fontSize: 11 }}>Error</div></Tooltip>} />
+          //   );
+          // }
           return (
             <RSpace>
               {statusItem.map((status) => (
