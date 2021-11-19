@@ -13,7 +13,51 @@ import Check from "@material-ui/icons/Check";
 import useStyles from "./styles";
 import { Select } from "@material-ui/core";
 import countries from "../../constants/countries";
+import Box from '@material-ui/core/Box';
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+// ISO 3166-1 alpha-2
+// ⚠️ No support for IE 11
+function countryToFlag(isoCode) {
+  return typeof String.fromCodePoint !== 'undefined'
+    ? isoCode
+        .toUpperCase()
+        .replace(/./g, (char) => String.fromCodePoint(char.charCodeAt(0) + 127397))
+    : isoCode;
+}
+export function CountrySelect() {
+  const classes = useStyles();
 
+  return (
+    <Autocomplete
+      id="country-select-demo"
+      style={{ width: 300 }}
+      options={countries}
+      classes={{
+        option: classes.countrySelectOption,
+      }}
+      autoHighlight
+      getOptionLabel={(option) => option.name}
+      renderOption={(option) => (
+        <React.Fragment>
+          <span>{countryToFlag(option.alpha2code)}</span>
+          {option.name} ({option.alpha2code}) {option.phoneCode}
+        </React.Fragment>
+      )}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label="Choose a country"
+          // variant="outlined"
+          inputProps={{
+            ...params.inputProps,
+            autoComplete: 'new-password', // disable autocomplete and autofill
+          }}
+        />
+      )}
+    />
+  );
+}
 export default function CountryDropDown({
   formControlProps,
   labelText,

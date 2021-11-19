@@ -1,6 +1,7 @@
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import RadioIcon from '@material-ui/icons/Radio';
+import PeopleIcon from '@material-ui/icons/People';
 import Dashboard from "../pages/Dashboard/Dashboard";
 import LicenseKeys from '../pages/KeysManagement/LicenseKeys/LicenseKeys';
 import ApiKeys from '../pages/KeysManagement/ApiKeys/ApiKeys';
@@ -9,6 +10,8 @@ import RadioStation from '../pages/RadioManagement/RadioStation/RadioStation';
 import { observer } from 'mobx-react';
 import ViewApiKey from '../pages/KeysManagement/ApiKeys/components/ViewApiKey';
 import ViewRadioStation from "../pages/RadioManagement/RadioStation/components/ViewRadioStation";
+import RegisterUser from '../pages/UserManagement/components/RegisterUser';
+import AddMonitorSubscriptionToUser from "../pages/UserManagement/components/AddMonitorSubscriptionToUser";
 
 export const routesData = [
   {
@@ -98,6 +101,33 @@ export const routesData = [
       },
     ],
   },
+  {
+    icon: <PeopleIcon />,
+    name: "Users Management",
+    sidebar:true,
+    parentPath:'/users-management',
+    layout: "/admin",
+    routes: [
+      {
+        path: "/users-management/register-new-user",
+        name: "Register New User",
+        component: observer(RegisterUser),
+        exact:true,
+        sidebar:true,
+        layout: "/admin",
+        key:"um_registernewuser"
+      },
+      {
+        path: "/users-management/add-monitoring-subscription-to-user",
+        name: "Add Subscription",
+        component: observer(AddMonitorSubscriptionToUser),
+        exact:true,
+        sidebar:true,
+        layout: "/admin",
+        key:"um_add_monitoring_subscription_to_user"
+      }
+    ]
+  }
 ];
 
 

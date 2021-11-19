@@ -33,6 +33,7 @@ export function AppWebRequest(config) {
       log("error response", error.response);
       responseError = {
         ...error.response?.data,
+        ...getProperErrorMessageFromError(error.response?.data),
         status: error.response.status,
         headers: error.response.headers,
       };
@@ -51,4 +52,22 @@ export function AppWebRequest(config) {
     log("responseError",responseError)
     return Promise.reject(responseError)
   });
+}
+
+function getProperErrorMessageFromError(error){
+const errorObj={
+  message:"",
+  errorData:[]
+}
+
+if(typeof(error?.message)=="string"){
+  errorObj.message=error?.message
+}else if(Array.isArray(error?.message) && typeof(error?.message[0])=="string"){
+  errorObj.errorData=error?.message
+  errorObj.message=error?.message[0]
+}else{
+errorObj.message=error?.error || "Unexpected error occures"
+}
+
+return errorObj
 }

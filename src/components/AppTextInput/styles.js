@@ -40,6 +40,38 @@ export default makeStyles((theme) => ({
       labelRootSuccess: {
         color: theme.palette.success.main,
       },
+      visibilityIcon:{
+        position: "absolute",
+        top: "18px",
+        right: "0",
+        zIndex: "2",
+        display: "block",
+        width: "24px",
+        height: "24px",
+        textAlign: "center",
+        cursor:'pointer'
+      },
+      countryselect:{
+        position: "absolute",
+        top: "18px",
+        right: "0",
+        borderWidth:"0px",
+        border:'none',
+        borderBottomWidth: "0px !important",
+        zIndex: "2",
+        display: "block",
+        width: "100px",
+        height: "24px",
+        textAlign: "center",
+        cursor:'pointer'
+      },
+      countrySelectOption: {
+        fontSize: 15,
+        '& > span': {
+          marginRight: 10,
+          fontSize: 18,
+        },
+      },
       feedback: {
         position: "absolute",
         top: "18px",
