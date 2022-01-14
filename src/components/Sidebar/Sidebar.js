@@ -13,6 +13,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Collapse from "@material-ui/core/Collapse";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import Typography from "@material-ui/core/Typography";
 
 import useStyles from "./styles";
 import { observer } from "mobx-react";
@@ -20,8 +21,9 @@ import Logo from "../Logo/Logo";
 import { hasChildren } from "../../utils/general.utils";
 // import { menudatasets } from './menudatasets';
 import { routesData } from "../../routes/routes.data";
-import { Link, NavLink, useLocation ,matchPath} from "react-router-dom";
+import { Link, NavLink, useLocation, matchPath } from "react-router-dom";
 import { log } from '../../utils/app.debug';
+import { Tooltip } from "@material-ui/core";
 
 export default observer(({ open, handleDrawerClose, handleDrawerOpen }) => {
   const classes = useStyles();
@@ -66,10 +68,10 @@ export default observer(({ open, handleDrawerClose, handleDrawerOpen }) => {
 });
 
 const MenuItem = ({ route }) => {
-  const routeToCheckAndModify = {...route}
-  if(!routeToCheckAndModify.sidebar) return null 
-  if(routeToCheckAndModify.routes){
-    routeToCheckAndModify.routes = routeToCheckAndModify?.routes?.filter?.(rou=>rou.sidebar)
+  const routeToCheckAndModify = { ...route }
+  if (!routeToCheckAndModify.sidebar) return null
+  if (routeToCheckAndModify.routes) {
+    routeToCheckAndModify.routes = routeToCheckAndModify?.routes?.filter?.(rou => rou.sidebar)
   }
   const Component = hasChildren(routeToCheckAndModify) ? MultiLevel : SingleLevel;
   return <Component route={routeToCheckAndModify} />;
@@ -82,7 +84,7 @@ const SingleLevel = ({ route }) => {
     <ListItem
       component={Link}
       to={route.layout + route.path}
-      classes={{root:classes.listItemRoot,selected:classes.listItemSelected}}
+      classes={{ root: classes.listItemRoot, selected: classes.listItemSelected }}
       button
       selected={location.pathname == `${route.layout}${route.path}`}
     >
@@ -95,25 +97,33 @@ const MultiLevel = ({ route }) => {
   const { routes: children } = route;
   const [open, setOpen] = useState(false);
   const classes = useStyles();
-const location = useLocation()
+  const location = useLocation()
   const handleClick = () => {
     setOpen((prev) => !prev);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     const matched = matchPath(location.pathname, {
-      path: route?.layout+route?.parentPath,
+      path: route?.layout + route?.parentPath,
     });
-    if(matched){
+    if (matched) {
       setOpen(true)
     }
-  },[location])
+  }, [location])
 
   return (
     <React.Fragment>
       <ListItem className={classes.listItem} button onClick={handleClick}>
         <ListItemIcon>{route.icon}</ListItemIcon>
-        <ListItemText primary={route.name} />
+        {/* <ListItemText primary={route.name} /> */}
+        <ListItemText>
+          <Tooltip title={route.name}>
+            <Typography noWrap>
+              {route.name}
+            </Typography>
+          </Tooltip>
+        </ListItemText>
+
         {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
