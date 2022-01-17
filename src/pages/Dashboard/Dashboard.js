@@ -7,6 +7,7 @@ import { RadioStationStats } from "../RadioManagement/RadioStation/components/Ra
 import CompaniesStats from "../CompanyManagement/components/CompaniesStats";
 import PlaysStats from "../SonicKeyManagement/components/PlaysStats";
 import UserStats from "../UserManagement/components/UserStats";
+import GroupStats from "../GroupManagement/components/GroupStats";
 
 export default function Dashboard() {
   const classes = useStyles();
@@ -35,6 +36,10 @@ export default function Dashboard() {
 
         <Grid item xs={12} sm={6} md={3}>
           <CompaniesStats />
+        </Grid>
+
+        <Grid item xs={12} sm={6} md={3}>
+          <GroupStats />
         </Grid>
       </Grid>
     </div>

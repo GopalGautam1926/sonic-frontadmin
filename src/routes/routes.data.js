@@ -16,6 +16,7 @@ import AddMonitorSubscriptionToUser from "../pages/UserManagement/components/Add
 import Plays from "../pages/SonicKeyManagement/Plays";
 import Companies from "../pages/CompanyManagement/Companies";
 import Users from "../pages/UserManagement/Users";
+import Group from "../pages/GroupManagement/Group";
 
 export const routesData = [
   {
@@ -199,6 +200,35 @@ export const routesData = [
         // ]
       }
     ],
+  },
+  {
+    icon: <PeopleIcon />,
+    name: "Group Management",
+    sidebar: true,
+    parentPath: '/groups-management',
+    layout: "/admin",
+    routes: [
+      {
+        path: "/groups-management/groups",
+        name: "Groups",
+        component: observer(Group),
+        exact: true,
+        sidebar: true,
+        layout: "/admin",
+        key: "gm_groups",
+        // routes: [
+        //   {
+        //     path: "/users-management/register-new-user",
+        //     name: "Register New User",
+        //     component: RegisterUser,
+        //     exact: true,
+        //     sidebar: false,
+        //     layout: "/admin",
+        //     key: "um_registernewuser"
+        //   }
+        // ]
+      }
+    ]
   },
 ];
 
