@@ -1,24 +1,21 @@
 import React from 'react'
 import DataFetchingStateComponent from '../../components/common/DataFetchingStateComponent';
 import FancyCard from '../../components/FancyCard/FancyCard';
+import RSpace from '../../components/rcomponents/RSpace';
 import Table from '../../components/Table/Table';
 import { useStore } from '../../stores'
-import FilterPlays from './components/FilterPlays';
+import RegisterUser from './components/RegisterUser';
 
-export default function Plays() {
+export default function Users() {
     const [values, setValues] = React.useState({
-        // openPlayingModal: false,
+
     })
-    const { sonickeyStore } = useStore();
+    const { } = useStore();
 
     const columns = [
         // {
         //     label: "Name",
         //     name: "name",
-        // },
-        // {
-        //     label: "Country",
-        //     name: "country",
         // },
     ];
 
@@ -29,9 +26,9 @@ export default function Plays() {
                     <FancyCard.CardHeader color="success">
                         {(headerClasses) => (
                             <>
-                                <h4 className={headerClasses.cardTitleWhite}>Plays</h4>
+                                <h4 className={headerClasses.cardTitleWhite}>Users</h4>
                                 <p className={headerClasses.cardCategoryWhite}>
-                                    List of all plays
+                                    List of all users
                                 </p>
                             </>
                         )}
@@ -50,7 +47,7 @@ export default function Plays() {
                                     refreshButtonProps={{
                                         onClick: () => { },
                                     }}
-                                    componentInsideDialog={<FilterPlays />}
+                                    componentInsideDialog={<RegisterUser />}
                                 />
                             }
                             //   data={licenseKeyStore.createTableData()}

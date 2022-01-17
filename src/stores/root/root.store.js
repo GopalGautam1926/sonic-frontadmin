@@ -1,18 +1,19 @@
 import { globalStore } from "../global"
-import { apiKeyStore,licenseKeyStore,radioStationStore } from '../core';
+import { apiKeyStore, licenseKeyStore, radioStationStore, sonickeyStore } from '../core';
 import { sessionStore } from '../session/session.store';
 
 
 class RootStore {
-    globalStore=globalStore
-    apiKeyStore=apiKeyStore
-    licenseKeyStore=licenseKeyStore
-    radioStationStore=radioStationStore
-    sessionStore=sessionStore
+    globalStore = globalStore
+    apiKeyStore = apiKeyStore
+    licenseKeyStore = licenseKeyStore
+    radioStationStore = radioStationStore
+    sessionStore = sessionStore
+    sonickeyStore = sonickeyStore
 
-   constructor() {
-       //Do some initial stuffs
-   }
+    constructor() {
+        //Do some initial stuffs
+    }
 }
 
 export const rootStore = new RootStore()
