@@ -1,27 +1,10 @@
 import React from 'react'
-import DataFetchingStateComponent from '../../components/common/DataFetchingStateComponent';
-import FancyCard from '../../components/FancyCard/FancyCard';
-import Table from '../../components/Table/Table';
-import { useStore } from '../../stores'
-import FilterPlays from './components/FilterPlays';
+import DataFetchingStateComponent from '../../components/common/DataFetchingStateComponent'
+import FancyCard from '../../components/FancyCard/FancyCard'
+import Table from '../../components/Table/Table'
+import FilterPlays from '../SonicKeyManagement/components/FilterPlays'
 
-export default function Plays() {
-    const [values, setValues] = React.useState({
-        // openPlayingModal: false,
-    })
-    const { sonickeyStore } = useStore();
-
-    const columns = [
-        // {
-        //     label: "Name",
-        //     name: "name",
-        // },
-        // {
-        //     label: "Country",
-        //     name: "country",
-        // },
-    ];
-
+export default function Group() {
     return (
         <div>
             <FancyCard
@@ -29,9 +12,9 @@ export default function Plays() {
                     <FancyCard.CardHeader color="success">
                         {(headerClasses) => (
                             <>
-                                <h4 className={headerClasses.cardTitleWhite}>Plays</h4>
+                                <h4 className={headerClasses.cardTitleWhite}>Groups</h4>
                                 <p className={headerClasses.cardCategoryWhite}>
-                                    List of all plays
+                                    List of all groups
                                 </p>
                             </>
                         )}
@@ -53,8 +36,8 @@ export default function Plays() {
                                     componentInsideDialog={<FilterPlays />}
                                 />
                             }
-                            //   data={licenseKeyStore.createTableData()}
-                            columns={columns}
+                        //   data={licenseKeyStore.createTableData()}
+                        // columns={columns}
                         //   options={{
                         //     count:licenseKeyStore.getLicenseKeys.totalDocs
                         //   }}

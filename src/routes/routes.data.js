@@ -15,6 +15,8 @@ import RegisterUser from '../pages/UserManagement/components/RegisterUser';
 import AddMonitorSubscriptionToUser from "../pages/UserManagement/components/AddMonitorSubscriptionToUser";
 import Plays from "../pages/SonicKeyManagement/Plays";
 import Companies from "../pages/CompanyManagement/Companies";
+import Users from "../pages/UserManagement/Users";
+import Group from "../pages/GroupManagement/Group";
 
 export const routesData = [
   {
@@ -112,13 +114,24 @@ export const routesData = [
     layout: "/admin",
     routes: [
       {
-        path: "/users-management/register-new-user",
-        name: "Register New User",
-        component: observer(RegisterUser),
+        path: "/users-management/users",
+        name: "Users",
+        component: observer(Users),
         exact: true,
         sidebar: true,
         layout: "/admin",
-        key: "um_registernewuser"
+        key: "um_users",
+        routes: [
+          {
+            path: "/users-management/register-new-user",
+            name: "Register New User",
+            component: RegisterUser,
+            exact: true,
+            sidebar: false,
+            layout: "/admin",
+            key: "um_registernewuser"
+          }
+        ]
       },
       {
         path: "/users-management/add-monitoring-subscription-to-user",
@@ -128,8 +141,7 @@ export const routesData = [
         sidebar: true,
         layout: "/admin",
         key: "um_add_monitoring_subscription_to_user"
-      }
-    ]
+      }]
   },
   {
     icon: <VpnKeyIcon />,
@@ -188,6 +200,35 @@ export const routesData = [
         // ]
       }
     ],
+  },
+  {
+    icon: <PeopleIcon />,
+    name: "Group Management",
+    sidebar: true,
+    parentPath: '/groups-management',
+    layout: "/admin",
+    routes: [
+      {
+        path: "/groups-management/groups",
+        name: "Groups",
+        component: observer(Group),
+        exact: true,
+        sidebar: true,
+        layout: "/admin",
+        key: "gm_groups",
+        // routes: [
+        //   {
+        //     path: "/users-management/register-new-user",
+        //     name: "Register New User",
+        //     component: RegisterUser,
+        //     exact: true,
+        //     sidebar: false,
+        //     layout: "/admin",
+        //     key: "um_registernewuser"
+        //   }
+        // ]
+      }
+    ]
   },
 ];
 

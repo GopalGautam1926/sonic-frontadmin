@@ -29,7 +29,7 @@ export default function RegisterUser({ closeDialog }) {
   const [newUser, setNewUser] = useState(initialUserDetails);
   const [state, setState] = useState({
     loading: false,
-    error:null
+    error: null
   });
 
   const onSubmit = (e) => {
@@ -37,7 +37,7 @@ export default function RegisterUser({ closeDialog }) {
     setState({ ...state, loading: true });
     const payload = {
       ...newUser,
-      password:newUser.tempPassword
+      password: newUser.tempPassword
     };
     if (payload.phoneNumber) {
       payload.phoneNumber = `${payload.countryCode}${payload.phoneNumber}`;
@@ -174,7 +174,7 @@ export default function RegisterUser({ closeDialog }) {
                     onChange: (e) =>
                       setNewUser({ ...newUser, phoneNumber: e.target.value }),
                   }}
-                  onChangePhoneNumber={({ code, number }) => {}}
+                  onChangePhoneNumber={({ code, number }) => { }}
                   countrySelectProps={{
                     value: newUser.countryCode,
                     onChange: (e) =>
@@ -228,9 +228,9 @@ export default function RegisterUser({ closeDialog }) {
           </FancyCard.CardContent>
 
           <FancyCard.CardActions>
-            {/* <AppButton color="danger" onClick={() => closeDialog?.()}>
+            <AppButton color="danger" onClick={() => closeDialog?.()}>
               Close
-            </AppButton> */}
+            </AppButton>
             <AppButton
               type="submit"
               loadingText="Creating.."

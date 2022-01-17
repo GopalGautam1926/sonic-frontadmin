@@ -1,6 +1,6 @@
-import React,{Component} from 'react';
-import {useContext} from "react";
-import {createContext} from "react";
+import React, { Component } from 'react';
+import { useContext } from "react";
+import { createContext } from "react";
 import { rootStore } from './root/root.store';
 
 
@@ -10,27 +10,28 @@ export const StoreProvider = StoreContext.Provider;
 export const StoreConsumer = StoreContext.Consumer;
 
 export const useStore = () => {
-    return useContext(StoreContext);
+  return useContext(StoreContext);
 };
 
-export const fetchInitialData = ()=>{
-  const {licenseKeyStore,apiKeyStore,radioStationStore} = rootStore
+export const fetchInitialData = () => {
+  const { licenseKeyStore, apiKeyStore, radioStationStore, sonickeyStore } = rootStore
   licenseKeyStore.fetchLicenseKeys()
   apiKeyStore.fetchApiKeys()
   radioStationStore.fetchRadioStations()
+  sonickeyStore.fetchPlays()
 }
 
 export function withStore(WrapperComponent) {
 
   return (props) => {
     return (
-        <StoreConsumer>
-          {(stores) => {
-            return (
-              <WrapperComponent {...stores} {...props} />
-            );
-          }}
-        </StoreConsumer>
+      <StoreConsumer>
+        {(stores) => {
+          return (
+            <WrapperComponent {...stores} {...props} />
+          );
+        }}
+      </StoreConsumer>
     );
   };
 }
