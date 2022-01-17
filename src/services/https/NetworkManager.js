@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig,AxiosResponse } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { sessionStore } from "../../stores/session/session.store";
 import httpUrl from "./httpUrl";
 import { log } from "../../utils/app.debug";
@@ -40,34 +40,34 @@ export function AppWebRequest(config) {
     } else if (error.request) {
       responseError = {
         ...error,
-        message : "Can not made connection to the server"
+        message: "Can not made connection to the server"
       };
     } else {
       responseError = {
         ...error,
-        message : "Unexpected error occured!"
+        message: "Unexpected error occured!"
       };
     }
     log("exactual error", error);
-    log("responseError",responseError)
+    log("responseError", responseError)
     return Promise.reject(responseError)
   });
 }
 
-function getProperErrorMessageFromError(error){
-const errorObj={
-  message:"",
-  errorData:[]
-}
+function getProperErrorMessageFromError(error) {
+  const errorObj = {
+    message: "",
+    errorData: []
+  }
 
-if(typeof(error?.message)=="string"){
-  errorObj.message=error?.message
-}else if(Array.isArray(error?.message) && typeof(error?.message[0])=="string"){
-  errorObj.errorData=error?.message
-  errorObj.message=error?.message[0]
-}else{
-errorObj.message=error?.error || "Unexpected error occures"
-}
+  if (typeof (error?.message) == "string") {
+    errorObj.message = error?.message
+  } else if (Array.isArray(error?.message) && typeof (error?.message[0]) == "string") {
+    errorObj.errorData = error?.message
+    errorObj.message = error?.message[0]
+  } else {
+    errorObj.message = error?.error || "Unexpected error occured"
+  }
 
-return errorObj
+  return errorObj
 }
