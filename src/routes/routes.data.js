@@ -29,82 +29,62 @@ export const routesData = [
     key: "dashboard" //unique to identify
   },
   {
-    icon: <VpnKeyIcon />,
-    name: "Keys Management",
+    icon: <BusinessIcon />,
+    name: "Company Management",
     sidebar: true,
-    parentPath: '/keys-management',
+    parentPath: '/company-management',
     layout: "/admin",
     routes: [
       {
-        path: "/keys-management/license-keys",
-        name: "Licenses",
-        component: observer(LicenseKeys),
+        path: "/company-management/company",
+        name: "Companies",
+        component: observer(Companies),
         exact: true,
         sidebar: true,
         layout: "/admin",
-        key: "km_licensekeys",
-        routes: [
-          {
-            exact: true,
-            sidebar: false,
-            path: "/keys-management/license-keys/view/:licenseId",
-            name: "View License",
-            component: ViewLicenseKey,
-            layout: "/admin",
-            key: "km_licensekeys_view",
-          },
-        ]
-      },
-      {
-        path: "/keys-management/api-keys",
-        name: "Api Keys",
-        exact: true,
-        component: observer(ApiKeys),
-        sidebar: true,
-        layout: "/admin",
-        key: "km_apikeys",
-        routes: [
-          {
-            exact: true,
-            sidebar: false,
-            path: "/keys-management/api-keys/view/:apiId",
-            name: "View Api Key",
-            component: observer(ViewApiKey),
-            layout: "/admin",
-            key: "km_apikeys_view",
-          },
-        ]
-      },
+        key: "cm_company",
+        // routes: [
+        //   {
+        //     exact: true,
+        //     sidebar: false,
+        //     path: "/company-management/company/view/:companyId",
+        //     name: "View Company",
+        //     component: ViewLicenseKey,
+        //     layout: "/admin",
+        //     key: "cm_company_view",
+        //   },
+        // ]
+      }
     ],
   },
   {
-    icon: <RadioIcon />,
-    name: "Radio Management",
+    icon: <PeopleIcon />,
+    name: "Group Management",
     sidebar: true,
-    parentPath: '/radio-management',
+    parentPath: '/groups-management',
     layout: "/admin",
     routes: [
       {
-        path: "/radio-management/radio-station",
-        name: "Radio Station",
-        component: observer(RadioStation),
+        path: "/groups-management/groups",
+        name: "Groups",
+        component: observer(Group),
         exact: true,
         sidebar: true,
         layout: "/admin",
-        key: "radio_station",
-        routes: [
-          {
-            exact: true,
-            sidebar: false,
-            path: "/radio-management/radio-station/view/:radioStationId",
-            name: "View Radio Station",
-            component: ViewRadioStation,
-            layout: "/admin",
-            key: "radiostation_view",
-          },
-        ]
-      },
-    ],
+        key: "gm_groups",
+        // routes: [
+        //   {
+        //     path: "/users-management/register-new-user",
+        //     name: "Register New User",
+        //     component: RegisterUser,
+        //     exact: true,
+        //     sidebar: false,
+        //     layout: "/admin",
+        //     key: "um_registernewuser"
+        //   }
+        // ]
+      }
+    ]
   },
   {
     icon: <PeopleIcon />,
@@ -173,63 +153,83 @@ export const routesData = [
     ],
   },
   {
-    icon: <BusinessIcon />,
-    name: "Company Management",
+    icon: <RadioIcon />,
+    name: "Radio Management",
     sidebar: true,
-    parentPath: '/company-management',
+    parentPath: '/radio-management',
     layout: "/admin",
     routes: [
       {
-        path: "/company-management/company",
-        name: "Companies",
-        component: observer(Companies),
+        path: "/radio-management/radio-station",
+        name: "Radio Station",
+        component: observer(RadioStation),
         exact: true,
         sidebar: true,
         layout: "/admin",
-        key: "cm_company",
-        // routes: [
-        //   {
-        //     exact: true,
-        //     sidebar: false,
-        //     path: "/company-management/company/view/:companyId",
-        //     name: "View Company",
-        //     component: ViewLicenseKey,
-        //     layout: "/admin",
-        //     key: "cm_company_view",
-        //   },
-        // ]
-      }
+        key: "radio_station",
+        routes: [
+          {
+            exact: true,
+            sidebar: false,
+            path: "/radio-management/radio-station/view/:radioStationId",
+            name: "View Radio Station",
+            component: ViewRadioStation,
+            layout: "/admin",
+            key: "radiostation_view",
+          },
+        ]
+      },
     ],
   },
   {
-    icon: <PeopleIcon />,
-    name: "Group Management",
+    icon: <VpnKeyIcon />,
+    name: "Keys Management",
     sidebar: true,
-    parentPath: '/groups-management',
+    parentPath: '/keys-management',
     layout: "/admin",
     routes: [
       {
-        path: "/groups-management/groups",
-        name: "Groups",
-        component: observer(Group),
+        path: "/keys-management/license-keys",
+        name: "Licenses",
+        component: observer(LicenseKeys),
         exact: true,
         sidebar: true,
         layout: "/admin",
-        key: "gm_groups",
-        // routes: [
-        //   {
-        //     path: "/users-management/register-new-user",
-        //     name: "Register New User",
-        //     component: RegisterUser,
-        //     exact: true,
-        //     sidebar: false,
-        //     layout: "/admin",
-        //     key: "um_registernewuser"
-        //   }
-        // ]
-      }
-    ]
-  },
+        key: "km_licensekeys",
+        routes: [
+          {
+            exact: true,
+            sidebar: false,
+            path: "/keys-management/license-keys/view/:licenseId",
+            name: "View License",
+            component: ViewLicenseKey,
+            layout: "/admin",
+            key: "km_licensekeys_view",
+          },
+        ]
+      },
+      {
+        path: "/keys-management/api-keys",
+        name: "Api Keys",
+        exact: true,
+        component: observer(ApiKeys),
+        sidebar: true,
+        layout: "/admin",
+        key: "km_apikeys",
+        routes: [
+          {
+            exact: true,
+            sidebar: false,
+            path: "/keys-management/api-keys/view/:apiId",
+            name: "View Api Key",
+            component: observer(ViewApiKey),
+            layout: "/admin",
+            key: "km_apikeys_view",
+          },
+        ]
+      },
+    ],
+  }
 ];
 
 

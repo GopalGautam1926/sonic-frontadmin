@@ -11,7 +11,7 @@ export default function PlaysStats() {
                 <FancyCard.CardHeader icon>
                     {(headerClasses) => (
                         <>
-                            <FancyCard.CardIcon color="success">
+                            <FancyCard.CardIcon color="purple">
                                 <VpnKeyIcon />
                             </FancyCard.CardIcon>
                             <div style={{ marginTop: 10, textAlign: "right" }}>
@@ -27,7 +27,7 @@ export default function PlaysStats() {
         >
             <FancyCard.CardContent>
                 <FancyCard.Divider />
-                <Link to={getRouteNames()["sm_sonickeys"]}>Add new sonickey</Link>
+                <Link to={getRouteNames()["sm_sonickeys"]}>Search new sonickey</Link>
             </FancyCard.CardContent>
         </FancyCard>
     )

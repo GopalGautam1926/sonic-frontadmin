@@ -30,16 +30,16 @@ export default function Dashboard() {
           <UserStats />
         </Grid>
 
-        {/* <Grid item xs={12} sm={6} md={3}>
-          <PlaysStats />
-        </Grid> */}
-
         <Grid item xs={12} sm={6} md={3}>
           <CompaniesStats />
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
           <GroupStats />
+        </Grid>
+
+        <Grid item xs={12} sm={6} md={3}>
+          <PlaysStats />
         </Grid>
       </Grid>
     </div>
