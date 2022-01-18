@@ -4,16 +4,16 @@ import FancyCard from '../../../components/FancyCard/FancyCard'
 import { Grid, FormControl, FormLabel } from "@material-ui/core";
 import AppTextInput from "../../../components/AppTextInput/AppTextInput";
 
-export default function AddCompany({ closeDialog }) {
+export default function AddGroup({ closeDialog }) {
     const [state, setState] = React.useState({
         loading: false,
-        companyData: {
+        groupData: {
             name: ""
         }
     });
 
-    const onCompanySubmit = (e) => {
-        e.preventDefault()
+    const onGroupSubmit = () => {
+
     }
 
     return (
@@ -24,22 +24,22 @@ export default function AddCompany({ closeDialog }) {
                         {(headerClasses) => (
                             <>
                                 <h4 className={headerClasses.cardTitleWhite}>
-                                    Add New Company
+                                    Create New Group
                                 </h4>
                                 <p className={headerClasses.cardCategoryWhite}>
-                                    Add new company
+                                    Create new Group
                                 </p>
                             </>
                         )}
                     </FancyCard.CardHeader>
                 }
             >
-                <form onSubmit={onCompanySubmit}>
+                <form onSubmit={onGroupSubmit}>
                     <FancyCard.CardContent>
                         <Grid container>
                             <FormControl fullWidth component="fieldset" >
                                 <AppTextInput
-                                    labelText="Company name"
+                                    labelText="Group name"
                                     id="name"
                                     formControlProps={{
                                         fullWidth: true,
@@ -47,11 +47,11 @@ export default function AddCompany({ closeDialog }) {
                                     inputProps={{
                                         id: "name",
                                         required: true,
-                                        value: state.companyData.name,
+                                        value: state.groupData.name,
                                         onChange: (e) =>
                                             setState({
-                                                ...state, companyData: {
-                                                    ...state.companyData, name: e.target.value
+                                                ...state, groupData: {
+                                                    ...state.groupData, name: e.target.value
                                                 }
                                             }),
                                     }}
@@ -64,7 +64,7 @@ export default function AddCompany({ closeDialog }) {
                         <AppButton color="danger" onClick={() => closeDialog?.()}>
                             Close
                         </AppButton>
-                        <AppButton type="submit" loadingText="Adding.." loading={state.loading}>Add</AppButton>
+                        <AppButton type="submit" loadingText="Adding.." loading={state.loading}>Create</AppButton>
                     </FancyCard.CardActions>
                 </form>
             </FancyCard>

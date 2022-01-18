@@ -1,7 +1,7 @@
 import { globalStore } from "../global"
-import { apiKeyStore, licenseKeyStore, radioStationStore, sonickeyStore } from '../core';
+import { apiKeyStore, companyStore, licenseKeyStore, radioStationStore, sonickeyStore } from '../core';
 import { sessionStore } from '../session/session.store';
-
+import { groupStore } from "../core/group.store";
 
 class RootStore {
     globalStore = globalStore
@@ -10,6 +10,8 @@ class RootStore {
     radioStationStore = radioStationStore
     sessionStore = sessionStore
     sonickeyStore = sonickeyStore
+    companyStore = companyStore
+    groupStore = groupStore
 
     constructor() {
         //Do some initial stuffs

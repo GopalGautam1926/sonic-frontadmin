@@ -2,9 +2,22 @@ import React from 'react'
 import DataFetchingStateComponent from '../../components/common/DataFetchingStateComponent'
 import FancyCard from '../../components/FancyCard/FancyCard'
 import Table from '../../components/Table/Table'
-import FilterPlays from '../SonicKeyManagement/components/FilterPlays'
+import { useStore } from '../../stores'
+import AddGroup from './components/AddGroup'
 
 export default function Group() {
+    const { groupStore } = useStore()
+    const columns = [
+        {
+            label: "Name",
+            name: "name",
+        },
+        {
+            label: "Owner",
+            name: "owner",
+        }
+    ]
+
     return (
         <div>
             <FancyCard
@@ -23,21 +36,21 @@ export default function Group() {
             >
                 <FancyCard.CardContent>
                     <DataFetchingStateComponent
-                    // loading={licenseKeyStore.loading}
-                    // error={licenseKeyStore.error}
-                    // onClickTryAgain={() => licenseKeyStore.fetchLicenseKeys()}
+                        loading={groupStore.loading}
+                        error={groupStore.error}
+                        onClickTryAgain={() => groupStore.fetchGroups()}
                     >
                         <Table
                             title={
                                 <Table.TableActions
                                     refreshButtonProps={{
-                                        onClick: () => { },
+                                        onClick: () => { groupStore.fetchGroups() },
                                     }}
-                                    componentInsideDialog={<FilterPlays />}
+                                    componentInsideDialog={<AddGroup />}
                                 />
                             }
-                        //   data={licenseKeyStore.createTableData()}
-                        // columns={columns}
+                            data={groupStore.getGroups?.docs || []}
+                            columns={columns}
                         //   options={{
                         //     count:licenseKeyStore.getLicenseKeys.totalDocs
                         //   }}
