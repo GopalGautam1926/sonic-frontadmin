@@ -151,7 +151,7 @@ export const routesData = [
     layout: "/admin",
     routes: [
       {
-        path: "/sonickeys-management/sonickeys",
+        path: "/sonickeys-management/plays",
         name: "Plays",
         component: observer(Plays),
         exact: true,

@@ -12,15 +12,44 @@ export default function Plays() {
     const { sonickeyStore } = useStore();
 
     const columns = [
-        // {
-        //     label: "Name",
-        //     name: "name",
-        // },
-        // {
-        //     label: "Country",
-        //     name: "country",
-        // },
+        {
+            label: "SonicKey",
+            name: "sonickey",
+        },
+        {
+            label: "Radio Station",
+            name: "radiostation",
+        },
+        {
+            label: "Date",
+            name: "date",
+        },
+        {
+            label: "Time",
+            name: "time",
+        },
+        {
+            label: "Duration",
+            name: "duration",
+        },
+        {
+            label: "Original Filename",
+            name: "name",
+        },
+        {
+            label: "Artist",
+            name: "artist",
+        },
+        {
+            label: "Country",
+            name: "country",
+        }
     ];
+
+    const data = [
+        ["sgMMPCeNWxa", "ArBa", "17/01/2022", "05:53", "05:00", "PUTHAM PUTHU _ DALAPATHI.mp3", "ILAYARAJA", "UK"],
+        ["sgMMPCeNWxa", "ArBa", "17/01/2022", "04:53", "05:00", "PUTHAM PUTHU _ DALAPATHI.mp3", "ILAYARAJA", "UK"]
+    ]
 
     return (
         <div>
@@ -53,7 +82,7 @@ export default function Plays() {
                                     componentInsideDialog={<FilterPlays />}
                                 />
                             }
-                            //   data={licenseKeyStore.createTableData()}
+                            data={data}
                             columns={columns}
                         //   options={{
                         //     count:licenseKeyStore.getLicenseKeys.totalDocs
