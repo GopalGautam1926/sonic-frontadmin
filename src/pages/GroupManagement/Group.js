@@ -3,6 +3,7 @@ import DataFetchingStateComponent from '../../components/common/DataFetchingStat
 import FancyCard from '../../components/FancyCard/FancyCard'
 import Table from '../../components/Table/Table'
 import { useStore } from '../../stores'
+import { log } from '../../utils/app.debug'
 import AddGroup from './components/AddGroup'
 
 export default function Group() {
@@ -13,10 +14,12 @@ export default function Group() {
             name: "name",
         },
         {
-            label: "Owner",
-            name: "owner",
+            label: "ID",
+            name: "_id",
         }
     ]
+
+    log("Group store", groupStore.getGroups)
 
     return (
         <div>
@@ -49,11 +52,11 @@ export default function Group() {
                                     componentInsideDialog={<AddGroup />}
                                 />
                             }
-                            data={groupStore.getGroups?.docs || []}
+                            data={groupStore.getGroups || []}
                             columns={columns}
-                        //   options={{
-                        //     count:licenseKeyStore.getLicenseKeys.totalDocs
-                        //   }}
+                            options={{
+                                count: groupStore.getGroups?.length
+                            }}
                         />
                     </DataFetchingStateComponent>
                 </FancyCard.CardContent>

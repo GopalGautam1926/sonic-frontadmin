@@ -11,19 +11,7 @@ import groupHttps from "../../services/https/resources/group.https";
 class GroupStore {
     @observable loading = false;
     @observable error = null;
-    @observable groups = {
-        docs: [],
-        totalDocs: 0,
-        offset: 0,
-        limit: 0,
-        totalPages: 0,
-        page: 0,
-        pagingCounter: 0,
-        hasPrevPage: false,
-        hasNextPage: false,
-        prevPage: 0,
-        nextPage: 0,
-    }
+    @observable groups = []
 
     constructor() {
         // makeObservable(this);
@@ -47,7 +35,7 @@ class GroupStore {
         groupHttps.fetchGroups(options)
             .then(({ data }) => {
                 log("Group Data", data)
-                this.company = data
+                this.groups = data
                 this.loading = false;
             })
             .catch((err) => {
@@ -55,6 +43,11 @@ class GroupStore {
                 this.error = err;
                 this.loading = false;
             })
+    }
+
+    @action
+    addGroup(groupData) {
+        this.groups.push(groupData)
     }
 }
 

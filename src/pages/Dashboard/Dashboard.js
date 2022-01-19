@@ -4,10 +4,10 @@ import useStyles from "./styles";
 import { LicenseKeyStats } from "../KeysManagement/LicenseKeys/components/LicenseKeyStats";
 import ApiKeyStats from "../KeysManagement/ApiKeys/components/ApiKeyStats";
 import { RadioStationStats } from "../RadioManagement/RadioStation/components/RadioStationStats";
-import CompaniesStats from "../CompanyManagement/components/CompaniesStats";
+import { CompaniesStats } from "../CompanyManagement/components/CompaniesStats";
 import PlaysStats from "../SonicKeyManagement/components/PlaysStats";
 import UserStats from "../UserManagement/components/UserStats";
-import GroupStats from "../GroupManagement/components/GroupStats";
+import { GroupStats } from "../GroupManagement/components/GroupStats";
 
 export default function Dashboard() {
   const classes = useStyles();

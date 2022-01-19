@@ -12,7 +12,16 @@ class GroupHttps {
     fetchGroups(options = {}) {
         return AppWebRequest({
             method: "get",
-            // url: "/sonic-keys",
+            url: "/groups",
+            ...options,
+        });
+    }
+
+    createGroup(groupPayload, options = {}) {
+        return AppWebRequest({
+            method: "post",
+            data: groupPayload,
+            url: "/groups",
             ...options,
         });
     }

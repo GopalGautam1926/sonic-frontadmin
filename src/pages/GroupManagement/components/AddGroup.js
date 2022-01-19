@@ -3,17 +3,36 @@ import AppButton from '../../../components/AppButton/AppButton'
 import FancyCard from '../../../components/FancyCard/FancyCard'
 import { Grid, FormControl, FormLabel } from "@material-ui/core";
 import AppTextInput from "../../../components/AppTextInput/AppTextInput";
+import groupHttps from '../../../services/https/resources/group.https';
+import { toast } from 'react-toastify';
+import { log } from '../../../utils/app.debug';
+import { groupStore } from '../../../stores/core/group.store';
 
 export default function AddGroup({ closeDialog }) {
     const [state, setState] = React.useState({
         loading: false,
         groupData: {
-            name: ""
-        }
+            name: "",
+            description: ""
+        },
+        error: null
     });
 
-    const onGroupSubmit = () => {
+    const onGroupSubmit = (e) => {
+        e.preventDefault()
+        const payload = { ...state.groupData }
 
+        setState({ ...state, loading: true })
+        groupHttps.createGroup(payload).then(({ data }) => {
+            setState({ ...state, loading: false })
+            groupStore.addGroup(data)
+            toast.success("Successfully added group")
+            log("AddGroup Data", data)
+        }).catch(({ err }) => {
+            setState({ ...state, loading: false, error: err?.message })
+            toast.error(err?.message || "Error adding group...")
+            log("AddGroup Error", err)
+        })
     }
 
     return (

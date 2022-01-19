@@ -3,8 +3,21 @@ import PeopleIcon from '@material-ui/icons/People';
 import FancyCard from '../../../components/FancyCard/FancyCard';
 import { Link } from 'react-router-dom';
 import { getRouteNames } from '../../../routes/routes.data';
+import { observer } from 'mobx-react';
+import { useStore } from '../../../stores';
+import { CircularProgress } from '@material-ui/core';
 
-export default function GroupStats() {
+export const GroupStats = observer(() => {
+    const { groupStore } = useStore();
+
+    var count = 0
+    if (groupStore.error) {
+        count = <span style={{ color: "red" }}>Error</span>;
+    } else if (groupStore.loading) {
+        count = <CircularProgress size={15} color="inherit" />;
+    } else {
+        count = groupStore?.getGroups?.length || 0;
+    }
     return (
         <FancyCard
             cardHeader={
@@ -17,7 +30,7 @@ export default function GroupStats() {
                             <div style={{ marginTop: 10, textAlign: "right" }}>
                                 <p className={headerClasses.cardCategory}>Groups</p>
                                 <h3 className={headerClasses.cardTitle}>
-                                    {/* {count} */}99
+                                    {count}
                                 </h3>
                             </div>
                         </>
@@ -31,4 +44,4 @@ export default function GroupStats() {
             </FancyCard.CardContent>
         </FancyCard>
     )
-}
+})

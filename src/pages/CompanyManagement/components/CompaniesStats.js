@@ -3,8 +3,21 @@ import BusinessIcon from '@material-ui/icons/Business';
 import FancyCard from '../../../components/FancyCard/FancyCard';
 import { Link } from 'react-router-dom';
 import { getRouteNames } from '../../../routes/routes.data';
+import { useStore } from '../../../stores';
+import { CircularProgress } from "@material-ui/core";
+import { observer } from 'mobx-react';
 
-export default function CompaniesStats() {
+export const CompaniesStats = observer(() => {
+    const { companyStore } = useStore();
+
+    var count = 0
+    if (companyStore.error) {
+        count = <span style={{ color: "red" }}>Error</span>;
+    } else if (companyStore.loading) {
+        count = <CircularProgress size={15} color="inherit" />;
+    } else {
+        count = companyStore?.getCompany?.length || 0;
+    }
     return (
         <FancyCard
             cardHeader={
@@ -17,7 +30,7 @@ export default function CompaniesStats() {
                             <div style={{ marginTop: 10, textAlign: "right" }}>
                                 <p className={headerClasses.cardCategory}>Companies</p>
                                 <h3 className={headerClasses.cardTitle}>
-                                    {/* {count} */}99
+                                    {count}
                                 </h3>
                             </div>
                         </>
@@ -31,4 +44,4 @@ export default function CompaniesStats() {
             </FancyCard.CardContent>
         </FancyCard>
     )
-}
+})
