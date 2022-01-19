@@ -4,8 +4,9 @@ import FancyCard from '../../../components/FancyCard/FancyCard'
 import AppTextInput from '../../../components/AppTextInput/AppTextInput'
 import CountryDropDown from '../../../components/AppTextInput/CountryDropDown'
 import AppButton from '../../../components/AppButton/AppButton'
-import ChannelDropDown from '../../../components/AppTextInput/ChannelDropDown'
 import DateField from '../../../components/AppTextInput/DateField'
+import MenuDropDown from '../../../components/AppTextInput/MenuDropDown'
+import { channel } from '../../../constants/DropDownItem'
 
 export default function FilterPlays({ closeDialog }) {
     const [values, setValues] = React.useState({
@@ -17,6 +18,9 @@ export default function FilterPlays({ closeDialog }) {
         track: "",
         label: "",
         distributor: "",
+        companyName: "",
+        groupName: "",
+        username: "",
         encodedDate: "",
     })
 
@@ -47,7 +51,7 @@ export default function FilterPlays({ closeDialog }) {
                     <FancyCard.CardContent>
                         <Grid container spacing={1}>
                             <Grid item xs={12} sm={3} md={3}>
-                                <ChannelDropDown
+                                <MenuDropDown
                                     labelText="Channel"
                                     id="channel"
                                     formControlProps={{
@@ -59,6 +63,7 @@ export default function FilterPlays({ closeDialog }) {
                                         onChange: (e) =>
                                             setValues({ ...values, channel: e.target.value }),
                                     }}
+                                    data={channel}
                                 />
                             </Grid>
                             <Grid item xs={12} sm={3} md={3}>
@@ -173,6 +178,69 @@ export default function FilterPlays({ closeDialog }) {
                             </Grid>
 
                             <Grid item xs={12} sm={3} md={3}>
+                                <AppTextInput
+                                    labelText="Company Name"
+                                    id="companyName"
+                                    formControlProps={{
+                                        fullWidth: true,
+                                    }}
+                                    inputProps={{
+                                        placeholder: "Company Name",
+                                        value: values.companyName,
+                                        onChange: (e) =>
+                                            setValues({ ...values, companyName: e.target.value }),
+                                    }}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12} sm={3} md={3}>
+                                <AppTextInput
+                                    labelText="Group Name"
+                                    id="groupName"
+                                    formControlProps={{
+                                        fullWidth: true,
+                                    }}
+                                    inputProps={{
+                                        placeholder: "Group Name",
+                                        value: values.groupName,
+                                        onChange: (e) =>
+                                            setValues({ ...values, groupName: e.target.value }),
+                                    }}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12} sm={3} md={3}>
+                                <AppTextInput
+                                    labelText="Username"
+                                    id="username"
+                                    formControlProps={{
+                                        fullWidth: true,
+                                    }}
+                                    inputProps={{
+                                        placeholder: "Username",
+                                        value: values.username,
+                                        onChange: (e) =>
+                                            setValues({ ...values, username: e.target.value }),
+                                    }}
+                                />
+                            </Grid>
+                            {/* <Grid item xs={12} sm={3} md={3}>
+                                <AppTextInput
+                                    labelText="Encoded Date"
+                                    id="encodedDate"
+                                    formControlProps={{
+                                        fullWidth: true,
+                                    }}
+                                    inputProps={{
+                                        type: "date",
+                                        placeholder: "Encoded Date",
+                                        value: values.encodedDate,
+                                        onChange: (e) =>
+                                            setValues({ ...values, encodedDate: e.target.value }),
+                                    }}
+                                />
+                            </Grid> */}
+                            <Grid item xs={12} sm={3} md={3}>
                                 <DateField
                                     labelText="Encoded Date"
                                     id="encodedDate"
@@ -186,21 +254,6 @@ export default function FilterPlays({ closeDialog }) {
                                             setValues({ ...values, encodedDate: e.target.value }),
                                     }}
                                 />
-                                {/* <TextField
-                                    id="date"
-                                    label="Birthday"
-                                    type="date"
-                                    inputProps={{
-                                        placeholder: "Encoded Date",
-                                        value: values.encodedDate,
-                                        onChange: (e) =>
-                                            setValues({ ...values, encodedDate: e.target.value }),
-                                    }}
-                                    // className={classes.textField}
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
-                                /> */}
                             </Grid>
                         </Grid>
                     </FancyCard.CardContent>

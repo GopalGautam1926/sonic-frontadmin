@@ -11,7 +11,7 @@ import Check from "@material-ui/icons/Check";
 import useStyles from "./styles";
 import { Select } from "@material-ui/core";
 
-export default function ChannelDropDown({
+export default function MenuDropDown({
     formControlProps,
     labelText,
     id,
@@ -19,6 +19,7 @@ export default function ChannelDropDown({
     inputProps,
     error,
     success,
+    data,
 }) {
     const classes = useStyles();
 
@@ -65,10 +66,9 @@ export default function ChannelDropDown({
                 {...inputProps}
                 inputProps={newInputProps}
             >
-                <option style={{ cursor: "pointer", }} value="All">All</option>
-                <option style={{ cursor: "pointer", }} value="StreamReader">StreamReader</option>
-                <option style={{ cursor: "pointer", }} value="Portal">Portal</option>
-                <option style={{ cursor: "pointer", }} value="Mobile">Mobile</option>
+                {data?.map((data, index) => (
+                    <option style={{ cursor: "pointer" }} key={index} value={data}>{data}</option>
+                ))}
             </Select>
             {error ? (
                 <Clear className={classes.feedback + " " + classes.labelRootError} />
@@ -79,7 +79,7 @@ export default function ChannelDropDown({
     );
 }
 
-ChannelDropDown.propTypes = {
+MenuDropDown.propTypes = {
     labelText: PropTypes.node,
     labelProps: PropTypes.object,
     id: PropTypes.string,
@@ -88,5 +88,6 @@ ChannelDropDown.propTypes = {
     error: PropTypes.bool,
     success: PropTypes.bool,
     rtlActive: PropTypes.bool,
+    data: PropTypes.object,
 };
 

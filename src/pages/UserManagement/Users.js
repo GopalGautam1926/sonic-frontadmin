@@ -1,7 +1,6 @@
 import React from 'react'
 import DataFetchingStateComponent from '../../components/common/DataFetchingStateComponent';
 import FancyCard from '../../components/FancyCard/FancyCard';
-import RSpace from '../../components/rcomponents/RSpace';
 import Table from '../../components/Table/Table';
 import { useStore } from '../../stores'
 import RegisterUser from './components/RegisterUser';
@@ -10,7 +9,7 @@ export default function Users() {
     const [values, setValues] = React.useState({
 
     })
-    const { } = useStore();
+    const { userStore } = useStore();
 
     const columns = [
         // {
@@ -37,15 +36,15 @@ export default function Users() {
             >
                 <FancyCard.CardContent>
                     <DataFetchingStateComponent
-                    // loading={licenseKeyStore.loading}
-                    // error={licenseKeyStore.error}
-                    // onClickTryAgain={() => licenseKeyStore.fetchLicenseKeys()}
+                        loading={userStore.loading}
+                        error={userStore.error}
+                        onClickTryAgain={() => userStore.fetchAllUsers()}
                     >
                         <Table
                             title={
                                 <Table.TableActions
                                     refreshButtonProps={{
-                                        onClick: () => { },
+                                        onClick: () => userStore.fetchAllUsers(),
                                     }}
                                     componentInsideDialog={<RegisterUser />}
                                 />
