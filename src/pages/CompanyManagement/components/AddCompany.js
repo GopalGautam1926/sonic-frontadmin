@@ -1,19 +1,53 @@
 import React from 'react'
 import AppButton from '../../../components/AppButton/AppButton'
 import FancyCard from '../../../components/FancyCard/FancyCard'
-import { Grid, FormControl, FormLabel } from "@material-ui/core";
+import { Grid, FormControl } from "@material-ui/core";
 import AppTextInput from "../../../components/AppTextInput/AppTextInput";
+import { log } from '../../../utils/app.debug';
+import companyHttps from '../../../services/https/resources/company.https';
+import { toast } from "react-toastify";
+import { useStore } from '../../../stores';
 
 export default function AddCompany({ closeDialog }) {
+    const { companyStore } = useStore()
+
     const [state, setState] = React.useState({
         loading: false,
         companyData: {
-            name: ""
-        }
+            name: "",
+            description: "",
+            email: "",
+            contactNo: "",
+            countryCode: "+44",
+            address: {
+                country: "",
+                city: "",
+                line1: "",
+                line2: ""
+            }
+        },
+        error: null
     });
 
     const onCompanySubmit = (e) => {
         e.preventDefault()
+        const payload = { ...state.companyData }
+        if (payload.contactNo) {
+            payload.contactNo = `${payload.countryCode}${payload.contactNo}`;
+        }
+        delete payload.countryCode
+
+        setState({ ...state, loading: true })
+        companyHttps.createCompany(payload).then(({ data }) => {
+            setState({ ...state, loading: false })
+            companyStore.addCompany(data)
+            toast.success("Successfully added company")
+            log("AddCompany Data", data)
+        }).catch(({ err }) => {
+            setState({ ...state, loading: false, error: err?.message })
+            toast.error(err?.message || "Error adding company...")
+            log("AddCompany Error", err)
+        })
     }
 
     return (
@@ -52,6 +86,61 @@ export default function AddCompany({ closeDialog }) {
                                             setState({
                                                 ...state, companyData: {
                                                     ...state.companyData, name: e.target.value
+                                                }
+                                            }),
+                                    }}
+                                />
+                            </FormControl>
+
+                            <FormControl fullWidth component="fieldset" >
+                                <AppTextInput
+                                    labelText="Email"
+                                    id="email"
+                                    formControlProps={{
+                                        fullWidth: true,
+                                    }}
+                                    inputProps={{
+                                        type: "email",
+                                        required: true,
+                                        id: "email",
+                                        placeholder: "Email",
+                                        value: state.companyData.email,
+                                        onChange: (e) =>
+                                            setState({
+                                                ...state, companyData: {
+                                                    ...state.companyData, email: e.target.value
+                                                }
+                                            }),
+                                    }}
+                                />
+                            </FormControl>
+
+                            <FormControl fullWidth component="fieldset" >
+                                <AppTextInput.AppPhoneNumberInput
+                                    labelText="Phone number"
+                                    id="phonenumber"
+                                    formControlProps={{
+                                        fullWidth: true,
+                                    }}
+                                    inputProps={{
+                                        type: "number",
+                                        id: "phonenumber",
+                                        required: true,
+                                        placeholder: "Phone number",
+                                        value: state.companyData.contactNo,
+                                        onChange: (e) =>
+                                            setState({
+                                                ...state, companyData: {
+                                                    ...state.companyData, contactNo: e.target.value
+                                                }
+                                            }),
+                                    }}
+                                    countrySelectProps={{
+                                        value: state.companyData.countryCode,
+                                        onChange: (e) =>
+                                            setState({
+                                                ...state, companyData: {
+                                                    ...state.companyData, countryCode: e.target.value
                                                 }
                                             }),
                                     }}

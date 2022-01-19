@@ -12,7 +12,16 @@ class CompanyHttps {
     fetchCompanies(options = {}) {
         return AppWebRequest({
             method: "get",
-            // url: "/sonic-keys",
+            url: "/companies",
+            ...options,
+        });
+    }
+
+    createCompany(companyPayload, options = {}) {
+        return AppWebRequest({
+            method: "post",
+            data: companyPayload,
+            url: "/companies",
             ...options,
         });
     }

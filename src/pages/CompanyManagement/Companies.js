@@ -3,6 +3,7 @@ import DataFetchingStateComponent from '../../components/common/DataFetchingStat
 import FancyCard from '../../components/FancyCard/FancyCard'
 import Table from '../../components/Table/Table'
 import { useStore } from '../../stores'
+import { log } from '../../utils/app.debug'
 import AddCompany from './components/AddCompany'
 
 export default function Companies() {
@@ -13,10 +14,20 @@ export default function Companies() {
             name: "name",
         },
         {
-            label: "Owner",
-            name: "owner",
-        }
+            label: "Email",
+            name: "email",
+        },
+        {
+            label: "Contact No",
+            name: "contactNo",
+        },
+        // {
+        //     label: "Action",
+        //     name: "action"
+        // }
     ]
+
+    log("Company store", companyStore?.getCompany)
 
     return (
         <div>
@@ -50,10 +61,10 @@ export default function Companies() {
                                 />
                             }
                             columns={columns}
-                            data={companyStore.getCompany?.docs || []}
-                        //   options={{
-                        //     count:licenseKeyStore.getLicenseKeys.totalDocs
-                        //   }}
+                            data={companyStore?.getCompany || []}
+                            options={{
+                                count: companyStore?.getCompany?.length
+                            }}
                         />
                     </DataFetchingStateComponent>
                 </FancyCard.CardContent>
