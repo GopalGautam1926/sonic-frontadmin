@@ -1,7 +1,7 @@
 import { AppWebRequest } from "../NetworkManager";
 
 class UsersHttps {
-  constructor() {}
+  constructor() { }
 
   /**
    * Get User Profile
@@ -31,6 +31,19 @@ class UsersHttps {
     return AppWebRequest({
       method: "post",
       url: `/users/add-monitoring-subscription-from-monitoring-group/${usernameOrSub}`,
+    });
+  }
+
+  /**
+     * Fetch all users
+     * @param {AxiosRequestConfig} options
+     * @returns {Promise<any>}
+     */
+  getAllUsers(options = {}) {
+    return AppWebRequest({
+      method: "get",
+      url: "/sonic-keys",
+      ...options,
     });
   }
 }

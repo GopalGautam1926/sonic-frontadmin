@@ -13,6 +13,8 @@ import { RadioGroup, FormControlLabel } from "@material-ui/core";
 import { FormControl } from "@material-ui/core";
 import { FormLabel } from "@material-ui/core";
 import { MonitorGroupsEnum } from "../../../constants";
+import MenuDropDown from "../../../components/AppTextInput/MenuDropDown";
+import { company, group } from "../../../constants/DropDownItem";
 
 const initialUserDetails = {
   userName: "",
@@ -24,6 +26,7 @@ const initialUserDetails = {
   isPhoneNumberVerified: false,
   sendInvitationByEmail: true,
   group: null,
+  company: null,
 };
 export default function RegisterUser({ closeDialog }) {
   const [newUser, setNewUser] = useState(initialUserDetails);
@@ -79,7 +82,7 @@ export default function RegisterUser({ closeDialog }) {
       >
         <form onSubmit={onSubmit}>
           <FancyCard.CardContent>
-            <Grid container>
+            {/* <Grid container>
               <FormControl component="fieldset">
                 <FormLabel component="legend">Associated group</FormLabel>
                 <RadioGroup
@@ -109,8 +112,41 @@ export default function RegisterUser({ closeDialog }) {
                   ))}
                 </RadioGroup>
               </FormControl>
-            </Grid>
+            </Grid> */}
             <Grid container spacing={1}>
+              <Grid item xs={12} sm={6} md={6}>
+                <MenuDropDown
+                  labelText="Associated Group"
+                  id="associatedGroup"
+                  formControlProps={{
+                    fullWidth: true,
+                  }}
+                  inputProps={{
+                    placeholder: "Associated Group",
+                    value: newUser.group,
+                    onChange: (e) =>
+                      setNewUser({ ...newUser, group: e.target.value }),
+                  }}
+                  data={group}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} md={6}>
+                <MenuDropDown
+                  labelText="Company Name"
+                  id="companyName"
+                  formControlProps={{
+                    fullWidth: true,
+                  }}
+                  inputProps={{
+                    required: true,
+                    placeholder: "Company Name",
+                    value: newUser.company,
+                    onChange: (e) =>
+                      setNewUser({ ...newUser, company: e.target.value }),
+                  }}
+                  data={company}
+                />
+              </Grid>
               <Grid item xs={12} sm={6} md={6}>
                 <AppTextInput
                   labelText="Username (Required)"

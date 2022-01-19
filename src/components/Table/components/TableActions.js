@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid } from "@material-ui/core";
+import { Grid, TextField } from "@material-ui/core";
 import AppButton from "../../AppButton/AppButton";
 import { Container } from "@material-ui/core";
 import RDialog from "../../rcomponents/RDialog/RDialog";
@@ -8,6 +8,7 @@ import { useTheme } from "@material-ui/core/styles";
 import CountryDropDown from "../../AppTextInput/CountryDropDown";
 import StatusDropDown from "../../AppTextInput/StatusDropDown";
 import { useStore } from "../../../stores";
+import DateField from "../../AppTextInput/DateField";
 
 const initialRadioStation = {
   country: "",
@@ -17,18 +18,22 @@ const initialRadioStation = {
 export default function TableActions({
   refreshButtonProps,
   search,
+  filter,
   addButtonProps,
   openDialogWhenClickAdd = true,
   componentInsideDialog,
 }) {
   const theme = useTheme();
   const [radio, setRadioStation] = useState(initialRadioStation);
+  const [date, setDate] = useState({
+    startDate: new Date().setMonth(new Date().getMonth() - 1),
+    endDate: new Date(),
+  });
+  console.log("DATE", date.startDate);
   const { radioStationStore } = useStore();
 
-
-
   return (
-    <Grid container spacing={1} style={{display:"flex",alignItems:"center"}}>
+    <Grid container spacing={1} style={{ display: "flex", alignItems: "center" }}>
       <Grid item>
         <AppButton {...refreshButtonProps}>Refresh</AppButton>
       </Grid>
@@ -37,7 +42,7 @@ export default function TableActions({
           <RDialog.CustomDialog
             anchorElement={
               <AppButton color="success">
-                <AddIcon />
+                {filter ? "FILTER" : <AddIcon />}
               </AppButton>
             }
             disableBackdropClick
@@ -68,7 +73,7 @@ export default function TableActions({
           </RDialog.CustomDialog>
         ) : (
           <AppButton color="success" {...addButtonProps}>
-            <AddIcon />
+            {filter ? "FILTER" : <AddIcon />}
           </AppButton>
         )}
       </Grid>
@@ -88,7 +93,7 @@ export default function TableActions({
           }}
         />
       </Grid>}
-      {search &&<Grid item xs={12} sm={3} md={3}>
+      {search && <Grid item xs={12} sm={3} md={3}>
         <StatusDropDown
           labelText="Status"
           id="status"
@@ -105,10 +110,44 @@ export default function TableActions({
         />
       </Grid>}
       {search && <Grid item >
-        <AppButton onClick={()=>{
-          radioStationStore.SearchByCountryAndStatus({country:radio.country,status:radio.status})
+        <AppButton onClick={() => {
+          radioStationStore.SearchByCountryAndStatus({ country: radio.country, status: radio.status })
         }}>Search</AppButton>
       </Grid>}
+
+      {filter && <>
+        <Grid item xs={12} sm={3} md={3}>
+          <DateField
+            labelText="Start Date"
+            id="startDate"
+            formControlProps={{
+              fullWidth: true,
+            }}
+            inputProps={{
+              value: date.startDate,
+              onChange: (d) =>
+                setDate({ ...date, startDate: d }),
+            }}
+          />
+        </Grid>
+        <Grid item xs={0} sm={0} md={0} className="mx-2">
+          <div>TO</div>
+        </Grid>
+        <Grid item xs={12} sm={3} md={3}>
+          <DateField
+            labelText="End Date"
+            id="endDate"
+            formControlProps={{
+              fullWidth: true,
+            }}
+            inputProps={{
+              value: date.endDate,
+              onChange: (d) =>
+                setDate({ ...date, endDate: d }),
+            }}
+          />
+        </Grid>
+      </>}
     </Grid>
   );
 }

@@ -69,15 +69,16 @@ export default function Plays() {
             >
                 <FancyCard.CardContent>
                     <DataFetchingStateComponent
-                    // loading={licenseKeyStore.loading}
-                    // error={licenseKeyStore.error}
-                    // onClickTryAgain={() => licenseKeyStore.fetchLicenseKeys()}
+                        loading={sonickeyStore.loading}
+                        error={sonickeyStore.error}
+                        onClickTryAgain={() => sonickeyStore.fetchPlays()}
                     >
                         <Table
                             title={
                                 <Table.TableActions
+                                    filter
                                     refreshButtonProps={{
-                                        onClick: () => { },
+                                        onClick: () => sonickeyStore.fetchPlays(),
                                     }}
                                     componentInsideDialog={<FilterPlays />}
                                 />
