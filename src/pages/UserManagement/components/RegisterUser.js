@@ -1,20 +1,17 @@
-import { Grid, Radio } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import React, { useState } from "react";
 import AppButton from "../../../components/AppButton/AppButton";
 import AppTextInput from "../../../components/AppTextInput/AppTextInput";
 import FancyCard from "../../../components/FancyCard/FancyCard";
 import { SwitchWithLabel } from "../../../components/Switch/Switch";
-import InputLabel from "@material-ui/core/InputLabel";
-import DatePicker from "../../../components/DatePicker/DatePicker";
-import KeyValue from "../../../components/KeyValue/KeyValue";
 import usersHttps from "../../../services/https/resources/users.https";
 import { toast } from "react-toastify";
-import { RadioGroup, FormControlLabel } from "@material-ui/core";
-import { FormControl } from "@material-ui/core";
-import { FormLabel } from "@material-ui/core";
-import { MonitorGroupsEnum } from "../../../constants";
-import MenuDropDown from "../../../components/AppTextInput/MenuDropDown";
-import { company, group } from "../../../constants/DropDownItem";
+import { initialCompanyDropdownValue, initialGroupDropdownValue } from "../../../constants";
+import { useStore } from "../../../stores";
+import { log } from "../../../utils/app.debug";
+import DataFetchingStateComponent from "../../../components/common/DataFetchingStateComponent";
+import CompanyDropDown from "../../CompanyManagement/components/CompanyDropDown";
+import GroupDropDown from "../../GroupManagement/components/GroupDropDown";
 
 const initialUserDetails = {
   userName: "",
@@ -25,22 +22,28 @@ const initialUserDetails = {
   isEmailVerified: true,
   isPhoneNumberVerified: false,
   sendInvitationByEmail: true,
-  group: null,
-  company: null,
+  group: initialGroupDropdownValue,
+  company: initialCompanyDropdownValue
 };
+
 export default function RegisterUser({ closeDialog }) {
+  const { groupStore, companyStore, userStore } = useStore()
   const [newUser, setNewUser] = useState(initialUserDetails);
   const [state, setState] = useState({
     loading: false,
-    error: null
+    error: null,
   });
+
+  log("New User", newUser)
 
   const onSubmit = (e) => {
     e.preventDefault();
     setState({ ...state, loading: true });
     const payload = {
       ...newUser,
-      password: newUser.tempPassword
+      password: newUser.tempPassword,
+      group: groupStore?.getGroups?.find((group) => group?.name === newUser?.group)?._id,
+      company: newUser?.company === initialCompanyDropdownValue ? null : newUser?.company
     };
     if (payload.phoneNumber) {
       payload.phoneNumber = `${payload.countryCode}${payload.phoneNumber}`;
@@ -48,17 +51,20 @@ export default function RegisterUser({ closeDialog }) {
 
     delete payload.countryCode;
     delete payload.tempPassword;
+
+    log("RegisterUser Payload", payload)
     usersHttps
       .adminCreateUser(payload)
       .then(({ data }) => {
         setState({ ...state, loading: false });
         setNewUser(initialUserDetails);
+        userStore?.addNewUser(data)
         toast.success("User created successfully");
         closeDialog?.();
       })
       .catch((err) => {
         setState({ ...state, loading: false });
-        toast.error(err.message || "Error while creating user..");
+        toast.error(err?.message || "Error while creating user..");
       });
   };
 
@@ -82,71 +88,34 @@ export default function RegisterUser({ closeDialog }) {
       >
         <form onSubmit={onSubmit}>
           <FancyCard.CardContent>
-            {/* <Grid container>
-              <FormControl component="fieldset">
-                <FormLabel component="legend">Associated group</FormLabel>
-                <RadioGroup
-                  aria-label="group"
-                  name="group"
-                  value={newUser.group}
-                  onChange={(e) => {
-                    const group = e.target.value || null;
-                    setNewUser({
-                      ...newUser,
-                      group: group,
-                    });
-                  }}
-                >
-                  <FormControlLabel
-                    value={null}
-                    control={<Radio />}
-                    label={"NONE"}
-                  />
-                  {Object.keys(MonitorGroupsEnum).map((grp, key) => (
-                    <FormControlLabel
-                      key={key}
-                      value={MonitorGroupsEnum[grp]}
-                      control={<Radio />}
-                      label={grp}
-                    />
-                  ))}
-                </RadioGroup>
-              </FormControl>
-            </Grid> */}
             <Grid container spacing={1}>
               <Grid item xs={12} sm={6} md={6}>
-                <MenuDropDown
-                  labelText="Associated Group"
-                  id="associatedGroup"
-                  formControlProps={{
-                    fullWidth: true,
-                  }}
-                  inputProps={{
-                    placeholder: "Associated Group",
-                    value: newUser.group,
-                    onChange: (e) =>
-                      setNewUser({ ...newUser, group: e.target.value }),
-                  }}
-                  data={group}
-                />
+                <DataFetchingStateComponent>
+                  <GroupDropDown
+                    labelText="Associated  Groups"
+                    value={newUser.group}
+                    fullWidth
+                    onChange={(e) => {
+                      setNewUser({ ...newUser, group: e.target.value })
+                    }}
+                    inputProps={{
+                      required: true
+                    }}
+                  />
+                </DataFetchingStateComponent>
               </Grid>
+
               <Grid item xs={12} sm={6} md={6}>
-                <MenuDropDown
-                  labelText="Company Name"
-                  id="companyName"
-                  formControlProps={{
-                    fullWidth: true,
+                <CompanyDropDown
+                  labelText="Associated Companies"
+                  value={newUser.company}
+                  fullWidth
+                  onChange={(e) => {
+                    setNewUser({ ...newUser, company: e.target.value })
                   }}
-                  inputProps={{
-                    required: true,
-                    placeholder: "Company Name",
-                    value: newUser.company,
-                    onChange: (e) =>
-                      setNewUser({ ...newUser, company: e.target.value }),
-                  }}
-                  data={company}
                 />
               </Grid>
+
               <Grid item xs={12} sm={6} md={6}>
                 <AppTextInput
                   labelText="Username (Required)"
@@ -164,6 +133,7 @@ export default function RegisterUser({ closeDialog }) {
                   }}
                 />
               </Grid>
+
               <Grid item xs={12} sm={6} md={6}>
                 <AppTextInput
                   labelText="Email (Required)"

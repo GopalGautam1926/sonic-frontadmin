@@ -7,11 +7,24 @@ import {
 import { AxiosRequestConfig } from "axios";
 import { log } from "../../utils/app.debug";
 import usersHttps from "../../services/https/resources/users.https";
+import deepmerge from "deepmerge";
 
 class UserStore {
     @observable loading = false;
     @observable error = null;
-    @observable users = [];
+    @observable users = {
+        docs: [],
+        totalDocs: 0,
+        offset: 0,
+        limit: 10,
+        totalPages: 0,
+        page: 1,
+        pagingCounter: 0,
+        hasPrevPage: false,
+        hasNextPage: false,
+        prevPage: 0,
+        nextPage: 0,
+    };
 
     constructor() {
         // makeObservable(this);
@@ -26,13 +39,28 @@ class UserStore {
      * @param {AxiosRequestConfig} options
      * @returns {Promise<any>}
      */
+
     @action
-    fetchAllUsers(options = {}) {
+    fetchUsers(page = 1, options = {}) {
         this.loading = true;
         this.error = null;
 
+        log("user page", page)
+
+        let newOptions = {
+            params: {
+                limit: this.users.limit,
+                page: page,
+                skip: page > 1 ? (page - 1) * this.users.limit : 0
+            }
+        }
+
+        options = deepmerge(newOptions, options)
+
+        log("user options", options)
+
         usersHttps
-            .getAllUsers(options)
+            .getUsers(options)
             .then(({ data }) => {
                 log("Users", data);
                 this.users = data;
@@ -45,6 +73,11 @@ class UserStore {
             });
     }
 
+    @action
+    addNewUser(userData) {
+        this.users.totalDocs += 1
+        this.users.docs.push(userData)
+    }
 }
 
 export const userStore = new UserStore();

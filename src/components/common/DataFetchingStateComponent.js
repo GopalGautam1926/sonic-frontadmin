@@ -11,6 +11,7 @@ export default function DataFetchingStateComponent({
   loading,
   children,
   loadingComponentprops,
+  loadingComponent
 }) {
   if (error) {
     return (
@@ -21,7 +22,7 @@ export default function DataFetchingStateComponent({
     );
   }
   if (loading) {
-    return <Loading {...loadingComponentprops} />;
+    return loadingComponent || <Loading {...loadingComponentprops} />;
   }
   return children;
 }

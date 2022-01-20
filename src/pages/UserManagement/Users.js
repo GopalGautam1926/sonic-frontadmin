@@ -3,10 +3,14 @@ import DataFetchingStateComponent from '../../components/common/DataFetchingStat
 import FancyCard from '../../components/FancyCard/FancyCard';
 import Table from '../../components/Table/Table';
 import { useStore } from '../../stores'
+import { log } from '../../utils/app.debug';
 import RegisterUser from './components/RegisterUser';
+import UserFinder from './components/UserFinder';
 
 export default function Users() {
     const { userStore } = useStore();
+
+    log("User store", userStore?.getUsers)
 
     const columns = [
         {
@@ -53,6 +57,10 @@ export default function Users() {
         },
     ];
 
+    const changePage = (currentPage) => {
+        userStore.fetchUsers(currentPage === 0 ? 1 : currentPage + 1)
+    }
+
     return (
         <div>
             <FancyCard
@@ -70,16 +78,20 @@ export default function Users() {
                 }
             >
                 <FancyCard.CardContent>
+                    {/* <UserFinder
+                        labelText={"User"}
+                        onSelectUser={(user) => log("Selected user", user)}
+                    /> */}
                     <DataFetchingStateComponent
                         loading={userStore.loading}
                         error={userStore.error}
-                        onClickTryAgain={() => userStore.fetchAllUsers()}
+                        onClickTryAgain={() => userStore.fetchUsers()}
                     >
                         <Table
                             title={
                                 <Table.TableActions
                                     refreshButtonProps={{
-                                        onClick: () => userStore.fetchAllUsers(),
+                                        onClick: () => userStore.fetchUsers(),
                                     }}
                                     componentInsideDialog={<RegisterUser />}
                                 />
@@ -87,7 +99,8 @@ export default function Users() {
                             data={userStore?.getUsers?.docs || []}
                             columns={columns}
                             options={{
-                                count: userStore?.getUsers?.totalDocs
+                                count: userStore?.getUsers?.totalDocs || 0,
+                                onChangePage: (currentPage) => { changePage(currentPage) },
                             }}
                         />
                     </DataFetchingStateComponent>

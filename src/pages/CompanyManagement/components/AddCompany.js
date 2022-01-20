@@ -24,7 +24,8 @@ export default function AddCompany({ closeDialog }) {
                 city: "",
                 line1: "",
                 line2: ""
-            }
+            },
+            owner: ""
         },
         error: null
     });
@@ -42,8 +43,9 @@ export default function AddCompany({ closeDialog }) {
             setState({ ...state, loading: false })
             companyStore.addCompany(data)
             toast.success("Successfully added company")
+            closeDialog?.()
             log("AddCompany Data", data)
-        }).catch(({ err }) => {
+        }).catch((err) => {
             setState({ ...state, loading: false, error: err?.message })
             toast.error(err?.message || "Error adding company...")
             log("AddCompany Error", err)
@@ -86,6 +88,27 @@ export default function AddCompany({ closeDialog }) {
                                             setState({
                                                 ...state, companyData: {
                                                     ...state.companyData, name: e.target.value
+                                                }
+                                            }),
+                                    }}
+                                />
+                            </FormControl>
+
+                            <FormControl fullWidth component="fieldset" >
+                                <AppTextInput
+                                    labelText="Owner ID"
+                                    id="id"
+                                    formControlProps={{
+                                        fullWidth: true,
+                                    }}
+                                    inputProps={{
+                                        id: "id",
+                                        required: true,
+                                        value: state.companyData.owner,
+                                        onChange: (e) =>
+                                            setState({
+                                                ...state, companyData: {
+                                                    ...state.companyData, owner: e.target.value
                                                 }
                                             }),
                                     }}

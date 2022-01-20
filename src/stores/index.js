@@ -20,7 +20,7 @@ export const fetchInitialData = () => {
   radioStationStore.fetchRadioStations()
   sonickeyStore.fetchPlays()
   companyStore.fetchCompanies()
-  userStore.fetchAllUsers()
+  userStore.fetchUsers()
   groupStore.fetchGroups()
 }
 

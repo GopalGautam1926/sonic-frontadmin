@@ -5,8 +5,9 @@ import { Link } from 'react-router-dom';
 import { getRouteNames } from '../../../routes/routes.data';
 import { useStore } from '../../../stores';
 import { CircularProgress } from '@material-ui/core';
+import { observer } from 'mobx-react';
 
-export default function UserStats() {
+export const UserStats = observer(() => {
     const { userStore } = useStore();
 
     var count = 0
@@ -44,4 +45,4 @@ export default function UserStats() {
             </FancyCard.CardContent>
         </FancyCard>
     )
-}
+})

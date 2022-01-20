@@ -39,7 +39,7 @@ class UsersHttps {
      * @param {AxiosRequestConfig} options
      * @returns {Promise<any>}
      */
-  getAllUsers(options = {}) {
+  getUsers(options = {}) {
     return AppWebRequest({
       method: "get",
       url: "/users/list-users",

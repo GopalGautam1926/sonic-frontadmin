@@ -29,8 +29,8 @@ class CompanyStore {
 
     @action
     fetchCompanies(options = {}) {
-        this.loading = true;
         this.error = null;
+        this.loading = true;
 
         companyHttps.fetchCompanies(options)
             .then(({ data }) => {

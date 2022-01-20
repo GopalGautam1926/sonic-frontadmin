@@ -6,7 +6,7 @@ import ApiKeyStats from "../KeysManagement/ApiKeys/components/ApiKeyStats";
 import { RadioStationStats } from "../RadioManagement/RadioStation/components/RadioStationStats";
 import { CompaniesStats } from "../CompanyManagement/components/CompaniesStats";
 import PlaysStats from "../SonicKeyManagement/components/PlaysStats";
-import UserStats from "../UserManagement/components/UserStats";
+import { UserStats } from "../UserManagement/components/UserStats";
 import { GroupStats } from "../GroupManagement/components/GroupStats";
 
 export default function Dashboard() {

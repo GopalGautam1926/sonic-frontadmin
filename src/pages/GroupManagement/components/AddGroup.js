@@ -1,7 +1,7 @@
 import React from 'react'
 import AppButton from '../../../components/AppButton/AppButton'
 import FancyCard from '../../../components/FancyCard/FancyCard'
-import { Grid, FormControl, FormLabel } from "@material-ui/core";
+import { Grid, FormControl } from "@material-ui/core";
 import AppTextInput from "../../../components/AppTextInput/AppTextInput";
 import groupHttps from '../../../services/https/resources/group.https';
 import { toast } from 'react-toastify';
@@ -27,8 +27,9 @@ export default function AddGroup({ closeDialog }) {
             setState({ ...state, loading: false })
             groupStore.addGroup(data)
             toast.success("Successfully added group")
+            closeDialog?.()
             log("AddGroup Data", data)
-        }).catch(({ err }) => {
+        }).catch((err) => {
             setState({ ...state, loading: false, error: err?.message })
             toast.error(err?.message || "Error adding group...")
             log("AddGroup Error", err)
