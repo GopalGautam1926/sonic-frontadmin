@@ -1,12 +1,14 @@
 import React from 'react'
-import { Grid, TextField } from '@material-ui/core'
+import { Grid, InputAdornment, TextField } from '@material-ui/core'
 import FancyCard from '../../../components/FancyCard/FancyCard'
 import AppTextInput from '../../../components/AppTextInput/AppTextInput'
 import CountryDropDown from '../../../components/AppTextInput/CountryDropDown'
 import AppButton from '../../../components/AppButton/AppButton'
-import DateField from '../../../components/AppTextInput/DateField'
 import MenuDropDown from '../../../components/AppTextInput/MenuDropDown'
 import { channel } from '../../../constants/DropDownItem'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { CalendarTodayOutlined } from '@material-ui/icons'
 
 export default function FilterPlays({ closeDialog }) {
     const [values, setValues] = React.useState({
@@ -224,35 +226,42 @@ export default function FilterPlays({ closeDialog }) {
                                     }}
                                 />
                             </Grid>
-                            {/* <Grid item xs={12} sm={3} md={3}>
-                                <AppTextInput
-                                    labelText="Encoded Date"
-                                    id="encodedDate"
-                                    formControlProps={{
-                                        fullWidth: true,
-                                    }}
-                                    inputProps={{
-                                        type: "date",
-                                        placeholder: "Encoded Date",
-                                        value: values.encodedDate,
-                                        onChange: (e) =>
-                                            setValues({ ...values, encodedDate: e.target.value }),
-                                    }}
-                                />
-                            </Grid> */}
                             <Grid item xs={12} sm={3} md={3}>
-                                <DateField
-                                    labelText="Encoded Date"
-                                    id="encodedDate"
-                                    formControlProps={{
-                                        fullWidth: true,
-                                    }}
-                                    inputProps={{
-                                        placeholder: "Encoded Date",
-                                        value: values.encodedDate,
-                                        onChange: (e) =>
-                                            setValues({ ...values, encodedDate: e.target.value }),
-                                    }}
+                                <DatePicker
+                                    selected={values.endDate}
+                                    onChange={(date) => setValues({ ...values, endDate: date })}
+                                    customInput={<TextField
+                                        id="date"
+                                        label="End Date"
+                                        style={{
+                                            color: "#757575",
+                                            backgroundColor: "transparent",
+                                            outline: "none",
+                                            border: "none",
+                                            boxShadow: "none",
+                                            width: '100%',
+                                        }}
+                                        InputLabelProps={{
+                                            style: {
+                                                fontSize: 14
+                                            }
+                                        }}
+                                        InputProps={{
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    <CalendarTodayOutlined />
+                                                </InputAdornment>
+                                            ),
+                                            style: {
+                                                paddingLeft: 10,
+                                                color: '#757575',
+                                            },
+                                        }}
+                                    />}
+                                    dateFormat="MMM d,yyyy"
+                                    title="End Date"
+                                    showYearDropdown
+                                    showMonthDropdown
                                 />
                             </Grid>
                         </Grid>

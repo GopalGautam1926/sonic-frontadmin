@@ -44,9 +44,8 @@ class SonicKeyStore {
         this.error = null;
         const defaultOptions = {
             params: {
-                sort: '-createdAt',
+                sort: '-detectedAt',
                 limit: 1000,
-                // country:'Russia',
             },
         }
         options = deepmerge(defaultOptions, options)

@@ -12,7 +12,7 @@ class SonicKeysHttps {
     fetchPlays(options = {}) {
         return AppWebRequest({
             method: "get",
-            url: "/sonic-keys",
+            url: "/detections/list-plays",
             ...options,
         });
     }
