@@ -42,7 +42,7 @@ class UsersHttps {
   getAllUsers(options = {}) {
     return AppWebRequest({
       method: "get",
-      url: "/sonic-keys",
+      url: "/users/list-users",
       ...options,
     });
   }

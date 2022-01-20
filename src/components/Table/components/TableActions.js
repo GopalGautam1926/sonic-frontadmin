@@ -8,7 +8,6 @@ import { useTheme } from "@material-ui/core/styles";
 import CountryDropDown from "../../AppTextInput/CountryDropDown";
 import StatusDropDown from "../../AppTextInput/StatusDropDown";
 import { useStore } from "../../../stores";
-import DateField from "../../AppTextInput/DateField";
 
 const initialRadioStation = {
   country: "",
@@ -25,11 +24,6 @@ export default function TableActions({
 }) {
   const theme = useTheme();
   const [radio, setRadioStation] = useState(initialRadioStation);
-  const [date, setDate] = useState({
-    startDate: new Date().setMonth(new Date().getMonth() - 1),
-    endDate: new Date(),
-  });
-  console.log("DATE", date.startDate);
   const { radioStationStore } = useStore();
 
   return (
@@ -114,40 +108,6 @@ export default function TableActions({
           radioStationStore.SearchByCountryAndStatus({ country: radio.country, status: radio.status })
         }}>Search</AppButton>
       </Grid>}
-
-      {filter && <>
-        <Grid item xs={12} sm={3} md={3}>
-          <DateField
-            labelText="Start Date"
-            id="startDate"
-            formControlProps={{
-              fullWidth: true,
-            }}
-            inputProps={{
-              value: date.startDate,
-              onChange: (d) =>
-                setDate({ ...date, startDate: d }),
-            }}
-          />
-        </Grid>
-        <Grid item xs={0} sm={0} md={0} className="mx-2">
-          <div>TO</div>
-        </Grid>
-        <Grid item xs={12} sm={3} md={3}>
-          <DateField
-            labelText="End Date"
-            id="endDate"
-            formControlProps={{
-              fullWidth: true,
-            }}
-            inputProps={{
-              value: date.endDate,
-              onChange: (d) =>
-                setDate({ ...date, endDate: d }),
-            }}
-          />
-        </Grid>
-      </>}
     </Grid>
   );
 }
