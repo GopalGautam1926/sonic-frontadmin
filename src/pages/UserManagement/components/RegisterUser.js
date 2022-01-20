@@ -1,20 +1,13 @@
-import { Grid, Radio } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import React, { useState } from "react";
 import AppButton from "../../../components/AppButton/AppButton";
 import AppTextInput from "../../../components/AppTextInput/AppTextInput";
 import FancyCard from "../../../components/FancyCard/FancyCard";
 import { SwitchWithLabel } from "../../../components/Switch/Switch";
-import InputLabel from "@material-ui/core/InputLabel";
-import DatePicker from "../../../components/DatePicker/DatePicker";
-import KeyValue from "../../../components/KeyValue/KeyValue";
 import usersHttps from "../../../services/https/resources/users.https";
 import { toast } from "react-toastify";
-import { RadioGroup, FormControlLabel } from "@material-ui/core";
-import { FormControl } from "@material-ui/core";
-import { FormLabel } from "@material-ui/core";
-import { MonitorGroupsEnum } from "../../../constants";
-import MenuDropDown from "../../../components/AppTextInput/MenuDropDown";
-import { company, group } from "../../../constants/DropDownItem";
+import GroupDropDown from "../../../components/AppTextInput/GroupDropDown";
+import CompanyDropDown from "../../../components/AppTextInput/CompanyDropDown";
 
 const initialUserDetails = {
   userName: "",
@@ -82,40 +75,9 @@ export default function RegisterUser({ closeDialog }) {
       >
         <form onSubmit={onSubmit}>
           <FancyCard.CardContent>
-            {/* <Grid container>
-              <FormControl component="fieldset">
-                <FormLabel component="legend">Associated group</FormLabel>
-                <RadioGroup
-                  aria-label="group"
-                  name="group"
-                  value={newUser.group}
-                  onChange={(e) => {
-                    const group = e.target.value || null;
-                    setNewUser({
-                      ...newUser,
-                      group: group,
-                    });
-                  }}
-                >
-                  <FormControlLabel
-                    value={null}
-                    control={<Radio />}
-                    label={"NONE"}
-                  />
-                  {Object.keys(MonitorGroupsEnum).map((grp, key) => (
-                    <FormControlLabel
-                      key={key}
-                      value={MonitorGroupsEnum[grp]}
-                      control={<Radio />}
-                      label={grp}
-                    />
-                  ))}
-                </RadioGroup>
-              </FormControl>
-            </Grid> */}
             <Grid container spacing={1}>
               <Grid item xs={12} sm={6} md={6}>
-                <MenuDropDown
+                <GroupDropDown
                   labelText="Associated Group"
                   id="associatedGroup"
                   formControlProps={{
@@ -127,11 +89,10 @@ export default function RegisterUser({ closeDialog }) {
                     onChange: (e) =>
                       setNewUser({ ...newUser, group: e.target.value }),
                   }}
-                  data={group}
                 />
               </Grid>
               <Grid item xs={12} sm={6} md={6}>
-                <MenuDropDown
+                <CompanyDropDown
                   labelText="Company Name"
                   id="companyName"
                   formControlProps={{
@@ -144,7 +105,6 @@ export default function RegisterUser({ closeDialog }) {
                     onChange: (e) =>
                       setNewUser({ ...newUser, company: e.target.value }),
                   }}
-                  data={company}
                 />
               </Grid>
               <Grid item xs={12} sm={6} md={6}>

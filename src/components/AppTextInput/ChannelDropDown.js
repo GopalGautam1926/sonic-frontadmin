@@ -11,7 +11,7 @@ import Check from "@material-ui/icons/Check";
 import useStyles from "./styles";
 import { Select } from "@material-ui/core";
 
-export default function MenuDropDown({
+export default function ChannelDropDown({
     formControlProps,
     labelText,
     id,
@@ -19,7 +19,6 @@ export default function MenuDropDown({
     inputProps,
     error,
     success,
-    data,
 }) {
     const classes = useStyles();
 
@@ -66,9 +65,10 @@ export default function MenuDropDown({
                 {...inputProps}
                 inputProps={newInputProps}
             >
-                {data?.map((data, index) => (
-                    <option style={{ cursor: "pointer" }} key={index} value={data}>{data}</option>
-                ))}
+                <option style={{ cursor: "pointer" }} value="ALL">ALL</option>
+                <option style={{ cursor: "pointer" }} value="STREAMREADER">STREAMREADER</option>
+                <option style={{ cursor: "pointer" }} value="PORTAL">PORTAL</option>
+                <option style={{ cursor: "pointer" }} value="MOBILE">MOBILE</option>
             </Select>
             {error ? (
                 <Clear className={classes.feedback + " " + classes.labelRootError} />
@@ -79,7 +79,7 @@ export default function MenuDropDown({
     );
 }
 
-MenuDropDown.propTypes = {
+ChannelDropDown.propTypes = {
     labelText: PropTypes.node,
     labelProps: PropTypes.object,
     id: PropTypes.string,

@@ -1,4 +1,4 @@
-import { Grid, InputAdornment, TextField } from '@material-ui/core';
+import { Grid, InputAdornment, TextField, Tooltip } from '@material-ui/core';
 import React from 'react'
 import DataFetchingStateComponent from '../../components/common/DataFetchingStateComponent';
 import FancyCard from '../../components/FancyCard/FancyCard';
@@ -8,6 +8,8 @@ import FilterPlays from './components/FilterPlays';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { CalendarTodayOutlined } from '@material-ui/icons';
+import { format } from 'date-fns';
+import moment from 'moment';
 
 export default function Plays() {
     const [values, setValues] = React.useState({
@@ -19,42 +21,95 @@ export default function Plays() {
     const columns = [
         {
             label: "SonicKey",
-            name: "sonickey",
-        },
-        {
-            label: "Radio Station",
-            name: "radiostation",
+            name: "sonicKey",
+            options: {
+                customBodyRender: (value) => {
+                    const sonickey = value?.sonicKey ? value?.sonicKey : "---";
+                    return sonickey;
+                }
+            }
         },
         {
             label: "Date",
-            name: "date",
+            name: "detectedAt",
+            options: {
+                customBodyRender: (value) => {
+                    const date = value ? format(new Date(value), "dd/MM/yyyy") : "---";
+                    return date;
+                }
+            }
         },
         {
             label: "Time",
-            name: "time",
+            name: "detectedAt",
+            options: {
+                customBodyRender: (value) => {
+                    const time = value ? format(new Date(value), "HH:mm") : "---";
+                    return time;
+                }
+            }
         },
         {
             label: "Duration",
-            name: "duration",
+            name: "sonicKey",
+            options: {
+                customBodyRender: (value) => {
+                    const duration = value?.contentDuration ? moment.utc(value?.contentDuration * 1000).format("mm:ss") : "---";
+                    return duration;
+                }
+            }
         },
         {
             label: "Original Filename",
-            name: "name",
+            name: "sonicKey",
+            options: {
+                customBodyRender: (value) => {
+                    const filename = value?.originalFileName?.length > 20 ? value?.originalFileName?.slice(0, 20) + "..." : value?.originalFileName || value?.contentFileName?.length > 20 ? value?.contentFileName?.slice(0, 20) + "..." : value?.contentFileName;
+                    return <Tooltip title={value?.originalFileName || value?.contentFileName}>
+                        <div>{filename}</div>
+                    </Tooltip>;
+                }
+            }
         },
         {
             label: "Artist",
-            name: "artist",
+            name: "sonicKey",
+            options: {
+                customBodyRender: (value) => {
+                    const artist = value?.contentOwner === "" ? "---" : (value?.contentOwner?.length > 20 ? value?.contentOwner?.slice(0, 20) + "..." : value?.contentOwner);
+                    return <Tooltip title={value?.contentOwner}>
+                        <div>{artist}</div>
+                    </Tooltip>;
+                }
+            }
         },
         {
-            label: "Country",
-            name: "country",
+            label: "Owner",
+            name: "owner",
+            options: {
+                customBodyRender: (value) => {
+                    const owner = value?.username ? value?.username : "---";
+                    return owner;
+                }
+            }
+        },
+        {
+            label: "Group",
+            name: "groups",
+            options: {
+                customBodyRender: (value) => {
+                    const group = value?.length > 0 ? value?.map(grp => {
+                        return grp?.name
+                    }) : "---";
+                    return group;
+                }
+            }
+        },
+        {
+            label: "Channel",
+            name: "channel"
         }
     ];
-
-    const data = [
-        ["sgMMPCeNWxa", "ArBa", "17/01/2022", "05:53", "05:00", "PUTHAM PUTHU _ DALAPATHI.mp3", "ILAYARAJA", "UK"],
-        ["sgMMPCeNWxa", "ArBa", "17/01/2022", "04:53", "05:00", "PUTHAM PUTHU _ DALAPATHI.mp3", "ILAYARAJA", "UK"]
-    ]
 
     return (
         <div>
@@ -76,7 +131,10 @@ export default function Plays() {
                     <Grid item>
                         <DatePicker
                             selected={values.startDate}
-                            onChange={(date) => setValues({ ...values, startDate: date })}
+                            onChange={(date) => {
+                                setValues({ ...values, startDate: date })
+                                sonickeyStore.fetchPlays({ startDate: values?.startDate, endDate: values?.endDate })
+                            }}
                             customInput={<TextField
                                 id="date"
                                 label="Start Date"
@@ -115,10 +173,14 @@ export default function Plays() {
                     <Grid item className="mt-4 mx-3">
                         <p style={{ fontSize: '14px' }}>TO</p>
                     </Grid>
+
                     <Grid item>
                         <DatePicker
                             selected={values.endDate}
-                            onChange={(date) => setValues({ ...values, endDate: date })}
+                            onChange={(date) => {
+                                setValues({ ...values, endDate: date });
+                                sonickeyStore.fetchPlays({ startDate: values?.startDate, endDate: values?.endDate })
+                            }}
                             customInput={<TextField
                                 id="date"
                                 label="End Date"
@@ -172,7 +234,7 @@ export default function Plays() {
                                     componentInsideDialog={<FilterPlays />}
                                 />
                             }
-                            data={data}
+                            data={sonickeyStore?.getPlays?.docs || []}
                             columns={columns}
                             options={{
                                 count: sonickeyStore?.getPlays?.totalDocs

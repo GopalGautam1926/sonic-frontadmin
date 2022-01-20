@@ -8,6 +8,8 @@ import { AxiosRequestConfig } from "axios";
 import { log } from "../../utils/app.debug";
 import deepmerge from 'deepmerge'
 import sonickeysHttps from "../../services/https/resources/sonickeys.https";
+import format from "date-fns/format";
+import moment from "moment";
 
 class SonicKeyStore {
     @observable loading = false;
@@ -42,10 +44,13 @@ class SonicKeyStore {
     fetchPlays(options = {}) {
         this.loading = true;
         this.error = null;
+        let newEndDate = moment(options.endDate).endOf("days").toISOString()
         const defaultOptions = {
             params: {
                 sort: '-detectedAt',
-                limit: 1000,
+                limit: 10,
+                // detectedAt: `detectedAt>=${moment(options.startDate).format("YYYY-MM-DD")}&detectedAt<=date(${newEndDate})`,
+                channel: options.channel,
             },
         }
         options = deepmerge(defaultOptions, options)
