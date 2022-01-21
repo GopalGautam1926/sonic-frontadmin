@@ -8,7 +8,6 @@ import { AxiosRequestConfig } from "axios";
 import { log } from "../../utils/app.debug";
 import deepmerge from 'deepmerge'
 import sonickeysHttps from "../../services/https/resources/sonickeys.https";
-import format from "date-fns/format";
 import moment from "moment";
 
 class SonicKeyStore {
@@ -44,13 +43,23 @@ class SonicKeyStore {
     fetchPlays(options = {}) {
         this.loading = true;
         this.error = null;
-        let newEndDate = moment(options.endDate).endOf("days").toISOString()
+        log("Options", options);
         const defaultOptions = {
             params: {
-                sort: '-detectedAt',
-                limit: 10,
-                // detectedAt: `detectedAt>=${moment(options.startDate).format("YYYY-MM-DD")}&detectedAt<=date(${newEndDate})`,
-                channel: options.channel,
+                // sort: '-detectedAt',
+                // limit: options.limit,
+                // page: options.page,
+                // skip: options.page > 1 ? (options.page - 1) * options.limit : 0,
+                limit: 1000,
+                channel: options.channel !== "ALL" ? options.channel : undefined,
+                "relation_sonicKey.sonicKey": options.sonickey ? options.sonickey : undefined,
+                "relation_radioStation.country": options.country ? options.country : undefined,
+                "relation_radioStation.name": options.radiostation ? options.radiostation : undefined,
+                "relation_sonicKey.contentOwner": options.artist ? options.artist : undefined,
+                "relation_sonicKey.originalFileName": options.track ? options.track : undefined,
+                "relation_sonicKey.label": options.label ? options.label : undefined,
+                "relation_sonicKey.distributor": options.distributor ? options.distributor : undefined,
+                "relation_owner.username": options.username ? options.username : undefined,
             },
         }
         options = deepmerge(defaultOptions, options)

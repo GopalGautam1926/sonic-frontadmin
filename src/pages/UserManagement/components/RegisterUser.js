@@ -6,8 +6,6 @@ import FancyCard from "../../../components/FancyCard/FancyCard";
 import { SwitchWithLabel } from "../../../components/Switch/Switch";
 import usersHttps from "../../../services/https/resources/users.https";
 import { toast } from "react-toastify";
-import GroupDropDown from "../../../components/AppTextInput/GroupDropDown";
-import CompanyDropDown from "../../../components/AppTextInput/CompanyDropDown";
 
 const initialUserDetails = {
   userName: "",
@@ -76,37 +74,6 @@ export default function RegisterUser({ closeDialog }) {
         <form onSubmit={onSubmit}>
           <FancyCard.CardContent>
             <Grid container spacing={1}>
-              <Grid item xs={12} sm={6} md={6}>
-                <GroupDropDown
-                  labelText="Associated Group"
-                  id="associatedGroup"
-                  formControlProps={{
-                    fullWidth: true,
-                  }}
-                  inputProps={{
-                    placeholder: "Associated Group",
-                    value: newUser.group,
-                    onChange: (e) =>
-                      setNewUser({ ...newUser, group: e.target.value }),
-                  }}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6} md={6}>
-                <CompanyDropDown
-                  labelText="Company Name"
-                  id="companyName"
-                  formControlProps={{
-                    fullWidth: true,
-                  }}
-                  inputProps={{
-                    required: true,
-                    placeholder: "Company Name",
-                    value: newUser.company,
-                    onChange: (e) =>
-                      setNewUser({ ...newUser, company: e.target.value }),
-                  }}
-                />
-              </Grid>
               <Grid item xs={12} sm={6} md={6}>
                 <AppTextInput
                   labelText="Username (Required)"

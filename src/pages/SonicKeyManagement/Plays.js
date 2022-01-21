@@ -10,6 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { CalendarTodayOutlined } from '@material-ui/icons';
 import { format } from 'date-fns';
 import moment from 'moment';
+import CustomFooter from '../../components/Table/CustomFooter';
 
 export default function Plays() {
     const [values, setValues] = React.useState({
@@ -23,6 +24,7 @@ export default function Plays() {
             label: "SonicKey",
             name: "sonicKey",
             options: {
+                filter: false,
                 customBodyRender: (value) => {
                     const sonickey = value?.sonicKey ? value?.sonicKey : "---";
                     return sonickey;
@@ -30,9 +32,21 @@ export default function Plays() {
             }
         },
         {
+            label: "Radio Station",
+            name: "radioStation",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    const radio = value?.radioStation?.name ? value?.radioStation?.name : "---";
+                    return radio;
+                }
+            }
+        },
+        {
             label: "Date",
             name: "detectedAt",
             options: {
+                filter: false,
                 customBodyRender: (value) => {
                     const date = value ? format(new Date(value), "dd/MM/yyyy") : "---";
                     return date;
@@ -43,6 +57,7 @@ export default function Plays() {
             label: "Time",
             name: "detectedAt",
             options: {
+                filter: false,
                 customBodyRender: (value) => {
                     const time = value ? format(new Date(value), "HH:mm") : "---";
                     return time;
@@ -53,6 +68,7 @@ export default function Plays() {
             label: "Duration",
             name: "sonicKey",
             options: {
+                filter: false,
                 customBodyRender: (value) => {
                     const duration = value?.contentDuration ? moment.utc(value?.contentDuration * 1000).format("mm:ss") : "---";
                     return duration;
@@ -63,6 +79,7 @@ export default function Plays() {
             label: "Original Filename",
             name: "sonicKey",
             options: {
+                filter: false,
                 customBodyRender: (value) => {
                     const filename = value?.originalFileName?.length > 20 ? value?.originalFileName?.slice(0, 20) + "..." : value?.originalFileName || value?.contentFileName?.length > 20 ? value?.contentFileName?.slice(0, 20) + "..." : value?.contentFileName;
                     return <Tooltip title={value?.originalFileName || value?.contentFileName}>
@@ -75,6 +92,7 @@ export default function Plays() {
             label: "Artist",
             name: "sonicKey",
             options: {
+                filter: false,
                 customBodyRender: (value) => {
                     const artist = value?.contentOwner === "" ? "---" : (value?.contentOwner?.length > 20 ? value?.contentOwner?.slice(0, 20) + "..." : value?.contentOwner);
                     return <Tooltip title={value?.contentOwner}>
@@ -84,31 +102,16 @@ export default function Plays() {
             }
         },
         {
-            label: "Owner",
-            name: "owner",
+            label: "Country",
+            name: "radioStation",
             options: {
+                filter: false,
                 customBodyRender: (value) => {
-                    const owner = value?.username ? value?.username : "---";
-                    return owner;
+                    const country = value?.radioStation?.country ? value?.radioStation?.country : "---";
+                    return country;
                 }
             }
         },
-        {
-            label: "Group",
-            name: "groups",
-            options: {
-                customBodyRender: (value) => {
-                    const group = value?.length > 0 ? value?.map(grp => {
-                        return grp?.name
-                    }) : "---";
-                    return group;
-                }
-            }
-        },
-        {
-            label: "Channel",
-            name: "channel"
-        }
     ];
 
     return (
@@ -236,8 +239,31 @@ export default function Plays() {
                             }
                             data={sonickeyStore?.getPlays?.docs || []}
                             columns={columns}
+                            // options={{
+                            //     filter: false,
+                            //     pagination: true,
+                            //     count: sonickeyStore?.getPlays?.totalDocs,
+                            //     page: sonickeyStore?.getPlays?.page,
+                            //     customFooter: (count, page, rowsPerPage, changeRowsPerPage, changePage, textLabels) => {
+                            //         return (
+                            //             <CustomFooter
+                            //                 count={count}
+                            //                 page={page}
+                            //                 rowsPerPage={rowsPerPage}
+                            //                 changeRowsPerPage={changeRowsPerPage}
+                            //                 changePage={changePage}
+                            //                 textLabels={textLabels}
+                            //             />
+                            //         );
+                            //     },
+                            // }}
                             options={{
-                                count: sonickeyStore?.getPlays?.totalDocs
+                                filter: false,
+                                pagination: true,
+                                count: sonickeyStore?.getPlays?.totalDocs,
+                                // page: sonickeyStore?.getPlays?.page,
+                                // rowsPerPage: 10,
+                                // onChangePage: (event, value) => sonickeyStore?.fetchPlays({ limit: 10, page: value })
                             }}
                         />
                     </DataFetchingStateComponent>
