@@ -17,6 +17,18 @@ class GroupHttps {
         });
     }
 
+    async getGroupByName(name) {
+        const { data } = await AppWebRequest({
+            method: "get",
+            url: "/groups",
+            params: {
+                name: name
+            }
+        });
+
+        return { data: data?.[0] }
+    }
+
     createGroup(groupPayload, options = {}) {
         return AppWebRequest({
             method: "post",

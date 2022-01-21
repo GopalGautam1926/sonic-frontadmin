@@ -10,6 +10,7 @@ import { useStore } from "../../../stores";
 import { log } from "../../../utils/app.debug";
 import CompanyDropDown from "../../CompanyManagement/components/CompanyDropDown";
 import GroupDropDown from "../../GroupManagement/components/GroupDropDown";
+import groupHttps from "../../../services/https/resources/group.https";
 
 const initialUserDetails = {
   userName: "",
@@ -30,7 +31,26 @@ export default function RegisterUser({ closeDialog }) {
   const [state, setState] = useState({
     loading: false,
     error: null,
+    initialGroupLoading: false
   });
+
+  React.useEffect(() => {
+    getInitialGroup()
+  }, [])
+
+  const getInitialGroup = () => {
+    setState({ ...state, initialGroupLoading: true })
+    groupHttps.getGroupByName("PortalUser").then(({ data }) => {
+      log("Group name response", data)
+      if (data) {
+        setNewUser({ ...newUser, group: data?._id })
+      }
+      setState({ ...state, initialGroupLoading: false })
+    }).catch(({ error }) => {
+      setState({ ...state, initialGroupLoading: false })
+      toast.info("Error fetching initial group")
+    })
+  }
 
   log("New User", newUser)
 
@@ -92,6 +112,7 @@ export default function RegisterUser({ closeDialog }) {
                   labelText="Associated Groups"
                   value={newUser.group}
                   fullWidth
+                  loading={state?.initialGroupLoading}
                   onChangeGroup={(value) => {
                     setNewUser({ ...newUser, group: value })
                   }}

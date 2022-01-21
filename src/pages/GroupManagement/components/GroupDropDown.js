@@ -14,6 +14,7 @@ function GroupDropDown({
     selectedValue,
     onChangeGroup,
     value,
+    loading,
     ...props
 }) {
     const { groupStore } = useStore()
@@ -35,7 +36,7 @@ function GroupDropDown({
                 </Select >
             )
         }
-        if (groupStore?.loading) {
+        if (groupStore?.loading || loading) {
             return (
                 <Select
                     native

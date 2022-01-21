@@ -120,6 +120,8 @@ export default function Plays() {
         sonickeyStore?.changePlayTablePage(page);
     }
 
+    log("Sonickey store filters", sonickeyStore?.getFilters)
+
     return (
         <div>
             <FancyCard

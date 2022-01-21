@@ -189,7 +189,7 @@ function FilterPlays({ closeDialog }) {
 
                             <Grid item xs={12} sm={3} md={3}>
                                 <AppTextInput
-                                    labelText="User ID"
+                                    labelText="Username"
                                     id="username"
                                     formControlProps={{
                                         fullWidth: true,
