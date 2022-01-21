@@ -6,10 +6,8 @@ import FancyCard from "../../../components/FancyCard/FancyCard";
 import { SwitchWithLabel } from "../../../components/Switch/Switch";
 import usersHttps from "../../../services/https/resources/users.https";
 import { toast } from "react-toastify";
-import { initialCompanyDropdownValue, initialGroupDropdownValue } from "../../../constants";
 import { useStore } from "../../../stores";
 import { log } from "../../../utils/app.debug";
-import DataFetchingStateComponent from "../../../components/common/DataFetchingStateComponent";
 import CompanyDropDown from "../../CompanyManagement/components/CompanyDropDown";
 import GroupDropDown from "../../GroupManagement/components/GroupDropDown";
 
@@ -22,12 +20,12 @@ const initialUserDetails = {
   isEmailVerified: true,
   isPhoneNumberVerified: false,
   sendInvitationByEmail: true,
-  group: initialGroupDropdownValue,
-  company: initialCompanyDropdownValue
+  group: "",
+  company: ""
 };
 
 export default function RegisterUser({ closeDialog }) {
-  const { groupStore, companyStore, userStore } = useStore()
+  const { userStore } = useStore()
   const [newUser, setNewUser] = useState(initialUserDetails);
   const [state, setState] = useState({
     loading: false,
@@ -42,7 +40,7 @@ export default function RegisterUser({ closeDialog }) {
     const payload = {
       ...newUser,
       password: newUser.tempPassword,
-      group: groupStore?.getGroups?.find((group) => group?.name === newUser?.group)?._id,
+      group: newUser.group,
       company: newUser?.company === "NONE" ? null : newUser?.company
     };
     if (payload.phoneNumber) {
@@ -91,11 +89,11 @@ export default function RegisterUser({ closeDialog }) {
             <Grid container spacing={1}>
               <Grid item xs={12} sm={6} md={6}>
                 <GroupDropDown
-                  labelText="Associated  Groups"
+                  labelText="Associated Groups"
                   value={newUser.group}
                   fullWidth
-                  onChange={(e) => {
-                    setNewUser({ ...newUser, group: e.target.value })
+                  onChangeGroup={(value) => {
+                    setNewUser({ ...newUser, group: value })
                   }}
                   inputProps={{
                     required: true

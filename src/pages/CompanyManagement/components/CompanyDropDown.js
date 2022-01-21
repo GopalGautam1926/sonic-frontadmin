@@ -4,7 +4,6 @@ import InputLabel from "@material-ui/core/InputLabel";
 import { Select } from "@material-ui/core";
 import { useStore } from "../../../stores";
 import { observer } from "mobx-react-lite";
-import { initialCompanyDropdownValue } from "../../../constants";
 
 function CompanyDropDown({
     formControlProps,
@@ -58,7 +57,7 @@ function CompanyDropDown({
                 }}
                 {...props}
             >
-                <option style={{ cursor: "pointer", }} value={initialCompanyDropdownValue} >None</option>
+                <option style={{ cursor: "pointer", }} value={""} >None</option>
                 {
                     companyStore?.getCompany?.map((company) => {
                         return (
@@ -72,7 +71,7 @@ function CompanyDropDown({
 
     return (
         <FormControl {...formControlProps} fullWidth>
-            <InputLabel htmlFor="company-native-simple" {...inputLabelProps}>{labelText}</InputLabel>
+            <InputLabel shrink htmlFor="company-native-simple" {...inputLabelProps}>{labelText}</InputLabel>
             {renderData()}
         </FormControl>
     );

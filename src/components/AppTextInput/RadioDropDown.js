@@ -8,8 +8,9 @@ import Clear from "@material-ui/icons/Clear";
 import Check from "@material-ui/icons/Check";
 // core components
 import { Select } from "@material-ui/core";
+import { useStore } from "../../stores";
 
-export default function ChannelDropDown({
+export default function RadioDropDown({
     formControlProps,
     labelText,
     id,
@@ -18,6 +19,7 @@ export default function ChannelDropDown({
     error,
     success,
 }) {
+    const { radioStationStore } = useStore();
     return (
         <FormControl style={{}}
             {...formControlProps}
@@ -34,10 +36,9 @@ export default function ChannelDropDown({
                 id={id}
                 {...inputProps}
             >
-                <option style={{ cursor: "pointer" }} value="ALL">ALL</option>
-                <option style={{ cursor: "pointer" }} value="STREAMREADER">STREAMREADER</option>
-                <option style={{ cursor: "pointer" }} value="PORTAL">PORTAL</option>
-                <option style={{ cursor: "pointer" }} value="MOBILE">MOBILE</option>
+                {radioStationStore?.getRadioStations?.docs?.map((radio) => (
+                    <option style={{ cursor: "pointer" }} key={radio._id} value={radio.name}>{radio.name}</option>
+                ))}
             </Select>
             {error ? (
                 <Clear />
@@ -48,7 +49,7 @@ export default function ChannelDropDown({
     );
 }
 
-ChannelDropDown.propTypes = {
+RadioDropDown.propTypes = {
     labelText: PropTypes.node,
     labelProps: PropTypes.object,
     id: PropTypes.string,

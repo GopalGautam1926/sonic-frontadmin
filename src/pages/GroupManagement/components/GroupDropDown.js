@@ -4,7 +4,6 @@ import InputLabel from "@material-ui/core/InputLabel";
 import { Select } from "@material-ui/core";
 import { useStore } from "../../../stores";
 import { observer } from "mobx-react-lite";
-import { initialGroupDropdownValue } from "../../../constants";
 
 function GroupDropDown({
     formControlProps,
@@ -12,6 +11,9 @@ function GroupDropDown({
     labelProps,
     inputProps,
     inputLabelProps,
+    selectedValue,
+    onChangeGroup,
+    value,
     ...props
 }) {
     const { groupStore } = useStore()
@@ -57,12 +59,21 @@ function GroupDropDown({
                     id: 'company-native-simple',
                     ...inputProps
                 }}
+                onChange={(e) => {
+                    onChangeGroup(e.target.value)
+                }}
+                value={value}
                 {...props}
             >
+                <option style={{ cursor: "pointer" }} value={""}>None</option>
                 {
                     groupStore?.getGroups?.map((group) => {
                         return (
-                            <option style={{ cursor: "pointer", }} value={group?.name} selected={group?.name === initialGroupDropdownValue ? "selected" : ""}  >
+                            <option
+                                style={{ cursor: "pointer" }}
+                                value={group?._id}
+                                selected={group?._id == value ? "selected" : ""}
+                            >
                                 {group?.name}
                             </option>
                         )
@@ -74,7 +85,7 @@ function GroupDropDown({
 
     return (
         <FormControl {...formControlProps} fullWidth>
-            <InputLabel htmlFor="company-native-simple" {...inputLabelProps}>{labelText}</InputLabel>
+            <InputLabel shrink htmlFor="company-native-simple" {...inputLabelProps}>{labelText}</InputLabel>
             {renderData()}
         </FormControl>
     );
