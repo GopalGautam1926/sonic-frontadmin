@@ -3,8 +3,21 @@ import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import FancyCard from '../../../components/FancyCard/FancyCard';
 import { Link } from 'react-router-dom';
 import { getRouteNames } from '../../../routes/routes.data';
+import { observer } from 'mobx-react';
+import { useStore } from '../../../stores';
+import { CircularProgress } from '@material-ui/core';
 
-export default function PlaysStats() {
+function PlaysStats() {
+    const { sonickeyStore } = useStore();
+
+    var count = 0
+    if (sonickeyStore.error) {
+        count = <span style={{ color: "red" }}>Error</span>;
+    } else if (sonickeyStore.loading) {
+        count = <CircularProgress size={15} color="inherit" />;
+    } else {
+        count = sonickeyStore?.getPlays?.totalDocs || 0;
+    }
     return (
         <FancyCard
             cardHeader={
@@ -17,7 +30,7 @@ export default function PlaysStats() {
                             <div style={{ marginTop: 10, textAlign: "right" }}>
                                 <p className={headerClasses.cardCategory}>SonicKeys</p>
                                 <h3 className={headerClasses.cardTitle}>
-                                    {/* {count} */}99
+                                    {count}
                                 </h3>
                             </div>
                         </>
@@ -32,3 +45,5 @@ export default function PlaysStats() {
         </FancyCard>
     )
 }
+
+export default observer(PlaysStats);

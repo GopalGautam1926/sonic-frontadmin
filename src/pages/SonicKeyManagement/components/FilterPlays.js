@@ -9,38 +9,19 @@ import "react-datepicker/dist/react-datepicker.css";
 import { CalendarTodayOutlined } from '@material-ui/icons'
 import { useStore } from '../../../stores'
 import ChannelDropDown from '../../../components/AppTextInput/ChannelDropDown'
+import CompanyDropDown from '../../CompanyManagement/components/CompanyDropDown'
+import GroupDropDown from '../../GroupManagement/components/GroupDropDown'
+import RadioDropDown from '../../../components/AppTextInput/RadioDropDown'
+import { observer } from 'mobx-react'
 
-export default function FilterPlays({ closeDialog }) {
-    const [values, setValues] = React.useState({
-        channel: "ALL",
-        sonickey: "",
-        country: "",
-        radiostation: "",
-        artist: "",
-        track: "",
-        label: "",
-        distributor: "",
-        companyName: "",
-        groupName: "",
-        username: "",
-        encodedDate: "",
-    })
+function FilterPlays({ closeDialog }) {
 
     const { sonickeyStore } = useStore();
 
     const onSubmit = (e) => {
         e.preventDefault();
-        sonickeyStore.fetchPlays({
-            channel: values.channel,
-            sonickey: values.sonickey,
-            country: values.country,
-            radiostation: values.radiostation,
-            artist: values.artist,
-            track: values.track,
-            label: values.label,
-            distributor: values.distributor,
-            username: values.username,
-        })
+        sonickeyStore.changePlayTablePage(1)
+        sonickeyStore.fetchPlays()
         closeDialog();
     }
 
@@ -74,12 +55,12 @@ export default function FilterPlays({ closeDialog }) {
                                     }}
                                     inputProps={{
                                         placeholder: "Channel",
-                                        value: values.channel,
-                                        onChange: (e) =>
-                                            setValues({ ...values, channel: e.target.value }),
+                                        value: sonickeyStore?.getFilters?.channel,
+                                        onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, channel: e.target.value })
                                     }}
                                 />
                             </Grid>
+
                             <Grid item xs={12} sm={3} md={3}>
                                 <AppTextInput
                                     labelText="SonicKey"
@@ -89,12 +70,12 @@ export default function FilterPlays({ closeDialog }) {
                                     }}
                                     inputProps={{
                                         placeholder: "SonicKey",
-                                        value: values.sonickey,
-                                        onChange: (e) =>
-                                            setValues({ ...values, sonickey: e.target.value }),
+                                        value: sonickeyStore?.getFilters?.sonickey,
+                                        onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, sonickey: e.target.value })
                                     }}
                                 />
                             </Grid>
+
                             <Grid item xs={12} sm={3} md={3}>
                                 <CountryDropDown
                                     labelText="Country"
@@ -104,15 +85,14 @@ export default function FilterPlays({ closeDialog }) {
                                     }}
                                     inputProps={{
                                         placeholder: "Country",
-                                        value: values.country,
-                                        onChange: (e) =>
-                                            setValues({ ...values, country: e.target.value }),
+                                        value: sonickeyStore?.getFilters?.country,
+                                        onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, country: e.target.value })
                                     }}
                                 ></CountryDropDown>
                             </Grid>
 
                             <Grid item xs={12} sm={3} md={3}>
-                                <AppTextInput
+                                <RadioDropDown
                                     labelText="Radio Station"
                                     id="radiostation"
                                     formControlProps={{
@@ -120,9 +100,8 @@ export default function FilterPlays({ closeDialog }) {
                                     }}
                                     inputProps={{
                                         placeholder: "Radio Station",
-                                        value: values.radiostation,
-                                        onChange: (e) =>
-                                            setValues({ ...values, radiostation: e.target.value }),
+                                        value: sonickeyStore?.getFilters?.radiostation,
+                                        onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, radiostation: e.target.value })
                                     }}
                                 />
                             </Grid>
@@ -136,9 +115,8 @@ export default function FilterPlays({ closeDialog }) {
                                     }}
                                     inputProps={{
                                         placeholder: "Artist",
-                                        value: values.artist,
-                                        onChange: (e) =>
-                                            setValues({ ...values, artist: e.target.value }),
+                                        value: sonickeyStore?.getFilters?.artist,
+                                        onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, artist: e.target.value })
                                     }}
                                 />
                             </Grid>
@@ -152,9 +130,8 @@ export default function FilterPlays({ closeDialog }) {
                                     }}
                                     inputProps={{
                                         placeholder: "Track",
-                                        value: values.track,
-                                        onChange: (e) =>
-                                            setValues({ ...values, track: e.target.value }),
+                                        value: sonickeyStore?.getFilters?.track,
+                                        onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, track: e.target.value })
                                     }}
                                 />
                             </Grid>
@@ -168,9 +145,8 @@ export default function FilterPlays({ closeDialog }) {
                                     }}
                                     inputProps={{
                                         placeholder: "Label",
-                                        value: values.label,
-                                        onChange: (e) =>
-                                            setValues({ ...values, label: e.target.value }),
+                                        value: sonickeyStore?.getFilters?.label,
+                                        onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, label: e.target.value })
                                     }}
                                 />
                             </Grid>
@@ -184,32 +160,52 @@ export default function FilterPlays({ closeDialog }) {
                                     }}
                                     inputProps={{
                                         placeholder: "Distributor",
-                                        value: values.distributor,
-                                        onChange: (e) =>
-                                            setValues({ ...values, distributor: e.target.value }),
+                                        value: sonickeyStore?.getFilters?.distributor,
+                                        onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, distributor: e.target.value })
                                     }}
                                 />
                             </Grid>
 
                             <Grid item xs={12} sm={3} md={3}>
+                                <GroupDropDown
+                                    selectedValue="NONE"
+                                    labelText="Associated Groups"
+                                    fullWidth
+                                    onChangeGroup={(value) => {
+                                        sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, groupName: value })
+                                    }}
+                                    value={sonickeyStore?.getFilters?.groupName}
+                                />
+                            </Grid >
+
+                            <Grid item xs={12} sm={3} md={3}>
+                                <CompanyDropDown
+                                    labelText="Associated Companies"
+                                    fullWidth
+                                    value={sonickeyStore?.getFilters?.companyName}
+                                    onChange={(e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, companyName: e.target.value })}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12} sm={3} md={3}>
                                 <AppTextInput
-                                    labelText="Username"
+                                    labelText="User ID"
                                     id="username"
                                     formControlProps={{
                                         fullWidth: true,
                                     }}
                                     inputProps={{
                                         placeholder: "Username",
-                                        value: values.username,
-                                        onChange: (e) =>
-                                            setValues({ ...values, username: e.target.value }),
+                                        value: sonickeyStore?.getFilters?.username,
+                                        onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, username: e.target.value })
                                     }}
                                 />
                             </Grid>
+
                             <Grid item xs={12} sm={3} md={3}>
                                 <DatePicker
-                                    selected={values.endDate}
-                                    onChange={(date) => setValues({ ...values, endDate: date })}
+                                    selected={sonickeyStore?.getFilters?.encodedDate}
+                                    onChange={(date) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, encodedDate: date })}
                                     customInput={<TextField
                                         id="date"
                                         label="Encoded Date"
@@ -251,10 +247,13 @@ export default function FilterPlays({ closeDialog }) {
                         <AppButton color="danger" onClick={() => closeDialog?.()}>
                             Close
                         </AppButton>
-                        <AppButton type="submit">Apply</AppButton>
+                        <AppButton onClick={() => sonickeyStore?.resetFilter()}>Reset</AppButton>
+                        <AppButton color='success' type="submit">Apply</AppButton>
                     </FancyCard.CardActions>
                 </form>
             </FancyCard>
         </div>
     )
 }
+
+export default observer(FilterPlays);

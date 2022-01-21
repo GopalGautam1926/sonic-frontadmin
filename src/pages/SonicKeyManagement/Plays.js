@@ -10,14 +10,15 @@ import "react-datepicker/dist/react-datepicker.css";
 import { CalendarTodayOutlined } from '@material-ui/icons';
 import { format } from 'date-fns';
 import moment from 'moment';
-import CustomFooter from '../../components/Table/CustomFooter';
+import CustomPagination from '../../components/common/CustomPagination';
+import { log } from '../../utils/app.debug';
 
 export default function Plays() {
-    const [values, setValues] = React.useState({
-        startDate: new Date().setMonth(new Date().getMonth() - 1),
-        endDate: new Date(),
-    })
     const { sonickeyStore } = useStore();
+
+    React.useEffect(() => {
+        sonickeyStore.fetchPlays()
+    }, [])
 
     const columns = [
         {
@@ -114,6 +115,11 @@ export default function Plays() {
         },
     ];
 
+    const onPageChange = (page) => {
+        sonickeyStore.fetchPlays(page);
+        sonickeyStore?.changePlayTablePage(page);
+    }
+
     return (
         <div>
             <FancyCard
@@ -133,11 +139,8 @@ export default function Plays() {
                 <Grid container style={{ padding: "0px 20px", display: 'flex', justifyContent: 'flex-end', zIndex: 1 }}>
                     <Grid item>
                         <DatePicker
-                            selected={values.startDate}
-                            onChange={(date) => {
-                                setValues({ ...values, startDate: date })
-                                sonickeyStore.fetchPlays({ startDate: values?.startDate, endDate: values?.endDate })
-                            }}
+                            selected={sonickeyStore?.getFilters?.startDate}
+                            onChange={(date) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, startDate: date })}
                             customInput={<TextField
                                 id="date"
                                 label="Start Date"
@@ -179,11 +182,8 @@ export default function Plays() {
 
                     <Grid item>
                         <DatePicker
-                            selected={values.endDate}
-                            onChange={(date) => {
-                                setValues({ ...values, endDate: date });
-                                sonickeyStore.fetchPlays({ startDate: values?.startDate, endDate: values?.endDate })
-                            }}
+                            selected={sonickeyStore?.getFilters?.endDate}
+                            onChange={(date) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, endDate: date })}
                             customInput={<TextField
                                 id="date"
                                 label="End Date"
@@ -239,31 +239,17 @@ export default function Plays() {
                             }
                             data={sonickeyStore?.getPlays?.docs || []}
                             columns={columns}
-                            // options={{
-                            //     filter: false,
-                            //     pagination: true,
-                            //     count: sonickeyStore?.getPlays?.totalDocs,
-                            //     page: sonickeyStore?.getPlays?.page,
-                            //     customFooter: (count, page, rowsPerPage, changeRowsPerPage, changePage, textLabels) => {
-                            //         return (
-                            //             <CustomFooter
-                            //                 count={count}
-                            //                 page={page}
-                            //                 rowsPerPage={rowsPerPage}
-                            //                 changeRowsPerPage={changeRowsPerPage}
-                            //                 changePage={changePage}
-                            //                 textLabels={textLabels}
-                            //             />
-                            //         );
-                            //     },
-                            // }}
                             options={{
-                                filter: false,
-                                pagination: true,
-                                count: sonickeyStore?.getPlays?.totalDocs,
-                                // page: sonickeyStore?.getPlays?.page,
-                                // rowsPerPage: 10,
-                                // onChangePage: (event, value) => sonickeyStore?.fetchPlays({ limit: 10, page: value })
+                                count: sonickeyStore?.getPlays?.totalDocs || 0,
+                                customFooter: (count, page, rowsPerPage, changeRowsPerPage, changePage, textLabels) => {
+                                    return (
+                                        <CustomPagination
+                                            totalPages={sonickeyStore?.getPlays?.totalPages}
+                                            page={sonickeyStore?.getPlayTablePage}
+                                            onChange={(event, value) => onPageChange(value)}
+                                        />
+                                    );
+                                }
                             }}
                         />
                     </DataFetchingStateComponent>
