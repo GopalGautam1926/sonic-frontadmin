@@ -43,7 +43,7 @@ export default function RegisterUser({ closeDialog }) {
       ...newUser,
       password: newUser.tempPassword,
       group: groupStore?.getGroups?.find((group) => group?.name === newUser?.group)?._id,
-      company: newUser?.company === initialCompanyDropdownValue ? null : newUser?.company
+      company: newUser?.company === "NONE" ? null : newUser?.company
     };
     if (payload.phoneNumber) {
       payload.phoneNumber = `${payload.countryCode}${payload.phoneNumber}`;

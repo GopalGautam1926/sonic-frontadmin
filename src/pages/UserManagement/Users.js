@@ -1,5 +1,6 @@
 import React from 'react'
 import DataFetchingStateComponent from '../../components/common/DataFetchingStateComponent';
+import CustomPagination from '../../components/common/CustomPagination';
 import FancyCard from '../../components/FancyCard/FancyCard';
 import Table from '../../components/Table/Table';
 import { useStore } from '../../stores'
@@ -9,6 +10,10 @@ import UserFinder from './components/UserFinder';
 
 export default function Users() {
     const { userStore } = useStore();
+
+    const [state, setState] = React.useState({
+        userTablepage: 1
+    })
 
     log("User store", userStore?.getUsers)
 
@@ -57,8 +62,9 @@ export default function Users() {
         },
     ];
 
-    const changePage = (currentPage) => {
-        userStore.fetchUsers(currentPage === 0 ? 1 : currentPage + 1)
+    const onPageChange = (page) => {
+        userStore.fetchUsers(page)
+        setState({ ...state, userTablepage: page })
     }
 
     return (
@@ -100,7 +106,15 @@ export default function Users() {
                             columns={columns}
                             options={{
                                 count: userStore?.getUsers?.totalDocs || 0,
-                                onChangePage: (currentPage) => { changePage(currentPage) },
+                                customFooter: (count, page, rowsPerPage, changeRowsPerPage, changePage, textLabels) => {
+                                    return (
+                                        <CustomPagination
+                                            totalPages={userStore?.getUsers?.totalPages}
+                                            page={state?.userTablepage}
+                                            onChange={(event, value) => onPageChange(value)}
+                                        />
+                                    );
+                                }
                             }}
                         />
                     </DataFetchingStateComponent>
