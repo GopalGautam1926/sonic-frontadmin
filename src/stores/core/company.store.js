@@ -7,6 +7,7 @@ import {
 import { AxiosRequestConfig } from "axios";
 import { log } from "../../utils/app.debug";
 import companyHttps from "../../services/https/resources/company.https";
+import deepmerge from "deepmerge";
 
 class CompanyStore {
     @observable loading = false;
@@ -31,6 +32,14 @@ class CompanyStore {
     fetchCompanies(options = {}) {
         this.error = null;
         this.loading = true;
+
+        let newOptions = {
+            params: {
+                sort: "-createdAt",
+            }
+        }
+
+        options = deepmerge(newOptions, options)
 
         companyHttps.fetchCompanies(options)
             .then(({ data }) => {

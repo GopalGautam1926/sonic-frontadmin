@@ -49,6 +49,7 @@ class UserStore {
 
         let newOptions = {
             params: {
+                sort: "-createdAt",
                 limit: this.users.limit,
                 page: page,
                 skip: page > 1 ? (page - 1) * this.users.limit : 0
@@ -76,7 +77,7 @@ class UserStore {
     @action
     addNewUser(userData) {
         this.users.totalDocs += 1
-        this.users.docs.push(userData)
+        this.users.docs.unshift(userData)
     }
 }
 

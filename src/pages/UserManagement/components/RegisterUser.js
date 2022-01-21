@@ -9,7 +9,6 @@ import { toast } from "react-toastify";
 import { initialCompanyDropdownValue, initialGroupDropdownValue } from "../../../constants";
 import { useStore } from "../../../stores";
 import { log } from "../../../utils/app.debug";
-import DataFetchingStateComponent from "../../../components/common/DataFetchingStateComponent";
 import CompanyDropDown from "../../CompanyManagement/components/CompanyDropDown";
 import GroupDropDown from "../../GroupManagement/components/GroupDropDown";
 

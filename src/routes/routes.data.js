@@ -30,7 +30,7 @@ export const routesData = [
   },
   {
     icon: <BusinessIcon />,
-    name: "Company Management",
+    name: "Companies",
     sidebar: true,
     parentPath: '/company-management',
     layout: "/admin",
@@ -59,7 +59,7 @@ export const routesData = [
   },
   {
     icon: <PeopleIcon />,
-    name: "Group Management",
+    name: "Groups",
     sidebar: true,
     parentPath: '/groups-management',
     layout: "/admin",
@@ -88,7 +88,7 @@ export const routesData = [
   },
   {
     icon: <PeopleIcon />,
-    name: "Users Management",
+    name: "Users",
     sidebar: true,
     parentPath: '/users-management',
     layout: "/admin",
@@ -113,19 +113,20 @@ export const routesData = [
           }
         ]
       },
-      {
-        path: "/users-management/add-monitoring-subscription-to-user",
-        name: "Add Subscription",
-        component: observer(AddMonitorSubscriptionToUser),
-        exact: true,
-        sidebar: true,
-        layout: "/admin",
-        key: "um_add_monitoring_subscription_to_user"
-      }]
+      // {
+      //   path: "/users-management/add-monitoring-subscription-to-user",
+      //   name: "Add Subscription",
+      //   component: observer(AddMonitorSubscriptionToUser),
+      //   exact: true,
+      //   sidebar: true,
+      //   layout: "/admin",
+      //   key: "um_add_monitoring_subscription_to_user"
+      // }
+    ]
   },
   {
     icon: <VpnKeyIcon />,
-    name: "SonicKey Management",
+    name: "SonicKeys",
     sidebar: true,
     parentPath: '/sonickeys-management',
     layout: "/admin",
@@ -154,7 +155,7 @@ export const routesData = [
   },
   {
     icon: <RadioIcon />,
-    name: "Radio Management",
+    name: "Radios",
     sidebar: true,
     parentPath: '/radio-management',
     layout: "/admin",
@@ -183,7 +184,7 @@ export const routesData = [
   },
   {
     icon: <VpnKeyIcon />,
-    name: "Keys Management",
+    name: "Keys",
     sidebar: true,
     parentPath: '/keys-management',
     layout: "/admin",

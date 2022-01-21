@@ -17,7 +17,7 @@ import Badge from '../../../components/Badge/Badge';
 function ApiKeys() {
   const [state, setState] = useState({
     isDeleting: false,
-    deletigKey:''
+    deletigKey: ''
   });
   const history = useHistory();
   const { apiKeyStore } = useStore();
@@ -32,7 +32,17 @@ function ApiKeys() {
       options: {
         filter: false,
         customBodyRender: (value, { columnIndex }, updateValue) => {
-          return value||"--";
+          return value?.username || "--";
+        },
+      },
+    },
+    {
+      label: "Company",
+      name: "company",
+      options: {
+        filter: false,
+        customBodyRender: (value, { columnIndex }, updateValue) => {
+          return value?.name || "--";
         },
       },
     },
@@ -42,7 +52,7 @@ function ApiKeys() {
       options: {
         filter: false,
         customBodyRender: (value, { columnIndex }, updateValue) => {
-          return value?.[0] ||"--";
+          return value?.[0] || "--";
         },
       },
     },
@@ -113,25 +123,24 @@ function ApiKeys() {
           );
           return (
             <Table.TableRowAction
-            enableDelete={false}
+              enableDelete={false}
               viewButtonProps={{
                 onClick: () => {
-                  const path = `${
-                    getRouteNames()["km_apikeys"]
-                  }/view/${value}`;
+                  const path = `${getRouteNames()["km_apikeys"]
+                    }/view/${value}`;
                   history.push({
-                    pathname:path,
-                    state:{
-                      apiKey:rowData
+                    pathname: path,
+                    state: {
+                      apiKey: rowData
                     }
                   });
                 },
               }}
               deletePopConfirmProps={{
-                onClickYes: () =>onDeleteKey(value)
+                onClickYes: () => onDeleteKey(value)
               }}
               deleteButtonProps={{
-                loading: (state.isDeleting && value==state.deletigKey),
+                loading: (state.isDeleting && value == state.deletigKey),
               }}
             />
           );
@@ -141,16 +150,16 @@ function ApiKeys() {
   ];
 
   const onDeleteKey = (key) => {
-    setState({ ...state, isDeleting: true,deletigKey:key });
+    setState({ ...state, isDeleting: true, deletigKey: key });
     apikeysHttps
       .deleteApiKey(key)
       .then(({ data }) => {
         toast.success("Deleted");
-        setState({ ...state, isDeleting: false,deletigKey:'' });
+        setState({ ...state, isDeleting: false, deletigKey: '' });
       })
       .catch((err) => {
         toast.error("Error while deteting");
-        setState({ ...state, isDeleting: false,deletigKey:'' });
+        setState({ ...state, isDeleting: false, deletigKey: '' });
       });
   };
 
@@ -188,7 +197,7 @@ function ApiKeys() {
               data={apiKeyStore.getApiKeys?.docs || []}
               columns={columns}
               options={{
-                count:apiKeyStore.getApiKeys.totalDocs
+                count: apiKeyStore.getApiKeys.totalDocs
               }}
             />
           </DataFetchingStateComponent>

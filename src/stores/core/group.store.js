@@ -7,6 +7,7 @@ import {
 import { AxiosRequestConfig } from "axios";
 import { log } from "../../utils/app.debug";
 import groupHttps from "../../services/https/resources/group.https";
+import deepmerge from "deepmerge";
 
 class GroupStore {
     @observable loading = false;
@@ -31,6 +32,14 @@ class GroupStore {
     fetchGroups(options = {}) {
         this.loading = true;
         this.error = null;
+
+        let newOptions = {
+            params: {
+                sort: "-createdAt",
+            }
+        }
+
+        options = deepmerge(newOptions, options)
 
         groupHttps.fetchGroups(options)
             .then(({ data }) => {

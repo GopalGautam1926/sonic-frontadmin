@@ -17,6 +17,7 @@ const initialApiKey = {
   customer: "",
   type: "Individual",
   groups: [],
+  company: "",
   validity: new Date(),
   disabled: false,
   metaData: {},
@@ -77,6 +78,7 @@ export default function AddApiKey({ closeDialog }) {
                       ...apiKey,
                       type: type,
                       customer: "",
+                      company: "",
                       groups: [],
                     });
                   }}
@@ -88,9 +90,9 @@ export default function AddApiKey({ closeDialog }) {
                     label="Individual"
                   />
                   <FormControlLabel
-                    value="Group"
+                    value="Company"
                     control={<Radio />}
-                    label="Group"
+                    label="Company"
                   />
                 </RadioGroup>
               </FormControl>
@@ -99,7 +101,7 @@ export default function AddApiKey({ closeDialog }) {
               <Grid item xs={12} sm={6} md={6}>
                 {apiKey.type == "Individual" && (
                   <AppTextInput
-                    labelText="Customer Id or Sub (take it from cognito)"
+                    labelText="Customer Id or Sub"
                     id="customer"
                     formControlProps={{
                       fullWidth: true,
@@ -115,20 +117,20 @@ export default function AddApiKey({ closeDialog }) {
                   />
                 )}
 
-                {apiKey.type == "Group" && (
+                {apiKey.type == "Company" && (
                   <AppTextInput
-                    labelText="Group name (take it from cognito)"
-                    id="group"
+                    labelText="Company Id"
+                    id="company"
                     formControlProps={{
                       fullWidth: true,
                     }}
                     inputProps={{
                       required: true,
-                      id: "group",
-                      placeholder: "Group name for this api key",
-                      value: apiKey.groups?.[0],
+                      id: "company",
+                      placeholder: "Company Id for this api key",
+                      value: apiKey.company,
                       onChange: (e) =>
-                        setApiKey({ ...apiKey, groups: [e.target.value] }),
+                        setApiKey({ ...apiKey, company: e.target.value }),
                     }}
                   />
                 )}

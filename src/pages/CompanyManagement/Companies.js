@@ -1,3 +1,4 @@
+import { format } from 'date-fns'
 import React from 'react'
 import DataFetchingStateComponent from '../../components/common/DataFetchingStateComponent'
 import FancyCard from '../../components/FancyCard/FancyCard'
@@ -21,10 +22,17 @@ export default function Companies() {
             label: "Contact No",
             name: "contactNo",
         },
-        // {
-        //     label: "Action",
-        //     name: "action"
-        // }
+        {
+            label: "Company Admin",
+            name: "owner",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+
+                    return value?.username || "--"
+                }
+            }
+        }
     ]
 
     log("Company store", companyStore?.getCompany)

@@ -40,16 +40,29 @@ export default function ViewApiKey({ closeDialog }) {
     disabled: false,
     suspended: false,
     metaData: {},
+    company: ""
   });
 
   const getAndSetApiKey = async () => {
     try {
       setState({ ...state, loading: true, error: null });
       if (location?.state?.apiKey) {
+        if (location.state.apiKey.customer) {
+          location.state.apiKey.customer = location.state.apiKey.customer?._id
+        }
+        if (location.state.apiKey.company) {
+          location.state.apiKey.company = location.state.apiKey.company?._id
+        }
         setApiKey(location.state.apiKey);
         setState({ ...state, loading: false, oldKey: location.state.apiKey });
       } else {
-        const { data } = await apikeysHttps.findByKey(apiId);
+        var { data } = await apikeysHttps.findByKey(apiId);
+        if (data?.customer) {
+          data.customer = data.customer._id
+        }
+        if (data?.company) {
+          data.company = data.company._id
+        }
         setApiKey(data);
         setState({ ...state, loading: false, oldKey: data });
       }
@@ -187,9 +200,8 @@ export default function ViewApiKey({ closeDialog }) {
                       </AppButton>
                     }
                     onClickYes={() => onUpdateWithState("suspend")}
-                    message={`Really want to ${
-                      apiKey.suspended ? "unsuspend" : "suspend"
-                    } this api key?`}
+                    message={`Really want to ${apiKey.suspended ? "unsuspend" : "suspend"
+                      } this api key?`}
                   />
                 </RSpace.Item>
               </RSpace>
@@ -214,13 +226,13 @@ export default function ViewApiKey({ closeDialog }) {
                       value="Individual"
                       control={<Radio />}
                       label="Individual"
-                      disabled={!state.editMode}
+                      disabled={true}
                     />
                     <FormControlLabel
-                      value="Group"
+                      value="Company"
                       control={<Radio />}
-                      label="Group"
-                      disabled={!state.editMode}
+                      label="Company"
+                      disabled={true}
                     />
                   </RadioGroup>
                 </FormControl>
@@ -230,14 +242,14 @@ export default function ViewApiKey({ closeDialog }) {
                 <Grid item xs={12} sm={6} md={6}>
                   {apiKey.type == "Individual" && (
                     <AppTextInput
-                      labelText="Customer Id or Sub (take it from cognito)"
+                      labelText="Customer Id or Sub"
                       id="customer"
                       formControlProps={{
                         fullWidth: true,
                       }}
                       inputProps={{
                         required: true,
-                        readOnly: !state.editMode,
+                        readOnly: true,
                         placeholder: "Customer id or sub for this api key",
                         value: apiKey.customer,
                         onChange: (e) =>
@@ -245,20 +257,20 @@ export default function ViewApiKey({ closeDialog }) {
                       }}
                     />
                   )}
-                  {apiKey.type == "Group" && (
+                  {apiKey.type == "Company" && (
                     <AppTextInput
-                      labelText="Group name (take it from cognito)"
-                      id="group"
+                      labelText="Company Id "
+                      id="company"
                       formControlProps={{
                         fullWidth: true,
                       }}
                       inputProps={{
                         required: true,
-                        readOnly: !state.editMode,
-                        placeholder: "Group name for this api key",
-                        value: apiKey.groups?.[0],
+                        readOnly: true,
+                        placeholder: "Company Id for this api key",
+                        value: apiKey.company,
                         onChange: (e) =>
-                          setApiKey({ ...apiKey, groups: [e.target.value] }),
+                          setApiKey({ ...apiKey, company: e.target.value }),
                       }}
                     />
                   )}

@@ -3,7 +3,6 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 import useStyles from "./styles";
-import { useStore } from "../../stores";
 import { observer } from "mobx-react";
 import Header from "../Header/Header";
 import Sidebar from "../Sidebar/Sidebar";
@@ -45,8 +44,8 @@ export default observer(({ children }) => {
       />
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Breadcrumbs routes={flattenRoutes()}/>
-        <MainRoutes/>
+        <Breadcrumbs routes={flattenRoutes()} />
+        <MainRoutes />
       </main>
     </div>
   );
