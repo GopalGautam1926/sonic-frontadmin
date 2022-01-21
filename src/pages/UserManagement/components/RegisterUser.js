@@ -90,20 +90,18 @@ export default function RegisterUser({ closeDialog }) {
           <FancyCard.CardContent>
             <Grid container spacing={1}>
               <Grid item xs={12} sm={6} md={6}>
-                <DataFetchingStateComponent>
-                  <GroupDropDown
-                    labelText="Associated  Groups"
-                    value={newUser.group}
-                    fullWidth
-                    onChange={(e) => {
-                      setNewUser({ ...newUser, group: e.target.value })
-                    }}
-                    inputProps={{
-                      required: true
-                    }}
-                  />
-                </DataFetchingStateComponent>
-              </Grid>
+                <GroupDropDown
+                  labelText="Associated  Groups"
+                  value={newUser.group}
+                  fullWidth
+                  onChange={(e) => {
+                    setNewUser({ ...newUser, group: e.target.value })
+                  }}
+                  inputProps={{
+                    required: true
+                  }}
+                />
+              </Grid >
 
               <Grid item xs={12} sm={6} md={6}>
                 <CompanyDropDown
@@ -162,7 +160,7 @@ export default function RegisterUser({ closeDialog }) {
                   }
                 />
               </Grid>
-            </Grid>
+            </Grid >
 
             <Grid container spacing={1}>
               <Grid item xs={12} sm={6} md={6}>
@@ -231,7 +229,7 @@ export default function RegisterUser({ closeDialog }) {
                 />
               </Grid>
             </Grid>
-          </FancyCard.CardContent>
+          </FancyCard.CardContent >
 
           <FancyCard.CardActions>
             <AppButton color="danger" onClick={() => closeDialog?.()}>
@@ -245,8 +243,8 @@ export default function RegisterUser({ closeDialog }) {
               Register
             </AppButton>
           </FancyCard.CardActions>
-        </form>
-      </FancyCard>
-    </div>
+        </form >
+      </FancyCard >
+    </div >
   );
 }

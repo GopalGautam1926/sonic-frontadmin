@@ -4,15 +4,15 @@ import FancyCard from '../../../components/FancyCard/FancyCard'
 import AppTextInput from '../../../components/AppTextInput/AppTextInput'
 import CountryDropDown from '../../../components/AppTextInput/CountryDropDown'
 import AppButton from '../../../components/AppButton/AppButton'
-import MenuDropDown from '../../../components/AppTextInput/MenuDropDown'
-import { channel } from '../../../constants/DropDownItem'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { CalendarTodayOutlined } from '@material-ui/icons'
+import { useStore } from '../../../stores'
+import ChannelDropDown from '../../../components/AppTextInput/ChannelDropDown'
 
 export default function FilterPlays({ closeDialog }) {
     const [values, setValues] = React.useState({
-        channel: "",
+        channel: "ALL",
         sonickey: "",
         country: "",
         radiostation: "",
@@ -26,8 +26,21 @@ export default function FilterPlays({ closeDialog }) {
         encodedDate: "",
     })
 
+    const { sonickeyStore } = useStore();
+
     const onSubmit = (e) => {
         e.preventDefault();
+        sonickeyStore.fetchPlays({
+            channel: values.channel,
+            sonickey: values.sonickey,
+            country: values.country,
+            radiostation: values.radiostation,
+            artist: values.artist,
+            track: values.track,
+            label: values.label,
+            distributor: values.distributor,
+            username: values.username,
+        })
         closeDialog();
     }
 
@@ -53,7 +66,7 @@ export default function FilterPlays({ closeDialog }) {
                     <FancyCard.CardContent>
                         <Grid container spacing={1}>
                             <Grid item xs={12} sm={3} md={3}>
-                                <MenuDropDown
+                                <ChannelDropDown
                                     labelText="Channel"
                                     id="channel"
                                     formControlProps={{
@@ -65,7 +78,6 @@ export default function FilterPlays({ closeDialog }) {
                                         onChange: (e) =>
                                             setValues({ ...values, channel: e.target.value }),
                                     }}
-                                    data={channel}
                                 />
                             </Grid>
                             <Grid item xs={12} sm={3} md={3}>
@@ -181,38 +193,6 @@ export default function FilterPlays({ closeDialog }) {
 
                             <Grid item xs={12} sm={3} md={3}>
                                 <AppTextInput
-                                    labelText="Company Name"
-                                    id="companyName"
-                                    formControlProps={{
-                                        fullWidth: true,
-                                    }}
-                                    inputProps={{
-                                        placeholder: "Company Name",
-                                        value: values.companyName,
-                                        onChange: (e) =>
-                                            setValues({ ...values, companyName: e.target.value }),
-                                    }}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12} sm={3} md={3}>
-                                <AppTextInput
-                                    labelText="Group Name"
-                                    id="groupName"
-                                    formControlProps={{
-                                        fullWidth: true,
-                                    }}
-                                    inputProps={{
-                                        placeholder: "Group Name",
-                                        value: values.groupName,
-                                        onChange: (e) =>
-                                            setValues({ ...values, groupName: e.target.value }),
-                                    }}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12} sm={3} md={3}>
-                                <AppTextInput
                                     labelText="Username"
                                     id="username"
                                     formControlProps={{
@@ -232,7 +212,7 @@ export default function FilterPlays({ closeDialog }) {
                                     onChange={(date) => setValues({ ...values, endDate: date })}
                                     customInput={<TextField
                                         id="date"
-                                        label="End Date"
+                                        label="Encoded Date"
                                         style={{
                                             color: "#757575",
                                             backgroundColor: "transparent",
@@ -259,7 +239,7 @@ export default function FilterPlays({ closeDialog }) {
                                         }}
                                     />}
                                     dateFormat="MMM d,yyyy"
-                                    title="End Date"
+                                    title="Encoded Date"
                                     showYearDropdown
                                     showMonthDropdown
                                 />
