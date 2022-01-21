@@ -11,14 +11,14 @@ import { CalendarTodayOutlined } from '@material-ui/icons';
 import { format } from 'date-fns';
 import moment from 'moment';
 import CustomPagination from '../../components/common/CustomPagination';
-import { log } from '../../utils/app.debug';
 
 export default function Plays() {
     const { sonickeyStore } = useStore();
 
     React.useEffect(() => {
-        sonickeyStore.fetchPlays()
-    }, [])
+        sonickeyStore.changePlayTablePage(1);
+        sonickeyStore.fetchPlays();
+    }, [sonickeyStore?.getFilters?.startDate, sonickeyStore?.getFilters?.endDate])
 
     const columns = [
         {
