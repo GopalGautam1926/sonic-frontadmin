@@ -184,13 +184,13 @@ export const routesData = [
   },
   {
     icon: <VpnKeyIcon />,
-    name: "Keys",
+    name: "Licensing",
     sidebar: true,
-    parentPath: '/keys-management',
+    parentPath: '/licenses-management',
     layout: "/admin",
     routes: [
       {
-        path: "/keys-management/license-keys",
+        path: "/licenses-management/license-keys",
         name: "Licenses",
         component: observer(LicenseKeys),
         exact: true,
@@ -201,7 +201,7 @@ export const routesData = [
           {
             exact: true,
             sidebar: false,
-            path: "/keys-management/license-keys/view/:licenseId",
+            path: "/licenses-management/license-keys/view/:licenseId",
             name: "View License",
             component: ViewLicenseKey,
             layout: "/admin",
@@ -210,7 +210,7 @@ export const routesData = [
         ]
       },
       {
-        path: "/keys-management/api-keys",
+        path: "/licenses-management/api-keys",
         name: "Api Keys",
         exact: true,
         component: observer(ApiKeys),
@@ -221,7 +221,7 @@ export const routesData = [
           {
             exact: true,
             sidebar: false,
-            path: "/keys-management/api-keys/view/:apiId",
+            path: "/licenses-management/api-keys/view/:apiId",
             name: "View Api Key",
             component: observer(ViewApiKey),
             layout: "/admin",

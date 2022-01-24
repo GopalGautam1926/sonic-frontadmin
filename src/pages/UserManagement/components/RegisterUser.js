@@ -109,7 +109,7 @@ export default function RegisterUser({ closeDialog }) {
             <Grid container spacing={1}>
               <Grid item xs={12} sm={6} md={6}>
                 <GroupDropDown
-                  labelText="Associated Groups"
+                  labelText="Associated Group"
                   value={newUser.group}
                   fullWidth
                   loading={state?.initialGroupLoading}
@@ -124,7 +124,7 @@ export default function RegisterUser({ closeDialog }) {
 
               <Grid item xs={12} sm={6} md={6}>
                 <CompanyDropDown
-                  labelText="Associated Companies"
+                  labelText="Associated Company"
                   value={newUser.company}
                   fullWidth
                   onChange={(e) => {

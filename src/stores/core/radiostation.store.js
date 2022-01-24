@@ -49,7 +49,7 @@ class RadioStationStore {
     this.error = null;
     const defaultOptions = {
       params: {
-        sort: '-createdAt',
+        sort: 'name,-createdAt',
         limit: 1000,
         // country:'Russia',
       },
@@ -59,6 +59,17 @@ class RadioStationStore {
       .fetchRadioStations(options)
       .then(({ data }) => {
         log("radioStations", data);
+        // data.docs = data.docs?.sort((a, b) => {
+        //   if (a.name > b.name) {
+        //     return 1
+        //   }
+        //   else if (a.name < b.name) {
+        //     return -1
+        //   }
+        //   else {
+        //     return 0
+        //   }
+        // })
         this.radioStations = data;
         this.loading = false;
       })
@@ -84,19 +95,19 @@ class RadioStationStore {
     }
     switch (options.status) {
       case 'Listening':
-        defaultOptions.params['isStreamStarted']=true
-        defaultOptions.params['isError']=false
+        defaultOptions.params['isStreamStarted'] = true
+        defaultOptions.params['isError'] = false
         break;
 
-        case 'Not Listening':
-          defaultOptions.params['isStreamStarted']=false
-          break;
+      case 'Not Listening':
+        defaultOptions.params['isStreamStarted'] = false
+        break;
 
-          case 'Error':
-          defaultOptions.params['isError']=true
-          defaultOptions.params['isStreamStarted']=true
-          break;
-    
+      case 'Error':
+        defaultOptions.params['isError'] = true
+        defaultOptions.params['isStreamStarted'] = true
+        break;
+
       default:
         break;
     }

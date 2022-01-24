@@ -169,7 +169,7 @@ function FilterPlays({ closeDialog }) {
                             <Grid item xs={12} sm={3} md={3}>
                                 <GroupDropDown
                                     selectedValue="NONE"
-                                    labelText="Associated Groups"
+                                    labelText="Associated Group"
                                     fullWidth
                                     onChangeGroup={(value) => {
                                         sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, groupName: value })
@@ -180,7 +180,7 @@ function FilterPlays({ closeDialog }) {
 
                             <Grid item xs={12} sm={3} md={3}>
                                 <CompanyDropDown
-                                    labelText="Associated Companies"
+                                    labelText="Associated Company"
                                     fullWidth
                                     value={sonickeyStore?.getFilters?.companyName}
                                     onChange={(e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, companyName: e.target.value })}

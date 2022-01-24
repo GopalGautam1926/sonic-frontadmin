@@ -273,9 +273,8 @@ export default function ViewLicenseKey({ closeDialog }) {
                       </AppButton>
                     }
                     onClickYes={() => onUpdateWithState("suspended")}
-                    message={`Really want to ${
-                      license.suspended ? "unsuspend" : "suspend"
-                    } this license?`}
+                    message={`Really want to ${license.suspended ? "unsuspend" : "suspend"
+                      } this license?`}
                   />
                 </RSpace.Item>
                 {/* <RSpace.Item>
@@ -514,7 +513,7 @@ export default function ViewLicenseKey({ closeDialog }) {
               </InputLabel>
 
               <List>
-                {license?.owners?.map((owner, index) => (
+                {license?.owners?.ownerId.map((owner, index) => (
                   <ListItem alignItems="flex-start" key={index}>
                     <ListItemAvatar>
                       <Avatar>{owner.username?.charAt?.(0) || "U"}</Avatar>
