@@ -23,6 +23,10 @@ export default function Users() {
             name: "username",
         },
         {
+            label: "Id",
+            name: "_id",
+        },
+        {
             label: "Email",
             name: "email",
         },

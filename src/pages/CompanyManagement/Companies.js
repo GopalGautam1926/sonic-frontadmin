@@ -15,6 +15,10 @@ export default function Companies() {
             name: "name",
         },
         {
+            label: "Id",
+            name: "_id",
+        },
+        {
             label: "Email",
             name: "email",
         },
