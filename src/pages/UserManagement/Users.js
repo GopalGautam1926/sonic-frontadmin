@@ -37,25 +37,25 @@ export default function Users() {
             }
         },
         {
-            label: "Group",
+            label: "Groups",
             name: "groups",
             options: {
                 customBodyRender: (value) => {
                     const group = value?.length > 0 ? value?.map(grp => {
                         return grp?.name
-                    }) : "---";
+                    }).join() : "---";
                     return group;
                 }
             }
         },
         {
-            label: "Company",
+            label: "Companies",
             name: "companies",
             options: {
                 customBodyRender: (value) => {
                     const companies = value?.length > 0 ? value?.map(cmp => {
                         return cmp?.name
-                    }) : "---";
+                    }).join() : "---";
                     return companies;
                 }
             }

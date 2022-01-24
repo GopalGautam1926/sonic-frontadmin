@@ -28,7 +28,7 @@ function PlaysStats() {
                                 <VpnKeyIcon />
                             </FancyCard.CardIcon>
                             <div style={{ marginTop: 10, textAlign: "right" }}>
-                                <p className={headerClasses.cardCategory}>SonicKeys</p>
+                                <p className={headerClasses.cardCategory}>Plays</p>
                                 <h3 className={headerClasses.cardTitle}>
                                     {count}
                                 </h3>
@@ -40,7 +40,7 @@ function PlaysStats() {
         >
             <FancyCard.CardContent>
                 <FancyCard.Divider />
-                <Link to={getRouteNames()["sm_sonickeys"]}>Search new sonickey</Link>
+                <Link to={getRouteNames()["sm_sonickeys"]}>Search new plays</Link>
             </FancyCard.CardContent>
         </FancyCard>
     )
