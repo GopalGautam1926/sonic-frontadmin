@@ -28,7 +28,7 @@ export default function Plays() {
             options: {
                 filter: false,
                 customBodyRender: (value) => {
-                    const sonickey = value?.sonicKey ? value?.sonicKey : "---";
+                    const sonickey = value?.sonicKey || "---";
                     return sonickey;
                 }
             }
@@ -38,8 +38,8 @@ export default function Plays() {
             name: "radioStation",
             options: {
                 filter: false,
-                customBodyRender: (value) => {
-                    const radio = value?.radioStation?.name ? value?.radioStation?.name : "---";
+                customBodyRender: (radioStation) => {
+                    const radio = radioStation?.name || "---";
                     return radio;
                 }
             }
@@ -108,8 +108,8 @@ export default function Plays() {
             name: "radioStation",
             options: {
                 filter: false,
-                customBodyRender: (value) => {
-                    const country = value?.radioStation?.country ? value?.radioStation?.country : "---";
+                customBodyRender: (radioStation) => {
+                    const country = radioStation?.country || "---";
                     return country;
                 }
             }
