@@ -31,14 +31,14 @@ const Breadcrumbs = ({ routes }) => {
     }
   }
   return (
-    <Card style={{ padding: 8 }} elevation={0.9} id="app_breadcrumbs">
+    <Card style={{ padding: 8 }} elevation={0} id="app_breadcrumbs">
       <MUIBreadcrumbs aria-label="breadcrumb">
         {crumbs.map((crumb, index) => {
           if (crumb.isLast) {
-            return <Typography color="textPrimary">{crumb.name}</Typography>;
+            return <Typography key={index} color="textPrimary">{crumb.name}</Typography>;
           } else {
             return (
-              <Link color="inherit" to={crumb.to}>
+              <Link key={index} color="inherit" to={crumb.to}>
                 {crumb.name}
               </Link>
             );

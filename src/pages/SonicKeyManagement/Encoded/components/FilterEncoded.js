@@ -1,27 +1,21 @@
 import React from 'react'
-import { Grid, InputAdornment, TextField } from '@material-ui/core'
-import FancyCard from '../../../components/FancyCard/FancyCard'
-import AppTextInput from '../../../components/AppTextInput/AppTextInput'
-import CountryDropDown from '../../../components/AppTextInput/CountryDropDown'
-import AppButton from '../../../components/AppButton/AppButton'
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { CalendarTodayOutlined } from '@material-ui/icons'
-import { useStore } from '../../../stores'
-import ChannelDropDown from '../../../components/AppTextInput/ChannelDropDown'
-import CompanyDropDown from '../../CompanyManagement/components/CompanyDropDown'
-import GroupDropDown from '../../GroupManagement/components/GroupDropDown'
-import RadioDropDown from '../../../components/AppTextInput/RadioDropDown'
+import { Grid } from '@material-ui/core'
+import FancyCard from '../../../../components/FancyCard/FancyCard'
+import AppTextInput from '../../../../components/AppTextInput/AppTextInput'
+import AppButton from '../../../../components/AppButton/AppButton'
+import { useStore } from '../../../../stores'
+import CompanyDropDown from '../../../CompanyManagement/components/CompanyDropDown'
+import GroupDropDown from '../../../GroupManagement/components/GroupDropDown'
 import { observer } from 'mobx-react'
 
-function FilterPlays({ closeDialog }) {
+function FilterEncoded({ closeDialog }) {
 
     const { sonickeyStore } = useStore();
 
     const onSubmit = (e) => {
         e.preventDefault();
-        sonickeyStore.changePlayTablePage(1)
-        sonickeyStore.fetchPlays()
+        sonickeyStore.changeSonicKeyTablePage(1)
+        sonickeyStore.fetchSonicKeys()
         closeDialog();
     }
 
@@ -36,7 +30,7 @@ function FilterPlays({ closeDialog }) {
                                     Filter
                                 </h4>
                                 <p className={headerClasses.cardCategoryWhite}>
-                                    Filter by plays
+                                    Filter by encoded sonickeys
                                 </p>
                             </>
                         )}
@@ -46,21 +40,6 @@ function FilterPlays({ closeDialog }) {
                 <form onSubmit={onSubmit}>
                     <FancyCard.CardContent>
                         <Grid container spacing={1}>
-                            <Grid item xs={12} sm={3} md={3}>
-                                <ChannelDropDown
-                                    labelText="Channel"
-                                    id="channel"
-                                    formControlProps={{
-                                        fullWidth: true,
-                                    }}
-                                    inputProps={{
-                                        placeholder: "Channel",
-                                        value: sonickeyStore?.getFilters?.channel,
-                                        onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, channel: e.target.value })
-                                    }}
-                                />
-                            </Grid>
-
                             <Grid item xs={12} sm={3} md={3}>
                                 <AppTextInput
                                     labelText="SonicKey"
@@ -72,36 +51,6 @@ function FilterPlays({ closeDialog }) {
                                         placeholder: "SonicKey",
                                         value: sonickeyStore?.getFilters?.sonickey,
                                         onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, sonickey: e.target.value })
-                                    }}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12} sm={3} md={3}>
-                                <CountryDropDown
-                                    labelText="Country"
-                                    id="country"
-                                    formControlProps={{
-                                        fullWidth: true,
-                                    }}
-                                    inputProps={{
-                                        placeholder: "Country",
-                                        value: sonickeyStore?.getFilters?.country,
-                                        onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, country: e.target.value })
-                                    }}
-                                ></CountryDropDown>
-                            </Grid>
-
-                            <Grid item xs={12} sm={3} md={3}>
-                                <RadioDropDown
-                                    labelText="Radio Station"
-                                    id="radiostation"
-                                    formControlProps={{
-                                        fullWidth: true,
-                                    }}
-                                    inputProps={{
-                                        placeholder: "Radio Station",
-                                        value: sonickeyStore?.getFilters?.radiostation,
-                                        onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, radiostation: e.target.value })
                                     }}
                                 />
                             </Grid>
@@ -201,45 +150,6 @@ function FilterPlays({ closeDialog }) {
                                     }}
                                 />
                             </Grid>
-
-                            <Grid item xs={12} sm={3} md={3}>
-                                <DatePicker
-                                    selected={sonickeyStore?.getFilters?.encodedDate}
-                                    onChange={(date) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, encodedDate: date })}
-                                    customInput={<TextField
-                                        id="date"
-                                        label="Encoded Date"
-                                        style={{
-                                            color: "#757575",
-                                            backgroundColor: "transparent",
-                                            outline: "none",
-                                            border: "none",
-                                            boxShadow: "none",
-                                            width: '100%',
-                                        }}
-                                        InputLabelProps={{
-                                            style: {
-                                                fontSize: 14
-                                            }
-                                        }}
-                                        InputProps={{
-                                            endAdornment: (
-                                                <InputAdornment position="end">
-                                                    <CalendarTodayOutlined />
-                                                </InputAdornment>
-                                            ),
-                                            style: {
-                                                paddingLeft: 10,
-                                                color: '#757575',
-                                            },
-                                        }}
-                                    />}
-                                    dateFormat="MMM d,yyyy"
-                                    title="Encoded Date"
-                                    showYearDropdown
-                                    showMonthDropdown
-                                />
-                            </Grid>
                         </Grid>
                     </FancyCard.CardContent>
 
@@ -256,4 +166,4 @@ function FilterPlays({ closeDialog }) {
     )
 }
 
-export default observer(FilterPlays);
+export default observer(FilterEncoded);

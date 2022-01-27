@@ -6,13 +6,13 @@ import {
 } from "mobx";
 import { AxiosRequestConfig } from "axios";
 import { log } from "../../utils/app.debug";
-import sonickeysHttps from "../../services/https/resources/sonickeys.https";
 import moment from "moment";
+import sonickeysHttps from "../../services/https/resources/sonickeys.https";
 
 class SonicKeyStore {
     @observable loading = false;
     @observable error = null;
-    @observable plays = {
+    @observable sonickey = {
         docs: [],
         totalDocs: 0,
         offset: 0,
@@ -25,13 +25,12 @@ class SonicKeyStore {
         prevPage: 0,
         nextPage: 0,
     };
-    @observable filters = {
+    @observable dateRange = {
         startDate: new Date().setMonth(new Date().getMonth() - 1),
         endDate: new Date(),
-        channel: "ALL",
+    };
+    @observable filters = {
         sonickey: "",
-        country: "",
-        radiostation: "",
         artist: "",
         track: "",
         label: "",
@@ -39,13 +38,22 @@ class SonicKeyStore {
         companyName: "",
         groupName: "",
         username: "",
-        encodedDate: "",
-        playTablePage: 1,
+        sonickeyTablePage: 1,
     };
-    @observable playTablePage = 1;
+    @observable sonickeyTablePage = 1;
 
     constructor() {
         // makeObservable(this);
+    }
+
+    @computed
+    get getDateRange() {
+        return toJS(this.dateRange);
+    }
+
+    @action
+    changeDateRange(dateRange) {
+        this.dateRange = dateRange;
     }
 
     @computed
@@ -59,29 +67,24 @@ class SonicKeyStore {
     }
 
     @computed
-    get getPlayTablePage() {
-        return toJS(this.playTablePage);
+    get getSonicKeyTablePage() {
+        return toJS(this.sonickeyTablePage);
     }
 
     @action
-    changePlayTablePage(page) {
-        this.playTablePage = page;
+    changeSonicKeyTablePage(page) {
+        this.sonickeyTablePage = page;
     }
 
     @computed
-    get getPlays() {
-        return toJS(this.plays);
+    get getSonicKeys() {
+        return toJS(this.sonickey);
     }
 
     @action
     resetFilter() {
         this.filters = {
-            startDate: new Date().setMonth(new Date().getMonth() - 1),
-            endDate: new Date(),
-            channel: "ALL",
             sonickey: "",
-            country: "",
-            radiostation: "",
             artist: "",
             track: "",
             label: "",
@@ -90,7 +93,6 @@ class SonicKeyStore {
             groupName: "",
             username: "",
             encodedDate: "",
-            playTablePage: 1,
         }
     }
 
@@ -99,53 +101,44 @@ class SonicKeyStore {
      * @returns {Promise<any>}
      */
     @action
-    fetchPlays(page = 1) {
+    fetchSonicKeys(page = 1) {
         this.loading = true;
         this.error = null;
 
-        let startDate = moment(this.filters.startDate).startOf("days").toISOString();
-        let endDate = moment(this.filters.endDate).endOf("days").toISOString();
-        let startOfEncodedDate = moment(this.filters.encodedDate).startOf("days").toISOString();
-        let endOfEncodedDate = moment(this.filters.encodedDate).endOf("days").toISOString();
+        let startDate = moment(this.dateRange.startDate).startOf("days").toISOString();
+        let endDate = moment(this.dateRange.endDate).endOf("days").toISOString();
 
         const options = {
             params: {
-                limit: this.plays.limit,
+                limit: this.sonickey.limit,
                 page: page,
-                skip: page > 1 ? (page - 1) * this.plays.limit : 0,
-                "detectedAt>": this.filters.startDate ? `date(${startDate})` : undefined,
-                "detectedAt<": this.filters.endDate ? `date(${endDate})` : undefined,
-                channel: this.filters.channel !== "ALL" ? this.filters.channel : undefined,
-                "relation_sonicKey.sonicKey": this.filters.sonickey ? this.filters.sonickey : undefined,
-                "relation_radioStation.country": this.filters.country ? this.filters.country : undefined,
-                "relation_radioStation.name": this.filters.radiostation ? this.filters.radiostation : undefined,
-                "relation_sonicKey.contentOwner": this.filters.artist ? this.filters.artist : undefined,
-                "relation_sonicKey.originalFileName": this.filters.track ? this.filters.track : undefined,
-                "relation_sonicKey.label": this.filters.label ? this.filters.label : undefined,
-                "relation_sonicKey.distributor": this.filters.distributor ? this.filters.distributor : undefined,
-                "relation_owner.username": this.filters.username ? this.filters.username : undefined,
-                "relation_owner.groups": this.filters.groupName ? this.filters.groupName : undefined,
-                "relation_owner.companies": this.filters.companyName ? this.filters.companyName : undefined,
-                "relation_sonicKey.createdAt>": this.filters.encodedDate ? `date(${startOfEncodedDate})` : undefined,
-                "relation_sonicKey.createdAt<": this.filters.encodedDate ? `date(${endOfEncodedDate})` : undefined,
+                skip: page > 1 ? (page - 1) * this.sonickey.limit : 0,
+                "createdAt>": `date(${startDate})` || undefined,
+                "createdAt<": `date(${endDate})` || undefined,
+                "sonicKey": this.filters.sonickey || undefined,
+                "contentOwner": this.filters.artist || undefined,
+                "originalFileName": this.filters.track || undefined,
+                "label": this.filters.label || undefined,
+                "distributor": this.filters.distributor || undefined,
+                "relation_owner.groups": this.filters.groupName || undefined,
+                "relation_owner.username": this.filters.username || undefined,
+                // "relation_owner.companies": this.filters.companyName ? this.filters.companyName : undefined,
             },
         }
-        log("PARAMS", options)
 
         sonickeysHttps
-            .fetchPlays(options)
+            .fetchSonicKeys(options)
             .then(({ data }) => {
-                log("Plays", data);
-                this.plays = data;
+                log("Sonickey", data);
+                this.sonickey = data;
                 this.loading = false;
             })
             .catch((err) => {
-                log("Plays err", err);
+                log("Sonickey err", err);
                 this.loading = false;
                 this.error = err;
             });
     }
-
 }
 
-export const sonickeyStore = new SonicKeyStore();
+export const sonicKeyStore = new SonicKeyStore();

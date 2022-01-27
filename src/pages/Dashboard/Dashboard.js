@@ -1,16 +1,15 @@
 import { Grid } from "@material-ui/core";
 import React from "react";
-import useStyles from "./styles";
 import { LicenseKeyStats } from "../KeysManagement/LicenseKeys/components/LicenseKeyStats";
 import ApiKeyStats from "../KeysManagement/ApiKeys/components/ApiKeyStats";
 import { RadioStationStats } from "../RadioManagement/RadioStation/components/RadioStationStats";
 import { CompaniesStats } from "../CompanyManagement/components/CompaniesStats";
-import PlaysStats from "../SonicKeyManagement/components/PlaysStats";
+import PlaysStats from "../SonicKeyManagement/Plays/components/PlaysStats";
 import { UserStats } from "../UserManagement/components/UserStats";
 import { GroupStats } from "../GroupManagement/components/GroupStats";
+import EncodedStats from "../SonicKeyManagement/Encoded/components/EncodedStats";
 
 export default function Dashboard() {
-  const classes = useStyles();
   return (
     <div>
       <Grid container spacing={1}>
@@ -36,6 +35,10 @@ export default function Dashboard() {
 
         <Grid item xs={12} sm={6} md={3}>
           <GroupStats />
+        </Grid>
+
+        <Grid item xs={12} sm={6} md={3}>
+          <EncodedStats />
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>

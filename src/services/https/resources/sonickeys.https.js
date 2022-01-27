@@ -5,7 +5,7 @@ class SonicKeysHttps {
     constructor() { }
 
     /**
-     * Fetch all sonickeys
+     * Fetch all sonickeys detected plays
      * @param {AxiosRequestConfig} options
      * @returns {Promise<any>}
      */
@@ -13,6 +13,19 @@ class SonicKeysHttps {
         return AppWebRequest({
             method: "get",
             url: "/detections/list-plays",
+            ...options,
+        });
+    }
+
+    /**
+     * Fetch all sonickeys
+     * @param {AxiosRequestConfig} options
+     * @returns {Promise<any>}
+     */
+    fetchSonicKeys(options = {}) {
+        return AppWebRequest({
+            method: "get",
+            url: "/sonic-keys",
             ...options,
         });
     }

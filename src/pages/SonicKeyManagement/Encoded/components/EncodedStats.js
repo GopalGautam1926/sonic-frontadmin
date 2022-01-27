@@ -1,13 +1,13 @@
 import React from 'react';
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
-import FancyCard from '../../../components/FancyCard/FancyCard';
+import FancyCard from '../../../../components/FancyCard/FancyCard';
 import { Link } from 'react-router-dom';
-import { getRouteNames } from '../../../routes/routes.data';
+import { getRouteNames } from '../../../../routes/routes.data';
 import { observer } from 'mobx-react';
-import { useStore } from '../../../stores';
+import { useStore } from '../../../../stores';
 import { CircularProgress } from '@material-ui/core';
 
-function PlaysStats() {
+function EncodedStats() {
     const { sonickeyStore } = useStore();
 
     var count = 0
@@ -16,7 +16,7 @@ function PlaysStats() {
     } else if (sonickeyStore.loading) {
         count = <CircularProgress size={15} color="inherit" />;
     } else {
-        count = sonickeyStore?.getPlays?.totalDocs || 0;
+        count = sonickeyStore?.getSonicKeys?.totalDocs || 0;
     }
     return (
         <FancyCard
@@ -28,7 +28,7 @@ function PlaysStats() {
                                 <VpnKeyIcon />
                             </FancyCard.CardIcon>
                             <div style={{ marginTop: 10, textAlign: "right" }}>
-                                <p className={headerClasses.cardCategory}>Plays</p>
+                                <p className={headerClasses.cardCategory}>Encoded</p>
                                 <h3 className={headerClasses.cardTitle}>
                                     {count}
                                 </h3>
@@ -40,10 +40,10 @@ function PlaysStats() {
         >
             <FancyCard.CardContent>
                 <FancyCard.Divider />
-                <Link to={getRouteNames()["sm_sonickeys"]}>Search new plays</Link>
+                <Link to={getRouteNames()["sm_encoded"]}>Search new encoded</Link>
             </FancyCard.CardContent>
         </FancyCard>
     )
 }
 
-export default observer(PlaysStats);
+export default observer(EncodedStats);

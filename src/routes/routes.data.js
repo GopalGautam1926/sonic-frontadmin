@@ -13,10 +13,11 @@ import ViewApiKey from '../pages/KeysManagement/ApiKeys/components/ViewApiKey';
 import ViewRadioStation from "../pages/RadioManagement/RadioStation/components/ViewRadioStation";
 import RegisterUser from '../pages/UserManagement/components/RegisterUser';
 import AddMonitorSubscriptionToUser from "../pages/UserManagement/components/AddMonitorSubscriptionToUser";
-import Plays from "../pages/SonicKeyManagement/Plays";
+import Plays from "../pages/SonicKeyManagement/Plays/Plays";
 import Companies from "../pages/CompanyManagement/Companies";
 import Users from "../pages/UserManagement/Users";
 import Group from "../pages/GroupManagement/Group";
+import Encoded from "../pages/SonicKeyManagement/Encoded/Encoded";
 
 export const routesData = [
   {
@@ -43,17 +44,6 @@ export const routesData = [
         sidebar: true,
         layout: "/admin",
         key: "cm_company",
-        // routes: [
-        //   {
-        //     exact: true,
-        //     sidebar: false,
-        //     path: "/company-management/company/view/:companyId",
-        //     name: "View Company",
-        //     component: ViewLicenseKey,
-        //     layout: "/admin",
-        //     key: "cm_company_view",
-        //   },
-        // ]
       }
     ],
   },
@@ -72,17 +62,6 @@ export const routesData = [
         sidebar: true,
         layout: "/admin",
         key: "gm_groups",
-        // routes: [
-        //   {
-        //     path: "/users-management/register-new-user",
-        //     name: "Register New User",
-        //     component: RegisterUser,
-        //     exact: true,
-        //     sidebar: false,
-        //     layout: "/admin",
-        //     key: "um_registernewuser"
-        //   }
-        // ]
       }
     ]
   },
@@ -132,24 +111,22 @@ export const routesData = [
     layout: "/admin",
     routes: [
       {
+        path: "/sonickeys-management/encoded",
+        name: "Encoded",
+        component: observer(Encoded),
+        exact: true,
+        sidebar: true,
+        layout: "/admin",
+        key: "sm_encoded",
+      },
+      {
         path: "/sonickeys-management/plays",
         name: "Plays",
         component: observer(Plays),
         exact: true,
         sidebar: true,
         layout: "/admin",
-        key: "sm_sonickeys",
-        // routes: [
-        //   {
-        //     exact: true,
-        //     sidebar: false,
-        //     path: "/sonickeys-management/sonickeys/view/:sonickeyId",
-        //     name: "View Sonickey",
-        //     component: ViewLicenseKey,
-        //     layout: "/admin",
-        //     key: "sm_sonickeys_view",
-        //   },
-        // ]
+        key: "sm_plays",
       }
     ],
   },

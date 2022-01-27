@@ -1,25 +1,22 @@
-import { Grid, InputAdornment, TextField, Tooltip } from '@material-ui/core';
-import React from 'react'
-import DataFetchingStateComponent from '../../components/common/DataFetchingStateComponent';
-import FancyCard from '../../components/FancyCard/FancyCard';
-import Table from '../../components/Table/Table';
-import { useStore } from '../../stores'
+import React from 'react';
+import { Grid, Tooltip } from '@material-ui/core';
+import DataFetchingStateComponent from '../../../components/common/DataFetchingStateComponent';
+import FancyCard from '../../../components/FancyCard/FancyCard';
+import Table from '../../../components/Table/Table';
+import { useStore } from '../../../stores'
 import FilterPlays from './components/FilterPlays';
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { CalendarTodayOutlined } from '@material-ui/icons';
 import { format } from 'date-fns';
 import moment from 'moment';
-import CustomPagination from '../../components/common/CustomPagination';
-import { log } from '../../utils/app.debug';
+import CustomPagination from '../../../components/common/CustomPagination';
+import DatePicker from '../../../components/DatePicker/DatePicker';
 
 export default function Plays() {
-    const { sonickeyStore } = useStore();
+    const { playsStore } = useStore();
 
     React.useEffect(() => {
-        sonickeyStore.changePlayTablePage(1);
-        sonickeyStore.fetchPlays();
-    }, [sonickeyStore?.getFilters?.startDate, sonickeyStore?.getFilters?.endDate])
+        playsStore.changePlayTablePage(1);
+        playsStore.fetchPlays();
+    }, [playsStore?.getDateRange?.startDate, playsStore?.getDateRange?.endDate])
 
     const columns = [
         {
@@ -117,11 +114,9 @@ export default function Plays() {
     ];
 
     const onPageChange = (page) => {
-        sonickeyStore.fetchPlays(page);
-        sonickeyStore?.changePlayTablePage(page);
+        playsStore.fetchPlays(page);
+        playsStore?.changePlayTablePage(page);
     }
-
-    log("Sonickey store filters", sonickeyStore?.getFilters)
 
     return (
         <div>
@@ -142,41 +137,16 @@ export default function Plays() {
                 <Grid container style={{ padding: "0px 20px", display: 'flex', justifyContent: 'flex-end', zIndex: 1 }}>
                     <Grid item>
                         <DatePicker
-                            selected={sonickeyStore?.getFilters?.startDate}
-                            onChange={(date) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, startDate: date })}
-                            customInput={<TextField
-                                id="date"
-                                label="Start Date"
-                                style={{
-                                    color: "#757575",
-                                    backgroundColor: "transparent",
-                                    outline: "none",
-                                    border: "none",
-                                    boxShadow: "none",
-                                    margin: "5px 30px 0px 20px",
-                                    width: 220,
-                                }}
-                                InputLabelProps={{
-                                    style: {
-                                        marginLeft: 8,
-                                    }
-                                }}
-                                InputProps={{
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <CalendarTodayOutlined />
-                                        </InputAdornment>
-                                    ),
-                                    style: {
-                                        paddingLeft: 10,
-                                        color: '#757575',
-                                    },
-                                }}
-                            />}
-                            dateFormat="MMM d,yyyy"
-                            title="Start Date"
+                            label="Start Date"
+                            selected={playsStore?.getDateRange?.startDate}
+                            onChange={(date) => playsStore?.changeDateRange({ ...playsStore?.getDateRange, startDate: date })}
                             showYearDropdown
+                            dateFormat="dd/MM/yyyy"
+                            yearDropdownItemNumber={15}
+                            scrollableYearDropdown
                             showMonthDropdown
+                            startDate={playsStore?.getDateRange?.startDate}
+                            endDate={playsStore?.getDateRange?.endDate}
                         />
                     </Grid>
                     <Grid item className="mt-4 mx-3">
@@ -185,70 +155,45 @@ export default function Plays() {
 
                     <Grid item>
                         <DatePicker
-                            selected={sonickeyStore?.getFilters?.endDate}
-                            onChange={(date) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, endDate: date })}
-                            customInput={<TextField
-                                id="date"
-                                label="End Date"
-                                style={{
-                                    color: "#757575",
-                                    backgroundColor: "transparent",
-                                    outline: "none",
-                                    border: "none",
-                                    boxShadow: "none",
-                                    margin: "5px 30px 0px 20px",
-                                    width: 220,
-                                }}
-                                InputLabelProps={{
-                                    style: {
-                                        marginLeft: 8,
-                                    }
-                                }}
-                                InputProps={{
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <CalendarTodayOutlined />
-                                        </InputAdornment>
-                                    ),
-                                    style: {
-                                        paddingLeft: 10,
-                                        color: '#757575',
-                                    },
-                                }}
-                            />}
-                            dateFormat="MMM d,yyyy"
-                            title="End Date"
+                            label="End Date"
+                            selected={playsStore?.getDateRange?.endDate}
+                            onChange={(date) => playsStore?.changeDateRange({ ...playsStore?.getDateRange, endDate: date })}
                             showYearDropdown
+                            dateFormat="dd/MM/yyyy"
+                            yearDropdownItemNumber={15}
+                            scrollableYearDropdown
                             showMonthDropdown
+                            startDate={playsStore?.getDateRange?.startDate}
+                            endDate={playsStore?.getDateRange?.endDate}
                         />
                     </Grid>
                 </Grid>
 
                 <FancyCard.CardContent style={{ zIndex: 0 }}>
                     <DataFetchingStateComponent
-                        loading={sonickeyStore.loading}
-                        error={sonickeyStore.error}
-                        onClickTryAgain={() => sonickeyStore.fetchPlays()}
+                        loading={playsStore.loading}
+                        error={playsStore.error}
+                        onClickTryAgain={() => playsStore.fetchPlays()}
                     >
                         <Table
                             title={
                                 <Table.TableActions
                                     filter
                                     refreshButtonProps={{
-                                        onClick: () => sonickeyStore.fetchPlays(),
+                                        onClick: () => playsStore.fetchPlays(),
                                     }}
                                     componentInsideDialog={<FilterPlays />}
                                 />
                             }
-                            data={sonickeyStore?.getPlays?.docs || []}
+                            data={playsStore?.getPlays?.docs || []}
                             columns={columns}
                             options={{
-                                count: sonickeyStore?.getPlays?.totalDocs || 0,
+                                count: playsStore?.getPlays?.totalDocs || 0,
                                 customFooter: (count, page, rowsPerPage, changeRowsPerPage, changePage, textLabels) => {
                                     return (
                                         <CustomPagination
-                                            totalPages={sonickeyStore?.getPlays?.totalPages}
-                                            page={sonickeyStore?.getPlayTablePage}
+                                            totalPages={playsStore?.getPlays?.totalPages}
+                                            page={playsStore?.getPlayTablePage}
                                             onChange={(event, value) => onPageChange(value)}
                                         />
                                     );
