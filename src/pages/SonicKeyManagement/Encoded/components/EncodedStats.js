@@ -28,7 +28,7 @@ function EncodedStats() {
                                 <VpnKeyIcon />
                             </FancyCard.CardIcon>
                             <div style={{ marginTop: 10, textAlign: "right" }}>
-                                <p className={headerClasses.cardCategory}>Encoded</p>
+                                <p className={headerClasses.cardCategory}>Encodes</p>
                                 <h3 className={headerClasses.cardTitle}>
                                     {count}
                                 </h3>
