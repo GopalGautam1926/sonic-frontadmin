@@ -513,14 +513,14 @@ export default function ViewLicenseKey({ closeDialog }) {
               </InputLabel>
 
               <List>
-                {license?.owners?.ownerId.map((owner, index) => (
+                {license?.owners?.map((owner, index) => (
                   <ListItem alignItems="flex-start" key={index}>
                     <ListItemAvatar>
                       <Avatar>{owner.username?.charAt?.(0) || "U"}</Avatar>
                     </ListItemAvatar>
                     <ListItemText
                       primary={owner.username || owner.ownerId}
-                      secondary={owner.email || "--"}
+                      // secondary={owner.email || "--"}
                     />
                     <RPopconfirm
                       anchorElement={
