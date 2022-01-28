@@ -92,7 +92,6 @@ class SonicKeyStore {
             companyName: "",
             groupName: "",
             username: "",
-            encodedDate: "",
         }
     }
 
@@ -121,8 +120,8 @@ class SonicKeyStore {
                 "label": this.filters.label || undefined,
                 "distributor": this.filters.distributor || undefined,
                 "relation_owner.groups": this.filters.groupName || undefined,
+                "relation_owner.companies": this.filters.companyName || undefined,
                 "relation_owner.username": this.filters.username || undefined,
-                // "relation_owner.companies": this.filters.companyName ? this.filters.companyName : undefined,
             },
         }
 
