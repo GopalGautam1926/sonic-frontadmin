@@ -112,7 +112,7 @@ export const routesData = [
     routes: [
       {
         path: "/sonickeys-management/encoded",
-        name: "Encoded",
+        name: "Encodes",
         component: observer(Encoded),
         exact: true,
         sidebar: true,

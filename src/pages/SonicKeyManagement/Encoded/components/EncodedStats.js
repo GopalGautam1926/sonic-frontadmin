@@ -40,7 +40,7 @@ function EncodedStats() {
         >
             <FancyCard.CardContent>
                 <FancyCard.Divider />
-                <Link to={getRouteNames()["sm_encoded"]}>Search new encoded</Link>
+                <Link to={getRouteNames()["sm_encoded"]}>Search new encodes</Link>
             </FancyCard.CardContent>
         </FancyCard>
     )
