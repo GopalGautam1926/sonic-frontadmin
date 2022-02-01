@@ -1,4 +1,4 @@
-import { Grid } from "@material-ui/core";
+import { FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup } from "@material-ui/core";
 import React, { useState } from "react";
 import AppButton from "../../../../components/AppButton/AppButton";
 import AppTextInput from "../../../../components/AppTextInput/AppTextInput";
@@ -11,14 +11,19 @@ import { log } from "../../../../utils/app.debug";
 import licensekeysHttps from "../../../../services/https/resources/licensekeys.https";
 import { toast } from "react-toastify";
 import { useStore } from "../../../../stores";
+import CompanyDropDown from "../../../CompanyManagement/components/CompanyDropDown";
 
 const initialLicense = {
-  name: "",
+  name:"",
+  user: "",
+  company: "",
+  type: "Individual",
   maxEncodeUses: 0,
-  isUnlimitedEncode:true,
-  isUnlimitedMonitor:true,
+  isUnlimitedEncode: true,
+  isUnlimitedMonitor: true,
   maxDecodeUses: 0,
   maxMonitoringUses: 0,
+  monitoringUses: 0,
   validity: new Date(),
   disabled: false,
   suspended: false,
@@ -68,7 +73,67 @@ export default function AddLicenseKey({ closeDialog }) {
       >
         <form onSubmit={onSubmit}>
           <FancyCard.CardContent>
+            <Grid container>
+              <FormControl component="fieldset">
+                <FormLabel component="legend">Are you</FormLabel>
+                <RadioGroup
+                  aria-label="type"
+                  name="type"
+                  value={license.type}
+                  onChange={(e) => {
+                    const type = e.target.value;
+                    setLicense({
+                      ...license,
+                      type: type,
+                      customer: "",
+                      company: "",
+                      groups: [],
+                    });
+                  }}
+                  required
+                >
+                  <FormControlLabel
+                    value="Individual"
+                    control={<Radio />}
+                    label="Individual"
+                  />
+                  <FormControlLabel
+                    value="Company"
+                    control={<Radio />}
+                    label="Company"
+                  />
+                </RadioGroup>
+              </FormControl>
+            </Grid>
             <Grid container spacing={1}>
+              <Grid item xs={12} sm={3} md={3}>
+                {license.type == "Company" && <CompanyDropDown
+                  id="company"
+                  labelText="Associated Company"
+                  value={license.company}
+                  fullWidth
+                  onChange={(e) => {
+                    setLicense({ ...license, company: e.target.value })
+                  }}
+                />}
+
+                {license.type == "Individual" && <AppTextInput
+                  labelText="Customer Id or Sub"
+                  id="user"
+                  formControlProps={{
+                    fullWidth: true,
+                  }}
+                  inputProps={{
+                    id: "user",
+                    required: true,
+                    placeholder: "Customer id or sub for this api key",
+                    value: license.user,
+                    onChange: (e) =>
+                      setLicense({ ...license, user: e.target.value }),
+                  }}
+                />}
+              </Grid>
+
               <Grid item xs={12} sm={3} md={3}>
                 <AppTextInput
                   labelText="Name"
@@ -85,6 +150,7 @@ export default function AddLicenseKey({ closeDialog }) {
                   }}
                 />
               </Grid>
+
               <Grid item xs={12} sm={3} md={3}>
                 <AppTextInput
                   labelText="Max Encode Uses"
@@ -94,11 +160,11 @@ export default function AddLicenseKey({ closeDialog }) {
                   }}
                   inputProps={{
                     type: "number",
-                    readOnly:license.isUnlimitedEncode,
+                    readOnly: license.isUnlimitedEncode,
                     required: true,
                     min: "0",
-                    placeholder: license.isUnlimitedEncode?"unlimited":"eg. 1000",
-                    value: license.isUnlimitedEncode?Number.POSITIVE_INFINITY:license.maxEncodeUses,
+                    placeholder: license.isUnlimitedEncode ? "unlimited" : "eg. 1000",
+                    value: license.isUnlimitedEncode ? Number.POSITIVE_INFINITY : license.maxEncodeUses,
                     onChange: (e) =>
                       setLicense({ ...license, maxEncodeUses: e.target.value }),
                   }}
@@ -113,12 +179,12 @@ export default function AddLicenseKey({ closeDialog }) {
                     fullWidth: true,
                   }}
                   inputProps={{
-                    readOnly:license.isUnlimitedMonitor,
+                    readOnly: license.isUnlimitedMonitor,
                     type: "number",
                     required: true,
                     min: "0",
-                    placeholder: license.isUnlimitedMonitor?"unlimited":"eg. 1000",
-                    value: license.isUnlimitedMonitor?Number.POSITIVE_INFINITY:license.maxMonitoringUses,
+                    placeholder: license.isUnlimitedMonitor ? "unlimited" : "eg. 1000",
+                    value: license.isUnlimitedMonitor ? Number.POSITIVE_INFINITY : license.maxMonitoringUses,
                     onChange: (e) =>
                       setLicense({ ...license, maxMonitoringUses: e.target.value }),
                   }}

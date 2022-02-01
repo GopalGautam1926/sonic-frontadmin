@@ -1,4 +1,4 @@
-import { Grid } from "@material-ui/core";
+import { FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import AppButton from "../../../../components/AppButton/AppButton";
 import AppTextInput from "../../../../components/AppTextInput/AppTextInput";
@@ -28,6 +28,7 @@ import RDialog from "../../../../components/rcomponents/RDialog";
 import RPopover from "../../../../components/rcomponents/RPopover/index";
 import { InputAdornment } from "@material-ui/core";
 import usersHttps from "../../../../services/https/resources/users.https";
+import CompanyDropDown from "../../../CompanyManagement/components/CompanyDropDown";
 
 export default function ViewLicenseKey({ closeDialog }) {
   const [state, setState] = useState({
@@ -46,7 +47,9 @@ export default function ViewLicenseKey({ closeDialog }) {
   let { licenseId } = useParams();
   const location = useLocation();
   const [license, setLicense] = useState({
-    name: "",
+    _id: "",
+    user: "",
+    company: "",
     key: "",
     maxEncodeUses: 0,
     maxDecodeUses: 0,
@@ -74,6 +77,34 @@ export default function ViewLicenseKey({ closeDialog }) {
       setState({ ...state, loading: false, error: error });
     }
   };
+
+  // const getAndSetLicense = async () => {
+  //   try {
+  //     setState({ ...state, loading: true, error: null });
+  //     if (location?.state?.license) {
+  //       if (location.state.license.users) {
+  //         location.state.license.users = location.state.license.users?._id
+  //       }
+  //       if (location.state.license.company) {
+  //         location.state.license.company = location.state.license.company?._id
+  //       }
+  //       setLicense(location.state.license);
+  //       setState({ ...state, loading: false, oldKey: location.state.license });
+  //     } else {
+  //       var { data } = await licensekeysHttps.findByKey(licenseId);
+  //       if (data?.customer) {
+  //         data.customer = data.customer._id
+  //       }
+  //       if (data?.company) {
+  //         data.company = data.company._id
+  //       }
+  //       setLicense(data);
+  //       setState({ ...state, loading: false, oldKey: data });
+  //     }
+  //   } catch (error) {
+  //     setState({ ...state, loading: false, error: error });
+  //   }
+  // };
 
   useEffect(() => {
     getAndSetLicense();
@@ -196,6 +227,9 @@ export default function ViewLicenseKey({ closeDialog }) {
         break;
     }
   };
+ 
+  // console.log("license",license)
+
 
   return (
     <div>
@@ -295,6 +329,38 @@ export default function ViewLicenseKey({ closeDialog }) {
                   />
                 </RSpace.Item> */}
               </RSpace>
+              <Grid container>
+                <FormControl component="fieldset">
+                  <FormLabel component="legend">Are you</FormLabel>
+                  <RadioGroup
+                    aria-label="type"
+                    name="type"
+                    value={license.type}
+                    onChange={(e) =>
+                      setLicense({
+                        ...license,
+                        type: e.target.value,
+                        user: "",
+                        groups: [],
+                      })
+                    }
+                    required
+                  >
+                    <FormControlLabel
+                      value="Individual"
+                      control={<Radio />}
+                      label="Individual"
+                      disabled={true}
+                    />
+                    <FormControlLabel
+                      value="Company"
+                      control={<Radio />}
+                      label="Company"
+                      disabled={true}
+                    />
+                  </RadioGroup>
+                </FormControl>
+              </Grid>
               <Grid container spacing={1}>
                 <Grid item xs={12} sm={3} md={3}>
                   <AppTextInput
@@ -312,6 +378,31 @@ export default function ViewLicenseKey({ closeDialog }) {
                         setLicense({ ...license, name: e.target.value }),
                     }}
                   />
+                  {license.type == "Company" && <CompanyDropDown
+                  id="company"
+                  labelText="Associated Company"
+                  value={license.company}
+                  fullWidth
+                  onChange={(e) => {
+                    setLicense({ ...license, company: e.target.value })
+                  }}
+                />}
+
+                {license.type == "Individual" && <AppTextInput
+                  labelText="Customer Id or Sub"
+                  id="user"
+                  formControlProps={{
+                    fullWidth: true,
+                  }}
+                  inputProps={{
+                    id: "user",
+                    required: true,
+                    placeholder: "Customer id or sub for this api key",
+                    value: license?._id,
+                    onChange: (e) =>
+                      setLicense({ ...license, user: e.target.value }),
+                  }}
+                />}
                 </Grid>
                 <Grid item xs={12} sm={3} md={3}>
                   <AppTextInput
@@ -462,7 +553,7 @@ export default function ViewLicenseKey({ closeDialog }) {
 
               <Divider style={{ marginTop: 20, marginBottom: 10 }} />
               <InputLabel style={{ display: "flex", alignItems: "center" }}>
-                <div>Owners ({license?.owners?.length})</div>
+                <div>Users ({license?.users?.length})</div>
                 <RPopover
                   paperStyle={{ minWidth: 500 }}
                   TransitionProps={{
@@ -475,7 +566,7 @@ export default function ViewLicenseKey({ closeDialog }) {
                       color="success"
                       size="small"
                     >
-                      {<AddIcon style={{ fontSize: 20 }} />}
+                      {license.type == "Individual" && <AddIcon style={{ fontSize: 20 }} />}
                     </AppButton>
                   }
                 >
@@ -513,14 +604,14 @@ export default function ViewLicenseKey({ closeDialog }) {
               </InputLabel>
 
               <List>
-                {license?.owners?.map((owner, index) => (
+                {license?.users?.map((user, index) => (
                   <ListItem alignItems="flex-start" key={index}>
                     <ListItemAvatar>
-                      <Avatar>{owner.username?.charAt?.(0) || "U"}</Avatar>
+                      <Avatar>{user.username?.charAt?.(0) || "U"}</Avatar>
                     </ListItemAvatar>
                     <ListItemText
-                      primary={owner.username || owner.ownerId}
-                      // secondary={owner.email || "--"}
+                      primary={user.username || user.sub}
+                      secondary={user.email || "--"}
                     />
                     <RPopconfirm
                       anchorElement={
@@ -529,14 +620,14 @@ export default function ViewLicenseKey({ closeDialog }) {
                           color="danger"
                           size="small"
                           loading={
-                            owner.ownerId == state.removingUserId &&
+                            user.sub == state.removingUserId &&
                             state.removingUserLoading
                           }
                         >
                           <DeleteOutlinedIcon style={{ fontSize: 18 }} />
                         </AppButton>
                       }
-                      onClickYes={() => onRemoveUser(owner.ownerId)}
+                      onClickYes={() => onRemoveUser(user.sub)}
                       message="Really want to delete this item?"
                     />
                   </ListItem>
