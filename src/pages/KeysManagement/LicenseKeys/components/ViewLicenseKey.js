@@ -389,7 +389,7 @@ export default function ViewLicenseKey({ closeDialog }) {
                 />}
 
                 {license.type == "Individual" && <AppTextInput
-                  labelText="Customer Id or Sub"
+                  labelText="User id"
                   id="user"
                   formControlProps={{
                     fullWidth: true,
@@ -397,7 +397,7 @@ export default function ViewLicenseKey({ closeDialog }) {
                   inputProps={{
                     id: "user",
                     required: true,
-                    placeholder: "Customer id or sub for this api key",
+                    placeholder: "User id",
                     value: license?._id,
                     onChange: (e) =>
                       setLicense({ ...license, user: e.target.value }),

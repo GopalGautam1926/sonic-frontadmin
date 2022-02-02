@@ -76,8 +76,10 @@ function LicenseKeys() {
       options:{
         display:true,
         customBodyRender: (value, { columnIndex }, updateValue) => {
-          const company = companyStore.getCompany.find(cpy => cpy._id == value)
-          return company?.name || "--";
+          const company = value?.name || "--";
+          return company;
+          // const company = companyStore.getCompany.find(cpy => cpy._id == value)
+          // return company?.name || "--";
         },
       }
     },
@@ -195,6 +197,8 @@ function LicenseKeys() {
         setState({ ...state, isDeleting: false,deletigKey:'' });
       });
   };
+
+  console.log("companyStore data", licenseKeyStore.getLicenseKeys);
 
   return (
     <div>
