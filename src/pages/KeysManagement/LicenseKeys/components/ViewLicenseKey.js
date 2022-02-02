@@ -49,7 +49,9 @@ export default function ViewLicenseKey({ closeDialog }) {
   const [license, setLicense] = useState({
     _id: "",
     user: "",
-    company: "",
+    company: {
+      name:"",
+    },
     key: "",
     maxEncodeUses: 0,
     maxDecodeUses: 0,
@@ -77,34 +79,6 @@ export default function ViewLicenseKey({ closeDialog }) {
       setState({ ...state, loading: false, error: error });
     }
   };
-
-  // const getAndSetLicense = async () => {
-  //   try {
-  //     setState({ ...state, loading: true, error: null });
-  //     if (location?.state?.license) {
-  //       if (location.state.license.users) {
-  //         location.state.license.users = location.state.license.users?._id
-  //       }
-  //       if (location.state.license.company) {
-  //         location.state.license.company = location.state.license.company?._id
-  //       }
-  //       setLicense(location.state.license);
-  //       setState({ ...state, loading: false, oldKey: location.state.license });
-  //     } else {
-  //       var { data } = await licensekeysHttps.findByKey(licenseId);
-  //       if (data?.customer) {
-  //         data.customer = data.customer._id
-  //       }
-  //       if (data?.company) {
-  //         data.company = data.company._id
-  //       }
-  //       setLicense(data);
-  //       setState({ ...state, loading: false, oldKey: data });
-  //     }
-  //   } catch (error) {
-  //     setState({ ...state, loading: false, error: error });
-  //   }
-  // };
 
   useEffect(() => {
     getAndSetLicense();
@@ -227,9 +201,6 @@ export default function ViewLicenseKey({ closeDialog }) {
         break;
     }
   };
- 
-  // console.log("license",license)
-
 
   return (
     <div>
@@ -378,13 +349,16 @@ export default function ViewLicenseKey({ closeDialog }) {
                         setLicense({ ...license, name: e.target.value }),
                     }}
                   />
-                  {license.type == "Company" && <CompanyDropDown
-                  id="company"
+                {license.type == "Company" && <AppTextInput
                   labelText="Associated Company"
-                  value={license.company}
-                  fullWidth
-                  onChange={(e) => {
-                    setLicense({ ...license, company: e.target.value })
+                  id="company"
+                  formControlProps={{
+                    fullWidth: true,
+                  }}
+                  inputProps={{
+                    id: "company",
+                    placeholder: "Associated Company",
+                    value: license.company?.name
                   }}
                 />}
 
@@ -613,7 +587,7 @@ export default function ViewLicenseKey({ closeDialog }) {
                       primary={user.username || user.sub}
                       secondary={user.email || "--"}
                     />
-                    <RPopconfirm
+                    {license.type == "Individual" && <RPopconfirm
                       anchorElement={
                         <AppButton
                           asIconButton={true}
@@ -629,7 +603,7 @@ export default function ViewLicenseKey({ closeDialog }) {
                       }
                       onClickYes={() => onRemoveUser(user.sub)}
                       message="Really want to delete this item?"
-                    />
+                    />}
                   </ListItem>
                 ))}
               </List>

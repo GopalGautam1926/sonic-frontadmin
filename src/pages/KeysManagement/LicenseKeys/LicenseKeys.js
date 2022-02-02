@@ -78,8 +78,6 @@ function LicenseKeys() {
         customBodyRender: (value, { columnIndex }, updateValue) => {
           const company = value?.name || "--";
           return company;
-          // const company = companyStore.getCompany.find(cpy => cpy._id == value)
-          // return company?.name || "--";
         },
       }
     },
