@@ -1,6 +1,7 @@
 import { AxiosRequestConfig } from "axios";
 import { AppWebRequest } from "../NetworkManager";
 import { licenseKeyStore } from "../../../stores/core/licensekey.store";
+import { log } from "../../../utils/app.debug";
 
 class LicenseKeysHttps {
   constructor() {}
@@ -24,6 +25,7 @@ class LicenseKeysHttps {
    * @returns
    */
   createNewLicense(payload) {
+    log("licence key payload",payload)
     return AppWebRequest({
       method: "post",
       url: "/license-keys",

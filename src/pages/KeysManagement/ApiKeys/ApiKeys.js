@@ -47,16 +47,6 @@ function ApiKeys() {
       },
     },
     {
-      label: "Group",
-      name: "groups",
-      options: {
-        filter: false,
-        customBodyRender: (value, { columnIndex }, updateValue) => {
-          return value?.[0] || "--";
-        },
-      },
-    },
-    {
       label: "Validity",
       name: "validity",
       options: {

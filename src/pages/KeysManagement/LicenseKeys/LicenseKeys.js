@@ -20,7 +20,7 @@ function LicenseKeys() {
     deletigKey:''
   });
   const history = useHistory();
-  const { licenseKeyStore } = useStore();
+  const { licenseKeyStore , companyStore} = useStore();
   const classes = useStyle()
   const columns = [
     {
@@ -59,22 +59,32 @@ function LicenseKeys() {
         display:false
       }
     },
-    // {
-    //   label: "Max uses (decode)",
-    //   name: "maxDecodeUses",
-    //   options:{
-    //     display:false
-    //   }
-    // },
-    // {
-    //   label: "Uses (decode)",
-    //   name: "decodeUses",
-    //   options:{
-    //     display:false
-    //   }
-    // },
     {
-      label: "Total owners",
+      label: "Type",
+      name: "type",
+      options:{
+        display:true,
+        customBodyRender: (value, { columnIndex }, updateValue) => {
+          const type = value || "--";
+          return type;
+        },
+      }
+    },
+    {
+      label: "Company",
+      name: "company",
+      options:{
+        display:true,
+        customBodyRender: (value, { columnIndex }, updateValue) => {
+          const company = value?.name || "--";
+          return company;
+          // const company = companyStore.getCompany.find(cpy => cpy._id == value)
+          // return company?.name || "--";
+        },
+      }
+    },
+    {
+      label: "Users",
       name: "totalUsers",
       options:{
         filter: false,
@@ -187,6 +197,8 @@ function LicenseKeys() {
         setState({ ...state, isDeleting: false,deletigKey:'' });
       });
   };
+
+  console.log("companyStore data", licenseKeyStore.getLicenseKeys);
 
   return (
     <div>

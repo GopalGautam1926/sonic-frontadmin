@@ -44,7 +44,7 @@ class LicenseKeyStore {
   createTableData(data=this.getLicenseKeys?.docs||[]) {
     const dataSource = cloneDeep(data)
     return dataSource.map(obj=>{
-      obj["totalUsers"]=obj?.owners?.length || 0
+      obj["totalUsers"]=obj?.users?.length || 0
       obj["maxEncodeUses"]=obj.isUnlimitedEncode?"Unlimited":obj.maxEncodeUses
       obj["maxMonitoringUses"]=obj.isUnlimitedEncode?"Unlimited":obj.maxMonitoringUses
       return obj
