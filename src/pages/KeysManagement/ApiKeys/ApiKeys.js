@@ -178,6 +178,7 @@ function ApiKeys() {
             <Table
               title={
                 <Table.TableActions
+                  openDialogWhenClickAdd={true}
                   refreshButtonProps={{
                     onClick: () => apiKeyStore.fetchApiKeys(),
                   }}

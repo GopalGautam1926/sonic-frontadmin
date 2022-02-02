@@ -17,10 +17,10 @@ import { log } from '../../../utils/app.debug';
 function LicenseKeys() {
   const [state, setState] = useState({
     isDeleting: false,
-    deletigKey:''
+    deletigKey: ''
   });
   const history = useHistory();
-  const { licenseKeyStore , companyStore} = useStore();
+  const { licenseKeyStore, companyStore } = useStore();
   const classes = useStyle()
   const columns = [
     {
@@ -34,36 +34,36 @@ function LicenseKeys() {
     {
       label: "Max uses (encode)",
       name: "maxEncodeUses",
-      options:{
-        display:true
+      options: {
+        display: true
       }
     },
     {
       label: "Uses (encode)",
       name: "encodeUses",
-      options:{
-        display:false
+      options: {
+        display: false
       }
     },
     {
       label: "Max uses (monitor)",
       name: "maxMonitoringUses",
-      options:{
-        display:true
+      options: {
+        display: true
       }
     },
     {
       label: "Uses (monitor)",
       name: "monitoringUses",
-      options:{
-        display:false
+      options: {
+        display: false
       }
     },
     {
       label: "Type",
       name: "type",
-      options:{
-        display:true,
+      options: {
+        display: true,
         customBodyRender: (value, { columnIndex }, updateValue) => {
           const type = value || "--";
           return type;
@@ -73,8 +73,8 @@ function LicenseKeys() {
     {
       label: "Company",
       name: "company",
-      options:{
-        display:true,
+      options: {
+        display: true,
         customBodyRender: (value, { columnIndex }, updateValue) => {
           const company = value?.name || "--";
           return company;
@@ -86,7 +86,7 @@ function LicenseKeys() {
     {
       label: "Users",
       name: "totalUsers",
-      options:{
+      options: {
         filter: false,
       }
     },
@@ -117,22 +117,22 @@ function LicenseKeys() {
           const statusItem = [];
           if (rowData?.disabled) {
             statusItem.push(
-              <Badge color="rose" size="small" label={<div style={{fontSize:11}}>Disabled</div>} />
+              <Badge color="rose" size="small" label={<div style={{ fontSize: 11 }}>Disabled</div>} />
             );
           }
           if (rowData?.suspended) {
             statusItem.push(
-              <Badge color="warning" size="small" label={<div style={{fontSize:11}}>Suspended</div>} />
+              <Badge color="warning" size="small" label={<div style={{ fontSize: 11 }}>Suspended</div>} />
             );
           }
           if (isExpired(rowData?.validity)) {
             statusItem.push(
-              <Badge color="danger" size="small" label={<div style={{fontSize:11}}>Expired</div>} />
+              <Badge color="danger" size="small" label={<div style={{ fontSize: 11 }}>Expired</div>} />
             );
           }
           if (statusItem.length == 0) {
             statusItem.push(
-              <Badge color="success" size="small" label={<div style={{fontSize:11}}>Active</div>} />
+              <Badge color="success" size="small" label={<div style={{ fontSize: 11 }}>Active</div>} />
             );
           }
 
@@ -157,25 +157,24 @@ function LicenseKeys() {
           );
           return (
             <Table.TableRowAction
-            enableDelete={false}
+              enableDelete={false}
               viewButtonProps={{
                 onClick: () => {
-                  const path = `${
-                    getRouteNames()["km_licensekeys"]
-                  }/view/${value}`;
+                  const path = `${getRouteNames()["km_licensekeys"]
+                    }/view/${value}`;
                   history.push({
-                    pathname:path,
-                    state:{
-                      license:rowData
+                    pathname: path,
+                    state: {
+                      license: rowData
                     }
                   });
                 },
               }}
               deletePopConfirmProps={{
-                onClickYes: () =>onDeleteKey(value)
+                onClickYes: () => onDeleteKey(value)
               }}
               deleteButtonProps={{
-                loading: (state.isDeleting && value==state.deletigKey),
+                loading: (state.isDeleting && value == state.deletigKey),
               }}
             />
           );
@@ -185,16 +184,16 @@ function LicenseKeys() {
   ];
 
   const onDeleteKey = (key) => {
-    setState({ ...state, isDeleting: true,deletigKey:key });
+    setState({ ...state, isDeleting: true, deletigKey: key });
     licensekeysHttps
       .deleteLicense(key)
       .then(({ data }) => {
         toast.success("Deleted");
-        setState({ ...state, isDeleting: false,deletigKey:'' });
+        setState({ ...state, isDeleting: false, deletigKey: '' });
       })
       .catch((err) => {
         toast.error("Error while deteting");
-        setState({ ...state, isDeleting: false,deletigKey:'' });
+        setState({ ...state, isDeleting: false, deletigKey: '' });
       });
   };
 
@@ -225,6 +224,7 @@ function LicenseKeys() {
             <Table
               title={
                 <Table.TableActions
+                  openDialogWhenClickAdd={true}
                   refreshButtonProps={{
                     onClick: () => licenseKeyStore.fetchLicenseKeys(),
                   }}
@@ -234,7 +234,7 @@ function LicenseKeys() {
               data={licenseKeyStore.createTableData()}
               columns={columns}
               options={{
-                count:licenseKeyStore.getLicenseKeys.totalDocs
+                count: licenseKeyStore.getLicenseKeys.totalDocs
               }}
             />
           </DataFetchingStateComponent>
