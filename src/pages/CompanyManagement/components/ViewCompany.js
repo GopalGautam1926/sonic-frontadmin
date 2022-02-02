@@ -10,6 +10,7 @@ import RSpace from '../../../components/rcomponents/RSpace';
 import companyHttps from '../../../services/https/resources/company.https';
 import { getRouteNames } from '../../../routes/routes.data';
 import RPopconfirm from '../../../components/rcomponents/RPopconfirm';
+import { useStore } from '../../../stores';
 
 export default function ViewCompany({ closeDialog }) {
     const [state, setState] = React.useState({
@@ -19,11 +20,13 @@ export default function ViewCompany({ closeDialog }) {
         error: null,
         company: {},
         disabled: false,
+        deleteLoading: false,
         checkEmail: false,
     });
     let { companyId } = useParams();
     const location = useLocation();
     const history = useHistory();
+    const { companyStore } = useStore();
     const [company, setCompany] = React.useState({
         name: "",
         description: "",
@@ -84,6 +87,21 @@ export default function ViewCompany({ closeDialog }) {
         }
     };
 
+    // const onRemoveCompany = () => {
+    //     setState({ ...state, disabled: true, deleteLoading: true });
+    //     companyHttps.deleteCompany(company?._id).then(({ data }) => {
+    //         setState({ ...state, disabled: false, deleteLoading: false })
+    //         companyStore.removeCompany(data);
+    //         toast.success("Deleted");
+    //         history.push({
+    //             pathname: `${getRouteNames()["cm_company"]}`
+    //         })
+    //     }).catch((error) => {
+    //         setState({ ...state, disabled: false, deleteLoading: false, error: error?.message })
+    //         toast.error(error?.message || "Error removing company...")
+    //     })
+    // }
+
     const validating = () => {
         let Emailverification = (new RegExp(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,15}/g).test(company?.email));
         if (Emailverification === false) {
@@ -92,14 +110,6 @@ export default function ViewCompany({ closeDialog }) {
         } else {
             setState({ ...state, checkEmail: true });
         }
-    }
-
-    const onRemoveCompany = () => {
-        setState({ ...state, disabled: true });
-        toast.success("Deleted");
-        history.push({
-            pathname: `${getRouteNames()["cm_company"]}`
-        })
     }
 
     return (
@@ -168,7 +178,7 @@ export default function ViewCompany({ closeDialog }) {
                                         </AppButton>
                                     </RSpace.Item>
                                 )}
-                                <RSpace.Item>
+                                {/* <RSpace.Item>
                                     <RPopconfirm
                                         anchorElement={
                                             <AppButton
@@ -176,14 +186,15 @@ export default function ViewCompany({ closeDialog }) {
                                                 color="danger"
                                                 type="button"
                                                 loading={state.disabled}
+                                                loadingText="Deleting.."
                                             >
                                                 Delete
                                             </AppButton>
                                         }
-                                        onClickYes={() => onRemoveCompany()}
+                                        onClickYes={onRemoveCompany}
                                         message="Really want to remove this company?"
                                     />
-                                </RSpace.Item>
+                                </RSpace.Item> */}
                             </RSpace>
 
                             <Grid container spacing={1}>

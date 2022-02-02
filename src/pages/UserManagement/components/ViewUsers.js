@@ -1,5 +1,5 @@
 import React from 'react';
-import { Divider, Grid, InputLabel, List, ListItem, ListItemText } from '@material-ui/core';
+import { Avatar, Divider, Grid, InputLabel, List, ListItem, ListItemAvatar, ListItemText } from '@material-ui/core';
 import { useLocation, useParams } from 'react-router-dom';
 import AppButton from '../../../components/AppButton/AppButton';
 import DataFetchingStateComponent from '../../../components/common/DataFetchingStateComponent';
@@ -32,7 +32,6 @@ export default function ViewUsers() {
     const location = useLocation();
     const [user, setUser] = React.useState({});
     const { userStore } = useStore();
-    console.log("STORE", userStore?.getUsers?.docs?.find(ele => ele._id == location.state.user._id));
 
     const getAndSetUser = () => {
         try {
@@ -198,9 +197,13 @@ export default function ViewUsers() {
                         <Grid xs={12} sm={6} md={6}>
                             <List>
                                 {user?.companies?.map((company, index) => (
-                                    <ListItem alignItems="flex-start" key={index}>
+                                    <ListItem alignItems="center" key={index}>
+                                        <ListItemAvatar>
+                                            <Avatar>{company?.name?.charAt?.(0) || "U"}</Avatar>
+                                        </ListItemAvatar>
                                         <ListItemText
-                                            primary={`${index + 1}. ${company?.name}`}
+                                            primary={company?.name || company?._id}
+                                            secondary={company?.email || "--"}
                                         />
                                         <RPopconfirm
                                             anchorElement={

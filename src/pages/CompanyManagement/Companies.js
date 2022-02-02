@@ -31,6 +31,11 @@ export default function Companies() {
         {
             label: "Contact No",
             name: "contactNo",
+            options: {
+                customBodyRender: (value) => {
+                    return value || "--";
+                }
+            }
         },
         {
             label: "Company Admin",
@@ -38,7 +43,6 @@ export default function Companies() {
             options: {
                 filter: false,
                 customBodyRender: (value) => {
-
                     return value?.username || "--"
                 }
             }

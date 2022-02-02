@@ -55,12 +55,15 @@ export function KeyValueRowItem({
     </div>
   );
 }
-export default function KeyValue({ data = {},disabled, onChangeData,addButtonProps ,containerStyle }) {
+export default function KeyValue({ data = {}, disabled, onChangeData, addButtonProps, containerStyle }) {
   return (
     <div>
       <Grid container spacing={1} style={{ ...containerStyle }}>
         <Grid item>
           <AppButton
+            asIconButton={true}
+            variant="container"
+            color="success"
             size="small"
             onClick={() => {
               const modifiedData = { ...data, "": "" };
@@ -69,7 +72,7 @@ export default function KeyValue({ data = {},disabled, onChangeData,addButtonPro
             disabled={disabled}
             {...addButtonProps}
           >
-            <AddIcon />
+            <AddIcon style={{ fontSize: 20 }} />
           </AppButton>
         </Grid>
       </Grid>

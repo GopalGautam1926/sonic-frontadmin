@@ -61,7 +61,7 @@ class CompanyHttps {
     * @param {string} id
     * @returns
     */
-    deleteLicense(id) {
+    deleteCompany(id) {
         return AppWebRequest({
             method: "delete",
             url: `/companies/${id}`,

@@ -50,7 +50,7 @@ export default function ViewLicenseKey({ closeDialog }) {
     _id: "",
     user: "",
     company: {
-      name:"",
+      name: "",
     },
     key: "",
     maxEncodeUses: 0,
@@ -349,34 +349,34 @@ export default function ViewLicenseKey({ closeDialog }) {
                         setLicense({ ...license, name: e.target.value }),
                     }}
                   />
-                {license.type == "Company" && <AppTextInput
-                  labelText="Associated Company"
-                  id="company"
-                  formControlProps={{
-                    fullWidth: true,
-                  }}
-                  inputProps={{
-                    id: "company",
-                    placeholder: "Associated Company",
-                    value: license.company?.name
-                  }}
-                />}
+                  {license.type == "Company" && <AppTextInput
+                    labelText="Associated Company"
+                    id="company"
+                    formControlProps={{
+                      fullWidth: true,
+                    }}
+                    inputProps={{
+                      id: "company",
+                      placeholder: "Associated Company",
+                      value: license.company?.name
+                    }}
+                  />}
 
-                {license.type == "Individual" && <AppTextInput
-                  labelText="User id"
-                  id="user"
-                  formControlProps={{
-                    fullWidth: true,
-                  }}
-                  inputProps={{
-                    id: "user",
-                    required: true,
-                    placeholder: "User id",
-                    value: license?._id,
-                    onChange: (e) =>
-                      setLicense({ ...license, user: e.target.value }),
-                  }}
-                />}
+                  {license.type == "Individual" && <AppTextInput
+                    labelText="User id"
+                    id="user"
+                    formControlProps={{
+                      fullWidth: true,
+                    }}
+                    inputProps={{
+                      id: "user",
+                      required: true,
+                      placeholder: "User id",
+                      value: license?._id,
+                      onChange: (e) =>
+                        setLicense({ ...license, user: e.target.value }),
+                    }}
+                  />}
                 </Grid>
                 <Grid item xs={12} sm={3} md={3}>
                   <AppTextInput
@@ -513,17 +513,23 @@ export default function ViewLicenseKey({ closeDialog }) {
                 </Grid>
               </Grid>
 
-              <InputLabel style={{ marginTop: 15 }}>
-                Metadata (Key/Value)
-              </InputLabel>
-              <KeyValue
-                data={license.metaData}
-                onChangeData={(newData) => {
-                  setLicense({ ...license, metaData: newData });
-                }}
-                disabled={!state.editMode}
-                containerStyle={{ marginTop: 5 }}
-              />
+              <Grid container alignItems="center" spacing={2}>
+                <Grid item>
+                  <InputLabel style={{ marginTop: 5 }}>
+                    Metadata (Key/Value)
+                  </InputLabel>
+                </Grid>
+                <Grid item>
+                  <KeyValue
+                    data={license.metaData}
+                    onChangeData={(newData) => {
+                      setLicense({ ...license, metaData: newData });
+                    }}
+                    disabled={!state.editMode}
+                    containerStyle={{ marginTop: 5 }}
+                  />
+                </Grid>
+              </Grid>
 
               <Divider style={{ marginTop: 20, marginBottom: 10 }} />
               <InputLabel style={{ display: "flex", alignItems: "center" }}>

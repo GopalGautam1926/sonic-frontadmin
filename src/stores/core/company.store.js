@@ -126,7 +126,7 @@ class CompanyStore {
     * @param {string} id
     */
     @action
-    removeLicenseKey(id) {
+    removeCompany(id) {
         this.company = this.company.filter(
             (cpy) => cpy?._id !== id
         );

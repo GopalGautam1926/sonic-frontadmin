@@ -14,7 +14,7 @@ import { useStore } from "../../../../stores";
 import CompanyDropDown from "../../../CompanyManagement/components/CompanyDropDown";
 
 const initialLicense = {
-  name:"",
+  name: "",
   user: "",
   company: "",
   type: "Individual",
@@ -136,14 +136,14 @@ export default function AddLicenseKey({ closeDialog }) {
 
               <Grid item xs={12} sm={3} md={3}>
                 <AppTextInput
-                  labelText="Name"
+                  labelText="Name for this license"
                   id="name"
                   formControlProps={{
                     fullWidth: true,
                   }}
                   inputProps={{
                     required: true,
-                    placeholder: "Name for this license",
+                    placeholder: "e.g: TestLicense1",
                     value: license.name,
                     onChange: (e) =>
                       setLicense({ ...license, name: e.target.value }),
@@ -248,16 +248,23 @@ export default function AddLicenseKey({ closeDialog }) {
               </Grid>
             </Grid>
 
-            <InputLabel style={{ marginTop: 5 }}>
-              Metadata (Key/Value)
-            </InputLabel>
-            <KeyValue
-              data={license.metaData}
-              onChangeData={(newData) => {
-                setLicense({ ...license, metaData: newData });
-              }}
-              containerStyle={{ marginTop: 5 }}
-            />
+            <Grid container alignItems="center" spacing={2}>
+              <Grid item>
+                <InputLabel style={{ marginTop: 5 }}>
+                  Metadata (Key/Value)
+                </InputLabel>
+              </Grid>
+              <Grid item>
+                <KeyValue
+                  data={license.metaData}
+                  onChangeData={(newData) => {
+                    setLicense({ ...license, metaData: newData });
+                  }}
+                  containerStyle={{ marginTop: 5 }}
+                />
+              </Grid>
+            </Grid>
+
           </FancyCard.CardContent>
 
           <FancyCard.CardActions>

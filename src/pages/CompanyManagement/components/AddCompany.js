@@ -148,7 +148,6 @@ export default function AddCompany({ closeDialog }) {
                                     inputProps={{
                                         type: "number",
                                         id: "phonenumber",
-                                        required: true,
                                         placeholder: "Phone number",
                                         value: state.companyData.contactNo,
                                         onChange: (e) =>

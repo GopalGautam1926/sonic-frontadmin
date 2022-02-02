@@ -42,7 +42,7 @@ function LicenseKeys() {
       label: "Uses (encode)",
       name: "encodeUses",
       options: {
-        display: false
+        display: true
       }
     },
     {
@@ -56,7 +56,7 @@ function LicenseKeys() {
       label: "Uses (monitor)",
       name: "monitoringUses",
       options: {
-        display: false
+        display: true
       }
     },
     {

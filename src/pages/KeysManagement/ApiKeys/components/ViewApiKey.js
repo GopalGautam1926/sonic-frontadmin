@@ -312,17 +312,23 @@ export default function ViewApiKey({ closeDialog }) {
                 </Grid>
               </Grid>
 
-              <InputLabel style={{ marginTop: 15 }}>
-                Metadata (Key/Value)
-              </InputLabel>
-              <KeyValue
-                data={apiKey.metaData}
-                onChangeData={(newData) => {
-                  setApiKey({ ...apiKey, metaData: newData });
-                }}
-                disabled={!state.editMode}
-                containerStyle={{ marginTop: 5 }}
-              />
+              <Grid container alignItems="center" spacing={2}>
+                <Grid item>
+                  <InputLabel style={{ marginTop: 5 }}>
+                    Metadata (Key/Value)
+                  </InputLabel>
+                </Grid>
+                <Grid item>
+                  <KeyValue
+                    data={apiKey.metaData}
+                    onChangeData={(newData) => {
+                      setApiKey({ ...apiKey, metaData: newData });
+                    }}
+                    disabled={!state.editMode}
+                    containerStyle={{ marginTop: 5 }}
+                  />
+                </Grid>
+              </Grid>
             </DataFetchingStateComponent>
           </FancyCard.CardContent>
         </form>
