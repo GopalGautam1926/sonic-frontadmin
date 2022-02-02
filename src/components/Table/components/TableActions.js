@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid, TextField } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import AppButton from "../../AppButton/AppButton";
 import { Container } from "@material-ui/core";
 import RDialog from "../../rcomponents/RDialog/RDialog";
@@ -17,9 +17,13 @@ const initialRadioStation = {
 export default function TableActions({
   refreshButtonProps,
   search,
-  filter,
+  addPlusFilter,
+  filterOnly,
+  filterButtonProps,
+  openDialogFilter = false,
+  componentInsideDialogFilter,
   addButtonProps,
-  openDialogWhenClickAdd = true,
+  openDialogWhenClickAdd = false,
   componentInsideDialog,
 }) {
   const theme = useTheme();
@@ -31,46 +35,98 @@ export default function TableActions({
       <Grid item>
         <AppButton {...refreshButtonProps}>Refresh</AppButton>
       </Grid>
-      <Grid item>
-        {openDialogWhenClickAdd ? (
-          <RDialog.CustomDialog
-            anchorElement={
-              <AppButton color="success">
-                {filter ? "FILTER" : <AddIcon />}
-              </AppButton>
-            }
-            disableBackdropClick
-            disableEscapeKeyDown
-            fullWidth={true}
-            maxWidth="lg"
-            scroll="body"
-            PaperProps={{
-              style: {
-                minHeight: "60vh",
-                padding: 5,
-                backgroundColor: theme.palette.primary.main,
-              },
-            }}
-          >
-            {({ close }) => {
-              var componentInsideDialogMoreProps = React.cloneElement(
-                componentInsideDialog,
-                { closeDialog: close }
-              );
-              return (
-                <Container maxWidth="lg">
-                  {/* <componentInsideDialog  closeDialog={close}/> */}
-                  {componentInsideDialogMoreProps}
-                </Container>
-              );
-            }}
-          </RDialog.CustomDialog>
-        ) : (
-          <AppButton color="success" {...addButtonProps}>
-            {filter ? "FILTER" : <AddIcon />}
-          </AppButton>
-        )}
-      </Grid>
+
+      {filterOnly || addPlusFilter ?
+        <Grid item>
+          {openDialogFilter ? (
+            <RDialog.CustomDialog
+              anchorElement={
+                <AppButton color="warning">
+                  FILTER
+                </AppButton>
+              }
+              disableBackdropClick
+              disableEscapeKeyDown
+              fullWidth={true}
+              maxWidth="lg"
+              scroll="body"
+              PaperProps={{
+                style: {
+                  minHeight: "60vh",
+                  padding: 5,
+                  backgroundColor: theme.palette.primary.main,
+                },
+              }}
+            >
+              {({ close }) => {
+                var componentInsideDialogMoreProps = React.cloneElement(
+                  componentInsideDialogFilter,
+                  { closeDialog: close }
+                );
+                return (
+                  <Container maxWidth="lg">
+                    {componentInsideDialogMoreProps}
+                  </Container>
+                );
+              }}
+            </RDialog.CustomDialog>
+          ) : (
+            <AppButton color="warning" {...filterButtonProps}>
+              FILTER
+            </AppButton>
+          )}
+        </Grid> : null}
+
+      {!filterOnly || addPlusFilter ?
+        <Grid item>
+          {openDialogWhenClickAdd ? (
+            <RDialog.CustomDialog
+              anchorElement={
+                <AppButton color="success">
+                  <AddIcon />
+                </AppButton>
+              }
+              disableBackdropClick
+              disableEscapeKeyDown
+              fullWidth={true}
+              maxWidth="lg"
+              scroll="body"
+              PaperProps={{
+                style: {
+                  minHeight: "60vh",
+                  padding: 5,
+                  backgroundColor: theme.palette.primary.main,
+                },
+              }}
+            >
+              {({ close }) => {
+                var componentInsideDialogMoreProps = React.cloneElement(
+                  componentInsideDialog,
+                  { closeDialog: close }
+                );
+                return (
+                  <Container maxWidth="lg">
+                    {/* <componentInsideDialog  closeDialog={close}/> */}
+                    {componentInsideDialogMoreProps}
+                  </Container>
+                );
+              }}
+            </RDialog.CustomDialog>
+          ) : (
+            <AppButton color="success" {...addButtonProps}>
+              <AddIcon />
+            </AppButton>
+          )}
+        </Grid> : null}
+
+      {/* {filterOnly && filterButton()}
+      {addPlusFilter ?
+        <>
+          {filterButton()}
+          {addButton()}
+        </> : !filterOnly && addButton()
+      } */}
+
       {search && <Grid item xs={12} sm={3} md={3}>
         <CountryDropDown
           labelText="Country"

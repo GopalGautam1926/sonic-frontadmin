@@ -178,11 +178,12 @@ export default function Plays() {
                         <Table
                             title={
                                 <Table.TableActions
-                                    filter
+                                    filterOnly
+                                    openDialogFilter={true}
                                     refreshButtonProps={{
                                         onClick: () => playsStore.fetchPlays(),
                                     }}
-                                    componentInsideDialog={<FilterPlays />}
+                                    componentInsideDialogFilter={< FilterPlays />}
                                 />
                             }
                             data={playsStore?.getPlays?.docs || []}

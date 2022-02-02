@@ -4,18 +4,21 @@ import CustomPagination from '../../components/common/CustomPagination';
 import FancyCard from '../../components/FancyCard/FancyCard';
 import Table from '../../components/Table/Table';
 import { useStore } from '../../stores'
-import { log } from '../../utils/app.debug';
 import RegisterUser from './components/RegisterUser';
-import UserFinder from './components/UserFinder';
+import { getRouteNames } from '../../routes/routes.data';
+import { useHistory } from 'react-router-dom';
+import FilterUser from './components/FilterUser';
+import { Grid } from '@material-ui/core';
+import DatePicker from '../../components/DatePicker/DatePicker';
 
 export default function Users() {
     const { userStore } = useStore();
+    const history = useHistory();
 
-    const [state, setState] = React.useState({
-        userTablepage: 1
-    })
-
-    log("User store", userStore?.getUsers)
+    React.useEffect(() => {
+        userStore.changeUserTablePage(1);
+        userStore.fetchUsers();
+    }, [userStore?.getDateRange?.startDate, userStore?.getDateRange?.endDate, userStore?.getUsers?.totalDocs])
 
     const columns = [
         {
@@ -35,7 +38,7 @@ export default function Users() {
             name: "phone_number",
             options: {
                 customBodyRender: (value) => {
-                    const number = value ? value : "---"
+                    const number = value || "---"
                     return number;
                 }
             }
@@ -57,18 +60,47 @@ export default function Users() {
             name: "companies",
             options: {
                 customBodyRender: (value) => {
-                    const companies = value?.length > 0 ? value?.map(cmp => {
-                        return cmp?.name
+                    const companies = value?.length > 0 ? value?.map(cpy => {
+                        return cpy?.name
                     }).join() : "---";
                     return companies;
                 }
             }
         },
+        {
+            label: "Actions",
+            name: "_id",
+            options: {
+                filter: false,
+                customBodyRender: (value, { columnIndex }, updateValue) => {
+                    const rowData = userStore.getUsers.docs.find(
+                        (itm) => itm._id == value
+                    );
+                    return (
+                        <Table.TableRowAction
+                            enableDelete={false}
+                            viewButtonProps={{
+                                onClick: () => {
+                                    const path = `${getRouteNames()["um_users"]
+                                        }/view/${value}`;
+                                    history.push({
+                                        pathname: path,
+                                        state: {
+                                            user: rowData
+                                        }
+                                    });
+                                },
+                            }}
+                        />
+                    );
+                },
+            },
+        },
     ];
 
     const onPageChange = (page) => {
         userStore.fetchUsers(page)
-        setState({ ...state, userTablepage: page })
+        userStore?.changeUserTablePage(page);
     }
 
     return (
@@ -87,7 +119,42 @@ export default function Users() {
                     </FancyCard.CardHeader>
                 }
             >
-                <FancyCard.CardContent>
+                <Grid container style={{ padding: "0px 20px", display: 'flex', justifyContent: 'flex-end', zIndex: 1 }}>
+                    <Grid item>
+                        <DatePicker
+                            label="Start Date"
+                            selected={userStore?.getDateRange?.startDate}
+                            onChange={(date) => userStore?.changeDateRange({ ...userStore?.getDateRange, startDate: date })}
+                            showYearDropdown
+                            dateFormat="dd/MM/yyyy"
+                            yearDropdownItemNumber={15}
+                            scrollableYearDropdown
+                            showMonthDropdown
+                            startDate={userStore?.getDateRange?.startDate}
+                            endDate={userStore?.getDateRange?.endDate}
+                        />
+                    </Grid>
+                    <Grid item className="mt-4 mx-3">
+                        <p style={{ fontSize: '14px' }}>TO</p>
+                    </Grid>
+
+                    <Grid item>
+                        <DatePicker
+                            label="End Date"
+                            selected={userStore?.getDateRange?.endDate}
+                            onChange={(date) => userStore?.changeDateRange({ ...userStore?.getDateRange, endDate: date })}
+                            showYearDropdown
+                            dateFormat="dd/MM/yyyy"
+                            yearDropdownItemNumber={15}
+                            scrollableYearDropdown
+                            showMonthDropdown
+                            startDate={userStore?.getDateRange?.startDate}
+                            endDate={userStore?.getDateRange?.endDate}
+                        />
+                    </Grid>
+                </Grid>
+
+                <FancyCard.CardContent style={{ zIndex: 0 }}>
                     {/* <UserFinder
                         labelText={"User"}
                         onSelectUser={(user) => log("Selected user", user)}
@@ -100,10 +167,14 @@ export default function Users() {
                         <Table
                             title={
                                 <Table.TableActions
+                                    addPlusFilter
+                                    openDialogWhenClickAdd={true}
+                                    openDialogFilter={true}
                                     refreshButtonProps={{
                                         onClick: () => userStore.fetchUsers(),
                                     }}
                                     componentInsideDialog={<RegisterUser />}
+                                    componentInsideDialogFilter={<FilterUser />}
                                 />
                             }
                             data={userStore?.getUsers?.docs || []}
@@ -114,7 +185,7 @@ export default function Users() {
                                     return (
                                         <CustomPagination
                                             totalPages={userStore?.getUsers?.totalPages}
-                                            page={state?.userTablepage}
+                                            page={userStore?.userTablePage}
                                             onChange={(event, value) => onPageChange(value)}
                                         />
                                     );

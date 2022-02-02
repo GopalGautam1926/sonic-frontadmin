@@ -152,11 +152,12 @@ export default function Encoded() {
                         <Table
                             title={
                                 <Table.TableActions
-                                    filter
+                                    filterOnly
+                                    openDialogFilter={true}
                                     refreshButtonProps={{
                                         onClick: () => sonickeyStore.fetchSonicKeys(),
                                     }}
-                                    componentInsideDialog={<FilterEncoded />}
+                                    componentInsideDialogFilter={<FilterEncoded />}
                                 />
                             }
                             data={sonickeyStore?.getSonicKeys?.docs || []}

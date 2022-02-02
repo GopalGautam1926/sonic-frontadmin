@@ -1,3 +1,4 @@
+import { userStore } from "../../../stores/core";
 import { AppWebRequest } from "../NetworkManager";
 
 class UsersHttps {
@@ -24,6 +25,60 @@ class UsersHttps {
       method: "post",
       data: userPayload,
       url: `/users/admin-create-user`,
+    });
+  }
+
+  /**
+* @param {{user:string,company:string}} payload
+* @returns
+*/
+  addUserToCompany(id, payload) {
+    return AppWebRequest({
+      method: "post",
+      data: payload,
+      url: `/users/companies/add-user-to-company`,
+    }).then((res) => {
+      userStore.updateUser(id, res?.data);
+      return res;
+    });
+  }
+
+  /**
+  * @param {{user:string,company:string}} payload
+  * @returns
+  */
+  removeUserFromCompany(id, payload) {
+    return AppWebRequest({
+      method: "delete",
+      data: payload,
+      url: `/users/companies/remove-user-from-company`,
+    }).then((res) => {
+      userStore.updateUser(id, res?.data);
+      return res;
+    });
+  }
+
+  /**
+  * @param {{user:string,group:string}} payload
+  * @returns
+  */
+  addUserToGroup(payload) {
+    return AppWebRequest({
+      method: "post",
+      data: payload,
+      url: `/users/groups/add-user-to-group`,
+    });
+  }
+
+  /**
+  * @param {{user:string,group:string}} payload
+  * @returns
+  */
+  removeUserFromGroup(payload) {
+    return AppWebRequest({
+      method: "delete",
+      data: payload,
+      url: `/users/groups/remove-user-from-group`,
     });
   }
 

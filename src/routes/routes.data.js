@@ -11,13 +11,14 @@ import RadioStation from '../pages/RadioManagement/RadioStation/RadioStation';
 import { observer } from 'mobx-react';
 import ViewApiKey from '../pages/KeysManagement/ApiKeys/components/ViewApiKey';
 import ViewRadioStation from "../pages/RadioManagement/RadioStation/components/ViewRadioStation";
-import RegisterUser from '../pages/UserManagement/components/RegisterUser';
 import AddMonitorSubscriptionToUser from "../pages/UserManagement/components/AddMonitorSubscriptionToUser";
 import Plays from "../pages/SonicKeyManagement/Plays/Plays";
 import Companies from "../pages/CompanyManagement/Companies";
 import Users from "../pages/UserManagement/Users";
 import Group from "../pages/GroupManagement/Group";
 import Encoded from "../pages/SonicKeyManagement/Encoded/Encoded";
+import ViewUsers from "../pages/UserManagement/components/ViewUsers";
+import ViewCompany from "../pages/CompanyManagement/components/ViewCompany";
 
 export const routesData = [
   {
@@ -44,6 +45,17 @@ export const routesData = [
         sidebar: true,
         layout: "/admin",
         key: "cm_company",
+        routes: [
+          {
+            exact: true,
+            sidebar: false,
+            path: "/company-management/company/view/:companyId",
+            name: "View Company",
+            component: ViewCompany,
+            layout: "/admin",
+            key: "cm_company_view",
+          },
+        ]
       }
     ],
   },
@@ -82,14 +94,14 @@ export const routesData = [
         key: "um_users",
         routes: [
           {
-            path: "/users-management/register-new-user",
-            name: "Register New User",
-            component: RegisterUser,
             exact: true,
             sidebar: false,
+            path: "/users-management/users/view/:userId",
+            name: "View Users",
+            component: ViewUsers,
             layout: "/admin",
-            key: "um_registernewuser"
-          }
+            key: "um_users_view",
+          },
         ]
       },
       // {
