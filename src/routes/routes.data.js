@@ -1,4 +1,5 @@
 import DashboardIcon from "@material-ui/icons/Dashboard";
+import NewReleasesIcon from '@material-ui/icons/NewReleases';
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import RadioIcon from '@material-ui/icons/Radio';
 import PeopleIcon from '@material-ui/icons/People';
@@ -11,6 +12,7 @@ import RadioStation from '../pages/RadioManagement/RadioStation/RadioStation';
 import { observer } from 'mobx-react';
 import ViewApiKey from '../pages/KeysManagement/ApiKeys/components/ViewApiKey';
 import ViewRadioStation from "../pages/RadioManagement/RadioStation/components/ViewRadioStation";
+import ViewRelease from "../pages/ReleaseManagement/components/ViewReleases";
 import RegisterUser from '../pages/UserManagement/components/RegisterUser';
 import AddMonitorSubscriptionToUser from "../pages/UserManagement/components/AddMonitorSubscriptionToUser";
 import Plays from "../pages/SonicKeyManagement/Plays";
@@ -228,6 +230,24 @@ export const routesData = [
             key: "km_apikeys_view",
           },
         ]
+      },
+    ],
+  },
+  {
+    icon: <NewReleasesIcon />,
+    name: "Release",
+    sidebar: true,
+    parentPath: '/release',
+    layout: "/admin",
+    routes: [
+      {
+        path: "/release/view",
+        name: "View",
+       component: observer(ViewRelease),
+        exact: true,
+        sidebar: true,
+        layout: "/admin",
+        key: "view_release"
       },
     ],
   }

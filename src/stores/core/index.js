@@ -4,3 +4,4 @@ export * from './radiostation.store'
 export * from './sonickey.store'
 export * from "./company.store"
 export * from './user.store'
+export * from './release.store'
