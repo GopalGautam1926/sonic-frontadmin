@@ -205,9 +205,9 @@ export default function ViewApiKey({ closeDialog }) {
                   />
                 </RSpace.Item>
               </RSpace>
-              <Grid container>
+              <Grid container className="mb-3">
                 <FormControl component="fieldset">
-                  <FormLabel component="legend">Are you</FormLabel>
+                  <FormLabel component="legend">Api key type</FormLabel>
                   <RadioGroup
                     aria-label="type"
                     name="type"
@@ -242,7 +242,7 @@ export default function ViewApiKey({ closeDialog }) {
                 <Grid item xs={12} sm={6} md={6}>
                   {apiKey.type == "Individual" && (
                     <AppTextInput
-                      labelText="Customer Id or Sub"
+                      labelText="User Id"
                       id="customer"
                       formControlProps={{
                         fullWidth: true,
@@ -250,7 +250,8 @@ export default function ViewApiKey({ closeDialog }) {
                       inputProps={{
                         required: true,
                         readOnly: true,
-                        placeholder: "Customer id or sub for this api key",
+                        disabled:true,
+                        placeholder: "User id for this api key",
                         value: apiKey.customer,
                         onChange: (e) =>
                           setApiKey({ ...apiKey, customer: e.target.value }),
@@ -267,6 +268,7 @@ export default function ViewApiKey({ closeDialog }) {
                       inputProps={{
                         required: true,
                         readOnly: true,
+                        disabled:true,
                         placeholder: "Company Id for this api key",
                         value: apiKey.company,
                         onChange: (e) =>

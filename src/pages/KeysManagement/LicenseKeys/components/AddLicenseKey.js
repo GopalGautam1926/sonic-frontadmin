@@ -73,9 +73,9 @@ export default function AddLicenseKey({ closeDialog }) {
       >
         <form onSubmit={onSubmit}>
           <FancyCard.CardContent>
-            <Grid container>
+            <Grid container className="mb-3">
               <FormControl component="fieldset">
-                <FormLabel component="legend">Are you</FormLabel>
+                <FormLabel component="legend">License key type</FormLabel>
                 <RadioGroup
                   aria-label="type"
                   name="type"
@@ -118,7 +118,7 @@ export default function AddLicenseKey({ closeDialog }) {
                 />}
 
                 {license.type == "Individual" && <AppTextInput
-                  labelText="User id"
+                  labelText="User Id"
                   id="user"
                   formControlProps={{
                     fullWidth: true,
@@ -126,7 +126,7 @@ export default function AddLicenseKey({ closeDialog }) {
                   inputProps={{
                     id: "user",
                     required: true,
-                    placeholder: "User id",
+                    placeholder: "User Id for this license key",
                     value: license.user,
                     onChange: (e) =>
                       setLicense({ ...license, user: e.target.value }),

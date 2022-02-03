@@ -65,7 +65,7 @@ function LicenseKeys() {
       options: {
         display: true,
         customBodyRender: (value, { columnIndex }, updateValue) => {
-          const type = value || "--";
+          const type = value || "Individual";
           return type;
         },
       }
@@ -195,7 +195,7 @@ function LicenseKeys() {
       });
   };
 
-  console.log("companyStore data", licenseKeyStore.getLicenseKeys);
+  log("companyStore data", licenseKeyStore.getLicenseKeys);
 
   return (
     <div>

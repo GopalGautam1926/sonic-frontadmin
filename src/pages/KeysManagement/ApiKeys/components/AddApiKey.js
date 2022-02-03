@@ -65,9 +65,9 @@ export default function AddApiKey({ closeDialog }) {
       >
         <form onSubmit={onSubmit}>
           <FancyCard.CardContent>
-            <Grid container>
+            <Grid container className="mb-3">
               <FormControl component="fieldset">
-                <FormLabel component="legend">Are you</FormLabel>
+                <FormLabel component="legend">Api key type</FormLabel>
                 <RadioGroup
                   aria-label="type"
                   name="type"
@@ -101,7 +101,7 @@ export default function AddApiKey({ closeDialog }) {
               <Grid item xs={12} sm={6} md={6}>
                 {apiKey.type == "Individual" && (
                   <AppTextInput
-                    labelText="Customer Id or Sub"
+                    labelText="User Id"
                     id="customer"
                     formControlProps={{
                       fullWidth: true,
@@ -109,7 +109,7 @@ export default function AddApiKey({ closeDialog }) {
                     inputProps={{
                       id: "customer",
                       required: true,
-                      placeholder: "Customer id or sub for this api key",
+                      placeholder: "User Id for this api key",
                       value: apiKey.customer,
                       onChange: (e) =>
                         setApiKey({ ...apiKey, customer: e.target.value }),
