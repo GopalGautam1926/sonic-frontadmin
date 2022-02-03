@@ -207,6 +207,7 @@ export default function ViewCompany({ closeDialog }) {
                                         }}
                                         inputProps={{
                                             readOnly: !state.editMode,
+                                            disabled: !state.editMode,
                                             placeholder: "Name of the company",
                                             value: company.name,
                                             required: true,
@@ -224,6 +225,7 @@ export default function ViewCompany({ closeDialog }) {
                                         }}
                                         inputProps={{
                                             readOnly: !state.editMode,
+                                            disabled: !state.editMode,
                                             placeholder: "Company Email",
                                             value: company.email,
                                             required: true,
@@ -241,9 +243,9 @@ export default function ViewCompany({ closeDialog }) {
                                         }}
                                         inputProps={{
                                             readOnly: !state.editMode,
+                                            disabled: !state.editMode,
                                             placeholder: "Phone Number",
                                             value: company.contactNo,
-                                            required: true,
                                             onChange: (e) =>
                                                 setCompany({ ...company, contactNo: e.target.value }),
                                         }}

@@ -68,10 +68,12 @@ export default function ViewLicenseKey({ closeDialog }) {
     try {
       setState({ ...state, loading: true, error: null });
       if (location?.state?.license) {
+        location.state.license.type=location.state.license.type||"Individual"
         setLicense(location.state.license);
         setState({ ...state, loading: false, oldKey: location.state.license });
       } else {
         const { data } = await licensekeysHttps.findByKey(licenseId);
+        data.type = data.type||"Individual"
         setLicense(data);
         setState({ ...state, loading: false, oldKey: data });
       }
@@ -300,9 +302,9 @@ export default function ViewLicenseKey({ closeDialog }) {
                   />
                 </RSpace.Item> */}
               </RSpace>
-              <Grid container>
+              <Grid container className="mb-3">
                 <FormControl component="fieldset">
-                  <FormLabel component="legend">Are you</FormLabel>
+                  <FormLabel component="legend">License key type</FormLabel>
                   <RadioGroup
                     aria-label="type"
                     name="type"
@@ -342,6 +344,7 @@ export default function ViewLicenseKey({ closeDialog }) {
                     }}
                     inputProps={{
                       readOnly: !state.editMode,
+                      disabled: !state.editMode,
                       placeholder: "Name for this license",
                       value: license.name,
                       required: true,
@@ -362,7 +365,7 @@ export default function ViewLicenseKey({ closeDialog }) {
                     }}
                   />}
 
-                  {license.type == "Individual" && <AppTextInput
+                  {/* {license.type == "Individual" && <AppTextInput
                     labelText="User id"
                     id="user"
                     formControlProps={{
@@ -376,7 +379,7 @@ export default function ViewLicenseKey({ closeDialog }) {
                       onChange: (e) =>
                         setLicense({ ...license, user: e.target.value }),
                     }}
-                  />}
+                  />} */}
                 </Grid>
                 <Grid item xs={12} sm={3} md={3}>
                   <AppTextInput
@@ -390,6 +393,7 @@ export default function ViewLicenseKey({ closeDialog }) {
                       min: "0",
                       required: true,
                       readOnly: !state.editMode || license.isUnlimitedEncode,
+                      disabled: !state.editMode || license.isUnlimitedEncode,
                       placeholder: license.isUnlimitedEncode
                         ? "unlimited"
                         : "eg. 1000",
@@ -422,6 +426,7 @@ export default function ViewLicenseKey({ closeDialog }) {
                       min: "0",
                       required: true,
                       readOnly: !state.editMode || license.isUnlimitedMonitor,
+                      disabled: !state.editMode || license.isUnlimitedMonitor,
                       placeholder: license.isUnlimitedMonitor
                         ? "unlimited"
                         : "eg. 1000",
@@ -451,8 +456,10 @@ export default function ViewLicenseKey({ closeDialog }) {
                     }
                     required={true}
                     disabled={!state.editMode}
+                    disabled= {!state.editMode}
                     inputProps={{
                       required: true,
+                      disabled: !state.editMode
                     }}
                     showYearDropdown
                     dateFormatCalendar="MMMM"
@@ -489,6 +496,7 @@ export default function ViewLicenseKey({ closeDialog }) {
                     label="Unlimited encode"
                     checked={license.isUnlimitedEncode}
                     disabled={!state.editMode}
+                    disabled= {!state.editMode}
                     onChange={(e) =>
                       setLicense({
                         ...license,
