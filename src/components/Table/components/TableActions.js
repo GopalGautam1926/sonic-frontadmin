@@ -119,14 +119,6 @@ export default function TableActions({
           )}
         </Grid> : null}
 
-      {/* {filterOnly && filterButton()}
-      {addPlusFilter ?
-        <>
-          {filterButton()}
-          {addButton()}
-        </> : !filterOnly && addButton()
-      } */}
-
       {search && <Grid item xs={12} sm={3} md={3}>
         <CountryDropDown
           labelText="Country"

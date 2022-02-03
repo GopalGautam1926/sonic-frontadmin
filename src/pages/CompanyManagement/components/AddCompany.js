@@ -7,9 +7,10 @@ import { log } from '../../../utils/app.debug';
 import companyHttps from '../../../services/https/resources/company.https';
 import { toast } from "react-toastify";
 import { useStore } from '../../../stores';
+import UserPicker from '../../../components/UserPicker/UserPicker';
 
 export default function AddCompany({ closeDialog }) {
-    const { companyStore } = useStore()
+    const { companyStore, userStore } = useStore()
 
     const [state, setState] = React.useState({
         loading: false,
@@ -72,102 +73,119 @@ export default function AddCompany({ closeDialog }) {
             >
                 <form onSubmit={onCompanySubmit}>
                     <FancyCard.CardContent>
-                        <Grid container>
-                            <FormControl fullWidth component="fieldset" >
-                                <AppTextInput
-                                    labelText="Company name"
-                                    id="name"
-                                    formControlProps={{
-                                        fullWidth: true,
-                                    }}
-                                    inputProps={{
-                                        id: "name",
-                                        required: true,
-                                        value: state.companyData.name,
-                                        onChange: (e) =>
-                                            setState({
-                                                ...state, companyData: {
-                                                    ...state.companyData, name: e.target.value
-                                                }
-                                            }),
-                                    }}
-                                />
-                            </FormControl>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} sm={6} md={6}>
+                                <FormControl fullWidth component="fieldset" >
+                                    <AppTextInput
+                                        labelText="Company name"
+                                        id="name"
+                                        formControlProps={{
+                                            fullWidth: true,
+                                        }}
+                                        inputProps={{
+                                            id: "name",
+                                            required: true,
+                                            value: state.companyData.name,
+                                            onChange: (e) =>
+                                                setState({
+                                                    ...state, companyData: {
+                                                        ...state.companyData, name: e.target.value
+                                                    }
+                                                }),
+                                        }}
+                                    />
+                                </FormControl>
+                            </Grid>
 
-                            <FormControl fullWidth component="fieldset" >
-                                <AppTextInput
-                                    labelText="Owner ID"
-                                    id="id"
-                                    formControlProps={{
-                                        fullWidth: true,
-                                    }}
-                                    inputProps={{
-                                        id: "id",
-                                        required: true,
-                                        value: state.companyData.owner,
-                                        onChange: (e) =>
-                                            setState({
-                                                ...state, companyData: {
-                                                    ...state.companyData, owner: e.target.value
-                                                }
-                                            }),
-                                    }}
-                                />
-                            </FormControl>
+                            <Grid item xs={12} sm={6} md={6}>
+                                <FormControl fullWidth component="fieldset" >
+                                    <AppTextInput
+                                        labelText="Owner ID"
+                                        id="id"
+                                        formControlProps={{
+                                            fullWidth: true,
+                                        }}
+                                        inputProps={{
+                                            id: "id",
+                                            required: true,
+                                            value: state.companyData.owner,
+                                            onChange: (e) =>
+                                                setState({
+                                                    ...state, companyData: {
+                                                        ...state.companyData, owner: e.target.value
+                                                    }
+                                                }),
+                                        }}
+                                    />
+                                </FormControl>
+                            </Grid>
 
-                            <FormControl fullWidth component="fieldset" >
-                                <AppTextInput
-                                    labelText="Email"
-                                    id="email"
-                                    formControlProps={{
-                                        fullWidth: true,
-                                    }}
-                                    inputProps={{
-                                        type: "email",
-                                        required: true,
-                                        id: "email",
-                                        placeholder: "Email",
-                                        value: state.companyData.email,
-                                        onChange: (e) =>
-                                            setState({
-                                                ...state, companyData: {
-                                                    ...state.companyData, email: e.target.value
-                                                }
-                                            }),
-                                    }}
-                                />
-                            </FormControl>
+                            <Grid item xs={12} sm={6} md={6}>
+                                <FormControl fullWidth component="fieldset" >
+                                    <AppTextInput
+                                        labelText="Email"
+                                        id="email"
+                                        formControlProps={{
+                                            fullWidth: true,
+                                        }}
+                                        inputProps={{
+                                            type: "email",
+                                            required: true,
+                                            id: "email",
+                                            placeholder: "Email",
+                                            value: state.companyData.email,
+                                            onChange: (e) =>
+                                                setState({
+                                                    ...state, companyData: {
+                                                        ...state.companyData, email: e.target.value
+                                                    }
+                                                }),
+                                        }}
+                                    />
+                                </FormControl>
+                            </Grid>
 
-                            <FormControl fullWidth component="fieldset" >
-                                <AppTextInput.AppPhoneNumberInput
-                                    labelText="Phone number"
-                                    id="phonenumber"
-                                    formControlProps={{
-                                        fullWidth: true,
-                                    }}
-                                    inputProps={{
-                                        type: "number",
-                                        id: "phonenumber",
-                                        placeholder: "Phone number",
-                                        value: state.companyData.contactNo,
-                                        onChange: (e) =>
-                                            setState({
-                                                ...state, companyData: {
-                                                    ...state.companyData, contactNo: e.target.value
-                                                }
-                                            }),
-                                    }}
-                                    countrySelectProps={{
-                                        value: state.companyData.countryCode,
-                                        onChange: (e) =>
-                                            setState({
-                                                ...state, companyData: {
-                                                    ...state.companyData, countryCode: e.target.value
-                                                }
-                                            }),
-                                    }}
-                                />
-                            </FormControl>
+                            <Grid item xs={12} sm={6} md={6}>
+                                <FormControl fullWidth component="fieldset" >
+                                    <AppTextInput.AppPhoneNumberInput
+                                        labelText="Phone number"
+                                        id="phonenumber"
+                                        formControlProps={{
+                                            fullWidth: true,
+                                        }}
+                                        inputProps={{
+                                            type: "number",
+                                            id: "phonenumber",
+                                            placeholder: "Phone number",
+                                            value: state.companyData.contactNo,
+                                            onChange: (e) =>
+                                                setState({
+                                                    ...state, companyData: {
+                                                        ...state.companyData, contactNo: e.target.value
+                                                    }
+                                                }),
+                                        }}
+                                        countrySelectProps={{
+                                            value: state.companyData.countryCode,
+                                            onChange: (e) =>
+                                                setState({
+                                                    ...state, companyData: {
+                                                        ...state.companyData, countryCode: e.target.value
+                                                    }
+                                                }),
+                                        }}
+                                    />
+                                </FormControl>
+                            </Grid>
+
+                            <Grid item xs={12} sm={6} md={6}>
+                                <FormControl fullWidth component="fieldset" >
+                                    <UserPicker
+                                        labelText="Users"
+                                        options={userStore?.getUsers?.docs}
+                                    />
+                                </FormControl>
+                            </Grid>
                         </Grid>
                     </FancyCard.CardContent>
 
