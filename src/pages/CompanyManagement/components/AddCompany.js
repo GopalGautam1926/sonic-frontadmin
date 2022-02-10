@@ -9,27 +9,28 @@ import { toast } from "react-toastify";
 import { useStore } from '../../../stores';
 import UserPicker from '../../../components/UserPicker/UserPicker';
 
-export default function AddCompany({ closeDialog }) {
-    const { companyStore, userStore } = useStore()
-
-    const [state, setState] = React.useState({
-        loading: false,
-        companyData: {
-            name: "",
-            description: "",
-            email: "",
-            contactNo: "",
-            countryCode: "+44",
-            address: {
-                country: "",
-                city: "",
-                line1: "",
-                line2: ""
-            },
-            owner: ""
+const initialCompany = {
+    loading: false,
+    companyData: {
+        name: "",
+        description: "",
+        email: "",
+        contactNo: "",
+        countryCode: "+44",
+        address: {
+            country: "",
+            city: "",
+            line1: "",
+            line2: ""
         },
-        error: null
-    });
+        owner: ""
+    },
+    error: null
+}
+
+export default function AddCompany({ closeDialog }) {
+    const { companyStore } = useStore()
+    const [state, setState] = React.useState(initialCompany);
 
     const onCompanySubmit = (e) => {
         e.preventDefault()
@@ -45,6 +46,7 @@ export default function AddCompany({ closeDialog }) {
             companyStore.addCompany(data)
             toast.success("Successfully added company")
             closeDialog?.()
+            setState(initialCompany);
             log("AddCompany Data", data)
         }).catch((err) => {
             setState({ ...state, loading: false, error: err?.message })
@@ -85,6 +87,7 @@ export default function AddCompany({ closeDialog }) {
                                         inputProps={{
                                             id: "name",
                                             required: true,
+                                            placeholder: "Company name",
                                             value: state.companyData.name,
                                             onChange: (e) =>
                                                 setState({
@@ -99,22 +102,17 @@ export default function AddCompany({ closeDialog }) {
 
                             <Grid item xs={12} sm={6} md={6}>
                                 <FormControl fullWidth component="fieldset" >
-                                    <AppTextInput
-                                        labelText="Owner ID"
-                                        id="id"
-                                        formControlProps={{
-                                            fullWidth: true,
-                                        }}
-                                        inputProps={{
-                                            id: "id",
-                                            required: true,
-                                            value: state.companyData.owner,
-                                            onChange: (e) =>
+                                    <UserPicker
+                                        labelText="Owner"
+                                        placeholder="Owner username"
+                                        onChange={(event, value) => {
+                                            if (value) {
                                                 setState({
                                                     ...state, companyData: {
-                                                        ...state.companyData, owner: e.target.value
+                                                        ...state.companyData, owner: value?._id
                                                     }
-                                                }),
+                                                })
+                                            }
                                         }}
                                     />
                                 </FormControl>
@@ -132,7 +130,7 @@ export default function AddCompany({ closeDialog }) {
                                             type: "email",
                                             required: true,
                                             id: "email",
-                                            placeholder: "Email",
+                                            placeholder: "Email address",
                                             value: state.companyData.email,
                                             onChange: (e) =>
                                                 setState({
@@ -177,20 +175,15 @@ export default function AddCompany({ closeDialog }) {
                                     />
                                 </FormControl>
                             </Grid>
-
-                            <Grid item xs={12} sm={6} md={6}>
-                                <FormControl fullWidth component="fieldset" >
-                                    <UserPicker
-                                        labelText="Users"
-                                        options={userStore?.getUsers?.docs}
-                                    />
-                                </FormControl>
-                            </Grid>
                         </Grid>
                     </FancyCard.CardContent>
 
                     <FancyCard.CardActions>
-                        <AppButton color="danger" onClick={() => closeDialog?.()}>
+                        <AppButton color="danger" onClick={() => {
+                            setState(initialCompany)
+                            closeDialog?.()
+                            log(state)
+                        }}>
                             Close
                         </AppButton>
                         <AppButton type="submit" loadingText="Adding.." loading={state.loading}>Add</AppButton>

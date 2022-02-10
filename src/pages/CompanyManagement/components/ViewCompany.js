@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
+import { FormControl, Grid } from '@material-ui/core';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import AppButton from '../../../components/AppButton/AppButton';
 import DataFetchingStateComponent from '../../../components/common/DataFetchingStateComponent';
@@ -199,57 +199,65 @@ export default function ViewCompany({ closeDialog }) {
 
                             <Grid container spacing={1}>
                                 <Grid item xs={12} sm={6} md={6}>
-                                    <AppTextInput
-                                        labelText="Name"
-                                        id="name"
-                                        formControlProps={{
-                                            fullWidth: true,
-                                        }}
-                                        inputProps={{
-                                            readOnly: !state.editMode,
-                                            disabled: !state.editMode,
-                                            placeholder: "Name of the company",
-                                            value: company.name,
-                                            required: true,
-                                            onChange: (e) =>
-                                                setCompany({ ...company, name: e.target.value }),
-                                        }}
-                                    />
+                                    <FormControl fullWidth component="fieldset">
+                                        <AppTextInput
+                                            labelText="Name"
+                                            id="name"
+                                            formControlProps={{
+                                                fullWidth: true,
+                                            }}
+                                            inputProps={{
+                                                readOnly: !state.editMode,
+                                                disabled: !state.editMode,
+                                                placeholder: "Name of the company",
+                                                value: company.name,
+                                                required: true,
+                                                onChange: (e) =>
+                                                    setCompany({ ...company, name: e.target.value }),
+                                            }}
+                                        />
+                                    </FormControl>
                                 </Grid>
+
                                 <Grid item xs={12} sm={6} md={6}>
-                                    <AppTextInput
-                                        labelText="Company Email"
-                                        id="companyEmail"
-                                        formControlProps={{
-                                            fullWidth: true,
-                                        }}
-                                        inputProps={{
-                                            readOnly: !state.editMode,
-                                            disabled: !state.editMode,
-                                            placeholder: "Company Email",
-                                            value: company.email,
-                                            required: true,
-                                            onChange: (e) =>
-                                                setCompany({ ...company, email: e.target.value }),
-                                        }}
-                                    />
+                                    <FormControl fullWidth component="fieldset">
+                                        <AppTextInput
+                                            labelText="Company Email"
+                                            id="companyEmail"
+                                            formControlProps={{
+                                                fullWidth: true,
+                                            }}
+                                            inputProps={{
+                                                readOnly: !state.editMode,
+                                                disabled: !state.editMode,
+                                                placeholder: "Company Email",
+                                                value: company.email,
+                                                required: true,
+                                                onChange: (e) =>
+                                                    setCompany({ ...company, email: e.target.value }),
+                                            }}
+                                        />
+                                    </FormControl>
                                 </Grid>
+
                                 <Grid item xs={12} sm={6} md={6}>
-                                    <AppTextInput
-                                        labelText="Phone Number"
-                                        id="phone"
-                                        formControlProps={{
-                                            fullWidth: true,
-                                        }}
-                                        inputProps={{
-                                            readOnly: !state.editMode,
-                                            disabled: !state.editMode,
-                                            placeholder: "Phone Number",
-                                            value: company.contactNo,
-                                            onChange: (e) =>
-                                                setCompany({ ...company, contactNo: e.target.value }),
-                                        }}
-                                    />
+                                    <FormControl fullWidth component="fieldset">
+                                        <AppTextInput
+                                            labelText="Phone Number"
+                                            id="phone"
+                                            formControlProps={{
+                                                fullWidth: true,
+                                            }}
+                                            inputProps={{
+                                                readOnly: !state.editMode,
+                                                disabled: !state.editMode,
+                                                placeholder: "Phone Number",
+                                                value: company.contactNo,
+                                                onChange: (e) =>
+                                                    setCompany({ ...company, contactNo: e.target.value }),
+                                            }}
+                                        />
+                                    </FormControl>
                                 </Grid>
                             </Grid>
                         </DataFetchingStateComponent>

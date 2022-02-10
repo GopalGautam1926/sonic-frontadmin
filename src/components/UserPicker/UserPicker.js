@@ -6,26 +6,34 @@ import { useStore } from '../../stores';
 
 export default function UserPicker({
     labelText,
-    inputProps,
-    options,
+    placeholder,
+    optionsData,
+    noOptionsText,
     onChange,
+    defaultValue,
+    options,
     ...props
 }) {
-    const { userStore } = useStore();
-    // const [user, setUser] = React.useState({
 
-    // })
+    const { userStore } = useStore();
 
     return (
         <Autocomplete
             {...props}
-            id="auto-complete"
-            fullWidth
-            noOptionsText="No users"
-            options={options}
-            getOptionLabel={(option) => option?._id}
-            // onChange={() => }
-            renderInput={(params) => <TextField {...params} label={labelText} />}
+            id="user-id"
+            defaultValue={null}
+            noOptionsText={noOptionsText || "No Data"}
+            options={userStore.getUsers.docs}
+            getOptionLabel={(option) => option?.username}
+            onChange={onChange}
+            renderInput={(params) =>
+                <TextField
+                    {...params}
+                    fullWidth
+                    placeholder={placeholder || ""}
+                    label={labelText || ""}
+                />
+            }
         />
     );
 }
