@@ -1,4 +1,5 @@
 import DashboardIcon from "@material-ui/icons/Dashboard";
+import NewReleasesIcon from '@material-ui/icons/NewReleases';
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import RadioIcon from '@material-ui/icons/Radio';
 import PeopleIcon from '@material-ui/icons/People';
@@ -11,7 +12,7 @@ import RadioStation from '../pages/RadioManagement/RadioStation/RadioStation';
 import { observer } from 'mobx-react';
 import ViewApiKey from '../pages/KeysManagement/ApiKeys/components/ViewApiKey';
 import ViewRadioStation from "../pages/RadioManagement/RadioStation/components/ViewRadioStation";
-import AddMonitorSubscriptionToUser from "../pages/UserManagement/components/AddMonitorSubscriptionToUser";
+import Version from "../pages/ReleaseManagement/Version";
 import Plays from "../pages/SonicKeyManagement/Plays/Plays";
 import Companies from "../pages/CompanyManagement/Companies";
 import Users from "../pages/UserManagement/Users";
@@ -19,6 +20,7 @@ import Group from "../pages/GroupManagement/Group";
 import Encoded from "../pages/SonicKeyManagement/Encoded/Encoded";
 import ViewUsers from "../pages/UserManagement/components/ViewUsers";
 import ViewCompany from "../pages/CompanyManagement/components/ViewCompany";
+import ViewVersion from '../pages/ReleaseManagement/components/ViewVersion';
 
 export const routesData = [
   {
@@ -215,6 +217,35 @@ export const routesData = [
             component: observer(ViewApiKey),
             layout: "/admin",
             key: "km_apikeys_view",
+          },
+        ]
+      },
+    ],
+  },
+  {
+    icon: <NewReleasesIcon />,
+    name: "Library Encoder",
+    sidebar: true,
+    parentPath: '/version-management',
+    layout: "/admin",
+    routes: [
+      {
+        path: "/version-management/version",
+        name: "Releases",
+        component: observer(Version),
+        exact: true,
+        sidebar: true,
+        layout: "/admin",
+        key: "km_version",
+        routes: [
+          {
+            exact: true,
+            sidebar: false,
+            path: "/version-management/version/view/:versionId",
+            name: "View Versions",
+            component: ViewVersion,
+            layout: "/admin",
+            key: "km_version_view",
           },
         ]
       },
