@@ -106,13 +106,11 @@ export default function AddCompany({ closeDialog }) {
                                         labelText="Owner"
                                         placeholder="Owner username"
                                         onChange={(event, value) => {
-                                            if (value) {
-                                                setState({
-                                                    ...state, companyData: {
-                                                        ...state.companyData, owner: value?._id
-                                                    }
-                                                })
-                                            }
+                                            setState({
+                                                ...state, companyData: {
+                                                    ...state.companyData, owner: value?._id
+                                                }
+                                            })
                                         }}
                                     />
                                 </FormControl>
@@ -182,7 +180,6 @@ export default function AddCompany({ closeDialog }) {
                         <AppButton color="danger" onClick={() => {
                             setState(initialCompany)
                             closeDialog?.()
-                            log(state)
                         }}>
                             Close
                         </AppButton>
