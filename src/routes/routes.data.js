@@ -12,13 +12,14 @@ import RadioStation from '../pages/RadioManagement/RadioStation/RadioStation';
 import { observer } from 'mobx-react';
 import ViewApiKey from '../pages/KeysManagement/ApiKeys/components/ViewApiKey';
 import ViewRadioStation from "../pages/RadioManagement/RadioStation/components/ViewRadioStation";
-import ViewRelease from "../pages/ReleaseManagement/components/ViewReleases";
+import Version from "../pages/ReleaseManagement/Version";
 import RegisterUser from '../pages/UserManagement/components/RegisterUser';
 import AddMonitorSubscriptionToUser from "../pages/UserManagement/components/AddMonitorSubscriptionToUser";
 import Plays from "../pages/SonicKeyManagement/Plays";
 import Companies from "../pages/CompanyManagement/Companies";
 import Users from "../pages/UserManagement/Users";
 import Group from "../pages/GroupManagement/Group";
+import ViewVersion from '../pages/ReleaseManagement/components/ViewVersion';
 
 export const routesData = [
   {
@@ -235,19 +236,30 @@ export const routesData = [
   },
   {
     icon: <NewReleasesIcon />,
-    name: "Release",
+    name: "Library Encoder",
     sidebar: true,
-    parentPath: '/release',
+    parentPath: '/version-management',
     layout: "/admin",
     routes: [
       {
-        path: "/release/view",
-        name: "View",
-       component: observer(ViewRelease),
+        path: "/version-management/version",
+        name: "Releases",
+       component: observer(Version),
         exact: true,
         sidebar: true,
         layout: "/admin",
-        key: "view_release"
+        key: "km_version",
+        routes: [
+          {
+            exact: true,
+            sidebar: false,
+            path: "/version-management/version/view/:versionId",
+            name: "View Versions",
+            component: ViewVersion,
+            layout: "/admin",
+            key: "km_version_view",
+          },
+        ]
       },
     ],
   }

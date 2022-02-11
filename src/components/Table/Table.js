@@ -55,8 +55,6 @@ export default function Table({ title, data, columns, options, components }) {
       style: { color: theme.palette.primary.main},
     }),
   };
-  console.log("----------------------", columns)
-
   var newColumns = columns?.map((col, index) => {
     if (typeof col == "string") {
      const newCol = {
