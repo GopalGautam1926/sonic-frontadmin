@@ -119,8 +119,7 @@ export default function UploadVersion({ closeDialog }) {
   };
 
   return (
-
-    <FancyCard>
+    <div>
       <FancyCard
         cardHeader={
           <FancyCard.CardHeader color="purple">
@@ -136,59 +135,59 @@ export default function UploadVersion({ closeDialog }) {
             )}
           </FancyCard.CardHeader>
         }
-      ></FancyCard>
-      <form onSubmit={onSubmit}>
-        <FancyCard.CardContent>
-          <Grid item xs={18} sm={6} md={6}>
-            <input
-              accept=""
-              className={classes.input}
-              id="contained-button-file"
-              type="file"
-              style={{ display: "none" }}
-              onChange={onFileChange}
-            />
-            <label htmlFor="contained-button-file">
-              <AppButton
-                component="span"
-                className={classes.uploadBtn}
-              >
-                Upload a file
-              </AppButton>
-            </label>
-          </Grid>
-          <Grid container spacing={1}>
-            <Grid item xs={18} sm={6} md={6}>
-              <AppTextInput
-                labelText="VersionCode"
-                id="versionCode"
-                formControlProps={{
-                  fullWidth: true,
-                }}
-                inputProps={{
-                  required: true,
-                  placeholder: "verson code",
-                  value: version?.data?.versionCode,
-                  onChange: (e) => { setVersion({ ...version, data: { ...version?.data, versionCode: e.target.value } }) },
-                }}
+      >
+        <form onSubmit={onSubmit}>
+          <FancyCard.CardContent>
+            <Grid item xs={12} sm={6} md={6}>
+              <input
+                accept=""
+                className={classes.input}
+                id="contained-button-file"
+                type="file"
+                style={{ display: "none" }}
+                onChange={onFileChange}
               />
+              <label htmlFor="contained-button-file">
+                <AppButton
+                  component="span"
+                  className={classes.uploadBtn}
+                >
+                  Upload a file
+                </AppButton>
+              </label>
             </Grid>
-            <Grid item xs={18} sm={6} md={6}>
-              <AppTextInput
-                labelText="ReleaseNote"
-                id="ReleaseNote"
-                formControlProps={{
-                  fullWidth: true,
-                }}
-                inputProps={{
-                  required: true,
-                  placeholder: "release note",
-                  value: version.releaseNote,
-                  onChange: (e) => { setVersion({ ...version, data: { ...version?.data, releaseNote: e.target.value } }) },
-                }}
-              />
-            </Grid>
-            {/* <Grid item xs={18} sm={6} md={6}>
+            <Grid container spacing={1}>
+              <Grid item xs={12} sm={6} md={6}>
+                <AppTextInput
+                  labelText="VersionCode"
+                  id="versionCode"
+                  formControlProps={{
+                    fullWidth: true,
+                  }}
+                  inputProps={{
+                    required: true,
+                    placeholder: "verson code",
+                    value: version?.data?.versionCode,
+                    onChange: (e) => { setVersion({ ...version, data: { ...version?.data, versionCode: e.target.value } }) },
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} md={6}>
+                <AppTextInput
+                  labelText="ReleaseNote"
+                  id="ReleaseNote"
+                  formControlProps={{
+                    fullWidth: true,
+                  }}
+                  inputProps={{
+                    required: true,
+                    placeholder: "release note",
+                    value: version.releaseNote,
+                    onChange: (e) => { setVersion({ ...version, data: { ...version?.data, releaseNote: e.target.value } }) },
+                  }}
+                />
+              </Grid>
+              {/* <Grid item xs={12} sm={6} md={6}>
               <AppTextInput
                 labelText="Platform"
                 id="Platform"
@@ -203,42 +202,43 @@ export default function UploadVersion({ closeDialog }) {
                 }}
               />
             </Grid> */}
-            <Grid item xs={18} sm={6} md={6}>
-              <PlatformDropDown
-                labelText="Platform"
-                id="platform"
-                formControlProps={{
-                  fullWidth: true,
-                }}
-                inputProps={{
-                  required: true,
-                  placeholder: "Platform",
-                  value: version.platform,
-                  onChange: (e) => { setVersion({ ...version, data: { ...version?.data, platform: e.target.value } }) }
-                }}
-              ></PlatformDropDown>
-            </Grid>
-            <Grid container>
-              <Grid item xs={18} sm={6} md={6}>
-                <SwitchWithLabel
-                  label="Mark as latest"
-                  checked={version.data.latest}
-                  onChange={(e) =>
-                    setVersion({ ...version, data: { ...version?.data, latest: e.target.checked } })
-                  }
-                />
+              <Grid item xs={12} sm={6} md={6}>
+                <PlatformDropDown
+                  labelText="Platform"
+                  id="platform"
+                  formControlProps={{
+                    fullWidth: true,
+                  }}
+                  inputProps={{
+                    required: true,
+                    placeholder: "Platform",
+                    value: version.platform,
+                    onChange: (e) => { setVersion({ ...version, data: { ...version?.data, platform: e.target.value } }) }
+                  }}
+                ></PlatformDropDown>
+              </Grid>
+              <Grid container>
+                <Grid item xs={12} sm={6} md={6}>
+                  <SwitchWithLabel
+                    label="Mark as latest"
+                    checked={version.data.latest}
+                    onChange={(e) =>
+                      setVersion({ ...version, data: { ...version?.data, latest: e.target.checked } })
+                    }
+                  />
+                </Grid>
               </Grid>
             </Grid>
-          </Grid>
-        </FancyCard.CardContent>
-        <FancyCard.CardActions>
-          <AppButton color="danger" onClick={() => closeDialog?.()}>
-            Close
-          </AppButton>
-          <AppButton type="submit" >Submit</AppButton>
-        </FancyCard.CardActions>
-      </form>
-    </FancyCard>
+          </FancyCard.CardContent>
+          <FancyCard.CardActions>
+            <AppButton color="danger" onClick={() => closeDialog?.()}>
+              Close
+            </AppButton>
+            <AppButton type="submit" >Submit</AppButton>
+          </FancyCard.CardActions>
+        </form>
+      </FancyCard>
+    </div>
 
 
   )

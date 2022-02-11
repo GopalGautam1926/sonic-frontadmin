@@ -22,12 +22,11 @@ export default function UserPicker({
             {...props}
             id="user-id"
             defaultValue={null}
-            clearText
             noOptionsText={noOptionsText || "No Data"}
             options={userStore.getUsers.docs}
             getOptionSelected={(option, value) => option.id === value.id}
             getOptionLabel={(option) => option?.username}
-            onChange={onChange}
+            onInputChange={onChange}
             renderInput={(params) =>
                 <TextField
                     {...params}
