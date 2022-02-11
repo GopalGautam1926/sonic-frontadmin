@@ -37,12 +37,12 @@ export default function Release() {
           const rowData = releaseStore.getVersions.versions.find(
             (itm) => itm.versionCode == value
           );
-          const versionItems = [];          
-            if(rowData.latest){
-              versionItems.push(<div>{value}<Badge color="success" size="small" style={{ cursor: "pointer", marginLeft: "10px" }} label={<Tooltip><div style={{ fontSize: 11 }}>Latest</div></Tooltip>} /></div>);
-            }else {
-              versionItems.push(<div>{value}</div>)
-            }
+          const versionItems = [];
+          if (rowData.latest) {
+            versionItems.push(<div>{value}<Badge color="success" size="small" style={{ cursor: "pointer", marginLeft: "10px" }} label={<Tooltip><div style={{ fontSize: 11 }}>Latest</div></Tooltip>} /></div>);
+          } else {
+            versionItems.push(<div>{value}</div>)
+          }
           return (
             <RSpace>
               {versionItems.map((versionItem) => (
@@ -159,6 +159,7 @@ export default function Release() {
             <Table
               title={
                 <Table.TableActions
+                  openDialogWhenClickAdd={true}
                   refreshButtonProps={{
                     onClick: () => { releaseStore.fetchVersions() },
 
