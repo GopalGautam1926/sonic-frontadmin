@@ -26,7 +26,7 @@ export default function UserPicker({
             options={userStore.getUsers.docs}
             getOptionSelected={(option, value) => option.id === value.id}
             getOptionLabel={(option) => option?.username}
-            onInputChange={onChange}
+            onChange={onChange}
             renderInput={(params) =>
                 <TextField
                     {...params}
