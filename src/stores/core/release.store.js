@@ -12,8 +12,6 @@ import deepmerge from 'deepmerge'
 class ReleaseStore {
     @observable loading = false;
     @observable error = null;
-    // @observable versions = []
-    // @observable totalVersions = 0;
     @observable versionData = {
         versions: [],
         totalVersions: 0,
@@ -27,18 +25,32 @@ class ReleaseStore {
         prevPage: 0,
         nextPage: 0,
       };
-
-    constructor() {
+      constructor() {
+        // makeObservable(this);
     }
-
+      @observable filters = {
+        platform: "",
+    };
     @computed
     get getVersions() {
-        return toJS(this.versionData);
+        return toJS(this.versionData.versions);
     }
-    // @computed
-    // get getTotalVersions() {
-    //     return toJS(this.totalVersions);
-    // }
+    @computed
+    get getFilters() {
+        return toJS(this.filters);
+    }
+
+    @action
+    changeFilters(filters) {
+        this.filters = filters;
+    }
+
+    @action
+    resetFilter() {
+        this.filters = {
+            platform: "",
+        }
+    }
 
     /**
  * @param {AxiosRequestConfig} options
@@ -48,16 +60,15 @@ class ReleaseStore {
     fetchVersions(platform, options={}) {
         this.loading = true;
         this.error = null;
-        const defaultOptions = {
-            params:{
-              sort:'-createdAt',
-              limit:1000
-            },
-          }
-          options=deepmerge(defaultOptions,options)
-        releaseHttps.fetchVersions(platform,options)
+          let newOptions = {
+            params: {
+                sort: "-latest",
+                "platform": this.filters.platform || undefined,
+            }
+        }
+          options=deepmerge(newOptions,options)
+        releaseHttps.fetchVersions(options)
             .then(({ data }) => {
-                console.log("Version Data", data)
                 this.versionData.versions = data
                 this.versionData.totalVersions = data.length;
                 this.loading = false;
@@ -71,10 +82,52 @@ class ReleaseStore {
 
   @action
   removeVersion(versionId) {
-    this.versionData.versions = this.getVersions.versions.filter(
+    this.versionData.versions = this.getVersions.filter(
       (version) => version?._id !== versionId
     );
     this.versionData.totalVersions -= 1;
+  }
+  @action
+  addVersion(newVersion) {
+    if(newVersion.latest){
+      this.versionData.versions.forEach(version => {
+        if(version.platform === newVersion.platform && version.latest)
+           version.latest = false;
+      });
+     this.versionData.versions.unshift(newVersion)
+    }else{
+      this.versionData.versions.push(newVersion)
+    }
+  }
+
+  @action
+  updateVersion(newVersion) {
+    if(newVersion.latest){
+      this.versionData.versions.forEach(version => {
+        if(version.platform === newVersion.platform && version.latest){
+           version.latest = false;
+        }
+        if(version._id === newVersion._id){
+          version.versionCode = newVersion.versionCode
+          version.releaseNote = newVersion.releaseNote
+          version.platform = newVersion.platform
+          version.latest = newVersion.latest
+        }
+      });
+      this.versionData.versions =  this.versionData.versions.filter(version => {
+        return(version._id !==  newVersion._id ) 
+      });
+     this.versionData.versions.unshift(newVersion)
+    }else{
+      this.versionData.versions.forEach(version => {
+        if(version._id === newVersion._id){
+          version.versionCode = newVersion.versionCode
+          version.releaseNote = newVersion.releaseNote
+          version.platform = newVersion.platform
+          version.latest = newVersion.latest
+        }
+      });
+    }
   }
 
 }

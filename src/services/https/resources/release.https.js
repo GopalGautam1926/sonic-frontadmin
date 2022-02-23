@@ -11,7 +11,7 @@ class ReleaseHttps {
      * @param {AxiosRequestConfig} options
      * @returns {Promise<any>}
      */
-    fetchVersions(platform, options = {}) {
+    fetchVersions(options = {}) {
         return AppWebRequest({
             method: "get",
             url: `app-version`,
@@ -54,7 +54,6 @@ class ReleaseHttps {
    * @returns
    */
   deleteVersion(version) {
-    console.log("-----------------------", version)
     return AppWebRequest({
       method: "delete",
       url: `/app-version/${version}`,
@@ -64,14 +63,11 @@ class ReleaseHttps {
     });
   }
   updateVersion(versionId, version){
-    console.log("into the https", versionId)
-    console.log("into the https data", version)
     return AppWebRequest({
       method: "put",
       data:version,
       url: `/app-version/${versionId}`,
     }).then((res) => {
-      console.log("in the front end", res)
       return res;
     });
 

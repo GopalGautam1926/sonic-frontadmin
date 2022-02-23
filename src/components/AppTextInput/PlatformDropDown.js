@@ -64,8 +64,7 @@ export default function PlatformDropDown({
         id={id}
         {...inputProps}
         inputProps={newInputProps}
-      >
-          
+      > 
           <option style={{cursor:"pointer", }} value="osx" selected>OSX</option>
           <option style={{cursor:"pointer", }} value="win">Windows</option>
           <option style={{cursor:"pointer", }} value="linux">Linux</option>

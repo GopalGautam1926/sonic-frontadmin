@@ -224,13 +224,13 @@ export const routesData = [
   },
   {
     icon: <NewReleasesIcon />,
-    name: "Library Encoder",
+    name: "LibraryEncoder",
     sidebar: true,
-    parentPath: '/version-management',
+    parentPath: '/release-management',
     layout: "/admin",
     routes: [
       {
-        path: "/version-management/version",
+        path: "/release-management/release",
         name: "Releases",
         component: observer(Version),
         exact: true,
@@ -241,8 +241,8 @@ export const routesData = [
           {
             exact: true,
             sidebar: false,
-            path: "/version-management/version/view/:versionId",
-            name: "View Versions",
+            path: "/release-management/release/view/:versionId",
+            name: "View Releases",
             component: ViewVersion,
             layout: "/admin",
             key: "km_version_view",

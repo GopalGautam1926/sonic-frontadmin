@@ -5,6 +5,7 @@ import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import { IconButton } from "@material-ui/core";
 import RPopconfirm from "../../rcomponents/RPopconfirm";
+import RDownloadConfirm from "../../rcomponents/RDownloadconfirm";
 import AppButton from "../../AppButton/AppButton";
 
 export default function TableRowAction({
@@ -17,6 +18,7 @@ export default function TableRowAction({
   enableDelete=true,
   deleteButtonProps,
   deletePopConfirmProps,
+  downloadPopConfirmProps
 }) {
   return (
     <RSpace  justifyContent="flex-start" spacing={0} >
@@ -26,9 +28,15 @@ export default function TableRowAction({
         </IconButton>
       </RSpace.Item>
       {enableDownload &&<RSpace.Item>
-        <IconButton size="small" color="primary"  {...downloadButtonProps} >
-          {downloadButton || <ArrowDownwardIcon style={{fontSize:18}} target="_blank"/>}
-        </IconButton>
+        <RDownloadConfirm
+anchorElement={
+  <AppButton asIconButton={true} size="small" color="primary"  {...downloadButtonProps}>
+    {downloadButton || <ArrowDownwardIcon style={{fontSize:18}}/>}
+  </AppButton>
+}
+message="Please select your option"
+{...downloadPopConfirmProps}
+/>
       </RSpace.Item>
      }
 

@@ -10,9 +10,44 @@ import DataFetchingStateComponent from "../../../components/common/DataFetchingS
 import { toast } from "react-toastify";
 import { SwitchWithLabel } from "../../../components/Switch/Switch";
 import PlatformDropDown from "../../../components/AppTextInput/PlatformDropDown";
+import { releaseStore } from "../../../stores/core";
+//import TextAreaInput from "../../../components/AppTextInput/TextAreaInput";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  selectFile: {
+    fontSize: 14,
+    color: "#828282",
+  },
+  audioFile: {
+    height: 25,
+    width: "32vw",
+    marginRight: 30,
+    fontSize: 16,
+    color: "#212529",
+    borderBottom: "1px solid #ACACAC",
+  },
+  clue: {
+    paddingBottom: 20,
+    fontSize: 12,
+    color: "#ACACAC",
+  },
+  uploadBtn: {
+    height: 45,
+    padding: "0px 20px",
+    textTransform: "initial",
+    fontSize: 15,
+    fontFamily: 'Roboto-Bold',
+    color: "#343F84",
+    borderRadius: 8,
+    border: "2px solid #343F84",
+  },
+}));
 
 
 export default function ViewVersion({ closeDialog }) {
+  const classes = useStyles();
   const [state, setState] = useState({
     editMode: false,
     loading: true,
@@ -57,7 +92,9 @@ export default function ViewVersion({ closeDialog }) {
           ...state,
           editLoading: false,
           editMode: false,
+          oldVersion: data
         });
+        releaseStore.updateVersion(data)
         toast.success("Updated successfully");
       })
       .catch((err) => {
@@ -138,7 +175,7 @@ export default function ViewVersion({ closeDialog }) {
               <Grid container spacing={1}>
                 <Grid item xs={18} sm={6} md={6}>
                   <AppTextInput
-                    labelText="Version Code"
+                    labelText="Version code"
                     id="versionCode"
                     formControlProps={{
                       fullWidth: true,
@@ -154,43 +191,6 @@ export default function ViewVersion({ closeDialog }) {
                     }}
                   />
                 </Grid>
-                <Grid item xs={18} sm={6} md={6}>
-                  <AppTextInput
-                    labelText="Release Note"
-                    id="releaseNote"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                    inputProps={{
-                      readOnly: !state.editMode,
-                      required: true,
-                      disabled: !state.editMode,
-                      value: version.releaseNote,
-                      onChange: (e) => {
-                        setVersion({ ...version, releaseNote: e.target.value })
-                      },
-                    }}
-                  />
-                </Grid>
-
-                {/* <Grid item xs={18} sm={6} md={6}>
-                  <AppTextInput
-                    labelText="Platform"
-                    id="platform"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                    inputProps={{
-                      readOnly: !state.editMode,
-                      disabled: !state.editMode,
-                      required: true,
-                      value: version.platform,
-                      onChange: (e) => {
-                        setVersion({ ...version, platform: e.target.value })
-                      },
-                    }}
-                  />
-                </Grid> */}
                 <Grid item xs={18} sm={6} md={6}>
                   <PlatformDropDown
                     labelText="Platform"
@@ -208,6 +208,49 @@ export default function ViewVersion({ closeDialog }) {
                     }}
                   ></PlatformDropDown>
                 </Grid>
+                </Grid>
+
+                {/* <Grid item xs={18} sm={6} md={6}>
+                <Typography className={classes.selectFile}>
+              Release Note
+            </Typography>
+                  <TextAreaInput
+                    id="releaseNote"
+                    formControlProps={{
+                      fullWidth: true,
+                    }}
+                    inputProps={{
+                      readOnly: !state.editMode,
+                      required: true,
+                      disabled: !state.editMode,
+                      value: version.releaseNote,
+                      onChange: (e) => {
+                        setVersion({ ...version, releaseNote: e.target.value })
+                      },
+                    }}
+                  />
+                </Grid> */}
+              <Grid container>
+              <Grid item xs={12} sm={6}>
+              <AppTextInput
+                  labelText="Release note"
+                  id="releaseNote"
+                  formControlProps={{
+                    fullWidth: true,
+                  }}
+                  inputProps={{
+                    readOnly: !state.editMode,
+                    required: true,
+                    multiline: true,
+                    disabled: !state.editMode,
+                    value: version.releaseNote,
+                    onChange: (e) => {
+                      setVersion({ ...version, releaseNote: e.target.value })
+                    },
+                  }}
+                />
+              </Grid>
+            </Grid>
                 <Grid container>
                   <Grid item >
                     <SwitchWithLabel
@@ -220,7 +263,7 @@ export default function ViewVersion({ closeDialog }) {
                     />
                   </Grid>
                 </Grid>
-              </Grid>
+              
             </DataFetchingStateComponent>
           </FancyCard.CardContent>
         </form>

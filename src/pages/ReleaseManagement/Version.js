@@ -4,6 +4,7 @@ import FancyCard from '../../components/FancyCard/FancyCard'
 import Table from '../../components/Table/Table'
 import { useStore } from '../../stores'
 import UploadVersion from './components/UploadVersion'
+import FilterPlatform from './components/FilterPlatForm'
 import { useHistory, useLocation } from "react-router-dom";
 import { getRouteNames } from "../../routes/routes.data";
 import ReleaseHttps from "../../services/https/resources/release.https";
@@ -12,6 +13,7 @@ import { toast } from "react-toastify";
 import Badge from '../../components/Badge/Badge';
 import RSpace from "../../components/rcomponents/RSpace";
 import httpUrl from "../../services/https/httpUrl";
+import { format } from "date-fns";
 
 
 
@@ -34,7 +36,7 @@ export default function Release() {
           { rowIndex, columnIndex, currentTableData },
           updateValue
         ) => {
-          const rowData = releaseStore.getVersions.versions.find(
+          const rowData = releaseStore.getVersions.find(
             (itm) => itm.versionCode == value
           );
           const versionItems = [];
@@ -56,6 +58,31 @@ export default function Release() {
     {
       label: "Release Note",
       name: "releaseNote",
+      options: {
+        filter: false,
+        customBodyRender: (value, { columnIndex }, updateValue) => {
+          return <Tooltip title={value}><div style={{
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+            maxWidth: 100,
+            wordWrap: "none",
+            cursor: "pointer",
+            overflow: "hidden",
+          }
+          }>{value}</div></Tooltip>;
+        },
+      },
+    },
+    {
+      label: "Release Date",
+      name: "createdAt",
+      options: {
+        filter: false,
+        customBodyRender: (value, { columnIndex }, updateValue) => {
+          const validity = value ? format(new Date(value), "dd/MM/yyyy") : "--";
+          return validity;
+        },
+      },
     },
     {
       label: "Platform",
@@ -71,8 +98,9 @@ export default function Release() {
           return (
             <Table.TableRowAction
               enableDownload={true}
-              downloadButtonProps={{
-                onClick: () => onDownloadVersion(value)
+              downloadPopConfirmProps={{
+                onClickDownload: () => onDownloadVersion(value),
+                onClickCopyLink: () => onCopyLink(value)
               }}
               viewButtonProps={{
                 onClick: () => {
@@ -116,22 +144,21 @@ export default function Release() {
   const onDownloadVersion = (version) => {
     const tempLink = document.createElement('a');
     tempLink.style.display = 'none';
-    const versionDownloadUrl = `${downloadUrl}/app-version/download-file/${version}`
+    const versionDownloadUrl = `${downloadUrl}/app-version/download-file?id=${version}`
     tempLink.href = versionDownloadUrl;
-    const filename = 'version-file'
-    tempLink.setAttribute('download', filename);
-    if (typeof tempLink.download === 'undefined') {
-      tempLink.setAttribute('target', '_blank');
-    }
     document.body.appendChild(tempLink);
     tempLink.click();
     document.body.removeChild(tempLink);
+    toast.success("Please save your file");
     setTimeout(() => {
       // For Firefox it is necessary to delay revoking the ObjectURL
       window.URL.revokeObjectURL(versionDownloadUrl);
-    }, 100);
-
-
+    }, 10);
+  };
+  const onCopyLink = (version) => {
+  const copyLinkContent = `${downloadUrl}/app-version/download-file?id=${version}`
+  const cb = navigator.clipboard;
+    cb.writeText(copyLinkContent).then(() => toast.success("Copied Successfully"));
   };
 
   return (
@@ -159,19 +186,22 @@ export default function Release() {
             <Table
               title={
                 <Table.TableActions
-                  openDialogWhenClickAdd={true}
+                addPlusFilter
+                openDialogWhenClickAdd={true}
+                openDialogFilter={true}
                   refreshButtonProps={{
                     onClick: () => { releaseStore.fetchVersions() },
 
                   }}
                   componentInsideDialog={<UploadVersion />}
+                  componentInsideDialogFilter={<FilterPlatform />}
                 />
 
               }
-              data={releaseStore.getVersions.versions || []}
+              data={releaseStore.getVersions || []}
               columns={columns}
               options={{
-                count: releaseStore.getVersions.totalVersions
+                count: releaseStore.getVersions?.length
               }}
             />
           </DataFetchingStateComponent>
