@@ -29,7 +29,7 @@ const initialCompany = {
 }
 
 export default function AddCompany({ closeDialog }) {
-    const { companyStore } = useStore()
+    const { companyStore, userStore } = useStore()
     const [state, setState] = React.useState(initialCompany);
 
     const onCompanySubmit = (e) => {
@@ -112,6 +112,8 @@ export default function AddCompany({ closeDialog }) {
                                                 }
                                             })
                                         }}
+                                        options={userStore.getUsers.docs}
+                                        getOptionLabel={(option) => option?.username}
                                     />
                                 </FormControl>
                             </Grid>

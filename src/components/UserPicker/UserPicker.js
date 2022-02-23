@@ -2,20 +2,20 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { useStore } from '../../stores';
 
 export default function UserPicker({
     labelText,
     placeholder,
-    optionsData,
     noOptionsText,
     onChange,
     defaultValue,
     options,
+    getOptionLabel,
     ...props
 }) {
-
-    const { userStore } = useStore();
+    const [state, setState] = React.useState({
+        input: "",
+    })
 
     return (
         <Autocomplete
@@ -23,18 +23,21 @@ export default function UserPicker({
             id="user-id"
             defaultValue={null}
             noOptionsText={noOptionsText || "No Data"}
-            options={userStore.getUsers.docs}
+            options={state.input.length > 2 ? options : []}
             getOptionSelected={(option, value) => option.id === value.id}
-            getOptionLabel={(option) => option?.username}
+            getOptionLabel={getOptionLabel}
             onChange={onChange}
             renderInput={(params) =>
                 <TextField
                     {...params}
                     fullWidth
+                    value={state.input}
+                    onChange={(e) => setState({ ...state, input: e.target.value })}
                     placeholder={placeholder || ""}
                     label={labelText || ""}
                 />
             }
+            freeSolo={state.input.length > 2 ? false : true}
         />
     );
 }
