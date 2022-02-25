@@ -184,6 +184,7 @@ export default function ViewVersion({ closeDialog }) {
                       readOnly: !state.editMode,
                       disabled: !state.editMode,
                       placeholder: "version code",
+                      type:"number",
                       value: version.versionCode,
                       required: true,
                       onChange: (e) =>

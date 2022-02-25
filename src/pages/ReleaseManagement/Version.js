@@ -41,9 +41,9 @@ export default function Release() {
           );
           const versionItems = [];
           if (rowData.latest) {
-            versionItems.push(<div>{value}<Badge color="success" size="small" style={{ cursor: "pointer", marginLeft: "10px" }} label={<Tooltip><div style={{ fontSize: 11 }}>Latest</div></Tooltip>} /></div>);
+            versionItems.push(<div><span>v</span>{value}<Badge color="success" size="small" style={{ cursor: "pointer", marginLeft: "10px" }} label={<Tooltip><div style={{ fontSize: 11 }}>Latest</div></Tooltip>} /></div>);
           } else {
-            versionItems.push(<div>{value}</div>)
+            versionItems.push(<div><span>v</span>{value}</div>)
           }
           return (
             <RSpace>
@@ -144,7 +144,7 @@ export default function Release() {
   const onDownloadVersion = (version) => {
     const tempLink = document.createElement('a');
     tempLink.style.display = 'none';
-    const versionDownloadUrl = `${downloadUrl}/app-version/download-file?id=${version}`
+    const versionDownloadUrl = `${downloadUrl}/app-version/download-file/${version}`
     tempLink.href = versionDownloadUrl;
     document.body.appendChild(tempLink);
     tempLink.click();
@@ -156,7 +156,7 @@ export default function Release() {
     }, 10);
   };
   const onCopyLink = (version) => {
-  const copyLinkContent = `${downloadUrl}/app-version/download-file?id=${version}`
+  const copyLinkContent = `${downloadUrl}/app-version/download-file/${version}`
   const cb = navigator.clipboard;
     cb.writeText(copyLinkContent).then(() => toast.success("Copied Successfully"));
   };

@@ -149,6 +149,7 @@ export default function UploadVersion({ closeDialog }) {
                     fullWidth: true,
                   }}
                   inputProps={{
+                    type: "number",
                     required: true,
                     placeholder: "verson code",
                     value: version?.data?.versionCode,
