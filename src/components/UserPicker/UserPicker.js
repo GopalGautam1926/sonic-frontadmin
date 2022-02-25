@@ -37,7 +37,8 @@ export default function UserPicker({
                     label={labelText || ""}
                 />
             }
-            freeSolo={state.input.length > 2 ? false : true}
+            // freeSolo={state.input.length > 2 ? false : true}
+            freeSolo={true}
         />
     );
 }

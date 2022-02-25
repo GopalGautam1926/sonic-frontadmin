@@ -8,6 +8,7 @@ import companyHttps from '../../../services/https/resources/company.https';
 import { toast } from "react-toastify";
 import { useStore } from '../../../stores';
 import UserPicker from '../../../components/UserPicker/UserPicker';
+import usersHttps from '../../../services/https/resources/users.https';
 
 const initialCompany = {
     loading: false,
@@ -31,6 +32,7 @@ const initialCompany = {
 export default function AddCompany({ closeDialog }) {
     const { companyStore, userStore } = useStore()
     const [state, setState] = React.useState(initialCompany);
+    const [owner, setOwner] = React.useState([]);
 
     const onCompanySubmit = (e) => {
         e.preventDefault()
@@ -54,6 +56,14 @@ export default function AddCompany({ closeDialog }) {
             log("AddCompany Error", err)
         })
     }
+
+    React.useEffect(() => {
+        usersHttps.getUsers().then((data) => {
+            setOwner(data)
+        }).catch((err) => {
+            toast.error(err?.message || "Error loading owner...")
+        })
+    }, [])
 
     return (
         <div>
@@ -112,7 +122,7 @@ export default function AddCompany({ closeDialog }) {
                                                 }
                                             })
                                         }}
-                                        options={userStore.getUsers.docs}
+                                        options={owner?.data?.docs}
                                         getOptionLabel={(option) => option?.username}
                                     />
                                 </FormControl>
