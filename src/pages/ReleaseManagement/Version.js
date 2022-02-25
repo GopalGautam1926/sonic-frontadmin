@@ -149,15 +149,14 @@ export default function Release() {
     document.body.appendChild(tempLink);
     tempLink.click();
     document.body.removeChild(tempLink);
-    toast.success("Please save your file");
     setTimeout(() => {
       // For Firefox it is necessary to delay revoking the ObjectURL
       window.URL.revokeObjectURL(versionDownloadUrl);
     }, 10);
   };
   const onCopyLink = (version) => {
-  const copyLinkContent = `${downloadUrl}/app-version/download-file/${version}`
-  const cb = navigator.clipboard;
+    const copyLinkContent = `${downloadUrl}/app-version/download-file/${version}`
+    const cb = navigator.clipboard;
     cb.writeText(copyLinkContent).then(() => toast.success("Copied Successfully"));
   };
 
@@ -186,9 +185,9 @@ export default function Release() {
             <Table
               title={
                 <Table.TableActions
-                addPlusFilter
-                openDialogWhenClickAdd={true}
-                openDialogFilter={true}
+                  addPlusFilter
+                  openDialogWhenClickAdd={true}
+                  openDialogFilter={true}
                   refreshButtonProps={{
                     onClick: () => { releaseStore.fetchVersions() },
 
