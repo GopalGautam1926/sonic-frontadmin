@@ -12,6 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import PlatformDropDown from "../../../components/AppTextInput/PlatformDropDown";
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+import { isNumber } from "lodash";
 
 const useStyles = makeStyles((theme) => ({
   selectFile: {
@@ -70,6 +71,10 @@ export default function UploadVersion({ closeDialog }) {
     const file = event.target.files[0]
     setVersion({ ...version, file: file, fileName: file.name });
   };
+  const handleChange = (e) => {
+    const value = e.target.value.replace(/\D/g, "");
+    //setAge(value);
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -118,7 +123,7 @@ export default function UploadVersion({ closeDialog }) {
           <FancyCard.CardContent>
             <Grid container fullWidth>
               <Grid item xs={12}>
-              <input
+                <input
                   accept=""
                   className={classes.input}
                   id="contained-button-file"
@@ -134,31 +139,39 @@ export default function UploadVersion({ closeDialog }) {
                     Select a file
                   </AppButton>
                   {version?.fileName && <Typography>
-                  {truncate(version?.fileName, 50)}
-                </Typography>}
+                    {truncate(version?.fileName, 50)}
+                  </Typography>}
                 </label>
               </Grid>
             </Grid>
             <Grid container spacing={2}>
               <Grid item xs={6}>
-              <AppTextInput
-                  fullWidth
+                <AppTextInput
                   labelText="Version code"
                   id="versionCode"
                   formControlProps={{
                     fullWidth: true,
                   }}
                   inputProps={{
-                    type: "number",
+                    id: "versionCode",
                     required: true,
                     placeholder: "verson code",
                     value: version?.data?.versionCode,
-                    onChange: (e) => { setVersion({ ...version, data: { ...version?.data, versionCode: e.target.value } }) },
+                    onChange: (e) => {
+                      const re = /^[0-9]+\.?[0-9]*$/;
+                      if (e.target.value === '' || re.test(e.target.value)) {
+                        setVersion({ ...version, data: { ...version?.data, versionCode: e.target.value } })
+                      }
+                      else {
+                        toast.error("enter numeric only")
+                      }
+                    },
+
                   }}
                 />
               </Grid>
               <Grid item xs={6}>
-              <PlatformDropDown
+                <PlatformDropDown
                   labelText="Platform"
                   id="platform"
                   formControlProps={{
@@ -175,7 +188,7 @@ export default function UploadVersion({ closeDialog }) {
             </Grid>
             <Grid container>
               <Grid item xs={12} sm={6}>
-              <AppTextInput
+                <AppTextInput
                   labelText="Release note"
                   id="releasenote"
                   formControlProps={{
