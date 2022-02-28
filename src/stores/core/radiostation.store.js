@@ -50,7 +50,7 @@ class RadioStationStore {
     const defaultOptions = {
       params: {
         sort: 'name,-createdAt',
-        limit: 1000,
+        limit: 5000,
         // country:'Russia',
       },
     }
@@ -87,7 +87,7 @@ class RadioStationStore {
     const defaultOptions = {
       params: {
         sort: '-createdAt',
-        limit: 1000,
+        limit: 5000,
         country: options.country,
         // isStreamStarted: options.status === 'Listening' ? true : false,
         // isError: options.status === 'Error' ? true : false,
