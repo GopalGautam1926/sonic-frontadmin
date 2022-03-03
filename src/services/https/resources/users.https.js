@@ -97,7 +97,7 @@ class UsersHttps {
   getUsers(options = {}) {
     return AppWebRequest({
       method: "get",
-      url: "/users/list-users",
+      url: "/users/list-users?sort=-createdAt",
       ...options,
     });
   }

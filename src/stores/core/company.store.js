@@ -91,7 +91,6 @@ class CompanyStore {
         }
 
         options = deepmerge(newOptions, options)
-
         companyHttps.fetchCompanies(options)
             .then(({ data }) => {
                 log("Fetched Company Data", data)
@@ -107,7 +106,7 @@ class CompanyStore {
 
     @action
     addCompany(companyData) {
-        this.company.push(companyData)
+        this.company.unshift(companyData)
     }
 
     /**
