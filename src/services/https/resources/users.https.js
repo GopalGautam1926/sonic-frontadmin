@@ -101,6 +101,16 @@ class UsersHttps {
       ...options,
     });
   }
+
+  findUser(username) {
+    return AppWebRequest({
+      method: "get",
+      url: "/users/list-users",
+      params: {
+        username: `/${username}/i`
+      },
+    });
+  }
 }
 
 export default new UsersHttps();

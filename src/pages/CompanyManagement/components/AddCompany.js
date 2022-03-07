@@ -30,9 +30,8 @@ const initialCompany = {
 }
 
 export default function AddCompany({ closeDialog }) {
-    const { companyStore, userStore } = useStore()
+    const { companyStore } = useStore()
     const [state, setState] = React.useState(initialCompany);
-    const [owner, setOwner] = React.useState([]);
 
     const onCompanySubmit = (e) => {
         e.preventDefault()
@@ -56,14 +55,6 @@ export default function AddCompany({ closeDialog }) {
             log("AddCompany Error", err)
         })
     }
-
-    React.useEffect(() => {
-        usersHttps.getUsers().then((data) => {
-            setOwner(data)
-        }).catch((err) => {
-            toast.error(err?.message || "Error loading owner...")
-        })
-    }, [])
 
     return (
         <div>
@@ -115,15 +106,11 @@ export default function AddCompany({ closeDialog }) {
                                     <UserPicker
                                         labelText="Owner"
                                         placeholder="Owner username"
-                                        onChange={(event, value) => {
-                                            setState({
-                                                ...state, companyData: {
-                                                    ...state.companyData, owner: value?._id
-                                                }
-                                            })
-                                        }}
-                                        options={owner?.data?.docs}
-                                        getOptionLabel={(option) => option?.username}
+                                        getFoundUser={(user) => setState({
+                                            ...state, companyData: {
+                                                ...state.companyData, owner: user?._id
+                                            }
+                                        })}
                                     />
                                 </FormControl>
                             </Grid>
