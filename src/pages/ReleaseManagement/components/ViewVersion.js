@@ -184,11 +184,17 @@ export default function ViewVersion({ closeDialog }) {
                       readOnly: !state.editMode,
                       disabled: !state.editMode,
                       placeholder: "version code",
-                      type:"number",
                       value: version.versionCode,
                       required: true,
-                      onChange: (e) =>
-                        setVersion({ ...version, versionCode: e.target.value }),
+                      onChange: (e) => {
+                        const re = /^[0-9]+\.?[0-9]*$/;
+                        if (e.target.value === '' || re.test(e.target.value)) {
+                          setVersion({ ...version, versionCode: e.target.value })
+                        }
+                        else {
+                          toast.error("enter numeric only")
+                        }
+                      }
                     }}
                   />
                 </Grid>
@@ -209,9 +215,9 @@ export default function ViewVersion({ closeDialog }) {
                     }}
                   ></PlatformDropDown>
                 </Grid>
-                </Grid>
+              </Grid>
 
-                {/* <Grid item xs={18} sm={6} md={6}>
+              {/* <Grid item xs={18} sm={6} md={6}>
                 <Typography className={classes.selectFile}>
               Release Note
             </Typography>
@@ -232,39 +238,39 @@ export default function ViewVersion({ closeDialog }) {
                   />
                 </Grid> */}
               <Grid container>
-              <Grid item xs={12} sm={6}>
-              <AppTextInput
-                  labelText="Release note"
-                  id="releaseNote"
-                  formControlProps={{
-                    fullWidth: true,
-                  }}
-                  inputProps={{
-                    readOnly: !state.editMode,
-                    required: true,
-                    multiline: true,
-                    disabled: !state.editMode,
-                    value: version.releaseNote,
-                    onChange: (e) => {
-                      setVersion({ ...version, releaseNote: e.target.value })
-                    },
-                  }}
-                />
-              </Grid>
-            </Grid>
-                <Grid container>
-                  <Grid item >
-                    <SwitchWithLabel
-                      label="Mark as latest"
-                      checked={version.latest}
-                      disabled={!state.editMode}
-                      onChange={(e) =>
-                        setVersion({ ...version, latest: e.target.checked })
-                      }
-                    />
-                  </Grid>
+                <Grid item xs={12} sm={6}>
+                  <AppTextInput
+                    labelText="Release note"
+                    id="releaseNote"
+                    formControlProps={{
+                      fullWidth: true,
+                    }}
+                    inputProps={{
+                      readOnly: !state.editMode,
+                      required: true,
+                      multiline: true,
+                      disabled: !state.editMode,
+                      value: version.releaseNote,
+                      onChange: (e) => {
+                        setVersion({ ...version, releaseNote: e.target.value })
+                      },
+                    }}
+                  />
                 </Grid>
-              
+              </Grid>
+              <Grid container>
+                <Grid item >
+                  <SwitchWithLabel
+                    label="Mark as latest"
+                    checked={version.latest}
+                    disabled={!state.editMode}
+                    onChange={(e) =>
+                      setVersion({ ...version, latest: e.target.checked })
+                    }
+                  />
+                </Grid>
+              </Grid>
+
             </DataFetchingStateComponent>
           </FancyCard.CardContent>
         </form>
