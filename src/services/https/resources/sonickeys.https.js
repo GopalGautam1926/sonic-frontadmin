@@ -16,6 +16,17 @@ class SonicKeysHttps {
             ...options,
         });
     }
+/**
+ * 
+ * @param {string} playId 
+ * @returns {Promise<any>}
+ */
+    deletePlay(playId) {
+        return AppWebRequest({
+            method: "delete",
+            url: `/detections/${playId}`,
+        });
+    }
 
     /**
      * Fetch all sonickeys
