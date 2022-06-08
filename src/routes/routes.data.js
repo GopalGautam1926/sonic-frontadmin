@@ -3,6 +3,7 @@ import NewReleasesIcon from '@material-ui/icons/NewReleases';
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import RadioIcon from '@material-ui/icons/Radio';
 import PeopleIcon from '@material-ui/icons/People';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import BusinessIcon from '@material-ui/icons/Business';
 import Dashboard from "../pages/Dashboard/Dashboard";
 import LicenseKeys from '../pages/KeysManagement/LicenseKeys/LicenseKeys';
@@ -21,6 +22,8 @@ import Encoded from "../pages/SonicKeyManagement/Encoded/Encoded";
 import ViewUsers from "../pages/UserManagement/components/ViewUsers";
 import ViewCompany from "../pages/CompanyManagement/components/ViewCompany";
 import ViewVersion from '../pages/ReleaseManagement/components/ViewVersion';
+import Partners from "../pages/PartnerManagement/Partners";
+import ViewPartner from "../pages/PartnerManagement/components/ViewPartner";
 
 export const routesData = [
   {
@@ -56,6 +59,35 @@ export const routesData = [
             component: ViewCompany,
             layout: "/admin",
             key: "cm_company_view",
+          },
+        ]
+      }
+    ],
+  },
+  {
+    icon: <PersonAddIcon />,
+    name: "Partners",
+    sidebar: true,
+    parentPath: '/partner-management',
+    layout: "/admin",
+    routes: [
+      {
+        path: "/partner-management/partner",
+        name: "Partners",
+        component: observer(Partners),
+        exact: true,
+        sidebar: true,
+        layout: "/admin",
+        key: "cm_partner",
+        routes: [
+          {
+            exact: true,
+            sidebar: false,
+            path: "/partner-management/partner/view/:partnerId",
+            name: "View Partner",
+            component: ViewPartner,
+            layout: "/admin",
+            key: "cm_partner_view",
           },
         ]
       }

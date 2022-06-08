@@ -1,5 +1,5 @@
 import { globalStore } from "../global"
-import { apiKeyStore, companyStore, licenseKeyStore, playsStore, radioStationStore, userStore, sonicKeyStore } from '../core';
+import { apiKeyStore, companyStore, licenseKeyStore, playsStore, radioStationStore, userStore, sonicKeyStore, partnerStore } from '../core';
 import { sessionStore } from '../session/session.store';
 import { groupStore } from "../core/group.store";
 import { releaseStore } from "../core/release.store"
@@ -11,6 +11,7 @@ class RootStore {
     radioStationStore = radioStationStore
     sessionStore = sessionStore
     companyStore = companyStore
+    partnerStore = partnerStore
     groupStore = groupStore
     userStore = userStore
     playsStore = playsStore

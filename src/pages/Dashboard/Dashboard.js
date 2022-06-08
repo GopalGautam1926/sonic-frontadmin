@@ -4,6 +4,7 @@ import { LicenseKeyStats } from "../KeysManagement/LicenseKeys/components/Licens
 import ApiKeyStats from "../KeysManagement/ApiKeys/components/ApiKeyStats";
 import { RadioStationStats } from "../RadioManagement/RadioStation/components/RadioStationStats";
 import { CompaniesStats } from "../CompanyManagement/components/CompaniesStats";
+import { PartnersStats } from "../PartnerManagement/components/PartnersStats";
 import PlaysStats from "../SonicKeyManagement/Plays/components/PlaysStats";
 import { UserStats } from "../UserManagement/components/UserStats";
 import { GroupStats } from "../GroupManagement/components/GroupStats";
@@ -43,6 +44,10 @@ export default function Dashboard() {
 
         <Grid item xs={12} sm={6} md={3}>
           <PlaysStats />
+        </Grid>
+
+        <Grid item xs={12} sm={6} md={3}>
+          <PartnersStats/>
         </Grid>
       </Grid>
     </div>
