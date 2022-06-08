@@ -16,7 +16,7 @@ export const CompaniesStats = observer(() => {
     } else if (companyStore.loading) {
         count = <CircularProgress size={15} color="inherit" />;
     } else {
-        count = companyStore?.getCompany?.length || 0;
+        count = companyStore?.getCompany?.docs?.length || 0;
     }
     return (
         <FancyCard

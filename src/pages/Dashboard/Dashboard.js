@@ -7,8 +7,9 @@ import { CompaniesStats } from "../CompanyManagement/components/CompaniesStats";
 import { PartnersStats } from "../PartnerManagement/components/PartnersStats";
 import PlaysStats from "../SonicKeyManagement/Plays/components/PlaysStats";
 import { UserStats } from "../UserManagement/components/UserStats";
-import { GroupStats } from "../GroupManagement/components/GroupStats";
 import EncodedStats from "../SonicKeyManagement/Encoded/components/EncodedStats";
+import { useStore } from "../../stores";
+import { log } from "../../utils/app.debug";
 
 export default function Dashboard() {
   return (
@@ -32,10 +33,6 @@ export default function Dashboard() {
 
         <Grid item xs={12} sm={6} md={3}>
           <CompaniesStats />
-        </Grid>
-
-        <Grid item xs={12} sm={6} md={3}>
-          <GroupStats />
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>

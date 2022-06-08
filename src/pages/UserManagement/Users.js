@@ -155,10 +155,6 @@ export default function Users() {
                 </Grid>
 
                 <FancyCard.CardContent style={{ zIndex: 0 }}>
-                    {/* <UserFinder
-                        labelText={"User"}
-                        onSelectUser={(user) => log("Selected user", user)}
-                    /> */}
                     <DataFetchingStateComponent
                         loading={userStore.loading}
                         error={userStore.error}

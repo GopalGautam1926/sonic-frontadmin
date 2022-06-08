@@ -59,7 +59,7 @@ function CompanyDropDown({
             >
                 <option style={{ cursor: "pointer", }} value={""} >None</option>
                 {
-                    companyStore?.getCompany?.map((company) => {
+                    companyStore?.getCompany?.docs?.map((company) => {
                         return (
                             <option style={{ cursor: "pointer", }} value={company?._id}>{company?.name}</option>
                         )

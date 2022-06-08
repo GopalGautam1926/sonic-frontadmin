@@ -5,15 +5,14 @@ import AppTextInput from '../../../../components/AppTextInput/AppTextInput'
 import CountryDropDown from '../../../../components/AppTextInput/CountryDropDown'
 import AppButton from '../../../../components/AppButton/AppButton'
 import { useStore } from '../../../../stores'
-import ChannelDropDown from '../../../../components/AppTextInput/ChannelDropDown'
+import CustomDropDown from '../../../../components/AppTextInput/CustomDropDown'
 import CompanyDropDown from '../../../CompanyManagement/components/CompanyDropDown'
-import GroupDropDown from '../../../GroupManagement/components/GroupDropDown'
 import RadioDropDown from '../../../../components/AppTextInput/RadioDropDown'
 import { observer } from 'mobx-react'
 import DatePicker from '../../../../components/DatePicker/DatePicker'
+import { AssociatedRoles, Channel } from '../../../../constants'
 
 function FilterPlays({ closeDialog }) {
-
     const { playsStore } = useStore();
 
     const onSubmit = (e) => {
@@ -45,7 +44,7 @@ function FilterPlays({ closeDialog }) {
                     <FancyCard.CardContent>
                         <Grid container spacing={1}>
                             <Grid item xs={12} sm={3} md={3}>
-                                <ChannelDropDown
+                                <CustomDropDown
                                     labelText="Channel"
                                     id="channel"
                                     formControlProps={{
@@ -56,6 +55,7 @@ function FilterPlays({ closeDialog }) {
                                         value: playsStore?.getFilters?.channel,
                                         onChange: (e) => playsStore?.changeFilters({ ...playsStore?.getFilters, channel: e.target.value })
                                     }}
+                                    data={Channel || []}
                                 />
                             </Grid>
 
@@ -164,17 +164,21 @@ function FilterPlays({ closeDialog }) {
                                 />
                             </Grid>
 
-                            <Grid item xs={12} sm={3} md={3}>
-                                <GroupDropDown
-                                    selectedValue="NONE"
-                                    labelText="Associated Group"
-                                    fullWidth
-                                    onChangeGroup={(value) => {
-                                        playsStore?.changeFilters({ ...playsStore?.getFilters, groupName: value })
+                            {/* <Grid item xs={12} sm={3} md={3}>
+                                <CustomDropDown
+                                    labelText="Associated Role"
+                                    id="associated-role"
+                                    formControlProps={{
+                                        fullWidth: true,
                                     }}
-                                    value={playsStore?.getFilters?.groupName}
+                                    inputProps={{
+                                        placeholder: "Associated Role",
+                                        value: playsStore?.getFilters?.associatedRole,
+                                        onChange: (e) => playsStore?.changeFilters({ ...playsStore?.getFilters, associatedRole: e.target.value })
+                                    }}
+                                    data={AssociatedRoles || []}
                                 />
-                            </Grid >
+                            </Grid > */}
 
                             <Grid item xs={12} sm={3} md={3}>
                                 <CompanyDropDown

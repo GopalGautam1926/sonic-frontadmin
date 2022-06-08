@@ -9,7 +9,7 @@ import Check from "@material-ui/icons/Check";
 // core components
 import { Select } from "@material-ui/core";
 
-export default function ChannelDropDown({
+export default function CustomDropDown({
     formControlProps,
     labelText,
     id,
@@ -17,6 +17,7 @@ export default function ChannelDropDown({
     inputProps,
     error,
     success,
+    data,
 }) {
     return (
         <FormControl style={{}}
@@ -34,10 +35,9 @@ export default function ChannelDropDown({
                 id={id}
                 {...inputProps}
             >
-                <option style={{ cursor: "pointer" }} value="ALL">ALL</option>
-                <option style={{ cursor: "pointer" }} value="STREAMREADER">STREAMREADER</option>
-                <option style={{ cursor: "pointer" }} value="PORTAL">PORTAL</option>
-                <option style={{ cursor: "pointer" }} value="MOBILE">MOBILE</option>
+                {data?.map((data, index) => (
+                    <option style={{ cursor: "pointer" }} key={index} value={data}>{data}</option>
+                ))}
             </Select>
             {error ? (
                 <Clear />
@@ -48,7 +48,7 @@ export default function ChannelDropDown({
     );
 }
 
-ChannelDropDown.propTypes = {
+CustomDropDown.propTypes = {
     labelText: PropTypes.node,
     labelProps: PropTypes.object,
     id: PropTypes.string,
@@ -57,5 +57,6 @@ ChannelDropDown.propTypes = {
     error: PropTypes.bool,
     success: PropTypes.bool,
     rtlActive: PropTypes.bool,
+    data: PropTypes.array
 };
 

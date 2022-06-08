@@ -34,7 +34,7 @@ class PlaysStore {
     label: "",
     distributor: "",
     companyName: "",
-    groupName: "",
+    associatedRole: "",
     username: "",
     encodedDate: "",
     playTablePage: 1,
@@ -92,7 +92,7 @@ class PlaysStore {
       label: "",
       distributor: "",
       companyName: "",
-      groupName: "",
+      associatedRole: "",
       username: "",
       encodedDate: "",
     };
@@ -170,8 +170,8 @@ class PlaysStore {
         "relation_owner.username": this.filters.username
           ? this.filters.username
           : undefined,
-        "relation_owner.groups": this.filters.groupName
-          ? this.filters.groupName
+        "relation_owner.groups": this.filters.associatedRole
+          ? this.filters.associatedRole
           : undefined,
         "relation_owner.companies": this.filters.companyName
           ? this.filters.companyName
