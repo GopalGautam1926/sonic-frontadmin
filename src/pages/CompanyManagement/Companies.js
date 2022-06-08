@@ -53,7 +53,7 @@ export default function Companies() {
             options: {
                 filter: false,
                 customBodyRender: (value, { columnIndex }, updateValue) => {
-                    const rowData = companyStore.getCompany.find(
+                    const rowData = companyStore.getCompany.docs?.find(
                         (itm) => itm._id == value
                     );
                     return (
@@ -149,9 +149,9 @@ export default function Companies() {
                                 />
                             }
                             columns={columns}
-                            data={companyStore?.getCompany || []}
+                            data={companyStore?.getCompany?.docs || []}
                             options={{
-                                count: companyStore?.getCompany?.length
+                                count: companyStore?.getCompany?.docs?.length
                             }}
                         />
                     </DataFetchingStateComponent>

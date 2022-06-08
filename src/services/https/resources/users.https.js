@@ -5,6 +5,21 @@ class UsersHttps {
   constructor() { }
 
   /**
+   * Get Admin Profile
+   * @returns
+   */
+  getAdminProfile(jwtToken) {
+    const config = {
+      headers: { Authorization: `Bearer ${jwtToken}` }
+    };
+    return AppWebRequest({
+      method: "get",
+      url: `/users/@me`,
+      ...config,
+    });
+  }
+
+  /**
    * Get User Profile
    * @param {string} usernameOrSub
    * @returns
@@ -58,29 +73,6 @@ class UsersHttps {
     });
   }
 
-  /**
-  * @param {{user:string,group:string}} payload
-  * @returns
-  */
-  addUserToGroup(payload) {
-    return AppWebRequest({
-      method: "post",
-      data: payload,
-      url: `/users/groups/add-user-to-group`,
-    });
-  }
-
-  /**
-  * @param {{user:string,group:string}} payload
-  * @returns
-  */
-  removeUserFromGroup(payload) {
-    return AppWebRequest({
-      method: "delete",
-      data: payload,
-      url: `/users/groups/remove-user-from-group`,
-    });
-  }
 
   addMonitoringSubscriptionToUser(usernameOrSub) {
     return AppWebRequest({
@@ -97,7 +89,7 @@ class UsersHttps {
   getUsers(options = {}) {
     return AppWebRequest({
       method: "get",
-      url: "/users/list-users?sort=-createdAt",
+      url: "/users/list-users",
       ...options,
     });
   }

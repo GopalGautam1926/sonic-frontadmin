@@ -36,7 +36,7 @@ class SonicKeyStore {
         label: "",
         distributor: "",
         companyName: "",
-        groupName: "",
+        associatedRole: "",
         username: "",
         sonickeyTablePage: 1,
     };
@@ -90,7 +90,7 @@ class SonicKeyStore {
             label: "",
             distributor: "",
             companyName: "",
-            groupName: "",
+            associatedRole: "",
             username: "",
         }
     }
@@ -119,7 +119,7 @@ class SonicKeyStore {
                 "originalFileName": this.filters.track || undefined,
                 "label": this.filters.label || undefined,
                 "distributor": this.filters.distributor || undefined,
-                "relation_owner.groups": this.filters.groupName || undefined,
+                "relation_owner.groups": this.filters.associatedRole || undefined,
                 "relation_owner.companies": this.filters.companyName || undefined,
                 "relation_owner.username": this.filters.username || undefined,
             },

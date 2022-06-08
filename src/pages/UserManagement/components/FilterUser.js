@@ -3,10 +3,11 @@ import { Grid } from '@material-ui/core'
 import { observer } from 'mobx-react'
 import FancyCard from '../../../components/FancyCard/FancyCard';
 import AppTextInput from '../../../components/AppTextInput/AppTextInput';
-import GroupDropDown from '../../GroupManagement/components/GroupDropDown';
 import CompanyDropDown from '../../CompanyManagement/components/CompanyDropDown';
 import AppButton from '../../../components/AppButton/AppButton';
 import { useStore } from '../../../stores';
+import CustomDropDown from '../../../components/AppTextInput/CustomDropDown';
+import { AssociatedRoles } from '../../../constants';
 
 function FilterUser({ closeDialog }) {
     const { userStore } = useStore();
@@ -99,14 +100,18 @@ function FilterUser({ closeDialog }) {
                             </Grid>
 
                             <Grid item xs={12} sm={3} md={3}>
-                                <GroupDropDown
-                                    selectedValue="NONE"
-                                    labelText="Associated Group"
-                                    fullWidth
-                                    onChangeGroup={(value) => {
-                                        userStore?.changeFilters({ ...userStore?.getFilters, group: value })
+                                <CustomDropDown
+                                    labelText="Associated Role"
+                                    id="associated-role"
+                                    formControlProps={{
+                                        fullWidth: true,
                                     }}
-                                    value={userStore?.getFilters?.group}
+                                    inputProps={{
+                                        placeholder: "Associated Role",
+                                        value: userStore?.getFilters?.associatedRole,
+                                        onChange: (e) => userStore?.changeFilters({ ...userStore?.getFilters, associatedRole: e.target.value })
+                                    }}
+                                    data={AssociatedRoles || []}
                                 />
                             </Grid >
 

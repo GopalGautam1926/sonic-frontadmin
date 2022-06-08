@@ -13,7 +13,19 @@ import moment from "moment";
 class CompanyStore {
     @observable loading = false;
     @observable error = null;
-    @observable company = []
+    @observable company = {
+        docs: [],
+        totalDocs: 0,
+        offset: 0,
+        limit: 10,
+        totalPages: 0,
+        page: 0,
+        pagingCounter: 0,
+        hasPrevPage: false,
+        hasNextPage: false,
+        prevPage: 0,
+        nextPage: 0,
+    }
 
     constructor() {
         // makeObservable(this);

@@ -9,8 +9,8 @@ import { toast } from "react-toastify";
 import { useStore } from "../../../stores";
 import { log } from "../../../utils/app.debug";
 import CompanyDropDown from "../../CompanyManagement/components/CompanyDropDown";
-import GroupDropDown from "../../GroupManagement/components/GroupDropDown";
-import groupHttps from "../../../services/https/resources/group.https";
+import { AssociatedRoles } from "../../../constants";
+import CustomDropDown from "../../../components/AppTextInput/CustomDropDown";
 
 const initialUserDetails = {
   userName: "",
@@ -21,7 +21,7 @@ const initialUserDetails = {
   isEmailVerified: true,
   isPhoneNumberVerified: false,
   sendInvitationByEmail: true,
-  group: "",
+  associatedRole: "",
   company: ""
 };
 
@@ -31,28 +31,7 @@ export default function RegisterUser({ closeDialog }) {
   const [state, setState] = useState({
     loading: false,
     error: null,
-    initialGroupLoading: false
   });
-
-  React.useEffect(() => {
-    getInitialGroup()
-  }, [])
-
-  const getInitialGroup = () => {
-    setState({ ...state, initialGroupLoading: true })
-    groupHttps.getGroupByName("PortalUser").then(({ data }) => {
-      log("Group name response", data)
-      if (data) {
-        setNewUser({ ...newUser, group: data?._id })
-      }
-      setState({ ...state, initialGroupLoading: false })
-    }).catch(({ error }) => {
-      setState({ ...state, initialGroupLoading: false })
-      toast.info("Error fetching initial group")
-    })
-  }
-
-  log("New User", newUser)
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -60,7 +39,7 @@ export default function RegisterUser({ closeDialog }) {
     const payload = {
       ...newUser,
       password: newUser.tempPassword,
-      group: newUser.group,
+      associatedRole: newUser.associatedRole,
       company: newUser?.company === "NONE" ? null : newUser?.company
     };
     if (payload.phoneNumber) {
@@ -70,7 +49,7 @@ export default function RegisterUser({ closeDialog }) {
     delete payload.countryCode;
     delete payload.tempPassword;
 
-    log("RegisterUser Payload", payload)
+    // log("RegisterUser Payload", payload)
     usersHttps
       .adminCreateUser(payload)
       .then(({ data }) => {
@@ -108,17 +87,19 @@ export default function RegisterUser({ closeDialog }) {
           <FancyCard.CardContent>
             <Grid container spacing={1}>
               <Grid item xs={12} sm={6} md={6}>
-                <GroupDropDown
-                  labelText="Associated Group"
-                  value={newUser.group}
-                  fullWidth
-                  loading={state?.initialGroupLoading}
-                  onChangeGroup={(value) => {
-                    setNewUser({ ...newUser, group: value })
+                <CustomDropDown
+                  labelText="Associated Role"
+                  id="associated-role"
+                  formControlProps={{
+                    fullWidth: true,
                   }}
                   inputProps={{
-                    required: true
+                    required: true,
+                    placeholder: "Associated Role",
+                    value: newUser.associatedRole,
+                    onChange: (e) => setNewUser({ ...newUser, associatedRole: e.target.value })
                   }}
+                  data={AssociatedRoles || []}
                 />
               </Grid >
 

@@ -16,7 +16,6 @@ import Version from "../pages/ReleaseManagement/Version";
 import Plays from "../pages/SonicKeyManagement/Plays/Plays";
 import Companies from "../pages/CompanyManagement/Companies";
 import Users from "../pages/UserManagement/Users";
-import Group from "../pages/GroupManagement/Group";
 import Encoded from "../pages/SonicKeyManagement/Encoded/Encoded";
 import ViewUsers from "../pages/UserManagement/components/ViewUsers";
 import ViewCompany from "../pages/CompanyManagement/components/ViewCompany";
@@ -60,24 +59,6 @@ export const routesData = [
         ]
       }
     ],
-  },
-  {
-    icon: <PeopleIcon />,
-    name: "Groups",
-    sidebar: true,
-    parentPath: '/groups-management',
-    layout: "/admin",
-    routes: [
-      {
-        path: "/groups-management/groups",
-        name: "Groups",
-        component: observer(Group),
-        exact: true,
-        sidebar: true,
-        layout: "/admin",
-        key: "gm_groups",
-      }
-    ]
   },
   {
     icon: <PeopleIcon />,

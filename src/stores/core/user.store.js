@@ -40,12 +40,13 @@ class UserStore {
         phone: "",
         sub: "",
         company: "",
-        group: "",
+        associatedRole: "",
         username: "",
         userTablePage: 1
     };
     @observable userTablePage = 1;
 
+    //Pagination
     @computed
     get getUserTablePage() {
         return toJS(this.userTablePage);
@@ -55,7 +56,9 @@ class UserStore {
     changeUserTablePage(page) {
         this.userTablePage = page;
     }
+    /* ----------------------------- */
 
+    //Date Range
     @computed
     get getDateRange() {
         return toJS(this.dateRange);
@@ -65,7 +68,9 @@ class UserStore {
     changeDateRange(dateRange) {
         this.dateRange = dateRange;
     }
+    /* ----------------------------- */
 
+    //User Filters
     @computed
     get getFilters() {
         return toJS(this.filters);
@@ -83,10 +88,11 @@ class UserStore {
             phone: "",
             sub: "",
             company: "",
-            group: "",
+            associatedRole: "",
             username: "",
         }
     }
+    /* ----------------------------- */
 
     @computed
     get getUsers() {
@@ -112,13 +118,14 @@ class UserStore {
                 limit: this.users.limit,
                 page: page,
                 skip: page > 1 ? (page - 1) * this.users.limit : 0,
+                // "owner": ,
                 "createdAt>": `date(${startDate})` || undefined,
                 "createdAt<": `date(${endDate})` || undefined,
                 "username": this.filters.username || undefined,
                 "email": this.filters.email || undefined,
                 "phone_number": this.filters.phone || undefined,
                 "sub": this.filters.sub || undefined,
-                "groups": this.filters.group || undefined,
+                "relation_groups.name": this.filters.associatedRole || undefined,
                 "companies": this.filters.company || undefined,
             }
         }
@@ -128,7 +135,6 @@ class UserStore {
         usersHttps
             .getUsers(options)
             .then(({ data }) => {
-                log("Users", data);
                 this.users = data;
                 this.loading = false;
             })
