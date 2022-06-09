@@ -117,6 +117,15 @@ function FilterUser({ closeDialog }) {
 
                             <Grid item xs={12} sm={3} md={3}>
                                 <CompanyDropDown
+                                    labelText="Associated Partner"
+                                    fullWidth
+                                    value={userStore?.getFilters?.partner}
+                                    onChange={(e) => userStore?.changeFilters({ ...userStore?.getFilters, partner: e.target.value })}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12} sm={3} md={3}>
+                                <CompanyDropDown
                                     labelText="Associated Company"
                                     fullWidth
                                     value={userStore?.getFilters?.company}

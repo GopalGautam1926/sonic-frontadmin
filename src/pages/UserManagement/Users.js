@@ -10,6 +10,9 @@ import { useHistory } from 'react-router-dom';
 import FilterUser from './components/FilterUser';
 import { Grid } from '@material-ui/core';
 import DatePicker from '../../components/DatePicker/DatePicker';
+import { userRoles } from '../../constants';
+import Badge from '../../components/Badge/Badge';
+import RSpace from '../../components/rcomponents/RSpace';
 
 export default function Users() {
     const { userStore } = useStore();
@@ -44,28 +47,77 @@ export default function Users() {
             }
         },
         {
-            label: "Groups",
-            name: "groups",
+            label: "Account Type",
+            name: "userRole",
             options: {
                 customBodyRender: (value) => {
-                    const group = value?.length > 0 ? value?.map(grp => {
-                        return grp?.name
-                    }).join() : "---";
-                    return group;
+                    if (value === userRoles.PARTNER_ADMIN || value === userRoles.PARTNER_USER) {
+                        return "Partner"
+                    } else if (value === userRoles.COMPANY_ADMIN || value === userRoles.COMPANY_USER) {
+                        return "Company"
+                    }
+                    return "---"
                 }
             }
         },
         {
-            label: "Companies",
-            name: "companies",
+            label: "Account Name",
+            name: "_id",
             options: {
                 customBodyRender: (value) => {
-                    const companies = value?.length > 0 ? value?.map(cpy => {
-                        return cpy?.name
-                    }).join() : "---";
-                    return companies;
+                    const rowData = userStore.getUsers.docs.find(
+                        (itm) => itm._id == value
+                    );
+                    if (rowData?.userRole === userRoles.PARTNER_ADMIN || rowData?.userRole === userRoles.PARTNER_USER) {
+                        return rowData?.partner?.name
+                    } else if (rowData?.userRole === userRoles.COMPANY_ADMIN || rowData?.userRole === userRoles.COMPANY_USER) {
+                        return rowData?.company?.name
+                    }
+                    return "---"
                 }
             }
+        },
+        {
+            label: "User Type",
+            name: "userRole",
+            options: {
+                customBodyRender: (value) => {
+                    if (value === userRoles.PARTNER_ADMIN || value === userRoles.COMPANY_ADMIN) {
+                        return "Admin"
+                    } else if (value === userRoles.PARTNER_USER || value === userRoles.COMPANY_USER) {
+                        return "Standard"
+                    }
+                    return "---"
+                }
+            }
+        },
+        {
+            label: "Status",
+            name: "enabled",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    const statusItem = [];
+                    if (!value) {
+                        statusItem.push(
+                            <Badge color="error" size="small" label={<div style={{ fontSize: 11 }}>Suspended</div>} />
+                        );
+                    }
+                    if (value) {
+                        statusItem.push(
+                            <Badge color="success" size="small" label={<div style={{ fontSize: 11 }}>Active</div>} />
+                        );
+                    }
+
+                    return (
+                        <RSpace style={{}}>
+                            {statusItem.map((status) => (
+                                <RSpace.Item>{status}</RSpace.Item>
+                            ))}
+                        </RSpace>
+                    );
+                },
+            },
         },
         {
             label: "Actions",

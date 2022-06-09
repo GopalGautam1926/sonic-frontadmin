@@ -10,7 +10,7 @@ import CompanyDropDown from '../../../CompanyManagement/components/CompanyDropDo
 import RadioDropDown from '../../../../components/AppTextInput/RadioDropDown'
 import { observer } from 'mobx-react'
 import DatePicker from '../../../../components/DatePicker/DatePicker'
-import { AssociatedRoles, Channel } from '../../../../constants'
+import { Channel, Distributor, Labels } from '../../../../constants'
 
 function FilterPlays({ closeDialog }) {
     const { playsStore } = useStore();
@@ -135,7 +135,7 @@ function FilterPlays({ closeDialog }) {
                             </Grid>
 
                             <Grid item xs={12} sm={3} md={3}>
-                                <AppTextInput
+                                <CustomDropDown
                                     labelText="Label"
                                     id="label"
                                     formControlProps={{
@@ -146,11 +146,12 @@ function FilterPlays({ closeDialog }) {
                                         value: playsStore?.getFilters?.label,
                                         onChange: (e) => playsStore?.changeFilters({ ...playsStore?.getFilters, label: e.target.value })
                                     }}
+                                    data={Labels || []}
                                 />
                             </Grid>
 
                             <Grid item xs={12} sm={3} md={3}>
-                                <AppTextInput
+                                <CustomDropDown
                                     labelText="Distributor"
                                     id="distributor"
                                     formControlProps={{
@@ -161,24 +162,9 @@ function FilterPlays({ closeDialog }) {
                                         value: playsStore?.getFilters?.distributor,
                                         onChange: (e) => playsStore?.changeFilters({ ...playsStore?.getFilters, distributor: e.target.value })
                                     }}
+                                    data={Distributor || []}
                                 />
                             </Grid>
-
-                            {/* <Grid item xs={12} sm={3} md={3}>
-                                <CustomDropDown
-                                    labelText="Associated Role"
-                                    id="associated-role"
-                                    formControlProps={{
-                                        fullWidth: true,
-                                    }}
-                                    inputProps={{
-                                        placeholder: "Associated Role",
-                                        value: playsStore?.getFilters?.associatedRole,
-                                        onChange: (e) => playsStore?.changeFilters({ ...playsStore?.getFilters, associatedRole: e.target.value })
-                                    }}
-                                    data={AssociatedRoles || []}
-                                />
-                            </Grid > */}
 
                             <Grid item xs={12} sm={3} md={3}>
                                 <CompanyDropDown
@@ -206,14 +192,31 @@ function FilterPlays({ closeDialog }) {
 
                             <Grid item xs={12} sm={3} md={3}>
                                 <DatePicker
-                                    label="Encoded Date"
-                                    selected={playsStore?.getFilters?.encodedDate}
-                                    onChange={(date) => playsStore?.changeFilters({ ...playsStore?.getFilters, encodedDate: date })}
+                                    label="Encoded Start Date"
+                                    selected={playsStore?.getFilters?.startEncodedDate}
+                                    onChange={(date) => playsStore?.changeFilters({ ...playsStore?.getFilters, startEncodedDate: date })}
                                     showYearDropdown
                                     dateFormat="dd/MM/yyyy"
                                     yearDropdownItemNumber={15}
                                     scrollableYearDropdown
                                     showMonthDropdown
+                                    startDate={playsStore?.getFilters?.startEncodedDate}
+                                    endDate={playsStore?.getFilters?.endEncodedDate}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12} sm={3} md={3}>
+                                <DatePicker
+                                    label="Encoded End Date"
+                                    selected={playsStore?.getFilters?.endEncodedDate}
+                                    onChange={(date) => playsStore?.changeFilters({ ...playsStore?.getFilters, endEncodedDate: date })}
+                                    showYearDropdown
+                                    dateFormat="dd/MM/yyyy"
+                                    yearDropdownItemNumber={15}
+                                    scrollableYearDropdown
+                                    showMonthDropdown
+                                    startDate={playsStore?.getFilters?.startEncodedDate}
+                                    endDate={playsStore?.getFilters?.endEncodedDate}
                                 />
                             </Grid>
                         </Grid>

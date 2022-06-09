@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import { useStore } from "../../../stores";
 import { log } from "../../../utils/app.debug";
 import CompanyDropDown from "../../CompanyManagement/components/CompanyDropDown";
-import { AssociatedRoles } from "../../../constants";
+import { AssociatedRoles, userRoles } from "../../../constants";
 import CustomDropDown from "../../../components/AppTextInput/CustomDropDown";
 
 const initialUserDetails = {
@@ -22,6 +22,7 @@ const initialUserDetails = {
   isPhoneNumberVerified: false,
   sendInvitationByEmail: true,
   associatedRole: "",
+  partner: "",
   company: ""
 };
 
@@ -103,16 +104,27 @@ export default function RegisterUser({ closeDialog }) {
                 />
               </Grid >
 
-              <Grid item xs={12} sm={6} md={6}>
-                <CompanyDropDown
-                  labelText="Associated Company"
-                  value={newUser.company}
-                  fullWidth
-                  onChange={(e) => {
-                    setNewUser({ ...newUser, company: e.target.value })
-                  }}
-                />
-              </Grid>
+              {(newUser.associatedRole === userRoles.PARTNER_ADMIN || newUser.associatedRole === userRoles.PARTNER_USER) &&
+                <Grid item xs={12} sm={6} md={6}>
+                  <CompanyDropDown
+                    labelText="Associated Partner"
+                    fullWidth
+                    value={newUser.partner}
+                    onChange={(e) => setNewUser({ ...newUser, partner: e.target.value })}
+                  />
+                </Grid>
+              }
+
+              {(newUser.associatedRole === userRoles.COMPANY_ADMIN || newUser.associatedRole === userRoles.COMPANY_USER) &&
+                <Grid item xs={12} sm={6} md={6}>
+                  <CompanyDropDown
+                    labelText="Associated Company"
+                    value={newUser.company}
+                    fullWidth
+                    onChange={(e) => setNewUser({ ...newUser, company: e.target.value })}
+                  />
+                </Grid>
+              }
 
               <Grid item xs={12} sm={6} md={6}>
                 <AppTextInput

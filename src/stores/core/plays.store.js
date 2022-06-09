@@ -33,10 +33,11 @@ class PlaysStore {
     track: "",
     label: "",
     distributor: "",
+    partnerName: "",
     companyName: "",
-    associatedRole: "",
-    username: "",
-    encodedDate: "",
+    userName: "",
+    startEncodedDate: "",
+    endEncodedDate: "",
     playTablePage: 1,
   };
   @observable playTablePage = 1;
@@ -91,10 +92,11 @@ class PlaysStore {
       track: "",
       label: "",
       distributor: "",
+      cpartnerName: "",
       companyName: "",
-      associatedRole: "",
-      username: "",
-      encodedDate: "",
+      userName: "",
+      startEncodedDate: "",
+      endEncodedDate: "",
     };
   }
 
@@ -124,64 +126,33 @@ class PlaysStore {
     this.loading = true;
     this.error = null;
 
-    let startDate = moment(this.dateRange.startDate)
-      .startOf("days")
-      .toISOString();
+    let startDate = moment(this.dateRange.startDate).startOf("days").toISOString();
     let endDate = moment(this.dateRange.endDate).endOf("days").toISOString();
-    let startOfEncodedDate = moment(this.filters.encodedDate)
-      .startOf("days")
-      .toISOString();
-    let endOfEncodedDate = moment(this.filters.encodedDate)
-      .endOf("days")
-      .toISOString();
+
+    let startOfEncodedDate = moment(this.filters.startEncodedDate).startOf("days").toISOString();
+    let startEndOfEncodedDate = moment(this.filters.startEncodedDate).endOf("days").toISOString();
+    let endOfEncodedDate = moment(this.filters.endEncodedDate).endOf("days").toISOString();
 
     const options = {
       params: {
         limit: this.plays.limit,
         page: page,
         skip: page > 1 ? (page - 1) * this.plays.limit : 0,
-        "detectedAt>": this.dateRange.startDate
-          ? `date(${startDate})`
-          : undefined,
+        "detectedAt>": this.dateRange.startDate ? `date(${startDate})` : undefined,
         "detectedAt<": this.dateRange.endDate ? `date(${endDate})` : undefined,
-        channel:
-          this.filters.channel !== "ALL" ? this.filters.channel : undefined,
-        "relation_sonicKey.sonicKey": this.filters.sonickey
-          ? this.filters.sonickey
-          : undefined,
-        "relation_radioStation.country": this.filters.country
-          ? this.filters.country
-          : undefined,
-        "relation_radioStation.name": this.filters.radiostation
-          ? this.filters.radiostation
-          : undefined,
-        "relation_sonicKey.contentOwner": this.filters.artist
-          ? this.filters.artist
-          : undefined,
-        "relation_sonicKey.originalFileName": this.filters.track
-          ? this.filters.track
-          : undefined,
-        "relation_sonicKey.label": this.filters.label
-          ? this.filters.label
-          : undefined,
-        "relation_sonicKey.distributor": this.filters.distributor
-          ? this.filters.distributor
-          : undefined,
-        "relation_owner.username": this.filters.username
-          ? this.filters.username
-          : undefined,
-        "relation_owner.groups": this.filters.associatedRole
-          ? this.filters.associatedRole
-          : undefined,
-        "relation_owner.companies": this.filters.companyName
-          ? this.filters.companyName
-          : undefined,
-        "relation_sonicKey.createdAt>": this.filters.encodedDate
-          ? `date(${startOfEncodedDate})`
-          : undefined,
-        "relation_sonicKey.createdAt<": this.filters.encodedDate
-          ? `date(${endOfEncodedDate})`
-          : undefined,
+        channel: this.filters.channel !== "ALL" ? this.filters.channel : undefined,
+        "relation_sonicKey.sonicKey": this.filters.sonickey ? `/${this.filters.sonickey}/i` : undefined,
+        "relation_radioStation.country": this.filters.country || undefined,
+        "relation_radioStation.name": this.filters.radiostation || undefined,
+        "relation_sonicKey.contentOwner": this.filters.artist ? `/${this.filters.artist}/i` : undefined,
+        "relation_sonicKey.originalFileName": this.filters.track ? `/${this.filters.track}/i` : undefined,
+        "relation_sonicKey.label": this.filters.label || undefined,
+        "relation_sonicKey.distributor": this.filters.distributor || undefined,
+        "relation_owner.username": this.filters.userName ? `/${this.filters.userName}/i` : undefined,
+        "relation_owner.partner": this.filters.partnerName || undefined,
+        "relation_owner.companies": this.filters.companyName || undefined,
+        "relation_sonicKey.createdAt>": this.filters.startEncodedDate ? `date(${startOfEncodedDate})` : undefined,
+        "relation_sonicKey.createdAt<": this.filters.endEncodedDate ? `date(${endOfEncodedDate})` : this.filters.startEncodedDate ? `date(${startEndOfEncodedDate})` : undefined,
       },
     };
 

@@ -35,9 +35,9 @@ class SonicKeyStore {
         track: "",
         label: "",
         distributor: "",
+        partnerName: "",
         companyName: "",
-        associatedRole: "",
-        username: "",
+        userName: "",
         sonickeyTablePage: 1,
     };
     @observable sonickeyTablePage = 1;
@@ -89,9 +89,9 @@ class SonicKeyStore {
             track: "",
             label: "",
             distributor: "",
+            partnerName: "",
             companyName: "",
-            associatedRole: "",
-            username: "",
+            userName: "",
         }
     }
 
@@ -114,14 +114,13 @@ class SonicKeyStore {
                 skip: page > 1 ? (page - 1) * this.sonickey.limit : 0,
                 "createdAt>": `date(${startDate})` || undefined,
                 "createdAt<": `date(${endDate})` || undefined,
-                "sonicKey": this.filters.sonickey || undefined,
-                "contentOwner": this.filters.artist || undefined,
-                "originalFileName": this.filters.track || undefined,
+                "sonicKey": this.filters.sonickey ? `/${this.filters.sonickey}/i` : undefined,
+                "contentOwner": this.filters.artist ? `/${this.filters.artist}/i` : undefined,
+                "originalFileName": this.filters.track ? `/${this.filters.track}/i` : undefined,
                 "label": this.filters.label || undefined,
                 "distributor": this.filters.distributor || undefined,
-                "relation_owner.groups": this.filters.associatedRole || undefined,
                 "relation_owner.companies": this.filters.companyName || undefined,
-                "relation_owner.username": this.filters.username || undefined,
+                "relation_owner.username": this.filters.userName ? `/${this.filters.userName}/i` : undefined,
             },
         }
 

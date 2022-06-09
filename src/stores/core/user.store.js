@@ -39,6 +39,7 @@ class UserStore {
         email: "",
         phone: "",
         sub: "",
+        partner: "",
         company: "",
         associatedRole: "",
         username: "",

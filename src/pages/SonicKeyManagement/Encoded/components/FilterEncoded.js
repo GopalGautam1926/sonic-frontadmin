@@ -7,10 +7,9 @@ import { useStore } from '../../../../stores'
 import CompanyDropDown from '../../../CompanyManagement/components/CompanyDropDown'
 import { observer } from 'mobx-react'
 import CustomDropDown from '../../../../components/AppTextInput/CustomDropDown'
-import { AssociatedRoles } from '../../../../constants'
+import { Distributor, Labels } from '../../../../constants'
 
 function FilterEncoded({ closeDialog }) {
-
     const { sonickeyStore } = useStore();
 
     const onSubmit = (e) => {
@@ -87,7 +86,7 @@ function FilterEncoded({ closeDialog }) {
                             </Grid>
 
                             <Grid item xs={12} sm={3} md={3}>
-                                <AppTextInput
+                                <CustomDropDown
                                     labelText="Label"
                                     id="label"
                                     formControlProps={{
@@ -98,11 +97,12 @@ function FilterEncoded({ closeDialog }) {
                                         value: sonickeyStore?.getFilters?.label,
                                         onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, label: e.target.value })
                                     }}
+                                    data={Labels || []}
                                 />
                             </Grid>
 
                             <Grid item xs={12} sm={3} md={3}>
-                                <AppTextInput
+                                <CustomDropDown
                                     labelText="Distributor"
                                     id="distributor"
                                     formControlProps={{
@@ -113,24 +113,9 @@ function FilterEncoded({ closeDialog }) {
                                         value: sonickeyStore?.getFilters?.distributor,
                                         onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, distributor: e.target.value })
                                     }}
+                                    data={Distributor || []}
                                 />
                             </Grid>
-
-                            {/* <Grid item xs={12} sm={3} md={3}>
-                                <CustomDropDown
-                                    labelText="Associated Role"
-                                    id="associated-role"
-                                    formControlProps={{
-                                        fullWidth: true,
-                                    }}
-                                    inputProps={{
-                                        placeholder: "Associated Role",
-                                        value: sonickeyStore?.getFilters?.associatedRole,
-                                        onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, associatedRole: e.target.value })
-                                    }}
-                                    data={AssociatedRoles || []}
-                                />
-                            </Grid > */}
 
                             <Grid item xs={12} sm={3} md={3}>
                                 <CompanyDropDown
