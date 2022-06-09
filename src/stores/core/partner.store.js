@@ -13,11 +13,38 @@ import moment from "moment";
 class PartnerStore {
     @observable loading = false;
     @observable error = null;
-    @observable partner = []
+    @observable partner = {
+        docs: [],
+        totalDocs: 0,
+        offset: 0,
+        limit: 10,
+        totalPages: 0,
+        page: 0,
+        pagingCounter: 0,
+        hasPrevPage: false,
+        hasNextPage: false,
+        prevPage: 0,
+        nextPage: 0,
+    }
 
     constructor() {
         // makeObservable(this);
     }
+
+    @observable partnerTablePage = 1;
+
+    //Pagination
+    @computed
+    get getPartnerTablePage() {
+        return toJS(this.partnerTablePage);
+    }
+
+    @action
+    changePartnerTablePage(page) {
+        this.partnerTablePage = page;
+    }
+    /* ----------------------------- */
+
 
     @observable dateRange = {
         startDate: new Date().setMonth(new Date().getMonth() - 1),
@@ -71,7 +98,7 @@ class PartnerStore {
  */
 
     @action
-    fetchPartners(options = {}) {
+    fetchPartners( page = 1, options = {}) {
         this.error = null;
         this.loading = true;
 
@@ -81,6 +108,9 @@ class PartnerStore {
         let newOptions = {
             params: {
                 sort: "-createdAt",
+                limit: this.partner.limit,
+                page: page,
+                skip: page > 1 ? (page - 1) * this.users.limit : 0,
                 // "createdAt>": `date(${startDate})` || undefined,
                 // "createdAt<": `date(${endDate})` || undefined,
                 // "name": this.filters.company || undefined,
@@ -107,7 +137,8 @@ class PartnerStore {
 
     @action
     addPartner(partnerData) {
-        this.partner.unshift(partnerData)
+        this.partner.totalDocs += 1
+        this.partner.docs.unshift(partnerData)
     }
 
     /**
@@ -117,8 +148,8 @@ class PartnerStore {
     */
     @action
     updatePartner(id, payload) {
-        const elementsIndex = this.partner.findIndex(element => element._id == id)
-        this.partner[elementsIndex] = { ...this.partner[elementsIndex], ...payload }
+        const elementsIndex = this.partner.docs.findIndex(element => element._id == id)
+        this.partner.docs[elementsIndex] = { ...this.partner.docs[elementsIndex], ...payload }
     }
 
     /**

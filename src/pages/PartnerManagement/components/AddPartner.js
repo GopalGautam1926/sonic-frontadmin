@@ -14,7 +14,7 @@ const initialPartner = {
     partnerData: {
         name: "",
         description: "",
-        partnerType:"",
+        partnerType:"CMO",
         email: "",
         contactNo: "",
         address: {

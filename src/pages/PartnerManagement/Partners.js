@@ -1,5 +1,6 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
+import CustomPagination from '../../components/common/CustomPagination'
 import DataFetchingStateComponent from '../../components/common/DataFetchingStateComponent'
 import FancyCard from '../../components/FancyCard/FancyCard'
 import Table from '../../components/Table/Table'
@@ -38,7 +39,7 @@ export default function Partners() {
             }
         },
         {
-            label: "Company Admin",
+            label: "Owner",
             name: "owner",
             options: {
                 filter: false,
@@ -53,7 +54,7 @@ export default function Partners() {
             options: {
                 filter: false,
                 customBodyRender: (value, { columnIndex }, updateValue) => {
-                    const rowData = partnerStore?.getPartner?.find(
+                    const rowData = partnerStore?.getPartner?.docs?.find(
                         (itm) => itm._id == value
                     );
                     return (
@@ -78,6 +79,11 @@ export default function Partners() {
         }
     ]
 
+    const onPageChange = (page) => {
+        partnerStore.fetchPartners(page)
+        partnerStore.changePartnerTablePage(page);
+    }
+
     return (
         <div>
             <FancyCard
@@ -94,40 +100,6 @@ export default function Partners() {
                     </FancyCard.CardHeader>
                 }
             >
-                {/* <Grid container style={{ padding: "0px 20px", display: 'flex', justifyContent: 'flex-end', zIndex: 1 }}>
-                    <Grid item>
-                        <DatePicker
-                            label="Start Date"
-                            selected={companyStore?.getDateRange?.startDate}
-                            onChange={(date) => companyStore?.changeDateRange({ ...companyStore?.getDateRange, startDate: date })}
-                            showYearDropdown
-                            dateFormat="dd/MM/yyyy"
-                            yearDropdownItemNumber={15}
-                            scrollableYearDropdown
-                            showMonthDropdown
-                            startDate={companyStore?.getDateRange?.startDate}
-                            endDate={companyStore?.getDateRange?.endDate}
-                        />
-                    </Grid>
-                    <Grid item className="mt-4 mx-3">
-                        <p style={{ fontSize: '14px' }}>TO</p>
-                    </Grid>
-
-                    <Grid item>
-                        <DatePicker
-                            label="End Date"
-                            selected={companyStore?.getDateRange?.endDate}
-                            onChange={(date) => companyStore?.changeDateRange({ ...companyStore?.getDateRange, endDate: date })}
-                            showYearDropdown
-                            dateFormat="dd/MM/yyyy"
-                            yearDropdownItemNumber={15}
-                            scrollableYearDropdown
-                            showMonthDropdown
-                            startDate={companyStore?.getDateRange?.startDate}
-                            endDate={companyStore?.getDateRange?.endDate}
-                        />
-                    </Grid>
-                </Grid> */}
 
                 <FancyCard.CardContent style={{ zIndex: 0 }}>
                     <DataFetchingStateComponent
@@ -149,9 +121,18 @@ export default function Partners() {
                                 />
                             }
                             columns={columns}
-                            data={partnerStore?.getPartner || []}
+                            data={partnerStore?.getPartner?.docs || []}
                             options={{
-                                count: partnerStore?.getPartner?.length
+                                count: partnerStore?.getPartner?.docs?.length || 0,
+                                customFooter: (count, page, rowsPerPage, changeRowsPerPage, changePage, textLabels) => {
+                                    return (
+                                        <CustomPagination
+                                            totalPages={partnerStore?.getPartner?.totalPages}
+                                            page={partnerStore?.userTablePage}
+                                            onChange={(event, value) => onPageChange(value)}
+                                        />
+                                    );
+                                }
                             }}
                         />
                     </DataFetchingStateComponent>

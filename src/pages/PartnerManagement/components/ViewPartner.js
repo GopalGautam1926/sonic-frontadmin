@@ -46,7 +46,7 @@ export default function ViewPartner({ closeDialog }) {
     const getAndSetPartner = async () => {
         try {
             setState({ ...state, loading: true, error: null });
-            if (location?.state?.company) {
+            if (location?.state?.partner) {
                 setPartner(location.state.partner);
                 setState({ ...state, loading: false, partner: location.state.partner });
             } else {
