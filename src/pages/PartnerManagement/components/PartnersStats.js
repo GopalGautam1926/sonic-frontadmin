@@ -16,7 +16,7 @@ export const PartnersStats = observer(() => {
     } else if (partnerStore.loading) {
         count = <CircularProgress size={15} color="inherit" />;
     } else {
-        count = partnerStore?.getPartner?.length || 0;
+        count = partnerStore?.getPartner?.docs?.length || 0;
     }
     return (
         <FancyCard

@@ -1,7 +1,9 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
+import Badge from '../../components/Badge/Badge'
 import DataFetchingStateComponent from '../../components/common/DataFetchingStateComponent'
 import FancyCard from '../../components/FancyCard/FancyCard'
+import RSpace from '../../components/rcomponents/RSpace'
 import Table from '../../components/Table/Table'
 import { getRouteNames } from '../../routes/routes.data'
 import { useStore } from '../../stores'
@@ -21,24 +23,15 @@ export default function Companies() {
             name: "name",
         },
         {
-            label: "Id",
+            label: "Company Type",
+            name: "companyType",
+        },
+        {
+            label: "Company URN/ID",
             name: "_id",
         },
         {
-            label: "Email",
-            name: "email",
-        },
-        {
-            label: "Contact No",
-            name: "contactNo",
-            options: {
-                customBodyRender: (value) => {
-                    return value || "--";
-                }
-            }
-        },
-        {
-            label: "Company Admin",
+            label: "Owner",
             name: "owner",
             options: {
                 filter: false,
@@ -48,6 +41,41 @@ export default function Companies() {
             }
         },
         {
+            label: "Status",
+            name: "key",
+            options: {
+              filter: false,
+              customBodyRender: (
+                value,
+                { rowIndex, columnIndex, currentTableData },
+                updateValue
+              ) => {
+                const rowData = companyStore.getCompany.docs.find(
+                  (itm) => itm.key == value
+                );
+                const statusItem = [];
+                if (rowData?.enabled) {
+                  statusItem.push(
+                    <Badge color="success" size="small" label={<div style={{ fontSize: 11 }}>Active</div>} />
+                  );
+                }
+                if (rowData?.enabled == 0) {
+                  statusItem.push(
+                    <Badge color="warning" size="small" label="Suspended" />
+                  );
+                }
+      
+                return (
+                  <RSpace style={{}}>
+                    {statusItem.map((status) => (
+                      <RSpace.Item>{status}</RSpace.Item>
+                    ))}
+                  </RSpace>
+                );
+              },
+            },
+          },
+          {
             label: "Actions",
             name: "_id",
             options: {
@@ -75,7 +103,7 @@ export default function Companies() {
                     );
                 },
             },
-        }
+        },
     ]
 
     return (
