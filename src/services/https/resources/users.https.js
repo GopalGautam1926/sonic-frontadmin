@@ -94,6 +94,18 @@ class UsersHttps {
     });
   }
 
+  /**
+    * get user by id
+    * @param {string} id
+    * @returns
+    */
+  findById(id) {
+    return AppWebRequest({
+      method: "get",
+      url: `/users/${id}`,
+    })
+  }
+
   findUser(username) {
     return AppWebRequest({
       method: "get",
