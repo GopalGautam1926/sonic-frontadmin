@@ -6,7 +6,7 @@ class PartnerHttps {
     constructor() { }
 
     /**
-     * Fetch all sonickeys
+     * Fetch all partners
      * @param {AxiosRequestConfig} options
      * @returns {Promise<any>}
      */

@@ -35,35 +35,6 @@ export const routesData = [
     key: "dashboard" //unique to identify
   },
   {
-    icon: <BusinessIcon />,
-    name: "Companies",
-    sidebar: true,
-    parentPath: '/company-management',
-    layout: "/admin",
-    routes: [
-      {
-        path: "/company-management/company",
-        name: "Companies",
-        component: observer(Companies),
-        exact: true,
-        sidebar: true,
-        layout: "/admin",
-        key: "cm_company",
-        routes: [
-          {
-            exact: true,
-            sidebar: false,
-            path: "/company-management/company/view/:companyId",
-            name: "View Company",
-            component: ViewCompany,
-            layout: "/admin",
-            key: "cm_company_view",
-          },
-        ]
-      }
-    ],
-  },
-  {
     icon: <PersonAddIcon />,
     name: "Partners",
     sidebar: true,
@@ -87,6 +58,35 @@ export const routesData = [
             component: ViewPartner,
             layout: "/admin",
             key: "cm_partner_view",
+          },
+        ]
+      }
+    ],
+  },
+  {
+    icon: <BusinessIcon />,
+    name: "Companies",
+    sidebar: true,
+    parentPath: '/company-management',
+    layout: "/admin",
+    routes: [
+      {
+        path: "/company-management/company",
+        name: "Companies",
+        component: observer(Companies),
+        exact: true,
+        sidebar: true,
+        layout: "/admin",
+        key: "cm_company",
+        routes: [
+          {
+            exact: true,
+            sidebar: false,
+            path: "/company-management/company/view/:companyId",
+            name: "View Company",
+            component: ViewCompany,
+            layout: "/admin",
+            key: "cm_company_view",
           },
         ]
       }

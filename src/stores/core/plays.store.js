@@ -92,7 +92,7 @@ class PlaysStore {
       track: "",
       label: "",
       distributor: "",
-      cpartnerName: "",
+      partnerName: "",
       companyName: "",
       userName: "",
       startEncodedDate: "",

@@ -119,6 +119,7 @@ class SonicKeyStore {
                 "originalFileName": this.filters.track ? `/${this.filters.track}/i` : undefined,
                 "label": this.filters.label || undefined,
                 "distributor": this.filters.distributor || undefined,
+                "relation_partner._id": this.filters.partnerName || undefined,
                 "relation_owner.companies": this.filters.companyName || undefined,
                 "relation_owner.username": this.filters.userName ? `/${this.filters.userName}/i` : undefined,
             },

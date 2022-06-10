@@ -11,6 +11,7 @@ import RadioDropDown from '../../../../components/AppTextInput/RadioDropDown'
 import { observer } from 'mobx-react'
 import DatePicker from '../../../../components/DatePicker/DatePicker'
 import { Channel, Distributor, Labels } from '../../../../constants'
+import PartnerDropDown from '../../../PartnerManagement/components/PartnerDropDown'
 
 function FilterPlays({ closeDialog }) {
     const { playsStore } = useStore();
@@ -167,6 +168,15 @@ function FilterPlays({ closeDialog }) {
                             </Grid>
 
                             <Grid item xs={12} sm={3} md={3}>
+                                <PartnerDropDown
+                                    labelText="Associated Partner"
+                                    fullWidth
+                                    value={playsStore?.getFilters?.partnerName}
+                                    onChange={(e) => playsStore?.changeFilters({ ...playsStore?.getFilters, partnerName: e.target.value })}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12} sm={3} md={3}>
                                 <CompanyDropDown
                                     labelText="Associated Company"
                                     fullWidth
@@ -184,8 +194,8 @@ function FilterPlays({ closeDialog }) {
                                     }}
                                     inputProps={{
                                         placeholder: "Username",
-                                        value: playsStore?.getFilters?.username,
-                                        onChange: (e) => playsStore?.changeFilters({ ...playsStore?.getFilters, username: e.target.value })
+                                        value: playsStore?.getFilters?.userName,
+                                        onChange: (e) => playsStore?.changeFilters({ ...playsStore?.getFilters, userName: e.target.value })
                                     }}
                                 />
                             </Grid>

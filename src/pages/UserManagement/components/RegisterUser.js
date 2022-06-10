@@ -7,23 +7,23 @@ import { SwitchWithLabel } from "../../../components/Switch/Switch";
 import usersHttps from "../../../services/https/resources/users.https";
 import { toast } from "react-toastify";
 import { useStore } from "../../../stores";
-import { log } from "../../../utils/app.debug";
 import CompanyDropDown from "../../CompanyManagement/components/CompanyDropDown";
 import { AssociatedRoles, userRoles } from "../../../constants";
 import CustomDropDown from "../../../components/AppTextInput/CustomDropDown";
+import PartnerDropDown from "../../PartnerManagement/components/PartnerDropDown";
 
 const initialUserDetails = {
   userName: "",
   tempPassword: "",
-  email: "",
-  phoneNumber: "",
   countryCode: "+44",
+  phoneNumber: "",
+  email: "",
   isEmailVerified: true,
   isPhoneNumberVerified: false,
   sendInvitationByEmail: true,
   associatedRole: "",
-  partner: "",
-  company: ""
+  partnerName: "",
+  companyName: "",
 };
 
 export default function RegisterUser({ closeDialog }) {
@@ -40,8 +40,9 @@ export default function RegisterUser({ closeDialog }) {
     const payload = {
       ...newUser,
       password: newUser.tempPassword,
-      associatedRole: newUser.associatedRole,
-      company: newUser?.company === "NONE" ? null : newUser?.company
+      userRole: newUser.associatedRole,
+      partner: newUser?.partnerName && newUser?.partnerName !== "NONE" ? newUser?.partnerName : undefined,
+      company: newUser?.companyName && newUser?.companyName !== "NONE" ? newUser?.companyName : undefined
     };
     if (payload.phoneNumber) {
       payload.phoneNumber = `${payload.countryCode}${payload.phoneNumber}`;
@@ -49,8 +50,10 @@ export default function RegisterUser({ closeDialog }) {
 
     delete payload.countryCode;
     delete payload.tempPassword;
+    delete payload.associatedRole;
+    delete payload.partnerName;
+    delete payload.companyName;
 
-    // log("RegisterUser Payload", payload)
     usersHttps
       .adminCreateUser(payload)
       .then(({ data }) => {
@@ -106,11 +109,11 @@ export default function RegisterUser({ closeDialog }) {
 
               {(newUser.associatedRole === userRoles.PARTNER_ADMIN || newUser.associatedRole === userRoles.PARTNER_USER) &&
                 <Grid item xs={12} sm={6} md={6}>
-                  <CompanyDropDown
+                  <PartnerDropDown
                     labelText="Associated Partner"
                     fullWidth
-                    value={newUser.partner}
-                    onChange={(e) => setNewUser({ ...newUser, partner: e.target.value })}
+                    value={newUser.partnerName}
+                    onChange={(e) => setNewUser({ ...newUser, partnerName: e.target.value })}
                   />
                 </Grid>
               }
@@ -119,9 +122,9 @@ export default function RegisterUser({ closeDialog }) {
                 <Grid item xs={12} sm={6} md={6}>
                   <CompanyDropDown
                     labelText="Associated Company"
-                    value={newUser.company}
+                    value={newUser.companyName}
                     fullWidth
-                    onChange={(e) => setNewUser({ ...newUser, company: e.target.value })}
+                    onChange={(e) => setNewUser({ ...newUser, companyName: e.target.value })}
                   />
                 </Grid>
               }

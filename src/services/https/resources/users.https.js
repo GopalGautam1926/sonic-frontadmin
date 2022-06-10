@@ -39,7 +39,7 @@ class UsersHttps {
     return AppWebRequest({
       method: "post",
       data: userPayload,
-      url: `/users/admin-create-user`,
+      url: `/users`,
     });
   }
 
@@ -89,7 +89,7 @@ class UsersHttps {
   getUsers(options = {}) {
     return AppWebRequest({
       method: "get",
-      url: "/users/list-users",
+      url: "/users",
       ...options,
     });
   }
@@ -97,7 +97,7 @@ class UsersHttps {
   findUser(username) {
     return AppWebRequest({
       method: "get",
-      url: "/users/list-users",
+      url: "/users",
       params: {
         username: `/${username}/i`
       },

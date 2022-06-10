@@ -16,34 +16,34 @@ function PartnerDropDown({
     const { partnerStore } = useStore()
 
     const renderData = () => {
-        if (companyStore?.error) {
+        if (partnerStore?.error) {
             return (
                 <Select
                     inputProps={{
-                        name: 'company',
-                        id: 'company-native-simple',
+                        name: 'partner',
+                        id: 'partner-native-simple',
                         ...inputProps
                     }}
                     {...props}
                 >
-                    <option style={{ cursor: "pointer", color: "red" }} value={null} onClick={() => companyStore?.fetchCompanies()} >
+                    <option style={{ cursor: "pointer", color: "red" }} value={null} onClick={() => partnerStore?.fetchPartners()} >
                         Error, Click to fetch again
                     </option>
                 </Select >
             )
         }
-        if (companyStore?.loading) {
+        if (partnerStore?.loading) {
             return (
                 <Select
                     native
                     inputProps={{
-                        name: 'company',
-                        id: 'company-native-simple',
+                        name: 'partner',
+                        id: 'partner-native-simple',
                         ...inputProps
                     }}
                     {...props}
                 >
-                    <option style={{ cursor: "pointer", }} value={null} >Loading...</option>
+                    <option style={{ cursor: "pointer" }} value={null} >Loading...</option>
                 </Select>
             )
         }
@@ -51,17 +51,17 @@ function PartnerDropDown({
             <Select
                 native
                 inputProps={{
-                    name: 'company',
-                    id: 'company-native-simple',
+                    name: 'partner',
+                    id: 'partner-native-simple',
                     ...inputProps
                 }}
                 {...props}
             >
-                <option style={{ cursor: "pointer", }} value={""} >None</option>
+                <option style={{ cursor: "pointer" }} value={""} >None</option>
                 {
-                    companyStore?.getCompany?.docs?.map((company) => {
+                    partnerStore?.getPartner?.docs?.map((partner) => {
                         return (
-                            <option style={{ cursor: "pointer", }} value={company?._id}>{company?.name}</option>
+                            <option style={{ cursor: "pointer", }} value={partner?._id}>{partner?.name}</option>
                         )
                     })
                 }
@@ -71,7 +71,7 @@ function PartnerDropDown({
 
     return (
         <FormControl {...formControlProps} fullWidth>
-            <InputLabel shrink htmlFor="company-native-simple" {...inputLabelProps}>{labelText}</InputLabel>
+            <InputLabel shrink htmlFor="partner-native-simple" {...inputLabelProps}>{labelText}</InputLabel>
             {renderData()}
         </FormControl>
     );

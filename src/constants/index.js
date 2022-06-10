@@ -11,6 +11,11 @@ export const userRoles = {
     COMPANY_USER: "CompanyUser"
 }
 
+export const Status = [
+    "Active",
+    "Suspended",
+]
+
 export const AssociatedRoles = [
     "PortalUser",
     "PartnerAdmin",

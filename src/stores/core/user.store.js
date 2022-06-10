@@ -43,6 +43,7 @@ class UserStore {
         company: "",
         associatedRole: "",
         username: "",
+        status: "",
         userTablePage: 1
     };
     @observable userTablePage = 1;
@@ -88,9 +89,11 @@ class UserStore {
             email: "",
             phone: "",
             sub: "",
+            partner: "",
             company: "",
             associatedRole: "",
             username: "",
+            status: ""
         }
     }
     /* ----------------------------- */
@@ -119,15 +122,15 @@ class UserStore {
                 limit: this.users.limit,
                 page: page,
                 skip: page > 1 ? (page - 1) * this.users.limit : 0,
-                // "owner": ,
                 "createdAt>": `date(${startDate})` || undefined,
                 "createdAt<": `date(${endDate})` || undefined,
-                "username": this.filters.username || undefined,
-                "email": this.filters.email || undefined,
-                "phone_number": this.filters.phone || undefined,
-                "sub": this.filters.sub || undefined,
-                "relation_groups.name": this.filters.associatedRole || undefined,
-                "companies": this.filters.company || undefined,
+                "username": this.filters.username ? `/${this.filters.username}/i` : undefined,
+                "email": this.filters.email ? `/${this.filters.email}/i` : undefined,
+                "_id": this.filters.sub || undefined,
+                "userRole": this.filters.associatedRole || undefined,
+                "enabled": this.filters.status ? this.filters.status === "Active" ? true : false : undefined,
+                "relation_company._id": this.filters.company || undefined,
+                "relation_partner._id": this.filters.partner || undefined,
             }
         }
 

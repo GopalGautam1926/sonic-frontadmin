@@ -7,7 +7,8 @@ import CompanyDropDown from '../../CompanyManagement/components/CompanyDropDown'
 import AppButton from '../../../components/AppButton/AppButton';
 import { useStore } from '../../../stores';
 import CustomDropDown from '../../../components/AppTextInput/CustomDropDown';
-import { AssociatedRoles } from '../../../constants';
+import { AssociatedRoles, Status } from '../../../constants';
+import PartnerDropDown from '../../PartnerManagement/components/PartnerDropDown';
 
 function FilterUser({ closeDialog }) {
     const { userStore } = useStore();
@@ -41,6 +42,21 @@ function FilterUser({ closeDialog }) {
                         <Grid container spacing={1}>
                             <Grid item xs={12} sm={3} md={3}>
                                 <AppTextInput
+                                    labelText="Id"
+                                    id="sub"
+                                    formControlProps={{
+                                        fullWidth: true,
+                                    }}
+                                    inputProps={{
+                                        placeholder: "Id",
+                                        value: userStore?.getFilters?.sub,
+                                        onChange: (e) => userStore?.changeFilters({ ...userStore?.getFilters, sub: e.target.value })
+                                    }}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12} sm={3} md={3}>
+                                <AppTextInput
                                     labelText="Username"
                                     id="username"
                                     formControlProps={{
@@ -70,36 +86,6 @@ function FilterUser({ closeDialog }) {
                             </Grid>
 
                             <Grid item xs={12} sm={3} md={3}>
-                                <AppTextInput
-                                    labelText="Phone Number"
-                                    id="phone"
-                                    formControlProps={{
-                                        fullWidth: true,
-                                    }}
-                                    inputProps={{
-                                        placeholder: "Phone Number",
-                                        value: userStore?.getFilters?.phone,
-                                        onChange: (e) => userStore?.changeFilters({ ...userStore?.getFilters, phone: e.target.value })
-                                    }}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12} sm={3} md={3}>
-                                <AppTextInput
-                                    labelText="Sub"
-                                    id="sub"
-                                    formControlProps={{
-                                        fullWidth: true,
-                                    }}
-                                    inputProps={{
-                                        placeholder: "Sub",
-                                        value: userStore?.getFilters?.sub,
-                                        onChange: (e) => userStore?.changeFilters({ ...userStore?.getFilters, sub: e.target.value })
-                                    }}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12} sm={3} md={3}>
                                 <CustomDropDown
                                     labelText="Associated Role"
                                     id="associated-role"
@@ -116,7 +102,7 @@ function FilterUser({ closeDialog }) {
                             </Grid >
 
                             <Grid item xs={12} sm={3} md={3}>
-                                <CompanyDropDown
+                                <PartnerDropDown
                                     labelText="Associated Partner"
                                     fullWidth
                                     value={userStore?.getFilters?.partner}
@@ -132,6 +118,22 @@ function FilterUser({ closeDialog }) {
                                     onChange={(e) => userStore?.changeFilters({ ...userStore?.getFilters, company: e.target.value })}
                                 />
                             </Grid>
+
+                            <Grid item xs={12} sm={3} md={3}>
+                                <CustomDropDown
+                                    labelText="Status"
+                                    id="status"
+                                    formControlProps={{
+                                        fullWidth: true,
+                                    }}
+                                    inputProps={{
+                                        placeholder: "Status",
+                                        value: userStore?.getFilters?.status,
+                                        onChange: (e) => userStore?.changeFilters({ ...userStore?.getFilters, status: e.target.value })
+                                    }}
+                                    data={Status || []}
+                                />
+                            </Grid >
                         </Grid>
                     </FancyCard.CardContent>
 

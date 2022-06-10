@@ -8,6 +8,7 @@ import CompanyDropDown from '../../../CompanyManagement/components/CompanyDropDo
 import { observer } from 'mobx-react'
 import CustomDropDown from '../../../../components/AppTextInput/CustomDropDown'
 import { Distributor, Labels } from '../../../../constants'
+import PartnerDropDown from '../../../PartnerManagement/components/PartnerDropDown'
 
 function FilterEncoded({ closeDialog }) {
     const { sonickeyStore } = useStore();
@@ -118,6 +119,15 @@ function FilterEncoded({ closeDialog }) {
                             </Grid>
 
                             <Grid item xs={12} sm={3} md={3}>
+                                <PartnerDropDown
+                                    labelText="Associated Partner"
+                                    fullWidth
+                                    value={sonickeyStore?.getFilters?.partnerName}
+                                    onChange={(e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, partnerName: e.target.value })}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12} sm={3} md={3}>
                                 <CompanyDropDown
                                     labelText="Associated Company"
                                     fullWidth
@@ -135,8 +145,8 @@ function FilterEncoded({ closeDialog }) {
                                     }}
                                     inputProps={{
                                         placeholder: "Username",
-                                        value: sonickeyStore?.getFilters?.username,
-                                        onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, username: e.target.value })
+                                        value: sonickeyStore?.getFilters?.userName,
+                                        onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, userName: e.target.value })
                                     }}
                                 />
                             </Grid>
