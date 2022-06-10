@@ -11,6 +11,9 @@ import companyHttps from '../../../services/https/resources/company.https';
 import { getRouteNames } from '../../../routes/routes.data';
 import RPopconfirm from '../../../components/rcomponents/RPopconfirm';
 import { useStore } from '../../../stores';
+import CustomDropDown from '../../../components/AppTextInput/CustomDropDown';
+import { CompanyType } from '../../../constants';
+import { SwitchWithLabel } from '../../../components/Switch/Switch';
 
 export default function ViewCompany({ closeDialog }) {
     const [state, setState] = React.useState({
@@ -30,16 +33,20 @@ export default function ViewCompany({ closeDialog }) {
     const [company, setCompany] = React.useState({
         name: "",
         description: "",
-        email: "",
-        contactNo: "",
-        countryCode: "+44",
+        companyType: "",
+        _id: "",
+        owner: {
+            username: "",
+        },
         address: {
             country: "",
             city: "",
             line1: "",
-            line2: ""
+            line2: "",
         },
-        owner: ""
+        owner: "",
+        enabled: true,
+        suspended: false,
     });
 
     const getAndSetCompany = async () => {
@@ -158,7 +165,7 @@ export default function ViewCompany({ closeDialog }) {
                                             loading={state.editLoading}
                                             loadingText="Updating..."
                                             type="submit"
-                                            onClick={validating}
+                                            // onClick={validating}
                                         >
                                             Update
                                         </AppButton>
@@ -221,9 +228,9 @@ export default function ViewCompany({ closeDialog }) {
 
                                 <Grid item xs={12} sm={6} md={6}>
                                     <FormControl fullWidth component="fieldset">
-                                        <AppTextInput
-                                            labelText="Company Email"
-                                            id="companyEmail"
+                                        <CustomDropDown
+                                            labelText="Company type"
+                                            id="companyType"
                                             formControlProps={{
                                                 fullWidth: true,
                                             }}
@@ -231,10 +238,31 @@ export default function ViewCompany({ closeDialog }) {
                                                 readOnly: !state.editMode,
                                                 disabled: !state.editMode,
                                                 placeholder: "Company Email",
-                                                value: company.email,
+                                                value: company.companyType,
                                                 required: true,
                                                 onChange: (e) =>
-                                                    setCompany({ ...company, email: e.target.value }),
+                                                    setCompany({ ...company, companyType: e.target.value }),
+                                            }}
+                                            data={CompanyType || []}
+                                        />
+                                    </FormControl>
+                                </Grid>
+
+                                <Grid item xs={12} sm={6} md={6}>
+                                    <FormControl fullWidth component="fieldset">
+                                        <AppTextInput
+                                            labelText="Company URN/ID"
+                                            id="CompanyUrnId"
+                                            formControlProps={{
+                                                fullWidth: true,
+                                            }}
+                                            inputProps={{
+                                                readOnly: !state.editMode,
+                                                disabled: !state.editMode,
+                                                placeholder: "Company URN/ID",
+                                                value: company._id,
+                                                onChange: (e) =>
+                                                    setCompany({ ...company, _id: e.target.value }),
                                             }}
                                         />
                                     </FormControl>
@@ -243,23 +271,36 @@ export default function ViewCompany({ closeDialog }) {
                                 <Grid item xs={12} sm={6} md={6}>
                                     <FormControl fullWidth component="fieldset">
                                         <AppTextInput
-                                            labelText="Phone Number"
-                                            id="phone"
+                                            labelText="Owner"
+                                            id="username"
                                             formControlProps={{
                                                 fullWidth: true,
                                             }}
                                             inputProps={{
                                                 readOnly: !state.editMode,
                                                 disabled: !state.editMode,
-                                                placeholder: "Phone Number",
-                                                value: company.contactNo,
+                                                placeholder: "Owner",
+                                                value: company.owner.username,
                                                 onChange: (e) =>
-                                                    setCompany({ ...company, contactNo: e.target.value }),
+                                                    setCompany({ ...company, username: e.target.value }),
                                             }}
                                         />
                                     </FormControl>
                                 </Grid>
                             </Grid>
+                            <Grid container>
+                                <Grid item>
+                                    <SwitchWithLabel
+                                        label="suspended"
+                                        checked={company.suspended}
+                                        enabled={!state.editMode}
+                                        onChange={(e) =>
+                                            setCompany({ ...company, suspended: e.target.checked })
+                                        }
+                                    />
+                                </Grid>
+                            </Grid>
+                            
                         </DataFetchingStateComponent>
                     </FancyCard.CardContent>
                 </form>

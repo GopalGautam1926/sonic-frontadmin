@@ -9,15 +9,19 @@ import { toast } from "react-toastify";
 import { useStore } from '../../../stores';
 import UserPicker from '../../../components/UserPicker/UserPicker';
 import usersHttps from '../../../services/https/resources/users.https';
+import CustomDropDown from '../../../components/AppTextInput/CustomDropDown';
+import { CompanyType } from '../../../constants';
 
 const initialCompany = {
     loading: false,
     companyData: {
         name: "",
         description: "",
-        email: "",
-        contactNo: "",
-        countryCode: "+44",
+        companyType: "",
+        _id: "",
+        owner: {
+            username: "",
+        },
         address: {
             country: "",
             city: "",
@@ -117,55 +121,47 @@ export default function AddCompany({ closeDialog }) {
 
                             <Grid item xs={12} sm={6} md={6}>
                                 <FormControl fullWidth component="fieldset" >
-                                    <AppTextInput
-                                        labelText="Email"
-                                        id="email"
-                                        formControlProps={{
-                                            fullWidth: true,
-                                        }}
-                                        inputProps={{
-                                            type: "email",
-                                            required: true,
-                                            id: "email",
-                                            placeholder: "Email address",
-                                            value: state.companyData.email,
-                                            onChange: (e) =>
+                                <CustomDropDown
+                                            labelText="Company type"
+                                            id="companyType"
+                                            formControlProps={{
+                                                fullWidth: true,
+                                            }}
+                                            inputProps={{
+                                                type: "companyType",
+                                                required: true,
+                                                id: "companyType",
+                                                placeholder: "Company Type",
+                                                value: state.companyData.companyType,
+                                                onChange: (e) =>
                                                 setState({
                                                     ...state, companyData: {
-                                                        ...state.companyData, email: e.target.value
+                                                        ...state.companyData, companyType: e.target.value
                                                     }
                                                 }),
-                                        }}
-                                    />
+                                            }}
+                                            data={CompanyType || []}
+                                        />
                                 </FormControl>
                             </Grid>
 
                             <Grid item xs={12} sm={6} md={6}>
                                 <FormControl fullWidth component="fieldset" >
-                                    <AppTextInput.AppPhoneNumberInput
-                                        labelText="Phone number"
-                                        id="phonenumber"
+                                <AppTextInput
+                                        labelText="Company URN/ID"
+                                        id="companyUrnId"
                                         formControlProps={{
                                             fullWidth: true,
                                         }}
                                         inputProps={{
-                                            type: "number",
-                                            id: "phonenumber",
-                                            placeholder: "Phone number",
-                                            value: state.companyData.contactNo,
+                                            id: "companyUrnId",
+                                            required: true,
+                                            placeholder: "Company URN/ID",
+                                            value: state.companyData._id,
                                             onChange: (e) =>
                                                 setState({
                                                     ...state, companyData: {
-                                                        ...state.companyData, contactNo: e.target.value
-                                                    }
-                                                }),
-                                        }}
-                                        countrySelectProps={{
-                                            value: state.companyData.countryCode,
-                                            onChange: (e) =>
-                                                setState({
-                                                    ...state, companyData: {
-                                                        ...state.companyData, countryCode: e.target.value
+                                                        ...state.companyData, _id: e.target.value
                                                     }
                                                 }),
                                         }}

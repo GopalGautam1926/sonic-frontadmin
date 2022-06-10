@@ -456,7 +456,6 @@ export default function ViewLicenseKey({ closeDialog }) {
                     }
                     required={true}
                     disabled={!state.editMode}
-                    disabled= {!state.editMode}
                     inputProps={{
                       required: true,
                       disabled: !state.editMode
@@ -496,7 +495,6 @@ export default function ViewLicenseKey({ closeDialog }) {
                     label="Unlimited encode"
                     checked={license.isUnlimitedEncode}
                     disabled={!state.editMode}
-                    disabled= {!state.editMode}
                     onChange={(e) =>
                       setLicense({
                         ...license,

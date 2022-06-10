@@ -12,6 +12,9 @@ import { getRouteNames } from '../../../routes/routes.data';
 import RPopconfirm from '../../../components/rcomponents/RPopconfirm';
 import { useStore } from '../../../stores';
 import partnerHttps from '../../../services/https/resources/partner.https';
+import { CompanyType, PartnerTypes } from '../../../constants';
+import CustomDropDown from '../../../components/AppTextInput/CustomDropDown';
+import { SwitchWithLabel } from '../../../components/Switch/Switch';
 
 export default function ViewPartner({ closeDialog }) {
     const [state, setState] = React.useState({
@@ -34,13 +37,18 @@ export default function ViewPartner({ closeDialog }) {
         partnerType:"",
         email: "",
         contactNo: "",
+        owner: {
+            username: "",
+        },
         address: {
             country: "",
             city: "",
             line1: "",
             line2: ""
         },
-        owner: ""
+        owner: "",
+        enabled: true,
+        suspended: false,
     });
 
     const getAndSetPartner = async () => {
@@ -88,7 +96,7 @@ export default function ViewPartner({ closeDialog }) {
         }
     };
 
-    // const onRemoveCompany = () => {
+    // const onRemovePartner = () => {
     //     setState({ ...state, disabled: true, deleteLoading: true });
     //     companyHttps.deleteCompany(company?._id).then(({ data }) => {
     //         setState({ ...state, disabled: false, deleteLoading: false })
@@ -222,20 +230,42 @@ export default function ViewPartner({ closeDialog }) {
 
                                 <Grid item xs={12} sm={6} md={6}>
                                     <FormControl fullWidth component="fieldset">
-                                        <AppTextInput
-                                            labelText="Partner Email"
-                                            id="partnerEmail"
+                                        <CustomDropDown
+                                            labelText="Partner type"
+                                            id="partnerType"
                                             formControlProps={{
                                                 fullWidth: true,
                                             }}
                                             inputProps={{
                                                 readOnly: !state.editMode,
                                                 disabled: !state.editMode,
-                                                placeholder: "Partner Email",
-                                                value: partner.email,
+                                                placeholder: "Partner Type",
+                                                placeholder: "Name of the partner",
+                                                value: partner.partnerType,
                                                 required: true,
                                                 onChange: (e) =>
-                                                    setPartner({ ...partner, email: e.target.value }),
+                                                    setPartner({ ...partner, partnerType: e.target.value }),
+                                            }}
+                                            data={PartnerTypes || []}
+                                        />
+                                    </FormControl>
+                                </Grid>
+
+                                <Grid item xs={12} sm={6} md={6}>
+                                    <FormControl fullWidth component="fieldset">
+                                        <AppTextInput
+                                            labelText="Owner"
+                                            id="username"
+                                            formControlProps={{
+                                                fullWidth: true,
+                                            }}
+                                            inputProps={{
+                                                readOnly: !state.editMode,
+                                                disabled: !state.editMode,
+                                                placeholder: "Owner",
+                                                value: partner.owner.username,
+                                                onChange: (e) =>
+                                                    setPartner({ ...partner, username: e.target.value }),
                                             }}
                                         />
                                     </FormControl>
@@ -260,6 +290,18 @@ export default function ViewPartner({ closeDialog }) {
                                         />
                                     </FormControl>
                                 </Grid> */}
+                            </Grid>
+                            <Grid container>
+                                <Grid item>
+                                    <SwitchWithLabel
+                                        label="suspended"
+                                        checked={partner.suspended}
+                                        enabled={!state.editMode}
+                                        onChange={(e) =>
+                                            setPartner({ ...partner, suspended: e.target.checked })
+                                        }
+                                    />
+                                </Grid>
                             </Grid>
                         </DataFetchingStateComponent>
                     </FancyCard.CardContent>
