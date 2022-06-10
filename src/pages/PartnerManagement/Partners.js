@@ -1,8 +1,10 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
+import Badge from '../../components/Badge/Badge'
 import CustomPagination from '../../components/common/CustomPagination'
 import DataFetchingStateComponent from '../../components/common/DataFetchingStateComponent'
 import FancyCard from '../../components/FancyCard/FancyCard'
+import RSpace from '../../components/rcomponents/RSpace'
 import Table from '../../components/Table/Table'
 import { getRouteNames } from '../../routes/routes.data'
 import { useStore } from '../../stores'
@@ -26,18 +28,22 @@ export default function Partners() {
             name: "_id",
         },
         {
-            label: "Email",
-            name: "email",
+            label: "Type",
+            name: "partnerType",
         },
-        {
-            label: "Contact No",
-            name: "contactNo",
-            options: {
-                customBodyRender: (value) => {
-                    return value || "--";
-                }
-            }
-        },
+        // {
+        //     label: "Email",
+        //     name: "email",
+        // },
+        // {
+        //     label: "Contact No",
+        //     name: "contactNo",
+        //     options: {
+        //         customBodyRender: (value) => {
+        //             return value || "--";
+        //         }
+        //     }
+        // },
         {
             label: "Owner",
             name: "owner",
@@ -48,6 +54,41 @@ export default function Partners() {
                 }
             }
         },
+        {
+            label: "Status",
+            name: "key",
+            options: {
+              filter: false,
+              customBodyRender: (
+                value,
+                { rowIndex, columnIndex, currentTableData },
+                updateValue
+              ) => {
+                const rowData = partnerStore.getPartner.docs.find(
+                  (itm) => itm.key == value
+                );
+                const statusItem = [];
+                if (rowData?.enabled) {
+                  statusItem.push(
+                    <Badge color="success" size="small" label={<div style={{ fontSize: 11 }}>Active</div>} />
+                  );
+                }
+                if (rowData?.enabled == 0) {
+                  statusItem.push(
+                    <Badge color="warning" size="small" label="Suspended" />
+                  );
+                }
+      
+                return (
+                  <RSpace style={{}}>
+                    {statusItem.map((status) => (
+                      <RSpace.Item>{status}</RSpace.Item>
+                    ))}
+                  </RSpace>
+                );
+              },
+            },
+          },
         {
             label: "Actions",
             name: "_id",

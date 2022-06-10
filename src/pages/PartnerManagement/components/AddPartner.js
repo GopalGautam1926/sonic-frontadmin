@@ -8,13 +8,15 @@ import partnerHttps from '../../../services/https/resources/partner.https';
 import { toast } from "react-toastify";
 import { useStore } from '../../../stores';
 import UserPicker from '../../../components/UserPicker/UserPicker';
+import CustomDropDown from '../../../components/AppTextInput/CustomDropDown';
+import { PartnerTypes } from '../../../constants';
 
 const initialPartner = {
     loading: false,
     partnerData: {
         name: "",
         description: "",
-        partnerType:"CMO",
+        partnerType:"",
         email: "",
         contactNo: "",
         address: {
@@ -116,28 +118,53 @@ export default function AddPartner({ closeDialog }) {
 
                             <Grid item xs={12} sm={6} md={6}>
                                 <FormControl fullWidth component="fieldset" >
+                                <CustomDropDown
+                                            labelText="Partner type"
+                                            id="partnerType"
+                                            formControlProps={{
+                                                fullWidth: true,
+                                            }}
+                                            inputProps={{
+                                                type: "partnerType",
+                                                required: true,
+                                                id: "partnerType",
+                                                placeholder: "Partner Type",
+                                                value: state.partnerData.partnerType,
+                                                onChange: (e) =>
+                                                setState({
+                                                    ...state, partnerData: {
+                                                        ...state.partnerData, partnerType: e.target.value
+                                                    }
+                                                }),
+                                            }}
+                                            data={PartnerTypes || []}
+                                        />
+                                </FormControl>
+                            </Grid>
+
+                            {/* <Grid item xs={12} sm={6} md={6}>
+                                <FormControl fullWidth component="fieldset" >
                                     <AppTextInput
-                                        labelText="Email"
-                                        id="email"
+                                        labelText="Company URN/ID"
+                                        id="companyUrnId"
                                         formControlProps={{
                                             fullWidth: true,
                                         }}
                                         inputProps={{
-                                            type: "email",
+                                            id: "companyUrnId",
                                             required: true,
-                                            id: "email",
-                                            placeholder: "Email address",
-                                            value: state.partnerData.email,
+                                            placeholder: "Company URN/ID",
+                                            value: state.companyData._id,
                                             onChange: (e) =>
                                                 setState({
-                                                    ...state, partnerData: {
-                                                        ...state.partnerData, email: e.target.value
+                                                    ...state, companyData: {
+                                                        ...state.companyData, _id: e.target.value
                                                     }
                                                 }),
                                         }}
                                     />
                                 </FormControl>
-                            </Grid>
+                            </Grid> */}
 
                             {/* <Grid item xs={12} sm={6} md={6}>
                                 <FormControl fullWidth component="fieldset" >
