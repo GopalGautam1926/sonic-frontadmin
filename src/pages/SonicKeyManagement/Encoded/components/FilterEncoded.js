@@ -138,13 +138,13 @@ function FilterEncoded({ closeDialog }) {
 
                             <Grid item xs={12} sm={3} md={3}>
                                 <AppTextInput
-                                    labelText="Username"
+                                    labelText="User"
                                     id="username"
                                     formControlProps={{
                                         fullWidth: true,
                                     }}
                                     inputProps={{
-                                        placeholder: "Username",
+                                        placeholder: "e.g. 3f29c3b9-0407-41b9-a832",
                                         value: sonickeyStore?.getFilters?.userName,
                                         onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, userName: e.target.value })
                                     }}

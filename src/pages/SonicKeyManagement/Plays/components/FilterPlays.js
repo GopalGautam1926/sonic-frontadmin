@@ -187,13 +187,13 @@ function FilterPlays({ closeDialog }) {
 
                             <Grid item xs={12} sm={3} md={3}>
                                 <AppTextInput
-                                    labelText="Username"
+                                    labelText="User"
                                     id="username"
                                     formControlProps={{
                                         fullWidth: true,
                                     }}
                                     inputProps={{
-                                        placeholder: "Username",
+                                        placeholder: "e.g. 3f29c3b9-0407-41b9-a832",
                                         value: playsStore?.getFilters?.userName,
                                         onChange: (e) => playsStore?.changeFilters({ ...playsStore?.getFilters, userName: e.target.value })
                                     }}

@@ -125,7 +125,7 @@ class UserStore {
                 "createdAt>": `date(${startDate})` || undefined,
                 "createdAt<": `date(${endDate})` || undefined,
                 "username": this.filters.username ? `/${this.filters.username}/i` : undefined,
-                "email": this.filters.email ? `/${this.filters.email}/i` : undefined,
+                "email": this.filters.email ? this.filters.email : undefined,
                 "_id": this.filters.sub || undefined,
                 "userRole": this.filters.associatedRole || undefined,
                 "enabled": this.filters.status ? this.filters.status === "Active" ? true : false : undefined,
@@ -164,6 +164,18 @@ class UserStore {
     updateUser(id, payload) {
         const elementsIndex = this.users.docs.findIndex(element => element._id == id)
         this.users.docs[elementsIndex] = { ...this.users.docs[elementsIndex], ...payload }
+    }
+
+    /**
+   *delete user from store
+   * @param {string} userId
+   */
+    async deleteUser(userId) {
+        return usersHttps.deleteUser(userId).then(({ data }) => {
+            this.users.docs = this.users.docs.filter((user) => user?._id !== userId);
+            this.users.totalDocs -= 1;
+            return data;
+        });
     }
 }
 

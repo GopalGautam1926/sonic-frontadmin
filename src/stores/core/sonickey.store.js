@@ -120,8 +120,8 @@ class SonicKeyStore {
                 "label": this.filters.label || undefined,
                 "distributor": this.filters.distributor || undefined,
                 "relation_partner._id": this.filters.partnerName || undefined,
-                "relation_owner.companies": this.filters.companyName || undefined,
-                "relation_owner.username": this.filters.userName ? `/${this.filters.userName}/i` : undefined,
+                "relation_company._id": this.filters.companyName || undefined,
+                "relation_filter": this.filters.userName ? { "$or": [{ "relation_owner._id": this.filters.userName }, { "createdBy": this.filters.userName }] } : undefined,
             },
         }
 
