@@ -42,14 +42,19 @@ export default function AddPartner({ closeDialog }) {
         // }
         // delete payload.countryCode
 
+    //     setNewUser(initialUserDetails);
+    //     userStore?.addNewUser(data)
+    //    
+    //   })
+
         setState({ ...state, loading: true })
         partnerHttps.createPartner(payload).then(({ data }) => {
+            log("success adding partner",data)
             setState({ ...state, loading: false })
+            setState(initialPartner);
             partnerStore.addPartner(data)
             toast.success("Successfully added partner")
             closeDialog?.()
-            setState(initialPartner);
-            log("Add Partner Data", data)
         }).catch((err) => {
             setState({ ...state, loading: false, error: err?.message })
             toast.error(err?.message || "Error adding partner...")
@@ -65,10 +70,10 @@ export default function AddPartner({ closeDialog }) {
                         {(headerClasses) => (
                             <>
                                 <h4 className={headerClasses.cardTitleWhite}>
-                                    Add New Company
+                                    Add New Partner
                                 </h4>
                                 <p className={headerClasses.cardCategoryWhite}>
-                                    Add new company
+                                    Add new Partner
                                 </p>
                             </>
                         )}
@@ -105,8 +110,8 @@ export default function AddPartner({ closeDialog }) {
                             <Grid item xs={12} sm={6} md={6}>
                                 <FormControl fullWidth component="fieldset" >
                                     <UserPicker
-                                        labelText="Owner"
-                                        placeholder="Owner username"
+                                        labelText="Admin"
+                                        placeholder="Admin username"
                                         getFoundUser={(user) => setState({
                                             ...state, partnerData: {
                                                 ...state.partnerData, owner: user?._id
@@ -139,6 +144,30 @@ export default function AddPartner({ closeDialog }) {
                                             }}
                                             data={PartnerTypes || []}
                                         />
+                                </FormControl>
+                            </Grid>
+
+                            <Grid item xs={12} sm={6} md={6}>
+                                <FormControl fullWidth component="fieldset" >
+                                    <AppTextInput
+                                        labelText="Partner Email"
+                                        id="email"
+                                        formControlProps={{
+                                            fullWidth: true,
+                                        }}
+                                        inputProps={{
+                                            id: "email",
+                                            required: true,
+                                            placeholder: "Partner email",
+                                            value: state.partnerData.email,
+                                            onChange: (e) =>
+                                                setState({
+                                                    ...state, partnerData: {
+                                                        ...state.partnerData, email: e.target.value
+                                                    }
+                                                }),
+                                        }}
+                                    />
                                 </FormControl>
                             </Grid>
 

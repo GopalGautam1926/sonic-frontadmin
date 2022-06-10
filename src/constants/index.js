@@ -55,7 +55,7 @@ export const CompanyType = [
 export const PartnerTypes = [
     "CMO",
     "Distributor",
-    "Monitor",
+    "Monitoring Company",
     "Music Management Services",
     "PRO",
     "Production Library",

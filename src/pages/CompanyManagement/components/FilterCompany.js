@@ -6,6 +6,8 @@ import AppTextInput from '../../../components/AppTextInput/AppTextInput';
 import CompanyDropDown from '../../CompanyManagement/components/CompanyDropDown';
 import AppButton from '../../../components/AppButton/AppButton';
 import { useStore } from '../../../stores';
+import CustomDropDown from '../../../components/AppTextInput/CustomDropDown';
+import { CompanyType } from '../../../constants';
 
 function FilterCompany({ closeDialog }) {
     const { companyStore } = useStore();
@@ -38,22 +40,34 @@ function FilterCompany({ closeDialog }) {
                     <FancyCard.CardContent>
                         <Grid container spacing={1}>
                             <Grid item xs={12} sm={3} md={3}>
-                                <CompanyDropDown
+                            <AppTextInput
                                     labelText="Company Name"
-                                    fullWidth
-                                    value={companyStore?.getFilters?.company}
-                                    onChange={(e) => companyStore?.changeFilters({ ...companyStore?.getFilters, company: e.target.value })}
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={3} md={3}>
-                                <AppTextInput
-                                    labelText="Owner"
-                                    id="owner"
+                                    id="companyname"
                                     formControlProps={{
                                         fullWidth: true,
                                     }}
                                     inputProps={{
-                                        placeholder: "Owner",
+                                        placeholder: "Company name",
+                                        value: companyStore?.getFilters?.name,
+                                        onChange: (e) => companyStore?.changeFilters({ ...companyStore?.getFilters, name: e.target.value })
+                                    }}
+                                />
+                                {/* <CompanyDropDown
+                                    labelText="Company Name"
+                                    fullWidth
+                                    value={companyStore?.getFilters?.name}
+                                    onChange={(e) => companyStore?.changeFilters({ ...companyStore?.getFilters, name: e.target.value })}
+                                /> */}
+                            </Grid>
+                            <Grid item xs={12} sm={3} md={3}>
+                                <AppTextInput
+                                    labelText="Admin"
+                                    id="Admin"
+                                    formControlProps={{
+                                        fullWidth: true,
+                                    }}
+                                    inputProps={{
+                                        placeholder: "Admin username",
                                         value: companyStore?.getFilters?.owner,
                                         onChange: (e) => companyStore?.changeFilters({ ...companyStore?.getFilters, owner: e.target.value })
                                     }}
@@ -61,31 +75,33 @@ function FilterCompany({ closeDialog }) {
                             </Grid>
 
                             <Grid item xs={12} sm={3} md={3}>
-                                <AppTextInput
-                                    labelText="Email Address"
-                                    id="email"
-                                    formControlProps={{
-                                        fullWidth: true,
-                                    }}
-                                    inputProps={{
-                                        placeholder: "Email Address",
-                                        value: companyStore?.getFilters?.email,
-                                        onChange: (e) => companyStore?.changeFilters({ ...companyStore?.getFilters, email: e.target.value })
-                                    }}
-                                />
+                                    <CustomDropDown
+                                            labelText="Company Type"
+                                            id="companyType"
+                                            formControlProps={{
+                                                fullWidth: true,
+                                            }}
+                                            inputProps={{
+                                                placeholder: "Company type",
+                                                value: companyStore?.getFilters?.companyType,
+                                                onChange: (e) =>
+                                                    companyStore?.changeFilters({ ...companyStore?.getFilters, companyType: e.target.value }),
+                                            }}
+                                            data={CompanyType || []}
+                                    />
                             </Grid>
 
                             <Grid item xs={12} sm={3} md={3}>
                                 <AppTextInput
-                                    labelText="Phone Number"
-                                    id="phone"
+                                    labelText="Company URN/ID"
+                                    id="companyUrnOrId"
                                     formControlProps={{
                                         fullWidth: true,
                                     }}
                                     inputProps={{
-                                        placeholder: "Phone Number",
-                                        value: companyStore?.getFilters?.phone,
-                                        onChange: (e) => companyStore?.changeFilters({ ...companyStore?.getFilters, phone: e.target.value })
+                                        placeholder: "Company URN/Id",
+                                        value: companyStore?.getFilters?.companyUrnOrId,
+                                        onChange: (e) => companyStore?.changeFilters({ ...companyStore?.getFilters, companyUrnOrId: e.target.value })
                                     }}
                                 />
                             </Grid>

@@ -8,7 +8,9 @@ import RSpace from '../../components/rcomponents/RSpace'
 import Table from '../../components/Table/Table'
 import { getRouteNames } from '../../routes/routes.data'
 import { useStore } from '../../stores'
+import { log } from '../../utils/app.debug'
 import AddPartner from './components/AddPartner'
+import FilterPartner from './components/FilterPartner'
 
 export default function Partners() {
     const { partnerStore } = useStore();
@@ -45,7 +47,7 @@ export default function Partners() {
         //     }
         // },
         {
-            label: "Owner",
+            label: "Admin",
             name: "owner",
             options: {
                 filter: false,
@@ -125,6 +127,8 @@ export default function Partners() {
         partnerStore.changePartnerTablePage(page);
     }
 
+    log("partner data ",partnerStore?.getPartner?.docs)
+
     return (
         <div>
             <FancyCard
@@ -151,14 +155,14 @@ export default function Partners() {
                         <Table
                             title={
                                 <Table.TableActions
-                                    // addPlusFilter
+                                    addPlusFilter
                                     openDialogWhenClickAdd={true}
-                                    // openDialogFilter={true}
+                                    openDialogFilter={true}
                                     refreshButtonProps={{
                                         onClick: () => partnerStore.fetchPartners(),
                                     }}
                                     componentInsideDialog={<AddPartner />}
-                                // componentInsideDialogFilter={<FilterCompany />}
+                                    componentInsideDialogFilter={<FilterPartner />}
                                 />
                             }
                             columns={columns}

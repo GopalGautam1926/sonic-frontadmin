@@ -24,30 +24,12 @@ export default function ViewCompany({ closeDialog }) {
         company: {},
         disabled: false,
         deleteLoading: false,
-        checkEmail: false,
     });
     let { companyId } = useParams();
     const location = useLocation();
     const history = useHistory();
     const { companyStore } = useStore();
-    const [company, setCompany] = React.useState({
-        name: "",
-        description: "",
-        companyType: "",
-        _id: "",
-        owner: {
-            username: "",
-        },
-        address: {
-            country: "",
-            city: "",
-            line1: "",
-            line2: "",
-        },
-        owner: "",
-        enabled: true,
-        suspended: false,
-    });
+    const [company, setCompany] = React.useState({});
 
     const getAndSetCompany = async () => {
         try {
@@ -73,9 +55,9 @@ export default function ViewCompany({ closeDialog }) {
         e.preventDefault();
         setState({ ...state, editLoading: true });
 
-        if (state?.checkEmail) {
+        // if (state?.checkEmail) {
             companyHttps
-                .updateCompany(company._id, company)
+                .updateCompany(companyId, company)
                 .then(({ data }) => {
                     setState({
                         ...state,
@@ -89,9 +71,9 @@ export default function ViewCompany({ closeDialog }) {
                     setState({ ...state, editLoading: false });
                     toast.error(err.message || "Error while creating..");
                 });
-        } else {
-            setState({ ...state, editLoading: false });
-        }
+        // } else {
+        //     setState({ ...state, editLoading: false });
+        // }
     };
 
     // const onRemoveCompany = () => {
@@ -109,15 +91,15 @@ export default function ViewCompany({ closeDialog }) {
     //     })
     // }
 
-    const validating = () => {
-        let Emailverification = (new RegExp(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,15}/g).test(company?.email));
-        if (Emailverification === false) {
-            toast.error("Not valid Email..");
-            setState({ ...state, checkEmail: false });
-        } else {
-            setState({ ...state, checkEmail: true });
-        }
-    }
+    // const validating = () => {
+    //     let Emailverification = (new RegExp(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,15}/g).test(company?.email));
+    //     if (Emailverification === false) {
+    //         toast.error("Not valid Email..");
+    //         setState({ ...state, checkEmail: false });
+    //     } else {
+    //         setState({ ...state, checkEmail: true });
+    //     }
+    // }
 
     return (
         <div>
@@ -237,7 +219,7 @@ export default function ViewCompany({ closeDialog }) {
                                             inputProps={{
                                                 readOnly: !state.editMode,
                                                 disabled: !state.editMode,
-                                                placeholder: "Company Email",
+                                                placeholder: "Company Type",
                                                 value: company.companyType,
                                                 required: true,
                                                 onChange: (e) =>
@@ -260,9 +242,9 @@ export default function ViewCompany({ closeDialog }) {
                                                 readOnly: !state.editMode,
                                                 disabled: !state.editMode,
                                                 placeholder: "Company URN/ID",
-                                                value: company._id,
+                                                value: company.companyUrnOrId,
                                                 onChange: (e) =>
-                                                    setCompany({ ...company, _id: e.target.value }),
+                                                    setCompany({ ...company, companyUrnOrId: e.target.value }),
                                             }}
                                         />
                                     </FormControl>
@@ -271,7 +253,7 @@ export default function ViewCompany({ closeDialog }) {
                                 <Grid item xs={12} sm={6} md={6}>
                                     <FormControl fullWidth component="fieldset">
                                         <AppTextInput
-                                            labelText="Owner"
+                                            labelText="Admin"
                                             id="username"
                                             formControlProps={{
                                                 fullWidth: true,
@@ -279,10 +261,10 @@ export default function ViewCompany({ closeDialog }) {
                                             inputProps={{
                                                 readOnly: !state.editMode,
                                                 disabled: !state.editMode,
-                                                placeholder: "Owner",
-                                                value: company.owner.username,
+                                                placeholder: "Admin",
+                                                value: company?.owner?.username,
                                                 onChange: (e) =>
-                                                    setCompany({ ...company, username: e.target.value }),
+                                                    setCompany({ ...company,owner:{...company.owner, username: e.target.value} }),
                                             }}
                                         />
                                     </FormControl>
