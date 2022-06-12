@@ -106,6 +106,11 @@ class UsersHttps {
     })
   }
 
+  /**
+    * Find users
+    * @param {AxiosRequestConfig} username
+    * @returns {Promise<any>}
+    */
   findUser(username) {
     return AppWebRequest({
       method: "get",

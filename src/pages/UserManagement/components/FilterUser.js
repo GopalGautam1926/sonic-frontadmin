@@ -9,9 +9,11 @@ import { useStore } from '../../../stores';
 import CustomDropDown from '../../../components/AppTextInput/CustomDropDown';
 import { AssociatedRoles, Status } from '../../../constants';
 import PartnerDropDown from '../../PartnerManagement/components/PartnerDropDown';
+import AppAutoComplete from '../../../components/AppAutoComplete';
+import companyHttps from '../../../services/https/resources/company.https';
 
 function FilterUser({ closeDialog }) {
-    const { userStore } = useStore();
+    const { userStore, companyStore } = useStore();
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -118,6 +120,19 @@ function FilterUser({ closeDialog }) {
                                     onChange={(e) => userStore?.changeFilters({ ...userStore?.getFilters, company: e.target.value })}
                                 />
                             </Grid>
+
+                            {/* <Grid item xs={12} sm={3} md={3}>
+                                <AppAutoComplete
+                                    setAutoComPleteAction={(value) => companyHttps.findCompany(value)}
+                                    setAutoCompleteOptions={(option => option?.name || "")}
+                                    setAutoCompleteOptionsLabel={(option => option?.companyType || "")}
+                                    loading={companyStore.loading}
+                                    data={companyStore.getCompany?.data?.docs}
+                                    error={companyStore.error}
+                                    getSelectedValue={(e, v) => setState({ ...state, company: v })}
+                                    placeholder={"Search for a company"}
+                                />
+                            </Grid> */}
 
                             <Grid item xs={12} sm={3} md={3}>
                                 <CustomDropDown
