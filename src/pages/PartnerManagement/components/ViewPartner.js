@@ -240,7 +240,6 @@ export default function ViewPartner({ closeDialog }) {
                                                 readOnly: !state.editMode,
                                                 disabled: !state.editMode,
                                                 placeholder: "Partner Type",
-                                                placeholder: "Name of the partner",
                                                 value: partner.partnerType,
                                                 required: true,
                                                 onChange: (e) =>
@@ -254,7 +253,7 @@ export default function ViewPartner({ closeDialog }) {
                                 <Grid item xs={12} sm={6} md={6}>
                                     <FormControl fullWidth component="fieldset">
                                         <AppTextInput
-                                            labelText="Owner"
+                                            labelText="Admin"
                                             id="username"
                                             formControlProps={{
                                                 fullWidth: true,
@@ -262,7 +261,7 @@ export default function ViewPartner({ closeDialog }) {
                                             inputProps={{
                                                 readOnly: !state.editMode,
                                                 disabled: !state.editMode,
-                                                placeholder: "Owner",
+                                                placeholder: "Admin",
                                                 value: partner.owner.username,
                                                 onChange: (e) =>
                                                     setPartner({ ...partner, username: e.target.value }),
@@ -271,25 +270,7 @@ export default function ViewPartner({ closeDialog }) {
                                     </FormControl>
                                 </Grid>
 
-                                {/* <Grid item xs={12} sm={6} md={6}>
-                                    <FormControl fullWidth component="fieldset">
-                                        <AppTextInput
-                                            labelText="Phone Number"
-                                            id="phone"
-                                            formControlProps={{
-                                                fullWidth: true,
-                                            }}
-                                            inputProps={{
-                                                readOnly: !state.editMode,
-                                                disabled: !state.editMode,
-                                                placeholder: "Phone Number",
-                                                value: company.contactNo,
-                                                onChange: (e) =>
-                                                    setCompany({ ...company, contactNo: e.target.value }),
-                                            }}
-                                        />
-                                    </FormControl>
-                                </Grid> */}
+                                
                             </Grid>
                             <Grid container>
                                 <Grid item>

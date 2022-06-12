@@ -36,10 +36,10 @@ class CompanyStore {
         endDate: new Date(),
     };
     @observable filters = {
-        company: "",
+        name: "",
+        companyType: "",
+        companyUrnOrId: "",
         owner: "",
-        email: "",
-        phone: "",
     };
 
     @computed
@@ -52,6 +52,7 @@ class CompanyStore {
         this.dateRange = dateRange;
     }
 
+    //User Filters
     @computed
     get getFilters() {
         return toJS(this.filters);
@@ -65,12 +66,13 @@ class CompanyStore {
     @action
     resetFilter() {
         this.filters = {
-            company: "",
+            name: "",
+            companyType: "",
+            companyUrnOrId: "",
             owner: "",
-            email: "",
-            phone: "",
         }
     }
+    /* ----------------------------- */
 
     @computed
     get getCompany() {
@@ -95,10 +97,10 @@ class CompanyStore {
                 sort: "-createdAt",
                 // "createdAt>": `date(${startDate})` || undefined,
                 // "createdAt<": `date(${endDate})` || undefined,
-                // "name": this.filters.company || undefined,
-                // "email": this.filters.email || undefined,
-                // "contactNo": this.filters.phone || undefined,
-                // "relation_owner.username": this.filters.owner || undefined,
+                "name": this.filters.name ? `/${this.filters.name}/i` : undefined,
+                "companyType": this.filters.companyType ? `${this.filters.companyType}` : undefined,
+                "companyUrnOrId": this.filters.companyUrnOrId ? `/${this.filters.companyUrnOrId}/i` : undefined,
+                "relation_owner.username": this.filters.owner || undefined,
             }
         }
 
@@ -118,7 +120,7 @@ class CompanyStore {
 
     @action
     addCompany(companyData) {
-        this.company.unshift(companyData)
+        this.company.docs.unshift(companyData)
     }
 
     /**
@@ -128,8 +130,8 @@ class CompanyStore {
     */
     @action
     updateCompany(id, payload) {
-        const elementsIndex = this.company.findIndex(element => element._id == id)
-        this.company[elementsIndex] = { ...this.company[elementsIndex], ...payload }
+        const elementsIndex = this.company.docs.findIndex(element => element._id == id)
+        this.company.docs[elementsIndex] = { ...this.company.docs[elementsIndex], ...payload }
     }
 
     /**
@@ -138,7 +140,7 @@ class CompanyStore {
     */
     @action
     removeCompany(id) {
-        this.company = this.company.filter(
+        this.company.docs = this.company.docs.filter(
             (cpy) => cpy?._id !== id
         );
     }

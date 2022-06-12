@@ -8,6 +8,7 @@ import Table from '../../components/Table/Table'
 import { getRouteNames } from '../../routes/routes.data'
 import { useStore } from '../../stores'
 import AddCompany from './components/AddCompany'
+import FilterCompany from './components/FilterCompany'
 
 export default function Companies() {
     const { companyStore } = useStore();
@@ -23,15 +24,15 @@ export default function Companies() {
             name: "name",
         },
         {
-            label: "Company Type",
+            label: "Type",
             name: "companyType",
         },
         {
-            label: "Company URN/ID",
-            name: "_id",
+            label: "URN/ID",
+            name: "companyUrnOrId",
         },
         {
-            label: "Owner",
+            label: "Admin",
             name: "owner",
             options: {
                 filter: false,
@@ -166,14 +167,14 @@ export default function Companies() {
                         <Table
                             title={
                                 <Table.TableActions
-                                    // addPlusFilter
+                                    addPlusFilter
                                     openDialogWhenClickAdd={true}
-                                    // openDialogFilter={true}
+                                    openDialogFilter={true}
                                     refreshButtonProps={{
                                         onClick: () => companyStore.fetchCompanies(),
                                     }}
                                     componentInsideDialog={<AddCompany />}
-                                // componentInsideDialogFilter={<FilterCompany />}
+                                componentInsideDialogFilter={<FilterCompany />}
                                 />
                             }
                             columns={columns}

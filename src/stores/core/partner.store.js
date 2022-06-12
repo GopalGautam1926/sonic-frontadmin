@@ -51,10 +51,10 @@ class PartnerStore {
         endDate: new Date(),
     };
     @observable filters = {
-        partner: "",
+        name: "",
+        _id: "",
+        partnerType: "",
         owner: "",
-        email: "",
-        phone: "",
     };
 
     @computed
@@ -80,10 +80,10 @@ class PartnerStore {
     @action
     resetFilter() {
         this.filters = {
-            partner: "",
+            name: "",
+            _id: "",
+            partnerType: "",
             owner: "",
-            email: "",
-            phone: "",
         }
     }
 
@@ -111,12 +111,11 @@ class PartnerStore {
                 limit: this.partner.limit,
                 page: page,
                 skip: page > 1 ? (page - 1) * this.users.limit : 0,
-                // "createdAt>": `date(${startDate})` || undefined,
-                // "createdAt<": `date(${endDate})` || undefined,
-                // "name": this.filters.company || undefined,
-                // "email": this.filters.email || undefined,
-                // "contactNo": this.filters.phone || undefined,
-                // "relation_owner.username": this.filters.owner || undefined,
+
+                "name": this.filters.name ? `/${this.filters.name}/i` : undefined,
+                "partnerType": this.filters.partnerType ? `${this.filters.partnerType}` : undefined,
+                "_id": this.filters._id ? `${this.filters._id}` : undefined,
+                "relation_owner.username": this.filters.owner || undefined,
             }
         }
 

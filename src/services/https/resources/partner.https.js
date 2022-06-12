@@ -18,12 +18,11 @@ class PartnerHttps {
         });
     }
 
-    createPartner(partnerPayload, options = {}) {
+    createPartner(partnerPayload) {
         return AppWebRequest({
             method: "post",
             data: partnerPayload,
             url: "/partners",
-            ...options,
         });
     }
 

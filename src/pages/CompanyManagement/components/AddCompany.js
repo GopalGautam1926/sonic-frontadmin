@@ -18,7 +18,7 @@ const initialCompany = {
         name: "",
         description: "",
         companyType: "",
-        _id: "",
+        companyUrnOrId: "",
         owner: {
             username: "",
         },
@@ -108,8 +108,8 @@ export default function AddCompany({ closeDialog }) {
                             <Grid item xs={12} sm={6} md={6}>
                                 <FormControl fullWidth component="fieldset" >
                                     <UserPicker
-                                        labelText="Owner"
-                                        placeholder="Owner username"
+                                        labelText="Admin"
+                                        placeholder="Admin username"
                                         getFoundUser={(user) => setState({
                                             ...state, companyData: {
                                                 ...state.companyData, owner: user?._id
@@ -157,11 +157,11 @@ export default function AddCompany({ closeDialog }) {
                                             id: "companyUrnId",
                                             required: true,
                                             placeholder: "Company URN/ID",
-                                            value: state.companyData._id,
+                                            value: state.companyData.companyUrnOrId,
                                             onChange: (e) =>
                                                 setState({
                                                     ...state, companyData: {
-                                                        ...state.companyData, _id: e.target.value
+                                                        ...state.companyData, companyUrnOrId: e.target.value
                                                     }
                                                 }),
                                         }}
