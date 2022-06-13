@@ -100,7 +100,7 @@ export default function Users() {
                     const statusItem = [];
                     if (!value) {
                         statusItem.push(
-                            <Badge color="error" size="small" label={<div style={{ fontSize: 11 }}>Suspended</div>} />
+                            <Badge color="error" size="small" label={<div style={{ fontSize: 11 }}>Inactive</div>} />
                         );
                     }
                     if (value) {

@@ -2,15 +2,14 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { log } from '../../utils/app.debug';
-import usersHttps from '../../services/https/resources/users.https';
+import usersHttps from '../../../services/https/resources/users.https';
 import { CircularProgress, Grid, Typography } from '@material-ui/core';
-import AppButton from '../AppButton/AppButton';
+import AppButton from '../../AppButton/AppButton';
 
 export default function UserPicker({
     labelText,
     placeholder,
-    getFoundUser,
+    getSelectedValue,
     ...props
 }) {
     const [state, setState] = React.useState({
@@ -29,9 +28,14 @@ export default function UserPicker({
                         <CircularProgress />
                         <Typography>Searching user...</Typography>
                     </Grid> :
-                    <Grid container direction='column' alignItems='center'>
-                        <Typography>No Data</Typography>
-                    </Grid>
+                    state?.data === undefined ?
+                        <Grid container direction='column' alignItems='center'>
+                            <Typography>Start typing...</Typography>
+                        </Grid> :
+                        state?.data?.length === 0 &&
+                        <Grid container direction='column' alignItems='center'>
+                            <Typography>No Data</Typography>
+                        </Grid>
                 }
             </>
         )
@@ -46,13 +50,7 @@ export default function UserPicker({
         )
     }
 
-    const selectedUser = (event, value) => {
-        log("SELECTED USER", value)
-        getFoundUser(value);
-    }
-
     const getUsers = (event, user) => {
-        log("USER=>", user)
         setState({ ...state, user: user })
         if (user.length > 2) {
             setState({ ...state, loading: true, open: true })
@@ -75,7 +73,7 @@ export default function UserPicker({
             getOptionSelected={(option, value) => option.id === value.id}
             getOptionLabel={(option) => option?.username}
             onInputChange={getUsers}
-            onChange={selectedUser}
+            onChange={(e, v) => getSelectedValue(v)}
             renderInput={(params) =>
                 <TextField
                     {...params}

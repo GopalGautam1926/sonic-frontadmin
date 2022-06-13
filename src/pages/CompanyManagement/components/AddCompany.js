@@ -7,7 +7,7 @@ import { log } from '../../../utils/app.debug';
 import companyHttps from '../../../services/https/resources/company.https';
 import { toast } from "react-toastify";
 import { useStore } from '../../../stores';
-import UserPicker from '../../../components/UserPicker/UserPicker';
+import UserPicker from '../../../components/Picker/UserPicker/UserPicker';
 import usersHttps from '../../../services/https/resources/users.https';
 import CustomDropDown from '../../../components/AppTextInput/CustomDropDown';
 import { CompanyType } from '../../../constants';
@@ -110,7 +110,7 @@ export default function AddCompany({ closeDialog }) {
                                     <UserPicker
                                         labelText="Admin"
                                         placeholder="Admin username"
-                                        getFoundUser={(user) => setState({
+                                        getSelectedValue={(user) => setState({
                                             ...state, companyData: {
                                                 ...state.companyData, owner: user?._id
                                             }
@@ -121,33 +121,33 @@ export default function AddCompany({ closeDialog }) {
 
                             <Grid item xs={12} sm={6} md={6}>
                                 <FormControl fullWidth component="fieldset" >
-                                <CustomDropDown
-                                            labelText="Company type"
-                                            id="companyType"
-                                            formControlProps={{
-                                                fullWidth: true,
-                                            }}
-                                            inputProps={{
-                                                type: "companyType",
-                                                required: true,
-                                                id: "companyType",
-                                                placeholder: "Company Type",
-                                                value: state.companyData.companyType,
-                                                onChange: (e) =>
+                                    <CustomDropDown
+                                        labelText="Company type"
+                                        id="companyType"
+                                        formControlProps={{
+                                            fullWidth: true,
+                                        }}
+                                        inputProps={{
+                                            type: "companyType",
+                                            required: true,
+                                            id: "companyType",
+                                            placeholder: "Company Type",
+                                            value: state.companyData.companyType,
+                                            onChange: (e) =>
                                                 setState({
                                                     ...state, companyData: {
                                                         ...state.companyData, companyType: e.target.value
                                                     }
                                                 }),
-                                            }}
-                                            data={CompanyType || []}
-                                        />
+                                        }}
+                                        data={CompanyType || []}
+                                    />
                                 </FormControl>
                             </Grid>
 
                             <Grid item xs={12} sm={6} md={6}>
                                 <FormControl fullWidth component="fieldset" >
-                                <AppTextInput
+                                    <AppTextInput
                                         labelText="Company URN/ID"
                                         id="companyUrnId"
                                         formControlProps={{

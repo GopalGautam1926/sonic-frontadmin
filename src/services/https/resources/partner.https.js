@@ -66,6 +66,21 @@ class PartnerHttps {
             url: `/partners/${id}`,
         });
     }
+
+    /**
+   * Find partner
+   * @param {AxiosRequestConfig} name
+   * @returns {Promise<any>}
+   */
+    findPartner(name) {
+        return AppWebRequest({
+            method: "get",
+            url: "/partners",
+            params: {
+                name: `/${name}/i`
+            },
+        });
+    }
 }
 
 export default new PartnerHttps();

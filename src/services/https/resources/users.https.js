@@ -106,6 +106,11 @@ class UsersHttps {
     })
   }
 
+  /**
+    * Find users
+    * @param {AxiosRequestConfig} username
+    * @returns {Promise<any>}
+    */
   findUser(username) {
     return AppWebRequest({
       method: "get",
@@ -113,6 +118,35 @@ class UsersHttps {
       params: {
         username: `/${username}/i`
       },
+    });
+  }
+
+  /**
+   * update user
+   * @param {string} id
+   * @param {object} payload
+   * @returns
+   */
+  updateUser(id, payload) {
+    return AppWebRequest({
+      method: "put",
+      data: payload,
+      url: `/users/${id}`,
+    }).then((res) => {
+      userStore.updateUser(id, res?.data);
+      return res;
+    });
+  }
+
+  /**
+   * delete user by id
+   * @param {string} id
+   * @returns
+   */
+  deleteUser(id) {
+    return AppWebRequest({
+      method: "delete",
+      url: `/users/${id}`,
     });
   }
 }

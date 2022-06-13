@@ -67,6 +67,21 @@ class CompanyHttps {
             url: `/companies/${id}`,
         });
     }
+
+    /**
+    * Find company
+    * @param {AxiosRequestConfig} name
+    * @returns {Promise<any>}
+    */
+    findCompany(name) {
+        return AppWebRequest({
+            method: "get",
+            url: "/companies",
+            params: {
+                name: `/${name}/i`
+            },
+        });
+    }
 }
 
 export default new CompanyHttps();
