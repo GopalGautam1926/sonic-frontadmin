@@ -6,6 +6,7 @@ import { getRouteNames } from '../../../routes/routes.data';
 import { useStore } from '../../../stores';
 import { CircularProgress } from "@material-ui/core";
 import { observer } from 'mobx-react';
+import { log } from '../../../utils/app.debug';
 
 export const PartnersStats = observer(() => {
     const { partnerStore } = useStore();

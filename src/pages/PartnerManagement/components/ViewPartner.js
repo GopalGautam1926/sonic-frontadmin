@@ -7,12 +7,9 @@ import FancyCard from '../../../components/FancyCard/FancyCard';
 import AppTextInput from '../../../components/AppTextInput/AppTextInput';
 import { toast } from 'react-toastify';
 import RSpace from '../../../components/rcomponents/RSpace';
-import companyHttps from '../../../services/https/resources/company.https';
-import { getRouteNames } from '../../../routes/routes.data';
-import RPopconfirm from '../../../components/rcomponents/RPopconfirm';
 import { useStore } from '../../../stores';
 import partnerHttps from '../../../services/https/resources/partner.https';
-import { CompanyType, PartnerTypes } from '../../../constants';
+import { PartnerTypes } from '../../../constants';
 import CustomDropDown from '../../../components/AppTextInput/CustomDropDown';
 import { SwitchWithLabel } from '../../../components/Switch/Switch';
 
@@ -48,7 +45,7 @@ export default function ViewPartner({ closeDialog }) {
         },
         owner: "",
         enabled: true,
-        suspended: false,
+        disabled: false,
     });
 
     const getAndSetPartner = async () => {
@@ -77,7 +74,7 @@ export default function ViewPartner({ closeDialog }) {
 
         if (state?.checkEmail) {
             partnerHttps
-                .updatePartner(partner._id, partner)
+                .updatePartner(partnerId, partner)
                 .then(({ data }) => {
                     setState({
                         ...state,
@@ -259,8 +256,8 @@ export default function ViewPartner({ closeDialog }) {
                                                 fullWidth: true,
                                             }}
                                             inputProps={{
-                                                readOnly: !state.editMode,
-                                                disabled: !state.editMode,
+                                                readOnly: true,
+                                                disabled: true,
                                                 placeholder: "Admin",
                                                 value: partner.owner.username,
                                                 onChange: (e) =>
@@ -274,14 +271,17 @@ export default function ViewPartner({ closeDialog }) {
                             </Grid>
                             <Grid container>
                                 <Grid item>
-                                    <SwitchWithLabel
-                                        label="suspended"
-                                        checked={partner.suspended}
-                                        enabled={!state.editMode}
-                                        onChange={(e) =>
-                                            setPartner({ ...partner, suspended: e.target.checked })
-                                        }
-                                    />
+                                <SwitchWithLabel
+                                    label={partner.enabled ? "Active" : "Inactive"}
+                                    disabled={!state.editMode}
+                                    checked={partner.enabled}
+                                    onChange={(e) =>
+                                        setPartner({
+                                        ...partner,
+                                        enabled: e.target.checked,
+                                      })
+                                    }
+                                 />
                                 </Grid>
                             </Grid>
                         </DataFetchingStateComponent>

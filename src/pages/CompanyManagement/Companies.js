@@ -42,6 +42,26 @@ export default function Companies() {
             }
         },
         {
+            label: "Email",
+            name: "owner",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return value?.email || "--"
+                }
+            }
+        },
+        {
+            label: "Phone Number",
+            name: "owner",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return value?.phone_number || "--"
+                }
+            }
+        },
+        {
             label: "Status",
             name: "key",
             options: {

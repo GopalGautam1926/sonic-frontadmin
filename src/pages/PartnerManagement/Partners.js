@@ -58,28 +58,24 @@ export default function Partners() {
         },
         {
             label: "Status",
-            name: "key",
+            name: "enabled",
             options: {
               filter: false,
               customBodyRender: (
-                value,
-                { rowIndex, columnIndex, currentTableData },
-                updateValue
+                value
               ) => {
-                const rowData = partnerStore.getPartner.docs.find(
-                  (itm) => itm.key == value
-                );
                 const statusItem = [];
-                if (rowData?.enabled) {
+                if (value) {
                   statusItem.push(
                     <Badge color="success" size="small" label={<div style={{ fontSize: 11 }}>Active</div>} />
                   );
                 }
-                if (rowData?.enabled == 0) {
-                  statusItem.push(
-                    <Badge color="warning" size="small" label="Suspended" />
-                  );
-                }
+                else {
+                    statusItem.push(
+                        <Badge color="warning" size="small" label="Inactive" />
+                    );
+                  }
+                log("enable data = ",value);
       
                 return (
                   <RSpace style={{}}>

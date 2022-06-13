@@ -8,8 +8,6 @@ import AppTextInput from '../../../components/AppTextInput/AppTextInput';
 import { toast } from 'react-toastify';
 import RSpace from '../../../components/rcomponents/RSpace';
 import companyHttps from '../../../services/https/resources/company.https';
-import { getRouteNames } from '../../../routes/routes.data';
-import RPopconfirm from '../../../components/rcomponents/RPopconfirm';
 import { useStore } from '../../../stores';
 import CustomDropDown from '../../../components/AppTextInput/CustomDropDown';
 import { CompanyType } from '../../../constants';
@@ -259,9 +257,9 @@ export default function ViewCompany({ closeDialog }) {
                                                 fullWidth: true,
                                             }}
                                             inputProps={{
-                                                readOnly: !state.editMode,
-                                                disabled: !state.editMode,
-                                                placeholder: "Admin",
+                                                readOnly: true,
+                                                disabled: true,
+                                                placeholder: "Username",
                                                 value: company?.owner?.username,
                                                 onChange: (e) =>
                                                     setCompany({ ...company,owner:{...company.owner, username: e.target.value} }),
