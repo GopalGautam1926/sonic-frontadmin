@@ -8,3 +8,4 @@ export * from './sonickey.store'
 export * from './user.store'
 export * from './release.store'
 export * from './profile.store'
+export * from "./tracks.store"
