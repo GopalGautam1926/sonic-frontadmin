@@ -34,9 +34,10 @@ class CompanyHttps {
    * @returns
    */
     updateCompany(id, payload) {
+        let newPayload = {...payload,owner:payload?.owner?._id}
         return AppWebRequest({
             method: "put",
-            data: payload,
+            data: newPayload,
             url: `/companies/${id}`,
         }).then((res) => {
             companyStore.updateCompany(id, res?.data);
