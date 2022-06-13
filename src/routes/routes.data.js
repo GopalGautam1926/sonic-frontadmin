@@ -23,6 +23,7 @@ import ViewCompany from "../pages/CompanyManagement/components/ViewCompany";
 import ViewVersion from '../pages/ReleaseManagement/components/ViewVersion';
 import Partners from "../pages/PartnerManagement/Partners";
 import ViewPartner from "../pages/PartnerManagement/components/ViewPartner";
+import Tracks from "../pages/TracksManagement/Tracks";
 
 export const routesData = [
   {
@@ -156,6 +157,15 @@ export const routesData = [
         key: "sm_plays",
       }
     ],
+  },
+  {
+    path: "/tracks",
+    icon: <DashboardIcon />,
+    sidebar: true,
+    name: "Tracks",
+    component: observer(Tracks),
+    layout: "/admin",
+    key: "tracks" //unique to identify
   },
   {
     icon: <RadioIcon />,
