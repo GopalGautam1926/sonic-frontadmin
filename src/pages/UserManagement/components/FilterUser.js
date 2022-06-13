@@ -3,17 +3,15 @@ import { Grid } from '@material-ui/core'
 import { observer } from 'mobx-react'
 import FancyCard from '../../../components/FancyCard/FancyCard';
 import AppTextInput from '../../../components/AppTextInput/AppTextInput';
-import CompanyDropDown from '../../CompanyManagement/components/CompanyDropDown';
 import AppButton from '../../../components/AppButton/AppButton';
 import { useStore } from '../../../stores';
 import CustomDropDown from '../../../components/AppTextInput/CustomDropDown';
 import { AssociatedRoles, Status } from '../../../constants';
-import PartnerDropDown from '../../PartnerManagement/components/PartnerDropDown';
-import AppAutoComplete from '../../../components/AppAutoComplete';
-import companyHttps from '../../../services/https/resources/company.https';
+import CompanyPicker from '../../../components/Picker/CompanyPicker';
+import PartnerPicker from '../../../components/Picker/PartnerPicker';
 
 function FilterUser({ closeDialog }) {
-    const { userStore, companyStore } = useStore();
+    const { userStore } = useStore();
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -42,7 +40,7 @@ function FilterUser({ closeDialog }) {
                 <form onSubmit={onSubmit}>
                     <FancyCard.CardContent>
                         <Grid container spacing={1}>
-                            <Grid item xs={12} sm={3} md={3}>
+                            <Grid item xs={12} sm={6} md={3}>
                                 <AppTextInput
                                     labelText="Id"
                                     id="sub"
@@ -57,7 +55,7 @@ function FilterUser({ closeDialog }) {
                                 />
                             </Grid>
 
-                            <Grid item xs={12} sm={3} md={3}>
+                            <Grid item xs={12} sm={6} md={3}>
                                 <AppTextInput
                                     labelText="Username"
                                     id="username"
@@ -72,7 +70,7 @@ function FilterUser({ closeDialog }) {
                                 />
                             </Grid>
 
-                            <Grid item xs={12} sm={3} md={3}>
+                            <Grid item xs={12} sm={6} md={3}>
                                 <AppTextInput
                                     labelText="Email Address"
                                     id="email"
@@ -87,7 +85,7 @@ function FilterUser({ closeDialog }) {
                                 />
                             </Grid>
 
-                            <Grid item xs={12} sm={3} md={3}>
+                            <Grid item xs={12} sm={6} md={3}>
                                 <CustomDropDown
                                     labelText="Associated Role"
                                     id="associated-role"
@@ -103,38 +101,23 @@ function FilterUser({ closeDialog }) {
                                 />
                             </Grid >
 
-                            <Grid item xs={12} sm={3} md={3}>
-                                <PartnerDropDown
+                            <Grid item xs={12} sm={6} md={3}>
+                                <PartnerPicker
                                     labelText="Associated Partner"
-                                    fullWidth
-                                    value={userStore?.getFilters?.partner}
-                                    onChange={(e) => userStore?.changeFilters({ ...userStore?.getFilters, partner: e.target.value })}
+                                    placeholder="Search for partner"
+                                    getSelectedValue={(user) => userStore?.changeFilters({ ...userStore?.getFilters, partner: user })}
                                 />
                             </Grid>
 
-                            <Grid item xs={12} sm={3} md={3}>
-                                <CompanyDropDown
+                            <Grid item xs={12} sm={6} md={3}>
+                                <CompanyPicker
                                     labelText="Associated Company"
-                                    fullWidth
-                                    value={userStore?.getFilters?.company}
-                                    onChange={(e) => userStore?.changeFilters({ ...userStore?.getFilters, company: e.target.value })}
+                                    placeholder="Search for company"
+                                    getSelectedValue={(user) => userStore?.changeFilters({ ...userStore?.getFilters, company: user })}
                                 />
                             </Grid>
 
-                            {/* <Grid item xs={12} sm={3} md={3}>
-                                <AppAutoComplete
-                                    setAutoComPleteAction={(value) => companyHttps.findCompany(value)}
-                                    setAutoCompleteOptions={(option => option?.name || "")}
-                                    setAutoCompleteOptionsLabel={(option => option?.companyType || "")}
-                                    loading={companyStore.loading}
-                                    data={companyStore.getCompany?.data?.docs}
-                                    error={companyStore.error}
-                                    getSelectedValue={(e, v) => setState({ ...state, company: v })}
-                                    placeholder={"Search for a company"}
-                                />
-                            </Grid> */}
-
-                            <Grid item xs={12} sm={3} md={3}>
+                            <Grid item xs={12} sm={6} md={3}>
                                 <CustomDropDown
                                     labelText="Status"
                                     id="status"

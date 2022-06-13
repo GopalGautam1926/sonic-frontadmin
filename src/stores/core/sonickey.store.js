@@ -35,9 +35,9 @@ class SonicKeyStore {
         track: "",
         label: "",
         distributor: "",
-        partnerName: "",
-        companyName: "",
-        userName: "",
+        partnerName: {},
+        companyName: {},
+        userName: {},
         sonickeyTablePage: 1,
     };
     @observable sonickeyTablePage = 1;
@@ -89,9 +89,9 @@ class SonicKeyStore {
             track: "",
             label: "",
             distributor: "",
-            partnerName: "",
-            companyName: "",
-            userName: "",
+            partnerName: {},
+            companyName: {},
+            userName: {},
         }
     }
 
@@ -119,9 +119,9 @@ class SonicKeyStore {
                 "originalFileName": this.filters.track ? `/${this.filters.track}/i` : undefined,
                 "label": this.filters.label || undefined,
                 "distributor": this.filters.distributor || undefined,
-                "relation_partner._id": this.filters.partnerName || undefined,
-                "relation_company._id": this.filters.companyName || undefined,
-                "relation_filter": this.filters.userName ? { "$or": [{ "relation_owner._id": this.filters.userName }, { "createdBy": this.filters.userName }] } : undefined,
+                "relation_partner._id": this.filters.partnerName?._id || undefined,
+                "relation_company._id": this.filters.companyName?._id || undefined,
+                "relation_filter": this.filters.userName ? { "$or": [{ "relation_owner._id": this.filters.userName?._id }, { "createdBy": this.filters.userName?._id }] } : undefined,
             },
         }
 

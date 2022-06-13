@@ -2,10 +2,10 @@
 import React from 'react';
 import { CircularProgress, Grid, TextField, Typography } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import companyHttps from '../../../services/https/resources/company.https';
 import AppButton from '../../AppButton/AppButton';
+import partnerHttps from '../../../services/https/resources/partner.https';
 
-export default function CompanyPicker({
+export default function PartnerPicker({
     labelText,
     placeholder,
     getSelectedValue,
@@ -16,7 +16,7 @@ export default function CompanyPicker({
         data: [],
         error: "",
         open: false,
-        company: ""
+        partner: ""
     })
 
     const UserLoading = () => {
@@ -25,7 +25,7 @@ export default function CompanyPicker({
                 {state?.loading ?
                     <Grid container direction='column' alignItems='center'>
                         <CircularProgress />
-                        <Typography>Searching company...</Typography>
+                        <Typography>Searching partner...</Typography>
                     </Grid> :
                     state?.data === undefined ?
                         <Grid container direction='column' alignItems='center'>
@@ -44,16 +44,16 @@ export default function CompanyPicker({
         return (
             <Grid container direction='column' alignItems='center'>
                 <Typography>{state.error?.message}</Typography>
-                <AppButton onClick={getCompany} color='error'>Try again...</AppButton>
+                <AppButton onClick={getPartner} color='error'>Try again...</AppButton>
             </Grid>
         )
     }
 
-    const getCompany = (event, company) => {
-        setState({ ...state, company: company })
-        if (company.length > 2) {
+    const getPartner = (event, partner) => {
+        setState({ ...state, partner: partner })
+        if (partner.length > 2) {
             setState({ ...state, loading: true, open: true })
-            companyHttps.findCompany(company).then((data) => {
+            partnerHttps.findPartner(partner).then((data) => {
                 setState({ ...state, data: data, loading: false, open: true })
             }).catch((err) => {
                 setState({ ...state, error: err, loading: false })
@@ -71,7 +71,7 @@ export default function CompanyPicker({
             options={state.data?.data?.docs || []}
             getOptionSelected={(option, value) => option.id === value.id}
             getOptionLabel={(option) => option?.name}
-            onInputChange={getCompany}
+            onInputChange={getPartner}
             onChange={(e, v) => getSelectedValue(v)}
             renderInput={(params) =>
                 <TextField

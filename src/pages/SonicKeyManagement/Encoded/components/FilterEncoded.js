@@ -4,11 +4,12 @@ import FancyCard from '../../../../components/FancyCard/FancyCard'
 import AppTextInput from '../../../../components/AppTextInput/AppTextInput'
 import AppButton from '../../../../components/AppButton/AppButton'
 import { useStore } from '../../../../stores'
-import CompanyDropDown from '../../../CompanyManagement/components/CompanyDropDown'
 import { observer } from 'mobx-react'
 import CustomDropDown from '../../../../components/AppTextInput/CustomDropDown'
 import { Distributor, Labels } from '../../../../constants'
-import PartnerDropDown from '../../../PartnerManagement/components/PartnerDropDown'
+import UserPicker from '../../../../components/Picker/UserPicker/UserPicker'
+import PartnerPicker from '../../../../components/Picker/PartnerPicker'
+import CompanyPicker from '../../../../components/Picker/CompanyPicker'
 
 function FilterEncoded({ closeDialog }) {
     const { sonickeyStore } = useStore();
@@ -41,7 +42,7 @@ function FilterEncoded({ closeDialog }) {
                 <form onSubmit={onSubmit}>
                     <FancyCard.CardContent>
                         <Grid container spacing={1}>
-                            <Grid item xs={12} sm={3} md={3}>
+                            <Grid item xs={12} sm={6} md={3}>
                                 <AppTextInput
                                     labelText="SonicKey"
                                     id="sonickey"
@@ -56,7 +57,7 @@ function FilterEncoded({ closeDialog }) {
                                 />
                             </Grid>
 
-                            <Grid item xs={12} sm={3} md={3}>
+                            <Grid item xs={12} sm={6} md={3}>
                                 <AppTextInput
                                     labelText="Artist"
                                     id="artist"
@@ -71,7 +72,7 @@ function FilterEncoded({ closeDialog }) {
                                 />
                             </Grid>
 
-                            <Grid item xs={12} sm={3} md={3}>
+                            <Grid item xs={12} sm={6} md={3}>
                                 <AppTextInput
                                     labelText="Track"
                                     id="track"
@@ -86,7 +87,7 @@ function FilterEncoded({ closeDialog }) {
                                 />
                             </Grid>
 
-                            <Grid item xs={12} sm={3} md={3}>
+                            <Grid item xs={12} sm={6} md={3}>
                                 <CustomDropDown
                                     labelText="Label"
                                     id="label"
@@ -102,7 +103,7 @@ function FilterEncoded({ closeDialog }) {
                                 />
                             </Grid>
 
-                            <Grid item xs={12} sm={3} md={3}>
+                            <Grid item xs={12} sm={6} md={3}>
                                 <CustomDropDown
                                     labelText="Distributor"
                                     id="distributor"
@@ -118,36 +119,29 @@ function FilterEncoded({ closeDialog }) {
                                 />
                             </Grid>
 
-                            <Grid item xs={12} sm={3} md={3}>
-                                <PartnerDropDown
+                            <Grid item xs={12} sm={6} md={3}>
+                                <PartnerPicker
                                     labelText="Associated Partner"
-                                    fullWidth
-                                    value={sonickeyStore?.getFilters?.partnerName}
-                                    onChange={(e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, partnerName: e.target.value })}
+                                    placeholder="Search for partner"
+                                    // value={sonickeyStore?.getFilters?.partnerName}
+                                    getSelectedValue={(partner) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, partnerName: partner })}
                                 />
                             </Grid>
 
-                            <Grid item xs={12} sm={3} md={3}>
-                                <CompanyDropDown
+                            <Grid item xs={12} sm={6} md={3}>
+                                <CompanyPicker
                                     labelText="Associated Company"
-                                    fullWidth
-                                    value={sonickeyStore?.getFilters?.companyName}
-                                    onChange={(e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, companyName: e.target.value })}
+                                    placeholder="Search for company"
+                                    // value={sonickeyStore?.getFilters?.companyName}
+                                    getSelectedValue={(company) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, companyName: company })}
                                 />
                             </Grid>
 
-                            <Grid item xs={12} sm={3} md={3}>
-                                <AppTextInput
+                            <Grid item xs={12} sm={6} md={3}>
+                                <UserPicker
                                     labelText="User"
-                                    id="username"
-                                    formControlProps={{
-                                        fullWidth: true,
-                                    }}
-                                    inputProps={{
-                                        placeholder: "e.g. 3f29c3b9-0407-41b9-a832",
-                                        value: sonickeyStore?.getFilters?.userName,
-                                        onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, userName: e.target.value })
-                                    }}
+                                    placeholder="Search for user"
+                                    getSelectedValue={(user) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, userName: user })}
                                 />
                             </Grid>
                         </Grid>

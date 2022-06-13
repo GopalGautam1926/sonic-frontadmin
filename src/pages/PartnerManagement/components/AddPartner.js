@@ -7,7 +7,7 @@ import { log } from '../../../utils/app.debug';
 import partnerHttps from '../../../services/https/resources/partner.https';
 import { toast } from "react-toastify";
 import { useStore } from '../../../stores';
-import UserPicker from '../../../components/UserPicker/UserPicker';
+import UserPicker from '../../../components/Picker/UserPicker/UserPicker';
 import CustomDropDown from '../../../components/AppTextInput/CustomDropDown';
 import { PartnerTypes } from '../../../constants';
 
@@ -16,7 +16,7 @@ const initialPartner = {
     partnerData: {
         name: "",
         description: "",
-        partnerType:"",
+        partnerType: "",
         email: "",
         contactNo: "",
         address: {
@@ -42,14 +42,14 @@ export default function AddPartner({ closeDialog }) {
         // }
         // delete payload.countryCode
 
-    //     setNewUser(initialUserDetails);
-    //     userStore?.addNewUser(data)
-    //    
-    //   })
+        //     setNewUser(initialUserDetails);
+        //     userStore?.addNewUser(data)
+        //    
+        //   })
 
         setState({ ...state, loading: true })
         partnerHttps.createPartner(payload).then(({ data }) => {
-            log("success adding partner",data)
+            log("success adding partner", data)
             setState({ ...state, loading: false })
             setState(initialPartner);
             partnerStore.addPartner(data)
@@ -123,27 +123,27 @@ export default function AddPartner({ closeDialog }) {
 
                             <Grid item xs={12} sm={6} md={6}>
                                 <FormControl fullWidth component="fieldset" >
-                                <CustomDropDown
-                                            labelText="Partner type"
-                                            id="partnerType"
-                                            formControlProps={{
-                                                fullWidth: true,
-                                            }}
-                                            inputProps={{
-                                                type: "partnerType",
-                                                required: true,
-                                                id: "partnerType",
-                                                placeholder: "Partner Type",
-                                                value: state.partnerData.partnerType,
-                                                onChange: (e) =>
+                                    <CustomDropDown
+                                        labelText="Partner type"
+                                        id="partnerType"
+                                        formControlProps={{
+                                            fullWidth: true,
+                                        }}
+                                        inputProps={{
+                                            type: "partnerType",
+                                            required: true,
+                                            id: "partnerType",
+                                            placeholder: "Partner Type",
+                                            value: state.partnerData.partnerType,
+                                            onChange: (e) =>
                                                 setState({
                                                     ...state, partnerData: {
                                                         ...state.partnerData, partnerType: e.target.value
                                                     }
                                                 }),
-                                            }}
-                                            data={PartnerTypes || []}
-                                        />
+                                        }}
+                                        data={PartnerTypes || []}
+                                    />
                                 </FormControl>
                             </Grid>
 

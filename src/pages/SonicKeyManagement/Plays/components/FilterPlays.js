@@ -12,6 +12,9 @@ import { observer } from 'mobx-react'
 import DatePicker from '../../../../components/DatePicker/DatePicker'
 import { Channel, Distributor, Labels } from '../../../../constants'
 import PartnerDropDown from '../../../PartnerManagement/components/PartnerDropDown'
+import PartnerPicker from '../../../../components/Picker/PartnerPicker'
+import CompanyPicker from '../../../../components/Picker/CompanyPicker'
+import UserPicker from '../../../../components/Picker/UserPicker/UserPicker'
 
 function FilterPlays({ closeDialog }) {
     const { playsStore } = useStore();
@@ -44,7 +47,7 @@ function FilterPlays({ closeDialog }) {
                 <form onSubmit={onSubmit}>
                     <FancyCard.CardContent>
                         <Grid container spacing={1}>
-                            <Grid item xs={12} sm={3} md={3}>
+                            <Grid item xs={12} sm={6} md={3}>
                                 <CustomDropDown
                                     labelText="Channel"
                                     id="channel"
@@ -60,7 +63,7 @@ function FilterPlays({ closeDialog }) {
                                 />
                             </Grid>
 
-                            <Grid item xs={12} sm={3} md={3}>
+                            <Grid item xs={12} sm={6} md={3}>
                                 <AppTextInput
                                     labelText="SonicKey"
                                     id="sonickey"
@@ -75,7 +78,7 @@ function FilterPlays({ closeDialog }) {
                                 />
                             </Grid>
 
-                            <Grid item xs={12} sm={3} md={3}>
+                            <Grid item xs={12} sm={6} md={3}>
                                 <CountryDropDown
                                     labelText="Country"
                                     id="country"
@@ -90,7 +93,7 @@ function FilterPlays({ closeDialog }) {
                                 ></CountryDropDown>
                             </Grid>
 
-                            <Grid item xs={12} sm={3} md={3}>
+                            <Grid item xs={12} sm={6} md={3}>
                                 <RadioDropDown
                                     labelText="Radio Station"
                                     id="radiostation"
@@ -105,7 +108,7 @@ function FilterPlays({ closeDialog }) {
                                 />
                             </Grid>
 
-                            <Grid item xs={12} sm={3} md={3}>
+                            <Grid item xs={12} sm={6} md={3}>
                                 <AppTextInput
                                     labelText="Artist"
                                     id="artist"
@@ -120,7 +123,7 @@ function FilterPlays({ closeDialog }) {
                                 />
                             </Grid>
 
-                            <Grid item xs={12} sm={3} md={3}>
+                            <Grid item xs={12} sm={6} md={3}>
                                 <AppTextInput
                                     labelText="Track"
                                     id="track"
@@ -135,7 +138,7 @@ function FilterPlays({ closeDialog }) {
                                 />
                             </Grid>
 
-                            <Grid item xs={12} sm={3} md={3}>
+                            <Grid item xs={12} sm={6} md={3}>
                                 <CustomDropDown
                                     labelText="Label"
                                     id="label"
@@ -151,7 +154,7 @@ function FilterPlays({ closeDialog }) {
                                 />
                             </Grid>
 
-                            <Grid item xs={12} sm={3} md={3}>
+                            <Grid item xs={12} sm={6} md={3}>
                                 <CustomDropDown
                                     labelText="Distributor"
                                     id="distributor"
@@ -167,40 +170,34 @@ function FilterPlays({ closeDialog }) {
                                 />
                             </Grid>
 
-                            <Grid item xs={12} sm={3} md={3}>
-                                <PartnerDropDown
+                            <Grid item xs={12} sm={6} md={3}>
+                                <PartnerPicker
                                     labelText="Associated Partner"
-                                    fullWidth
-                                    value={playsStore?.getFilters?.partnerName}
-                                    onChange={(e) => playsStore?.changeFilters({ ...playsStore?.getFilters, partnerName: e.target.value })}
+                                    placeholder="Search for partner"
+                                    // value={playsStore?.getFilters?.partnerName}
+                                    getSelectedValue={(partner) => playsStore?.changeFilters({ ...playsStore?.getFilters, partnerName: partner })}
                                 />
                             </Grid>
 
-                            <Grid item xs={12} sm={3} md={3}>
-                                <CompanyDropDown
+                            <Grid item xs={12} sm={6} md={3}>
+                                <CompanyPicker
                                     labelText="Associated Company"
-                                    fullWidth
-                                    value={playsStore?.getFilters?.companyName}
-                                    onChange={(e) => playsStore?.changeFilters({ ...playsStore?.getFilters, companyName: e.target.value })}
+                                    placeholder="Search for company"
+                                    // value={playsStore?.getFilters?.companyName}
+                                    getSelectedValue={(company) => playsStore?.changeFilters({ ...playsStore?.getFilters, companyName: company })}
                                 />
                             </Grid>
 
-                            <Grid item xs={12} sm={3} md={3}>
-                                <AppTextInput
+                            <Grid item xs={12} sm={6} md={3}>
+                                <UserPicker
                                     labelText="User"
-                                    id="username"
-                                    formControlProps={{
-                                        fullWidth: true,
-                                    }}
-                                    inputProps={{
-                                        placeholder: "e.g. 3f29c3b9-0407-41b9-a832",
-                                        value: playsStore?.getFilters?.userName,
-                                        onChange: (e) => playsStore?.changeFilters({ ...playsStore?.getFilters, userName: e.target.value })
-                                    }}
+                                    placeholder="Search for user"
+                                    // value={playsStore?.getFilters?.userName}
+                                    getSelectedValue={(user) => playsStore?.changeFilters({ ...playsStore?.getFilters, userName: user })}
                                 />
                             </Grid>
 
-                            <Grid item xs={12} sm={3} md={3}>
+                            <Grid item xs={12} sm={6} md={3}>
                                 <DatePicker
                                     label="Encoded Start Date"
                                     selected={playsStore?.getFilters?.startEncodedDate}
@@ -215,7 +212,7 @@ function FilterPlays({ closeDialog }) {
                                 />
                             </Grid>
 
-                            <Grid item xs={12} sm={3} md={3}>
+                            <Grid item xs={12} sm={6} md={3}>
                                 <DatePicker
                                     label="Encoded End Date"
                                     selected={playsStore?.getFilters?.endEncodedDate}

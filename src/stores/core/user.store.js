@@ -39,8 +39,8 @@ class UserStore {
         email: "",
         phone: "",
         sub: "",
-        partner: "",
-        company: "",
+        partner: {},
+        company: {},
         associatedRole: "",
         username: "",
         status: "",
@@ -89,8 +89,8 @@ class UserStore {
             email: "",
             phone: "",
             sub: "",
-            partner: "",
-            company: "",
+            partner: {},
+            company: {},
             associatedRole: "",
             username: "",
             status: ""
@@ -129,8 +129,8 @@ class UserStore {
                 "_id": this.filters.sub || undefined,
                 "userRole": this.filters.associatedRole || undefined,
                 "enabled": this.filters.status ? this.filters.status === "Active" ? true : false : undefined,
-                "relation_company._id": this.filters.company || undefined,
-                "relation_partner._id": this.filters.partner || undefined,
+                "relation_company._id": this.filters.company?._id || undefined,
+                "relation_partner._id": this.filters.partner?._id || undefined,
             }
         }
 
