@@ -123,7 +123,7 @@ function FilterEncoded({ closeDialog }) {
                                 <PartnerPicker
                                     labelText="Associated Partner"
                                     placeholder="Search for partner"
-                                    // value={sonickeyStore?.getFilters?.partnerName}
+                                    value={sonickeyStore?.getFilters?.partnerName}
                                     getSelectedValue={(partner) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, partnerName: partner })}
                                 />
                             </Grid>
@@ -132,7 +132,7 @@ function FilterEncoded({ closeDialog }) {
                                 <CompanyPicker
                                     labelText="Associated Company"
                                     placeholder="Search for company"
-                                    // value={sonickeyStore?.getFilters?.companyName}
+                                    value={sonickeyStore?.getFilters?.companyName}
                                     getSelectedValue={(company) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, companyName: company })}
                                 />
                             </Grid>
@@ -141,6 +141,7 @@ function FilterEncoded({ closeDialog }) {
                                 <UserPicker
                                     labelText="User"
                                     placeholder="Search for user"
+                                    value={sonickeyStore?.getFilters?.userName}
                                     getSelectedValue={(user) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, userName: user })}
                                 />
                             </Grid>

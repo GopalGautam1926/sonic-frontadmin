@@ -174,7 +174,7 @@ function FilterPlays({ closeDialog }) {
                                 <PartnerPicker
                                     labelText="Associated Partner"
                                     placeholder="Search for partner"
-                                    // value={playsStore?.getFilters?.partnerName}
+                                    value={playsStore?.getFilters?.partnerName}
                                     getSelectedValue={(partner) => playsStore?.changeFilters({ ...playsStore?.getFilters, partnerName: partner })}
                                 />
                             </Grid>
@@ -183,7 +183,7 @@ function FilterPlays({ closeDialog }) {
                                 <CompanyPicker
                                     labelText="Associated Company"
                                     placeholder="Search for company"
-                                    // value={playsStore?.getFilters?.companyName}
+                                    value={playsStore?.getFilters?.companyName}
                                     getSelectedValue={(company) => playsStore?.changeFilters({ ...playsStore?.getFilters, companyName: company })}
                                 />
                             </Grid>
@@ -192,7 +192,7 @@ function FilterPlays({ closeDialog }) {
                                 <UserPicker
                                     labelText="User"
                                     placeholder="Search for user"
-                                    // value={playsStore?.getFilters?.userName}
+                                    value={playsStore?.getFilters?.userName}
                                     getSelectedValue={(user) => playsStore?.changeFilters({ ...playsStore?.getFilters, userName: user })}
                                 />
                             </Grid>

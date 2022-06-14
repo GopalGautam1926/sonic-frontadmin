@@ -9,6 +9,7 @@ import { log } from "../../utils/app.debug";
 import usersHttps from "../../services/https/resources/users.https";
 import deepmerge from "deepmerge";
 import moment from "moment";
+import { userRoles } from "../../constants";
 
 class UserStore {
     @observable loading = false;
@@ -131,6 +132,8 @@ class UserStore {
                 "enabled": this.filters.status ? this.filters.status === "Active" ? true : false : undefined,
                 "relation_company._id": this.filters.company?._id || undefined,
                 "relation_partner._id": this.filters.partner?._id || undefined,
+                "relation_partner.name": this.filters.accountName && this.filters.accountType === "Partner" ? `/${this.filters.accountName}/i` : undefined,
+                "relation_company.name": this.filters.accountName && this.filters.accountType === "Company" ? `/${this.filters.accountName}/i` : undefined,
             }
         }
 

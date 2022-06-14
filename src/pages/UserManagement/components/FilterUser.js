@@ -6,7 +6,7 @@ import AppTextInput from '../../../components/AppTextInput/AppTextInput';
 import AppButton from '../../../components/AppButton/AppButton';
 import { useStore } from '../../../stores';
 import CustomDropDown from '../../../components/AppTextInput/CustomDropDown';
-import { AssociatedRoles, Status } from '../../../constants';
+import { AccountType, AssociatedRoles, Status, UserType } from '../../../constants';
 import CompanyPicker from '../../../components/Picker/CompanyPicker';
 import PartnerPicker from '../../../components/Picker/PartnerPicker';
 
@@ -105,7 +105,8 @@ function FilterUser({ closeDialog }) {
                                 <PartnerPicker
                                     labelText="Associated Partner"
                                     placeholder="Search for partner"
-                                    getSelectedValue={(user) => userStore?.changeFilters({ ...userStore?.getFilters, partner: user })}
+                                    value={userStore?.getFilters?.partner}
+                                    getSelectedValue={(partner) => userStore?.changeFilters({ ...userStore?.getFilters, partner: partner })}
                                 />
                             </Grid>
 
@@ -113,7 +114,8 @@ function FilterUser({ closeDialog }) {
                                 <CompanyPicker
                                     labelText="Associated Company"
                                     placeholder="Search for company"
-                                    getSelectedValue={(user) => userStore?.changeFilters({ ...userStore?.getFilters, company: user })}
+                                    value={userStore?.getFilters?.company}
+                                    getSelectedValue={(company) => userStore?.changeFilters({ ...userStore?.getFilters, company: company })}
                                 />
                             </Grid>
 

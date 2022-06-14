@@ -7,10 +7,10 @@ import { SwitchWithLabel } from "../../../components/Switch/Switch";
 import usersHttps from "../../../services/https/resources/users.https";
 import { toast } from "react-toastify";
 import { useStore } from "../../../stores";
-import CompanyDropDown from "../../CompanyManagement/components/CompanyDropDown";
 import { AssociatedRoles, userRoles } from "../../../constants";
 import CustomDropDown from "../../../components/AppTextInput/CustomDropDown";
-import PartnerDropDown from "../../PartnerManagement/components/PartnerDropDown";
+import PartnerPicker from "../../../components/Picker/PartnerPicker";
+import CompanyPicker from "../../../components/Picker/CompanyPicker";
 
 const initialUserDetails = {
   userName: "",
@@ -22,8 +22,8 @@ const initialUserDetails = {
   isPhoneNumberVerified: false,
   sendInvitationByEmail: true,
   associatedRole: "",
-  partnerName: "",
-  companyName: "",
+  partnerName: {},
+  companyName: {},
 };
 
 export default function RegisterUser({ closeDialog }) {
@@ -41,8 +41,8 @@ export default function RegisterUser({ closeDialog }) {
       ...newUser,
       password: newUser.tempPassword,
       userRole: newUser.associatedRole,
-      partner: newUser?.partnerName && newUser?.partnerName !== "NONE" ? newUser?.partnerName : undefined,
-      company: newUser?.companyName && newUser?.companyName !== "NONE" ? newUser?.companyName : undefined
+      partner: newUser?.partnerName ? newUser?.partnerName?._id : undefined,
+      company: newUser?.companyName ? newUser?.companyName?._id : undefined,
     };
     if (payload.phoneNumber) {
       payload.phoneNumber = `${payload.countryCode}${payload.phoneNumber}`;
@@ -109,23 +109,33 @@ export default function RegisterUser({ closeDialog }) {
 
               {(newUser.associatedRole === userRoles.PARTNER_ADMIN || newUser.associatedRole === userRoles.PARTNER_USER) &&
                 <Grid item xs={12} sm={6} md={6}>
-                  <PartnerDropDown
+                  <PartnerPicker
+                    labelText="Associated Partner"
+                    placeholder="Search for partner"
+                    getSelectedValue={(user) => setNewUser({ ...newUser, partnerName: user })}
+                  />
+                  {/* <PartnerDropDown
                     labelText="Associated Partner"
                     fullWidth
                     value={newUser.partnerName}
                     onChange={(e) => setNewUser({ ...newUser, partnerName: e.target.value })}
-                  />
+                  /> */}
                 </Grid>
               }
 
               {(newUser.associatedRole === userRoles.COMPANY_ADMIN || newUser.associatedRole === userRoles.COMPANY_USER) &&
                 <Grid item xs={12} sm={6} md={6}>
-                  <CompanyDropDown
+                  <CompanyPicker
+                    labelText="Associated Company"
+                    placeholder="Search for company"
+                    getSelectedValue={(user) => setNewUser({ ...newUser, companyName: user })}
+                  />
+                  {/* <CompanyDropDown
                     labelText="Associated Company"
                     value={newUser.companyName}
                     fullWidth
                     onChange={(e) => setNewUser({ ...newUser, companyName: e.target.value })}
-                  />
+                  /> */}
                 </Grid>
               }
 
