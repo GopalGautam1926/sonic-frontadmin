@@ -10,6 +10,7 @@ import { UserStats } from "../UserManagement/components/UserStats";
 import EncodedStats from "../SonicKeyManagement/Encoded/components/EncodedStats";
 import { useStore } from "../../stores";
 import { log } from "../../utils/app.debug";
+import { TracksStats } from "../TracksManagement/Components/TracksStats";
 
 export default function Dashboard() {
   return (
@@ -44,7 +45,10 @@ export default function Dashboard() {
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
-          <PartnersStats/>
+          <PartnersStats />
+        </Grid>
+        <Grid item xs={12} sm={6} md={3}>
+          <TracksStats />
         </Grid>
       </Grid>
     </div>
