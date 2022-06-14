@@ -6,8 +6,9 @@ import { getRouteNames } from '../../../routes/routes.data';
 import { useStore } from '../../../stores';
 import { CircularProgress } from '@material-ui/core';
 import { observer } from 'mobx-react';
+import AudiotrackIcon from '@material-ui/icons/Audiotrack';
 
-export const TracksStats = observer(() => {
+const TracksStats = () => {
     const { tracksStore } = useStore()
 
     var count = 0
@@ -26,7 +27,7 @@ export const TracksStats = observer(() => {
                     {(headerClasses) => (
                         <>
                             <FancyCard.CardIcon color="success">
-                                <PeopleIcon />
+                                <AudiotrackIcon />
                             </FancyCard.CardIcon>
                             <div style={{ marginTop: 10, textAlign: "right" }}>
                                 <p className={headerClasses.cardCategory}>Tracks</p>
@@ -45,4 +46,6 @@ export const TracksStats = observer(() => {
             </FancyCard.CardContent>
         </FancyCard>
     )
-})
+}
+
+export default observer(TracksStats);

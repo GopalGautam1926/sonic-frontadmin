@@ -10,7 +10,7 @@ import { UserStats } from "../UserManagement/components/UserStats";
 import EncodedStats from "../SonicKeyManagement/Encoded/components/EncodedStats";
 import { useStore } from "../../stores";
 import { log } from "../../utils/app.debug";
-import { TracksStats } from "../TracksManagement/Components/TracksStats";
+import TracksStats from "../TracksManagement/Components/TracksStats";
 
 export default function Dashboard() {
   return (

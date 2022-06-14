@@ -6,9 +6,12 @@ import { useStore } from '../../stores'
 import moment from 'moment'
 import CustomPagination from '../../components/common/CustomPagination'
 import TrackActions from './Components/TrackActions'
+import FilterTracks from './Components/FilterTracks'
+import { userRoles } from '../../constants'
+import { log } from '../../utils/app.debug'
 
 export default function Tracks() {
-  const { tracksStore } = useStore()
+  const { tracksStore,userStore } = useStore()
 
   React.useEffect(() => {
     tracksStore.fetchTracks()
@@ -86,11 +89,25 @@ export default function Tracks() {
     },
     {
       label: "SYSTEM/PARTNER ID",
-      name: "company" || "owner" || "partner",
+      name: "_id",
       options: {
         filter: false,
         customBodyRender: (value) => {
-          return value?._id;
+          const rowData = tracksStore?.tracks?.docs.find(
+            (itm) => itm._id == value
+          );
+          log("rowData",rowData)
+          if (rowData?.partner?._id) {
+            return rowData?.partner?._id
+          } else if (rowData?.company?._id) {
+            return rowData?.company?._id
+          }
+          else if(rowData?.owner?._id){
+            return rowData?.owner?._id
+          }
+          else{
+            return "---"
+          }
         },
       },
     },
@@ -102,7 +119,7 @@ export default function Tracks() {
         customBodyRender: (value) => {
           const rowData = tracksStore?.tracks?.docs?.find(item => item?._id === value)
           return (
-              <TrackActions trackData={rowData}/>
+            <TrackActions trackData={rowData} />
           );
         },
       },
@@ -138,12 +155,12 @@ export default function Tracks() {
             <Table
               title={
                 <Table.TableActions
-                  addPlusFilter
+                  filterOnly
                   openDialogFilter={true}
                   refreshButtonProps={{
                     onClick: () => tracksStore.fetchTracks(),
                   }}
-                  componentInsideDialogFilter={<div>Hello</div>}
+                  componentInsideDialogFilter={<FilterTracks />}
                 />
               }
               columns={columns}

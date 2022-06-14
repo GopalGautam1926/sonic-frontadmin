@@ -18,15 +18,15 @@ export const fetchInitialData = () => {
   licenseKeyStore.fetchLicenseKeys()
   apiKeyStore.fetchApiKeys()
   radioStationStore.fetchRadioStations()
+  sonickeyStore.fetchSonicKeys()
   playsStore.fetchPlays()
+  partnerStore.fetchPartners()
+  tracksStore.fetchTracks()
   companyStore.fetchCompanies()
   userStore.fetchUsers()
   groupStore.fetchGroups()
-  sonickeyStore.fetchSonicKeys()
   releaseStore.fetchVersions()
   profileStore.fetchAdminProfile()
-  partnerStore.fetchPartners()
-  tracksStore.fetchTracks()
 }
 
 export function withStore(WrapperComponent) {
