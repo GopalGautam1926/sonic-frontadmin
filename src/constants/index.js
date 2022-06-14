@@ -24,6 +24,16 @@ export const AssociatedRoles = [
     "CompanyUser"
 ]
 
+export const AccountType = [
+    "Partner",
+    "Company",
+]
+
+export const UserType = [
+    "Admin",
+    "Standard",
+]
+
 export const Channel = [
     "ALL",
     "STREAMREADER",
