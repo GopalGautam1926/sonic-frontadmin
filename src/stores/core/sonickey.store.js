@@ -116,7 +116,7 @@ class SonicKeyStore {
                 "createdAt<": `date(${endDate})` || undefined,
                 "sonicKey": this.filters.sonickey ? `/${this.filters.sonickey}/i` : undefined,
                 "contentOwner": this.filters.artist ? `/${this.filters.artist}/i` : undefined,
-                "originalFileName": this.filters.track ? `/${this.filters.track}/i` : undefined,
+                "track": this.filters.track || undefined,
                 "label": this.filters.label || undefined,
                 "distributor": this.filters.distributor || undefined,
                 "relation_partner._id": this.filters.partnerName || undefined,

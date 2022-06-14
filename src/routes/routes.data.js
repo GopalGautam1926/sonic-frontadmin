@@ -5,6 +5,7 @@ import RadioIcon from '@material-ui/icons/Radio';
 import PeopleIcon from '@material-ui/icons/People';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import BusinessIcon from '@material-ui/icons/Business';
+import AudiotrackIcon from '@material-ui/icons/Audiotrack';
 import Dashboard from "../pages/Dashboard/Dashboard";
 import LicenseKeys from '../pages/KeysManagement/LicenseKeys/LicenseKeys';
 import ApiKeys from '../pages/KeysManagement/ApiKeys/ApiKeys';
@@ -160,7 +161,7 @@ export const routesData = [
   },
   {
     path: "/tracks",
-    icon: <DashboardIcon />,
+    icon: <AudiotrackIcon />,
     sidebar: true,
     name: "Tracks",
     component: observer(Tracks),
