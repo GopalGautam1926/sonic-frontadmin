@@ -69,35 +69,7 @@ export default function ViewCompany({ closeDialog }) {
                     setState({ ...state, editLoading: false });
                     toast.error(err.message || "Error while creating..");
                 });
-        // } else {
-        //     setState({ ...state, editLoading: false });
-        // }
     };
-
-    // const onRemoveCompany = () => {
-    //     setState({ ...state, disabled: true, deleteLoading: true });
-    //     companyHttps.deleteCompany(company?._id).then(({ data }) => {
-    //         setState({ ...state, disabled: false, deleteLoading: false })
-    //         companyStore.removeCompany(data);
-    //         toast.success("Deleted");
-    //         history.push({
-    //             pathname: `${getRouteNames()["cm_company"]}`
-    //         })
-    //     }).catch((error) => {
-    //         setState({ ...state, disabled: false, deleteLoading: false, error: error?.message })
-    //         toast.error(error?.message || "Error removing company...")
-    //     })
-    // }
-
-    // const validating = () => {
-    //     let Emailverification = (new RegExp(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,15}/g).test(company?.email));
-    //     if (Emailverification === false) {
-    //         toast.error("Not valid Email..");
-    //         setState({ ...state, checkEmail: false });
-    //     } else {
-    //         setState({ ...state, checkEmail: true });
-    //     }
-    // }
 
     return (
         <div>
@@ -165,23 +137,7 @@ export default function ViewCompany({ closeDialog }) {
                                         </AppButton>
                                     </RSpace.Item>
                                 )}
-                                {/* <RSpace.Item>
-                                    <RPopconfirm
-                                        anchorElement={
-                                            <AppButton
-                                                asIconButton={false}
-                                                color="danger"
-                                                type="button"
-                                                loading={state.disabled}
-                                                loadingText="Deleting.."
-                                            >
-                                                Delete
-                                            </AppButton>
-                                        }
-                                        onClickYes={onRemoveCompany}
-                                        message="Really want to remove this company?"
-                                    />
-                                </RSpace.Item> */}
+                               
                             </RSpace>
 
                             <Grid container spacing={1}>
@@ -259,10 +215,11 @@ export default function ViewCompany({ closeDialog }) {
                                             inputProps={{
                                                 readOnly: true,
                                                 disabled: true,
-                                                placeholder: "Username",
+                                                placeholder: "Admin",
                                                 value: company?.owner?.username,
-                                                onChange: (e) =>
-                                                    setCompany({ ...company,owner:{...company.owner, username: e.target.value} }),
+                                            }}
+                                            labelProps={{
+                                                shrink:true,
                                             }}
                                         />
                                     </FormControl>
@@ -270,14 +227,17 @@ export default function ViewCompany({ closeDialog }) {
                             </Grid>
                             <Grid container>
                                 <Grid item>
-                                    <SwitchWithLabel
-                                        label="suspended"
-                                        checked={company.suspended}
-                                        enabled={!state.editMode}
-                                        onChange={(e) =>
-                                            setCompany({ ...company, suspended: e.target.checked })
-                                        }
-                                    />
+                                <SwitchWithLabel
+                                    label={company.enabled ? "Active" : "Inactive"}
+                                    disabled={!state.editMode}
+                                    checked={company.enabled}
+                                    onChange={(e) =>
+                                        setCompany({
+                                        ...company,
+                                        enabled: e.target.checked,
+                                      })
+                                    }
+                                 />
                                 </Grid>
                             </Grid>
                             

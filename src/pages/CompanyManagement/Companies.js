@@ -63,28 +63,23 @@ export default function Companies() {
         },
         {
             label: "Status",
-            name: "key",
+            name: "enabled",
             options: {
               filter: false,
               customBodyRender: (
-                value,
-                { rowIndex, columnIndex, currentTableData },
-                updateValue
+                value
               ) => {
-                const rowData = companyStore.getCompany.docs.find(
-                  (itm) => itm.key == value
-                );
                 const statusItem = [];
-                if (rowData?.enabled) {
+                if (value) {
                   statusItem.push(
                     <Badge color="success" size="small" label={<div style={{ fontSize: 11 }}>Active</div>} />
                   );
                 }
-                if (rowData?.enabled == 0) {
-                  statusItem.push(
-                    <Badge color="warning" size="small" label="Suspended" />
-                  );
-                }
+                else {
+                    statusItem.push(
+                        <Badge color="warning" size="small" label="Inactive" />
+                    );
+                  }
       
                 return (
                   <RSpace style={{}}>
@@ -143,41 +138,6 @@ export default function Companies() {
                     </FancyCard.CardHeader>
                 }
             >
-                {/* <Grid container style={{ padding: "0px 20px", display: 'flex', justifyContent: 'flex-end', zIndex: 1 }}>
-                    <Grid item>
-                        <DatePicker
-                            label="Start Date"
-                            selected={companyStore?.getDateRange?.startDate}
-                            onChange={(date) => companyStore?.changeDateRange({ ...companyStore?.getDateRange, startDate: date })}
-                            showYearDropdown
-                            dateFormat="dd/MM/yyyy"
-                            yearDropdownItemNumber={15}
-                            scrollableYearDropdown
-                            showMonthDropdown
-                            startDate={companyStore?.getDateRange?.startDate}
-                            endDate={companyStore?.getDateRange?.endDate}
-                        />
-                    </Grid>
-                    <Grid item className="mt-4 mx-3">
-                        <p style={{ fontSize: '14px' }}>TO</p>
-                    </Grid>
-
-                    <Grid item>
-                        <DatePicker
-                            label="End Date"
-                            selected={companyStore?.getDateRange?.endDate}
-                            onChange={(date) => companyStore?.changeDateRange({ ...companyStore?.getDateRange, endDate: date })}
-                            showYearDropdown
-                            dateFormat="dd/MM/yyyy"
-                            yearDropdownItemNumber={15}
-                            scrollableYearDropdown
-                            showMonthDropdown
-                            startDate={companyStore?.getDateRange?.startDate}
-                            endDate={companyStore?.getDateRange?.endDate}
-                        />
-                    </Grid>
-                </Grid> */}
-
                 <FancyCard.CardContent style={{ zIndex: 0 }}>
                     <DataFetchingStateComponent
                         loading={companyStore.loading}

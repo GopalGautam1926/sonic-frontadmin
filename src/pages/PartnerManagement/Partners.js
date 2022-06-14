@@ -33,19 +33,6 @@ export default function Partners() {
             label: "Type",
             name: "partnerType",
         },
-        // {
-        //     label: "Email",
-        //     name: "email",
-        // },
-        // {
-        //     label: "Contact No",
-        //     name: "contactNo",
-        //     options: {
-        //         customBodyRender: (value) => {
-        //             return value || "--";
-        //         }
-        //     }
-        // },
         {
             label: "Admin",
             name: "owner",

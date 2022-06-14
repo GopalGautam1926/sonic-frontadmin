@@ -184,23 +184,6 @@ export default function ViewPartner({ closeDialog }) {
                                         </AppButton>
                                     </RSpace.Item>
                                 )}
-                                {/* <RSpace.Item>
-                                    <RPopconfirm
-                                        anchorElement={
-                                            <AppButton
-                                                asIconButton={false}
-                                                color="danger"
-                                                type="button"
-                                                loading={state.disabled}
-                                                loadingText="Deleting.."
-                                            >
-                                                Delete
-                                            </AppButton>
-                                        }
-                                        onClickYes={onRemoveCompany}
-                                        message="Really want to remove this company?"
-                                    />
-                                </RSpace.Item> */}
                             </RSpace>
 
                             <Grid container spacing={1}>

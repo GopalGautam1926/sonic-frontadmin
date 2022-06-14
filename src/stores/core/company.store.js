@@ -8,7 +8,6 @@ import { AxiosRequestConfig } from "axios";
 import { log } from "../../utils/app.debug";
 import companyHttps from "../../services/https/resources/company.https";
 import deepmerge from "deepmerge";
-import moment from "moment";
 
 class CompanyStore {
     @observable loading = false;

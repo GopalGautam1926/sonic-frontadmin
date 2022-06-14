@@ -8,7 +8,6 @@ import companyHttps from '../../../services/https/resources/company.https';
 import { toast } from "react-toastify";
 import { useStore } from '../../../stores';
 import UserPicker from '../../../components/Picker/UserPicker/UserPicker';
-import usersHttps from '../../../services/https/resources/users.https';
 import CustomDropDown from '../../../components/AppTextInput/CustomDropDown';
 import { CompanyType } from '../../../constants';
 

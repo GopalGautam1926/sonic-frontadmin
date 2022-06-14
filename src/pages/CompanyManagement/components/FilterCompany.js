@@ -3,7 +3,6 @@ import { Grid } from '@material-ui/core'
 import { observer } from 'mobx-react'
 import FancyCard from '../../../components/FancyCard/FancyCard';
 import AppTextInput from '../../../components/AppTextInput/AppTextInput';
-import CompanyDropDown from '../../CompanyManagement/components/CompanyDropDown';
 import AppButton from '../../../components/AppButton/AppButton';
 import { useStore } from '../../../stores';
 import CustomDropDown from '../../../components/AppTextInput/CustomDropDown';
@@ -52,12 +51,6 @@ function FilterCompany({ closeDialog }) {
                                         onChange: (e) => companyStore?.changeFilters({ ...companyStore?.getFilters, name: e.target.value })
                                     }}
                                 />
-                                {/* <CompanyDropDown
-                                    labelText="Company Name"
-                                    fullWidth
-                                    value={companyStore?.getFilters?.name}
-                                    onChange={(e) => companyStore?.changeFilters({ ...companyStore?.getFilters, name: e.target.value })}
-                                /> */}
                             </Grid>
                             <Grid item xs={12} sm={3} md={3}>
                                 <AppTextInput

@@ -6,7 +6,7 @@ import AppTextInput from '../../../components/AppTextInput/AppTextInput';
 import AppButton from '../../../components/AppButton/AppButton';
 import { useStore } from '../../../stores';
 import CustomDropDown from '../../../components/AppTextInput/CustomDropDown';
-import { CompanyType, PartnerTypes } from '../../../constants';
+import { PartnerTypes } from '../../../constants';
 
 function FilterPartner({ closeDialog }) {
     const { partnerStore } = useStore();
@@ -51,12 +51,6 @@ function FilterPartner({ closeDialog }) {
                                         onChange: (e) => partnerStore?.changeFilters({ ...partnerStore?.getFilters, name: e.target.value })
                                     }}
                                 />
-                                {/* <CompanyDropDown
-                                    labelText="Company Name"
-                                    fullWidth
-                                    value={partnerStore?.getFilters?.name}
-                                    onChange={(e) => partnerStore?.changeFilters({ ...partnerStore?.getFilters, name: e.target.value })}
-                                /> */}
                             </Grid>
                             <Grid item xs={12} sm={3} md={3}>
                                 <AppTextInput

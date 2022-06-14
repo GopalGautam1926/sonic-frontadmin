@@ -37,15 +37,6 @@ export default function AddPartner({ closeDialog }) {
     const onPartnerSubmit = (e) => {
         e.preventDefault()
         const payload = { ...state.partnerData }
-        // if (payload.contactNo) {
-        //     payload.contactNo = `${payload.countryCode}${payload.contactNo}`;
-        // }
-        // delete payload.countryCode
-
-        //     setNewUser(initialUserDetails);
-        //     userStore?.addNewUser(data)
-        //    
-        //   })
 
         setState({ ...state, loading: true })
         partnerHttps.createPartner(payload).then(({ data }) => {
@@ -171,62 +162,7 @@ export default function AddPartner({ closeDialog }) {
                                 </FormControl>
                             </Grid>
 
-                            {/* <Grid item xs={12} sm={6} md={6}>
-                                <FormControl fullWidth component="fieldset" >
-                                    <AppTextInput
-                                        labelText="Company URN/ID"
-                                        id="companyUrnId"
-                                        formControlProps={{
-                                            fullWidth: true,
-                                        }}
-                                        inputProps={{
-                                            id: "companyUrnId",
-                                            required: true,
-                                            placeholder: "Company URN/ID",
-                                            value: state.companyData._id,
-                                            onChange: (e) =>
-                                                setState({
-                                                    ...state, companyData: {
-                                                        ...state.companyData, _id: e.target.value
-                                                    }
-                                                }),
-                                        }}
-                                    />
-                                </FormControl>
-                            </Grid> */}
-
-                            {/* <Grid item xs={12} sm={6} md={6}>
-                                <FormControl fullWidth component="fieldset" >
-                                    <AppTextInput.AppPhoneNumberInput
-                                        labelText="Phone number"
-                                        id="phonenumber"
-                                        formControlProps={{
-                                            fullWidth: true,
-                                        }}
-                                        inputProps={{
-                                            type: "number",
-                                            id: "phonenumber",
-                                            placeholder: "Phone number",
-                                            value: state.partnerData.contactNo,
-                                            onChange: (e) =>
-                                                setState({
-                                                    ...state, partnerData: {
-                                                        ...state.partnerData, contactNo: e.target.value
-                                                    }
-                                                }),
-                                        }}
-                                        countrySelectProps={{
-                                            value: state.companyData.countryCode,
-                                            onChange: (e) =>
-                                                setState({
-                                                    ...state, companyData: {
-                                                        ...state.companyData, countryCode: e.target.value
-                                                    }
-                                                }),
-                                        }}
-                                    />
-                                </FormControl>
-                            </Grid> */}
+                            
                         </Grid>
                     </FancyCard.CardContent>
 
