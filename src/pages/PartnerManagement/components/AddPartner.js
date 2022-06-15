@@ -103,7 +103,7 @@ export default function AddPartner({ closeDialog }) {
                                     <UserPicker
                                         labelText="Admin"
                                         placeholder="Admin username"
-                                        getFoundUser={(user) => setState({
+                                        getSelectedValue={(user) => setState({
                                             ...state, partnerData: {
                                                 ...state.partnerData, owner: user?._id
                                             }
