@@ -4,6 +4,7 @@ export const MonitorGroupsEnum = Object.freeze({
 });
 
 export const userRoles = {
+    ADMIN: "Admin",
     PORTAL_USER: "PortalUser",
     PARTNER_ADMIN: "PartnerAdmin",
     PARTNER_USER: "PartnerUser",

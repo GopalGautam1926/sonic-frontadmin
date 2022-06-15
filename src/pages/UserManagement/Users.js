@@ -51,12 +51,12 @@ export default function Users() {
             name: "userRole",
             options: {
                 customBodyRender: (value) => {
-                    if (value === userRoles.PARTNER_ADMIN || value === userRoles.PARTNER_USER) {
-                        return "Partner"
-                    } else if (value === userRoles.COMPANY_ADMIN || value === userRoles.COMPANY_USER) {
-                        return "Company"
+                    if (!value) return "---";
+
+                    if (value === userRoles.ADMIN) {
+                        return "Super Admin"
                     }
-                    return "---"
+                    return value
                 }
             }
         },
@@ -82,14 +82,17 @@ export default function Users() {
             name: "userRole",
             options: {
                 customBodyRender: (value) => {
-                    if (value === userRoles.PARTNER_ADMIN || value === userRoles.COMPANY_ADMIN) {
+                    if (value === userRoles.ADMIN) {
+                        return "Super Admin"
+                    }
+                    else if (value === userRoles.PARTNER_ADMIN || value === userRoles.COMPANY_ADMIN) {
                         return "Admin"
-                    } else if (value === userRoles.PARTNER_USER || value === userRoles.COMPANY_USER) {
+                    } else if (value === userRoles.PARTNER_USER || value === userRoles.COMPANY_USER || value === userRoles.PORTAL_USER) {
                         return "Standard"
                     }
                     return "---"
                 }
-            }
+            },
         },
         {
             label: "Status",
