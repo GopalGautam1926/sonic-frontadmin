@@ -160,13 +160,21 @@ export const routesData = [
     ],
   },
   {
-    path: "/tracks",
     icon: <AudiotrackIcon />,
-    sidebar: true,
     name: "Tracks",
-    component: observer(Tracks),
+    sidebar: true,
+    parentPath: '/tracks-management',
     layout: "/admin",
-    key: "tracks" //unique to identify
+    routes: [
+      {
+        path: "/tracks-management/tracks",
+        sidebar: true,
+        name: "Tracks",
+        component: observer(Tracks),
+        layout: "/admin",
+        key: "tracks" //unique to identify
+      },
+    ],
   },
   {
     icon: <RadioIcon />,

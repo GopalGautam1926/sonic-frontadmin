@@ -42,7 +42,7 @@ const TracksStats = () => {
         >
             <FancyCard.CardContent>
                 <FancyCard.Divider />
-                <Link to={getRouteNames()["um_users"]}>Search new tracks</Link>
+                <Link to={getRouteNames()["tracks"]}>Search new tracks</Link>
             </FancyCard.CardContent>
         </FancyCard>
     )
