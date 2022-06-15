@@ -5,18 +5,16 @@ import AppTextInput from '../../../components/AppTextInput/AppTextInput'
 import CustomDropDown from '../../../components/AppTextInput/CustomDropDown';
 import FancyCard from '../../../components/FancyCard/FancyCard';
 import CompanyPicker from '../../../components/Picker/CompanyPicker';
-import PartnerPicker from '../../../components/Picker/PartnerPicker';
 import UserPicker from '../../../components/Picker/UserPicker/UserPicker';
 import { Distributor, Labels } from '../../../constants';
 import { useStore } from '../../../stores';
 
 function FilterTracks({ closeDialog }) {
-    const { tracksStore,sonickeyStore } = useStore();
+    const { tracksStore} = useStore();
 
     const onSubmit = (e) => {
         e.preventDefault();
-        // sonickeyStore.changeSonicKeyTablePage(1)
-        // sonickeyStore.fetchSonicKeys()
+        tracksStore.fetchTracks(1)
         closeDialog();
     }
 
@@ -42,18 +40,33 @@ function FilterTracks({ closeDialog }) {
                     <FancyCard.CardContent>
                         <Grid container spacing={1}>
                             <Grid item xs={12} sm={6} md={3}>
-                                {/* <AppTextInput
-                                    labelText="SonicKey"
-                                    id="sonickey"
+                                <AppTextInput
+                                    labelText="ID"
+                                    id="id"
                                     formControlProps={{
                                         fullWidth: true,
                                     }}
                                     inputProps={{
-                                        placeholder: "SonicKey",
-                                        value: sonickeyStore?.getFilters?.sonickey,
-                                        onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, sonickey: e.target.value })
+                                        placeholder: "Track ID",
+                                        value: tracksStore?.filters?.id,
+                                        onChange: (e) => tracksStore?.changeFilters({ ...tracksStore?.filters, id: e.target.value })
                                     }}
-                                /> */}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12} sm={6} md={3}>
+                                <AppTextInput
+                                    labelText="Title"
+                                    id="title"
+                                    formControlProps={{
+                                        fullWidth: true,
+                                    }}
+                                    inputProps={{
+                                        placeholder: "Title",
+                                        value: tracksStore?.filters?.title,
+                                        onChange: (e) => tracksStore?.changeFilters({ ...tracksStore?.filters, title: e.target.value })
+                                    }}
+                                />
                             </Grid>
 
                             <Grid item xs={12} sm={6} md={3}>
@@ -65,23 +78,8 @@ function FilterTracks({ closeDialog }) {
                                     }}
                                     inputProps={{
                                         placeholder: "Artist",
-                                        value: sonickeyStore?.getFilters?.artist,
-                                        onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, artist: e.target.value })
-                                    }}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12} sm={6} md={3}>
-                                <AppTextInput
-                                    labelText="Track"
-                                    id="track"
-                                    formControlProps={{
-                                        fullWidth: true,
-                                    }}
-                                    inputProps={{
-                                        placeholder: "Track",
-                                        value: sonickeyStore?.getFilters?.track,
-                                        onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, track: e.target.value })
+                                        value: tracksStore?.filters?.artist,
+                                        onChange: (e) => tracksStore?.changeFilters({ ...tracksStore?.filters, artist: e.target.value })
                                     }}
                                 />
                             </Grid>
@@ -95,8 +93,8 @@ function FilterTracks({ closeDialog }) {
                                     }}
                                     inputProps={{
                                         placeholder: "Label",
-                                        value: sonickeyStore?.getFilters?.label,
-                                        onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, label: e.target.value })
+                                        value: tracksStore?.filters?.label,
+                                        onChange: (e) => tracksStore?.changeFilters({ ...tracksStore?.filters, label: e.target.value })
                                     }}
                                     data={Labels || []}
                                 />
@@ -111,19 +109,10 @@ function FilterTracks({ closeDialog }) {
                                     }}
                                     inputProps={{
                                         placeholder: "Distributor",
-                                        value: sonickeyStore?.getFilters?.distributor,
-                                        onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, distributor: e.target.value })
+                                        value: tracksStore?.filters?.distributor,
+                                        onChange: (e) => tracksStore?.changeFilters({ ...tracksStore?.filters, distributor: e.target.value })
                                     }}
                                     data={Distributor || []}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12} sm={6} md={3}>
-                                <PartnerPicker
-                                    labelText="Associated Partner"
-                                    placeholder="Search for partner"
-                                    value={sonickeyStore?.getFilters?.partnerName}
-                                    getSelectedValue={(partner) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, partnerName: partner })}
                                 />
                             </Grid>
 
@@ -131,8 +120,8 @@ function FilterTracks({ closeDialog }) {
                                 <CompanyPicker
                                     labelText="Associated Company"
                                     placeholder="Search for company"
-                                    value={sonickeyStore?.getFilters?.companyName}
-                                    getSelectedValue={(company) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, companyName: company })}
+                                    value={tracksStore?.filters?.company}
+                                    getSelectedValue={(company) => tracksStore?.changeFilters({ ...tracksStore?.filters, company: company })}
                                 />
                             </Grid>
 
@@ -140,8 +129,8 @@ function FilterTracks({ closeDialog }) {
                                 <UserPicker
                                     labelText="User"
                                     placeholder="Search for user"
-                                    value={sonickeyStore?.getFilters?.userName}
-                                    getSelectedValue={(user) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, userName: user })}
+                                    value={tracksStore?.filters?.user}
+                                    getSelectedValue={(user) => tracksStore?.changeFilters({ ...tracksStore?.filters, user: user })}
                                 />
                             </Grid>
                         </Grid>
@@ -151,7 +140,7 @@ function FilterTracks({ closeDialog }) {
                         <AppButton color="danger" onClick={() => closeDialog?.()}>
                             Close
                         </AppButton>
-                        <AppButton onClick={() => sonickeyStore?.resetFilter()}>Reset</AppButton>
+                        <AppButton onClick={() => tracksStore?.resetFilter()}>Reset</AppButton>
                         <AppButton color='success' type="submit">Apply</AppButton>
                     </FancyCard.CardActions>
                 </form>

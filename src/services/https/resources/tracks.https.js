@@ -4,11 +4,11 @@ import { AppWebRequest } from "../NetworkManager";
 class TracksHttps {
     constructor() { }
 
-    fetchTracks(options = {}) {
+    fetchTracks(params = {}) {
         return AppWebRequest({
             method: "get",
             url: "/tracks",
-            ...options,
+            params:params,
         });
     }
 }

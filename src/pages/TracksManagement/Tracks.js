@@ -7,15 +7,15 @@ import moment from 'moment'
 import CustomPagination from '../../components/common/CustomPagination'
 import TrackActions from './Components/TrackActions'
 import FilterTracks from './Components/FilterTracks'
-import { userRoles } from '../../constants'
-import { log } from '../../utils/app.debug'
+import DatePicker from '../../components/DatePicker/DatePicker'
+import { Grid } from '@material-ui/core'
 
 export default function Tracks() {
-  const { tracksStore,userStore } = useStore()
+  const { tracksStore } = useStore()
 
   React.useEffect(() => {
     tracksStore.fetchTracks()
-  }, [])
+  }, [tracksStore?.dateRange?.startDate,tracksStore?.dateRange?.endDate])
 
   const columns = [
     {
@@ -96,16 +96,15 @@ export default function Tracks() {
           const rowData = tracksStore?.tracks?.docs.find(
             (itm) => itm._id == value
           );
-          log("rowData",rowData)
           if (rowData?.partner?._id) {
             return rowData?.partner?._id
           } else if (rowData?.company?._id) {
             return rowData?.company?._id
           }
-          else if(rowData?.owner?._id){
+          else if (rowData?.owner?._id) {
             return rowData?.owner?._id
           }
-          else{
+          else {
             return "---"
           }
         },
@@ -146,6 +145,41 @@ export default function Tracks() {
           </FancyCard.CardHeader>
         }
       >
+        <Grid container style={{ padding: "0px 20px", display: 'flex', justifyContent: 'flex-end', zIndex: 1 }}>
+          <Grid item>
+            <DatePicker
+              label="Start Date"
+              selected={tracksStore?.dateRange?.startDate}
+              onChange={(date) => tracksStore?.changeDateRange({ ...tracksStore?.dateRange, startDate: date })}
+              showYearDropdown
+              dateFormat="dd/MM/yyyy"
+              yearDropdownItemNumber={15}
+              scrollableYearDropdown
+              showMonthDropdown
+              startDate={tracksStore?.dateRange?.startDate}
+              endDate={tracksStore?.dateRange?.endDate}
+            />
+          </Grid>
+          <Grid item className="mt-4 mx-3">
+            <p style={{ fontSize: '14px' }}>TO</p>
+          </Grid>
+
+          <Grid item>
+            <DatePicker
+              label="End Date"
+              selected={tracksStore?.dateRange?.endDate}
+              onChange={(date) => tracksStore?.changeDateRange({ ...tracksStore?.dateRange, endDate: date })}
+              showYearDropdown
+              dateFormat="dd/MM/yyyy"
+              yearDropdownItemNumber={15}
+              scrollableYearDropdown
+              showMonthDropdown
+              startDate={tracksStore?.dateRange?.startDate}
+              endDate={tracksStore?.dateRange?.endDate}
+            />
+          </Grid>
+        </Grid>
+
         <FancyCard.CardContent style={{ zIndex: 0 }}>
           <DataFetchingStateComponent
             loading={tracksStore?.loading}
