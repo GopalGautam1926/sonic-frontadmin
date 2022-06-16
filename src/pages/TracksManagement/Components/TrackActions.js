@@ -10,6 +10,7 @@ import axios from 'axios';
 import fileDownload from 'js-file-download'
 import DownloadProgressModal from './DownloadProgressModal';
 import AppButton from '../../../components/AppButton/AppButton';
+import TrackView from './TrackView';
 
 export default function TrackActions({ trackData }) {
     const classes = useStyles();
@@ -18,7 +19,8 @@ export default function TrackActions({ trackData }) {
     const [state, setState] = React.useState({
         openDownloadingModal: false,
         percentComplete: "0",
-        pen: null
+        pen: null,
+        openTrackView: false,
     })
 
     const openMenu = Boolean(state.open)
@@ -70,12 +72,18 @@ export default function TrackActions({ trackData }) {
                 paperProps={{ className: classes.Popover }}
             >
                 <MenuItem onClick={downloadTrack}>Download</MenuItem>
+                <MenuItem onClick={() => setState({ ...state, openTrackView: true })}>View Tracks</MenuItem>
                 <MenuItem onClick={viewSonicKey}>View SonicKeys</MenuItem>
             </Popover>
             <DownloadProgressModal
                 open={state.openDownloadingModal}
                 percentage={state.percentComplete}
                 handleClose={() => setState({ ...state, openDownloadingModal: false, percentComplete: 0 })}
+            />
+            <TrackView
+                isOpen={state.openTrackView}
+                close={() => setState({ ...state, openTrackView: false })}
+                trackData={trackData}
             />
         </>
     )
