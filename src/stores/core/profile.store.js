@@ -45,7 +45,7 @@ class ProfileStore {
                     fetchInitialData();
                 } else {
                     this.loading = false;
-                    // toast.error("You must be admin to access this portal")
+                    toast.error("You must be admin to access this portal")
                     sessionStore.logout();
                 }
             })
@@ -53,6 +53,8 @@ class ProfileStore {
                 log("Admin err", err);
                 this.loading = false;
                 this.error = err;
+                toast.error(err?.message)
+                sessionStore.logout();
             });
     }
 }
