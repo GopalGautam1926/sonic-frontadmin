@@ -14,7 +14,7 @@ export const useStore = () => {
 };
 
 export const fetchInitialData = () => {
-  const { licenseKeyStore, apiKeyStore, radioStationStore, sonickeyStore, companyStore, userStore, groupStore, releaseStore, playsStore, profileStore, partnerStore,tracksStore } = rootStore
+  const { licenseKeyStore, apiKeyStore, radioStationStore, sonickeyStore, companyStore, userStore, groupStore, releaseStore, playsStore, partnerStore, tracksStore } = rootStore
   licenseKeyStore.fetchLicenseKeys()
   apiKeyStore.fetchApiKeys()
   radioStationStore.fetchRadioStations()
@@ -26,7 +26,6 @@ export const fetchInitialData = () => {
   userStore.fetchUsers()
   groupStore.fetchGroups()
   releaseStore.fetchVersions()
-  profileStore.fetchAdminProfile()
 }
 
 export function withStore(WrapperComponent) {

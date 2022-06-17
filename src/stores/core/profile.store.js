@@ -7,6 +7,9 @@ import {
 import { AxiosRequestConfig } from "axios";
 import { log } from "../../utils/app.debug";
 import usersHttps from "../../services/https/resources/users.https";
+import { toast } from "react-toastify";
+import { sessionStore } from "../session/session.store";
+import { fetchInitialData } from "..";
 
 class ProfileStore {
     @observable loading = false;
@@ -28,16 +31,23 @@ class ProfileStore {
      */
 
     @action
-    fetchAdminProfile() {
+    fetchAdminProfile(token) {
         this.loading = true;
         this.error = null;
 
         usersHttps
-            .getAdminProfile()
+            .getAdminProfile(token)
             .then(({ data }) => {
-                // log("Admin..", data);
-                this.profile = data;
-                this.loading = false;
+                log("Admin..", data);
+                if (data?.userRole === "Admin") {
+                    this.profile = data;
+                    this.loading = false;
+                    fetchInitialData();
+                } else {
+                    this.loading = false;
+                    // toast.error("You must be admin to access this portal")
+                    sessionStore.logout();
+                }
             })
             .catch((err) => {
                 log("Admin err", err);

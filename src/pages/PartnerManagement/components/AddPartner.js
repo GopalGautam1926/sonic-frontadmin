@@ -137,32 +137,6 @@ export default function AddPartner({ closeDialog }) {
                                     />
                                 </FormControl>
                             </Grid>
-
-                            <Grid item xs={12} sm={6} md={6}>
-                                <FormControl fullWidth component="fieldset" >
-                                    <AppTextInput
-                                        labelText="Partner Email"
-                                        id="email"
-                                        formControlProps={{
-                                            fullWidth: true,
-                                        }}
-                                        inputProps={{
-                                            id: "email",
-                                            required: true,
-                                            placeholder: "Partner email",
-                                            value: state.partnerData.email,
-                                            onChange: (e) =>
-                                                setState({
-                                                    ...state, partnerData: {
-                                                        ...state.partnerData, email: e.target.value
-                                                    }
-                                                }),
-                                        }}
-                                    />
-                                </FormControl>
-                            </Grid>
-
-                            
                         </Grid>
                     </FancyCard.CardContent>
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
 import {
   AmplifyAuthenticator,
@@ -9,8 +9,6 @@ import { useStore } from "../../stores";
 import { log } from "../../utils/app.debug";
 import Logo from "../Logo/Logo";
 import { observer } from "mobx-react";
-import { toast } from 'react-toastify';
-import { fetchInitialData } from '../../stores';
 
 export default function withCognitoAuthenticotor(WrappedComponent) {
   return observer((props) => {
@@ -23,23 +21,9 @@ export default function withCognitoAuthenticotor(WrappedComponent) {
         log("authData", authData);
         switch (nextAuthState) {
           case AuthState.SignedIn:
-            // if (authData?.signInUserSession) {
-            //   log("isSonicAdmin..", profileStore?.getProfile?.isSonicAdmin);
-            // if (
-            //   !authData?.signInUserSession?.accessToken?.payload?.[
-            //     "cognito:groups"
-            //   ]?.includes("Admin")
-            // ) 
-            // if (!profileStore?.getProfile?.isSonicAdmin) {
-            //   toast.error("You must be admin to access this portal")
-            //   sessionStore.logout();
-            //   return;
-            // }
+            profileStore.fetchAdminProfile(authData?.signInUserSession?.accessToken?.jwtToken)
             localStorage.setItem("user_info", JSON.stringify(authData.signInUserSession));
             sessionStore.setSession(authData?.signInUserSession, nextAuthState);
-            // fetch initial store data on loggedIn
-            fetchInitialData()
-            // }
             break;
           case AuthState.SignIn:
             localStorage.removeItem("user_info");
@@ -57,7 +41,9 @@ export default function withCognitoAuthenticotor(WrappedComponent) {
       localStorage.getItem("user_info")
     ) {
       return <WrappedComponent {...props} />;
-    } else {
+    }
+
+    else {
       return (
         <AmplifyContainer>
           <AmplifyAuthenticator>
