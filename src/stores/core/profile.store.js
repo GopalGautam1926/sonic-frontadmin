@@ -35,26 +35,30 @@ class ProfileStore {
         this.loading = true;
         this.error = null;
 
-        usersHttps
+        return usersHttps
             .getAdminProfile(token)
             .then(({ data }) => {
                 log("Admin..", data);
-                if (data?.userRole === "Admin") {
-                    this.profile = data;
-                    this.loading = false;
-                    fetchInitialData();
-                } else {
-                    this.loading = false;
-                    toast.error("You must be admin to access this portal")
-                    sessionStore.logout();
-                }
+                this.profile = data;
+                this.loading = false;
+                return data;
+                // if (data?.userRole === "Admin") {
+                //     this.profile = data;
+                //     this.loading = false;
+                //     fetchInitialData();
+                // } else {
+                //     this.loading = false;
+                //     toast.error("You must be admin to access this portal")
+                //     sessionStore.logout();
+                // }
             })
             .catch((err) => {
                 log("Admin err", err);
                 this.loading = false;
                 this.error = err;
-                toast.error(err?.message)
-                sessionStore.logout();
+                return err;
+                // toast.error(err?.message)
+                // sessionStore.logout();
             });
     }
 }
