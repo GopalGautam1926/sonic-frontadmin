@@ -26,13 +26,12 @@ import ViewVersion from '../pages/ReleaseManagement/components/ViewVersion';
 import Partners from "../pages/PartnerManagement/Partners";
 import ViewPartner from "../pages/PartnerManagement/components/ViewPartner";
 import Tracks from "../pages/TracksManagement/Tracks";
-import CompanyReportExcludingPartner from "../pages/ReportsManagement/CompanyReportExcludingPartner";
+import Company from "../pages/ReportsManagement/Company";
 import TrackPlaysReport from "../pages/ReportsManagement/TrackPlaysReport";
 import EncodesReport from "../pages/ReportsManagement/EncodesReport";
 import RadioStationReport from "../pages/ReportsManagement/RadioStationReport";
 import UsageReport from "../pages/ReportsManagement/UsageReport";
 import CountriesReport from "../pages/ReportsManagement/CountriesReport";
-import CompanyReportIncludingPartner from "../pages/ReportsManagement/CompanyReportIncludingPartner";
 import TrackReport from "../pages/ReportsManagement/TrackReport";
 import ArtistReport from "../pages/ReportsManagement/ArtistReport";
 import Summary from "../pages/ReportsManagement/Summary/Summary";
@@ -274,9 +273,9 @@ export const routesData = [
     layout: "/admin",
     routes: [
       {
-        path: "/reports-management/company-report-excluding-partner-customer-companies",
+        path: "/reports-management/company",
         name: "Company",
-        component: observer(CompanyReportExcludingPartner),
+        component: observer(Company),
         exact: true,
         sidebar: true,
         layout: "/admin",
@@ -326,15 +325,6 @@ export const routesData = [
         sidebar: true,
         layout: "/admin",
         key: "rm_countries_report",
-      },
-      {
-        path: "/reports-management/company-report-including-partner-customer-companies",
-        name: "Company (Partner)",
-        component: observer(CompanyReportIncludingPartner),
-        exact: true,
-        sidebar: true,
-        layout: "/admin",
-        key: "rm_company_report_including_partner",
       },
       {
         path: "/reports-management/track-report",
