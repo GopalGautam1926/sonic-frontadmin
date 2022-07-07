@@ -6,6 +6,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import BusinessIcon from '@material-ui/icons/Business';
 import AudiotrackIcon from '@material-ui/icons/Audiotrack';
+import AssessmentOutlinedIcon from '@material-ui/icons/AssessmentOutlined';
 import Dashboard from "../pages/Dashboard/Dashboard";
 import LicenseKeys from '../pages/KeysManagement/LicenseKeys/LicenseKeys';
 import ApiKeys from '../pages/KeysManagement/ApiKeys/ApiKeys';
@@ -25,6 +26,16 @@ import ViewVersion from '../pages/ReleaseManagement/components/ViewVersion';
 import Partners from "../pages/PartnerManagement/Partners";
 import ViewPartner from "../pages/PartnerManagement/components/ViewPartner";
 import Tracks from "../pages/TracksManagement/Tracks";
+import CompanyReportExcludingPartner from "../pages/ReportsManagement/CompanyReportExcludingPartner";
+import TrackPlaysReport from "../pages/ReportsManagement/TrackPlaysReport";
+import EncodesReport from "../pages/ReportsManagement/EncodesReport";
+import RadioStationReport from "../pages/ReportsManagement/RadioStationReport";
+import UsageReport from "../pages/ReportsManagement/UsageReport";
+import CountriesReport from "../pages/ReportsManagement/CountriesReport";
+import CompanyReportIncludingPartner from "../pages/ReportsManagement/CompanyReportIncludingPartner";
+import TrackReport from "../pages/ReportsManagement/TrackReport";
+import ArtistReport from "../pages/ReportsManagement/ArtistReport";
+import Summary from "../pages/ReportsManagement/Summary/Summary";
 
 export const routesData = [
   {
@@ -251,6 +262,106 @@ export const routesData = [
             key: "km_apikeys_view",
           },
         ]
+      },
+    ],
+  },
+
+  {
+    icon: <AssessmentOutlinedIcon />,
+    name: "Reports",
+    sidebar: true,
+    parentPath: '/reports-management',
+    layout: "/admin",
+    routes: [
+      {
+        path: "/reports-management/company-report-excluding-partner-customer-companies",
+        name: "Company",
+        component: observer(CompanyReportExcludingPartner),
+        exact: true,
+        sidebar: true,
+        layout: "/admin",
+        key: "rm_company_report_excluding_partner",
+      },
+      {
+        path: "/reports-management/track-plays-detail-report",
+        name: "Track Plays",
+        component: observer(TrackPlaysReport),
+        exact: true,
+        sidebar: true,
+        layout: "/admin",
+        key: "rm_track_plays_report",
+      },
+      {
+        path: "/reports-management/encodes-report",
+        name: "Encodes",
+        component: observer(EncodesReport),
+        exact: true,
+        sidebar: true,
+        layout: "/admin",
+        key: "rm_encodes_report",
+      },
+      {
+        path: "/reports-management/radio-station-report",
+        name: "Radio Station",
+        component: observer(RadioStationReport),
+        exact: true,
+        sidebar: true,
+        layout: "/admin",
+        key: "rm_radio_station_report",
+      },
+      {
+        path: "/reports-management/usage-reports",
+        name: "Usage",
+        component: observer(UsageReport),
+        exact: true,
+        sidebar: true,
+        layout: "/admin",
+        key: "rm_usage_reports",
+      },
+      {
+        path: "/reports-management/countries-report",
+        name: "Countries",
+        component: observer(CountriesReport),
+        exact: true,
+        sidebar: true,
+        layout: "/admin",
+        key: "rm_countries_report",
+      },
+      {
+        path: "/reports-management/company-report-including-partner-customer-companies",
+        name: "Company (Partner)",
+        component: observer(CompanyReportIncludingPartner),
+        exact: true,
+        sidebar: true,
+        layout: "/admin",
+        key: "rm_company_report_including_partner",
+      },
+      {
+        path: "/reports-management/track-report",
+        name: "Track",
+        component: observer(TrackReport),
+        exact: true,
+        sidebar: true,
+        layout: "/admin",
+        key: "rm_track_report",
+      },
+      {
+        path: "/reports-management/artist-reports",
+        name: "Artist",
+        component: observer(ArtistReport),
+        exact: true,
+        sidebar: true,
+        layout: "/admin",
+        key: "rm_artist_reports",
+      },
+      {
+        path: "/reports-management/summary",
+        name: "Summary",
+        component: observer(Summary),
+        exact: true,
+        sidebar: true,
+        layout: "/admin",
+        key: "rm_summary",
       },
     ],
   },
