@@ -7,7 +7,7 @@ import {
 import { AxiosRequestConfig } from "axios";
 import { log } from "../../utils/app.debug";
 import CompanyReportsHttps from "../../services/https/resources/companyReport.https";
-import deepmerge from "deepmerge";
+import moment from "moment";
 
 class CompanyReportStore {
     @observable loading = false;
@@ -73,18 +73,21 @@ class CompanyReportStore {
  */
 
     @action
-    fetchCompaniesReports(options = {}) {
+    fetchCompaniesReports(page = 1) {
         this.error = null;
         this.loading = true;
 
-        // let startDate = moment(this.dateRange.startDate).startOf("days").toISOString();
-        // let endDate = moment(this.dateRange.endDate).endOf("days").toISOString();
+        let startDate = moment(this.dateRange.startDate).startOf("days").toISOString();
+        let endDate = moment(this.dateRange.endDate).endOf("days").toISOString();
 
-        let newOptions = {
+        let options = {
             params: {
+                limit: this?.companyReport?.limit,
+                page: page,
+                skip: page > 1 ? (page - 1) * this?.companyReport?.limit : 0,
                 sort: "-createdAt",
-                // "createdAt>": `date(${startDate})` || undefined,
-                // "createdAt<": `date(${endDate})` || undefined,
+                "createdAt>": `date(${startDate})` || undefined,
+                "createdAt<": `date(${endDate})` || undefined,
                 "name": this.filters.name ? `/${this.filters.name}/i` : undefined,
                 "companyType": this.filters.companyType ? `${this.filters.companyType}` : undefined,
                 "companyUrnOrId": this.filters.companyUrnOrId ? `/${this.filters.companyUrnOrId}/i` : undefined,
@@ -92,11 +95,10 @@ class CompanyReportStore {
             }
         }
 
-        options = deepmerge(newOptions, options)
         CompanyReportsHttps.fetchCompaniesReports(options)
             .then(({ data }) => {
-                log("Fetched Company report", data)
-                this.company = data
+                log("Fetched Company Report", data)
+                this.companyReport = data
                 this.loading = false;
             })
             .catch((err) => {
@@ -104,6 +106,13 @@ class CompanyReportStore {
                 this.error = err;
                 this.loading = false;
             })
+    }
+
+    @action
+    updateCompany(company = {}) {
+        let objIndex = this.companyReport.docs?.findIndex(obj => obj?._id === company?._id)
+        this.companyReport.docs[objIndex] = company
+        log("Changed company", company)
     }
 }
 

@@ -1,14 +1,17 @@
 import React from 'react'
+import CustomPagination from '../../../components/common/CustomPagination';
 import DataFetchingStateComponent from '../../../components/common/DataFetchingStateComponent'
 import FancyCard from '../../../components/FancyCard/FancyCard'
 import Table from '../../../components/Table/Table'
 import { useStore } from '../../../stores';
 import { log } from '../../../utils/app.debug';
+import FilterCompanyReport from './Components/FilterCompanyReport';
+import HighLevelCounts from './Components/HighLevelCounts';
 
 export default function Company() {
     const { companyReportStore } = useStore();
 
-    log("Company Report Store", companyReportStore)
+    log("Company Report Store", companyReportStore?.companyReport)
 
     const columns = [
         {
@@ -21,25 +24,64 @@ export default function Company() {
         },
         {
             label: "Plays",
-            name: "plays",
+            name: "_id",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    const company = companyReportStore?.companyReport?.docs?.find(company => company?._id === value)
+                    return <HighLevelCounts company={company} plays={true} />
+                }
+            }
         },
         {
             label: "Tracks",
-            name: "tracks",
+            name: "_id",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    const company = companyReportStore?.companyReport?.docs?.find(company => company?._id === value)
+                    return <HighLevelCounts company={company} tracks={true} />
+                }
+            }
         },
         {
             label: "Artists",
-            name: "artists",
+            name: "_id",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    const company = companyReportStore?.companyReport?.docs?.find(company => company?._id === value)
+                    return <HighLevelCounts company={company} artists={true} />
+                }
+            }
         },
         {
             label: "Radio Stations",
-            name: "radioStations",
+            name: "_id",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    const company = companyReportStore?.companyReport?.docs?.find(company => company?._id === value)
+                    return <HighLevelCounts company={company} radioStations={true} />
+                }
+            }
         },
         {
             label: "Countries",
-            name: "countries",
+            name: "_id",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    const company = companyReportStore?.companyReport?.docs?.find(company => company?._id === value)
+                    return <HighLevelCounts company={company} countries={true} />
+                }
+            }
         }
     ]
+
+    const onPageChange = (page) => {
+        companyReportStore.fetchCompaniesReports(page)
+    }
     return (
         <FancyCard
             cardHeader={
@@ -66,18 +108,27 @@ export default function Company() {
                             <Table.TableActions
                                 addPlusFilter
                                 // openDialogWhenClickAdd={true}
-                                // openDialogFilter={true}
+                                openDialogFilter={true}
                                 refreshButtonProps={{
                                     onClick: () => companyReportStore.fetchCompaniesReports(),
                                 }}
-                            // componentInsideDialog={<AddCompany />}
-                            // componentInsideDialogFilter={<FilterCompany />}
+                                // componentInsideDialog={<AddCompany />}
+                                componentInsideDialogFilter={<FilterCompanyReport />}
                             />
                         }
                         columns={columns}
-                        data={companyReportStore?.company?.docs || []}
+                        data={companyReportStore?.companyReport?.docs || []}
                         options={{
-                            count: companyReportStore?.company?.docs?.length
+                            count: companyReportStore?.companyReport?.docs?.length,
+                            customFooter: () => {
+                                return (
+                                    <CustomPagination
+                                        totalPages={companyReportStore?.companyReport?.totalPages}
+                                        page={companyReportStore?.companyReport?.page}
+                                        onChange={(event, value) => onPageChange(value)}
+                                    />
+                                );
+                            }
                         }}
                     />
                 </DataFetchingStateComponent>
