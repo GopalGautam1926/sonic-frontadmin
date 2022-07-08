@@ -1,15 +1,10 @@
 import React, { useState } from 'react'
 import moment from 'moment';
 import { Tooltip } from '@material-ui/core';
-import DeleteIcon from "@material-ui/icons/Delete";
 import { toast } from 'react-toastify';
 
 import { useStore } from '../../../stores';
-import RSpace from '../../../components/rcomponents/RSpace';
-import RPopconfirm from '../../../components/rcomponents/RPopconfirm';
-import AppButton from '../../../components/AppButton/AppButton';
 import FancyCard from '../../../components/FancyCard/FancyCard';
-import DatePicker from '../../../components/DatePicker/DatePicker';
 import DataFetchingStateComponent from '../../../components/common/DataFetchingStateComponent';
 import Table from '../../../components/Table/Table';
 import CustomPagination from '../../../components/common/CustomPagination';
@@ -43,79 +38,22 @@ export default function TrackPlaysReport() {
 
     const columns = [
         {
-            label: "SonicKey",
+            label: "Company",
             name: "sonicKey",
             options: {
                 filter: false,
                 customBodyRender: (value) => {
-                    const sonickey = value?.sonicKey || "---";
-                    return sonickey;
+                    return value?.company?.name || "---";
                 },
             },
         },
         {
-            label: "Radio Station",
-            name: "radioStation",
-            options: {
-                filter: false,
-                customBodyRender: (radioStation) => {
-                    const radio = radioStation?.name || "---";
-                    return radio;
-                },
-            },
-        },
-        {
-            label: "Date",
-            name: "detectedAt",
-            options: {
-                filter: false,
-                customBodyRender: (value) => {
-                    const date = value ? moment(value).utc().format("DD/MM/YYYY") : "---";
-                    return date;
-                },
-            },
-        },
-        {
-            label: "Time",
-            name: "detectedAt",
-            options: {
-                filter: false,
-                customBodyRender: (value) => {
-                    const time = value ? moment(value).utc().format("HH:mm") : "---";
-                    return time;
-                },
-            },
-        },
-        {
-            label: "Duration",
+            label: "CompanyType",
             name: "sonicKey",
             options: {
                 filter: false,
                 customBodyRender: (value) => {
-                    const duration = value?.contentDuration
-                        ? moment.utc(value?.contentDuration * 1000).format("mm:ss")
-                        : "---";
-                    return duration;
-                },
-            },
-        },
-        {
-            label: "Original Filename",
-            name: "sonicKey",
-            options: {
-                filter: false,
-                customBodyRender: (value) => {
-                    const filename =
-                        value?.originalFileName?.length > 20
-                            ? value?.originalFileName?.slice(0, 20) + "..."
-                            : value?.originalFileName || value?.contentFileName?.length > 20
-                                ? value?.contentFileName?.slice(0, 20) + "..."
-                                : value?.contentFileName;
-                    return (
-                        <Tooltip title={value?.originalFileName || value?.contentFileName}>
-                            <div>{filename}</div>
-                        </Tooltip>
-                    );
+                    return value?.company?.companyType || "---";
                 },
             },
         },
@@ -125,12 +63,7 @@ export default function TrackPlaysReport() {
             options: {
                 filter: false,
                 customBodyRender: (value) => {
-                    const artist =
-                        value?.contentOwner === ""
-                            ? "---"
-                            : value?.contentOwner?.length > 20
-                                ? value?.contentOwner?.slice(0, 20) + "..."
-                                : value?.contentOwner;
+                    const artist = value?.contentOwner?.length > 20 ? value?.contentOwner?.slice(0, 20) + "..." : value?.contentOwner || "---";
                     return (
                         <Tooltip title={value?.contentOwner}>
                             <div>{artist}</div>
@@ -140,37 +73,177 @@ export default function TrackPlaysReport() {
             },
         },
         {
-            label: "Country",
-            name: "radioStation",
+            label: "Title",
+            name: "sonicKey",
             options: {
                 filter: false,
-                customBodyRender: (radioStation) => {
-                    const country = radioStation?.country || "---";
-                    return country;
+                customBodyRender: (value) => {
+                    const filename = value?.contentName?.length > 20 ? value?.contentName?.slice(0, 20) + "..." : value?.contentName || "---";
+                    return (
+                        <Tooltip title={value?.contentName || "---"}>
+                            <div>{filename}</div>
+                        </Tooltip>
+                    );
                 },
             },
         },
         {
-            label: "Actions",
-            name: "_id",
+            label: "RadioStation",
+            name: "radioStation",
             options: {
                 filter: false,
                 customBodyRender: (value) => {
-                    return (
-                        <RSpace>
-                            <RSpace.Item>
-                                <RPopconfirm
-                                    anchorElement={
-                                        <AppButton loading={(state.deletigPlayId && value == state.deletigPlayId)} asIconButton={true} color="danger" size="small">
-                                            <DeleteIcon style={{ fontSize: 18 }} />
-                                        </AppButton>
-                                    }
-                                    message="Really want to delete this play?"
-                                    onClickYes={() => deletePlay(value)}
-                                />
-                            </RSpace.Item>
-                        </RSpace>
-                    );
+                    return value?.name || "---";
+                },
+            },
+        },
+        {
+            label: "Date",
+            name: "detectedAt",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return value ? moment(value).utc().format("DD/MM/YYYY") : "---";
+                },
+            },
+        },
+        {
+            label: "Time",
+            name: "detectedAt",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return value ? moment(value).utc().format("HH:mm") : "---";
+                },
+            },
+        },
+        {
+            label: "Duration",
+            name: "sonicKey",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return value?.contentDuration ? moment.utc(value?.contentDuration * 1000).format("mm:ss") : "---";
+                },
+            },
+        },
+        {
+            label: "Country",
+            name: "radioStation",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return value?.country || "---";
+                },
+            },
+        },
+        {
+            label: "Track Id",
+            name: "sonicKey",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return value?.track?._id || "---";
+                },
+            },
+        },
+        {
+            label: "SonicKey",
+            name: "sonicKey",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return value?.sonicKey || "---";
+                },
+            },
+        },
+        // {
+        //     label: "SK/SID",
+        //     name: "sonicKey",
+        //     options: {
+        //         filter: false,
+        //         customBodyRender: (value) => {
+        //             return value?.sonicKey || "---";
+        //         },
+        //     },
+        // },
+        {
+            label: "Version",
+            name: "sonicKey",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return value?.version || "---";
+                },
+            },
+        },
+        {
+            label: "Distributor",
+            name: "sonicKey",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return value?.distributor || "---";
+                },
+            },
+        },
+        {
+            label: "Label",
+            name: "sonicKey",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return value?.label || "---";
+                },
+            },
+        },
+        {
+            label: "ISRC",
+            name: "sonicKey",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return value?.isrcCode || "---";
+                },
+            },
+        },
+        {
+            label: "ISWC",
+            name: "sonicKey",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return value?.iswcCode || "---";
+                },
+            },
+        },
+        {
+            label: "TuneCode",
+            name: "sonicKey",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return value?.tuneCode || "---";
+                },
+            },
+        },
+        {
+            label: "Description",
+            name: "sonicKey",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return value?.contentDescription || "---";
+                },
+            },
+        },
+        {
+            label: "FileType",
+            name: "sonicKey",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return value?.contentFileType || "---";
                 },
             },
         },
