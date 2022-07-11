@@ -35,10 +35,13 @@ class CompanyReportStore {
         endDate: new Date(),
     };
     @observable filters = {
-        name: "",
-        companyType: "",
-        companyUrnOrId: "",
-        owner: "",
+        partnerName: "",
+        companyName: "",
+        trackTitle: "",
+        artist: "",
+        radioStation: "",
+        countries: "",
+        channel: ""
     };
 
     @action
@@ -60,10 +63,13 @@ class CompanyReportStore {
     @action
     resetFilter() {
         this.filters = {
-            name: "",
-            companyType: "",
-            companyUrnOrId: "",
-            owner: "",
+            partnerName: "",
+            companyName: "",
+            trackTitle: "",
+            artist: "",
+            radioStation: "",
+            countries: "",
+            channel: ""
         }
     }
 

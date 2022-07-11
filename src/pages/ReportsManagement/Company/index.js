@@ -1,6 +1,8 @@
+import { Grid } from '@material-ui/core';
 import React from 'react'
 import CustomPagination from '../../../components/common/CustomPagination';
 import DataFetchingStateComponent from '../../../components/common/DataFetchingStateComponent'
+import DatePicker from '../../../components/DatePicker/DatePicker';
 import FancyCard from '../../../components/FancyCard/FancyCard'
 import Table from '../../../components/Table/Table'
 import { useStore } from '../../../stores';
@@ -82,6 +84,7 @@ export default function Company() {
     const onPageChange = (page) => {
         companyReportStore.fetchCompaniesReports(page)
     }
+
     return (
         <FancyCard
             cardHeader={
@@ -97,6 +100,41 @@ export default function Company() {
                 </FancyCard.CardHeader>
             }
         >
+            <Grid container style={{ padding: "0px 20px", display: 'flex', justifyContent: 'flex-end', zIndex: 1 }}>
+                <Grid item>
+                    <DatePicker
+                        label="Start Date"
+                        selected={companyReportStore?.dateRange?.startDate}
+                        onChange={(date) => companyReportStore?.changeDateRange({ ...companyReportStore?.dateRange, startDate: date })}
+                        showYearDropdown
+                        dateFormat="dd/MM/yyyy"
+                        yearDropdownItemNumber={15}
+                        scrollableYearDropdown
+                        showMonthDropdown
+                        startDate={companyReportStore?.dateRange?.startDate}
+                        endDate={companyReportStore?.dateRange?.endDate}
+                    />
+                </Grid>
+                <Grid item className="mt-4 mx-3">
+                    <p style={{ fontSize: '14px' }}>TO</p>
+                </Grid>
+
+                <Grid item>
+                    <DatePicker
+                        label="End Date"
+                        selected={companyReportStore?.dateRange?.endDate}
+                        onChange={(date) => companyReportStore?.changeDateRange({ ...companyReportStore?.dateRange, endDate: date })}
+                        showYearDropdown
+                        dateFormat="dd/MM/yyyy"
+                        yearDropdownItemNumber={15}
+                        scrollableYearDropdown
+                        showMonthDropdown
+                        startDate={companyReportStore?.dateRange?.startDate}
+                        endDate={companyReportStore?.dateRange?.endDate}
+                    />
+                </Grid>
+            </Grid>
+
             <FancyCard.CardContent style={{ zIndex: 0 }}>
                 <DataFetchingStateComponent
                     loading={companyReportStore.loading}
