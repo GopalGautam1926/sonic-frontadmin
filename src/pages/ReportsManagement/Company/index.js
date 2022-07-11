@@ -89,7 +89,7 @@ export default function Company() {
                 <FancyCard.CardHeader color="purple">
                     {(headerClasses) => (
                         <>
-                            <h4 className={headerClasses.cardTitleWhite}>Companies</h4>
+                            <h4 className={headerClasses.cardTitleWhite}>Company Report</h4>
                             <p className={headerClasses.cardCategoryWhite}>
                                 Reports of all companies
                             </p>

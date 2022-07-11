@@ -37,11 +37,11 @@ export default function Dashboard() {
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
-          <EncodedStats />
+          <PlaysStats />
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
-          <PlaysStats />
+          <EncodedStats />
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
