@@ -7,7 +7,7 @@ import DataFetchingStateComponent from '../../../components/common/DataFetchingS
 import FancyCard from '../../../components/FancyCard/FancyCard';
 import Table from '../../../components/Table/Table';
 import { useStore } from '../../../stores';
-import DetectionDateRange from '../components/DetectionDateRange';
+import ReportsDateRange from '../components/ReportsDateRange';
 import FilterEncodesReport from './components/FilterEncodesReport';
 
 export default function EncodesReport() {
@@ -105,7 +105,7 @@ export default function EncodesReport() {
                     </FancyCard.CardHeader>
                 }
             >
-                <DetectionDateRange
+                <ReportsDateRange
                     startDate={sonickeyStore?.getDateRange?.startDate}
                     onChangeStartDate={(date) => sonickeyStore?.changeDateRange({ ...sonickeyStore?.getDateRange, startDate: date })}
                     endDate={sonickeyStore?.getDateRange?.endDate}

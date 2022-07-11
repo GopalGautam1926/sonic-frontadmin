@@ -2,7 +2,7 @@ import React from 'react'
 import { Grid } from '@material-ui/core'
 import DatePicker from '../../../components/DatePicker/DatePicker'
 
-export default function DetectionDateRange({ startDate, onChangeStartDate, endDate, onChangeEndDate }) {
+export default function ReportsDateRange({ startDate, onChangeStartDate, endDate, onChangeEndDate }) {
     return (
         <Grid container style={{ padding: "0px 20px", display: "flex", justifyContent: "flex-end", zIndex: 1 }}>
             <Grid item>
