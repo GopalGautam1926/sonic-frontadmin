@@ -133,20 +133,17 @@ const FilterCompanyReport = ({ closeDialog }) => {
                                 data={Channel || []}
                             />
                         </Grid>
-
-                        <Grid item xs={12} sm={6} md={3}>
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        checked={companyReportStore?.getFilters?.isPartnerCustomerCompanyInc}
-                                        onChange={(e) => companyReportStore?.changeFilters({ ...companyReportStore?.getFilters, isPartnerCustomerCompanyInc: e.target.checked })}
-                                        color="primary"
-                                    />
-                                }
-                                label="Including Partner Customer Companies"
-                            />
-                        </Grid>
                     </Grid>
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={companyReportStore?.getFilters?.isPartnerCustomerCompanyInc}
+                                onChange={(e) => companyReportStore?.changeFilters({ ...companyReportStore?.getFilters, isPartnerCustomerCompanyInc: e.target.checked })}
+                                color="primary"
+                            />
+                        }
+                        label="Including Partner Customer Companies"
+                    />
                 </FancyCard.CardContent>
 
                 <FancyCard.CardActions>
