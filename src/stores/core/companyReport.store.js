@@ -41,7 +41,8 @@ class CompanyReportStore {
         artist: "",
         radioStation: "",
         country: "",
-        channel: "ALL"
+        channel: "ALL",
+        isPartnerCustomerCompanyInc: false
     };
 
     @action
@@ -69,7 +70,8 @@ class CompanyReportStore {
             artist: "",
             radioStation: "",
             country: "",
-            channel: ""
+            channel: "",
+            isPartnerCustomerCompanyInc: false
         }
     }
 
@@ -94,13 +96,12 @@ class CompanyReportStore {
                 sort: "-createdAt",
                 "createdAt>": `date(${startDate})` || undefined,
                 "createdAt<": `date(${endDate})` || undefined,
-                "relation_sonicKey.partner._id": this?.filters?.partner?._id || undefined,
-                "relation_sonicKey.company._id": this?.filters?.company?._id || undefined,
-                "relation_sonicKey.originalFileName": this.filters.track ? `/${this.filters.track}/i` : undefined,
-                "relation_sonicKey.contentOwner": this.filters.artist ? `/${this.filters.artist}/i` : undefined,
-                "relation_radioStation.name": this.filters.radioStation ? `/${this.filters.radioStation}/i` : undefined,
-                "relation_country.name": this.filters.country ? `/${this.filters.country}/i` : undefined,
-                "channel": this.filters.channel !== "ALL" ? this.filters.channel : undefined,
+                "partner": this?.filters?.partner?._id || undefined,
+                "company": this?.filters?.company?._id || undefined,
+                "relation_originalFileName": this.filters.track ? `/${this.filters.track}/i` : undefined,
+                "relation_contentOwner": this.filters.artist ? `/${this.filters.artist}/i` : undefined,
+                "relation_channel": this.filters.channel !== "ALL" ? this.filters.channel : undefined,
+                filter: { partner: { $exists: this.filters.isPartnerCustomerCompanyInc } }
             }
         }
 
