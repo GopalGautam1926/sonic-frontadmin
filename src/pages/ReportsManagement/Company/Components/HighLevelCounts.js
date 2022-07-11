@@ -12,7 +12,11 @@ const HighLevelCounts = (props) => {
 
     React.useEffect(() => {
         let param = {
-            "relation_sonicKey.company._id": props?.company?._id
+            "relation_radioStation.name": companyReportStore?.getFilters?.radioStation ? companyReportStore?.getFilters?.radioStation : undefined,
+            "relation_sonicKey.company._id": props?.company?._id,
+            "relation_sonicKey.originalFileName": companyReportStore?.getFilters?.track ? `/${companyReportStore?.getFilters?.track}/i` : undefined,
+            "relation_sonicKey.contentOwner": companyReportStore?.getFilters?.artist ? `/${companyReportStore?.getFilters?.artist}/i` : undefined,
+            "channel": companyReportStore?.getFilters?.channel !== "ALL" ? companyReportStore?.getFilters?.channel : undefined,
         }
         if (props?.plays) {
             AppWebRequest({
