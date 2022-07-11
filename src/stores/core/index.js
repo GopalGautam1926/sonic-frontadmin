@@ -10,3 +10,4 @@ export * from './release.store'
 export * from './profile.store'
 export * from "./tracks.store"
 export * from "./companyReport.store"
+export * from './reportsdetection.store'

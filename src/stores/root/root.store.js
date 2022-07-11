@@ -1,8 +1,5 @@
 import { globalStore } from "../global"
-import {
-    apiKeyStore, companyStore, licenseKeyStore, playsStore, radioStationStore, userStore,
-    sonicKeyStore, partnerStore, profileStore, tracksStore, companyReportStore
-} from '../core';
+import { apiKeyStore, companyStore, licenseKeyStore, playsStore, radioStationStore, userStore, sonicKeyStore, partnerStore, profileStore, tracksStore, reportsdetectionStore, companyReportStore } from '../core';
 import { sessionStore } from '../session/session.store';
 import { releaseStore } from "../core/release.store"
 
@@ -21,6 +18,7 @@ class RootStore {
     profileStore = profileStore
     tracksStore = tracksStore
     companyReportStore = companyReportStore
+    reportsdetection = reportsdetectionStore
 
     constructor() {
         //Do some initial stuffs
