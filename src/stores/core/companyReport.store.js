@@ -35,12 +35,12 @@ class CompanyReportStore {
         endDate: new Date(),
     };
     @observable filters = {
-        partnerName: "",
-        companyName: "",
-        trackTitle: "",
+        partner: {},
+        company: {},
+        track: "",
         artist: "",
         radioStation: "",
-        countries: "",
+        country: "",
         channel: ""
     };
 
@@ -63,12 +63,12 @@ class CompanyReportStore {
     @action
     resetFilter() {
         this.filters = {
-            partnerName: "",
-            companyName: "",
-            trackTitle: "",
+            partner: {},
+            company: {},
+            track: "",
             artist: "",
             radioStation: "",
-            countries: "",
+            country: "",
             channel: ""
         }
     }
@@ -94,10 +94,12 @@ class CompanyReportStore {
                 sort: "-createdAt",
                 "createdAt>": `date(${startDate})` || undefined,
                 "createdAt<": `date(${endDate})` || undefined,
-                "name": this.filters.name ? `/${this.filters.name}/i` : undefined,
-                "companyType": this.filters.companyType ? `${this.filters.companyType}` : undefined,
-                "companyUrnOrId": this.filters.companyUrnOrId ? `/${this.filters.companyUrnOrId}/i` : undefined,
-                "relation_owner.username": this.filters.owner || undefined,
+                "relation_sonicKey.partner._id": this?.filters?.partner?._id || undefined,
+                "relation_sonicKey.company._id": this?.filters?.company?._id || undefined,
+                "relation_sonicKey.originalFileName": this.filters.track ? `/${this.filters.track}/i` : undefined,
+                "relation_sonicKey.contentOwner": this.filters.artist ? `/${this.filters.artist}/i` : undefined,
+                "relation_radioStation.name": this.filters.radioStation ? `/${this.filters.radioStation}/i` : undefined,
+                "relation_country.name": this.filters.country ? `/${this.filters.country}/i` : undefined,
             }
         }
 
