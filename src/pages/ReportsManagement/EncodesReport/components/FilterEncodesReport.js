@@ -93,7 +93,7 @@ function FilterEncodesReport({ closeDialog }) {
                                 />
                             </Grid>
 
-                            {/* <Grid item xs={12} sm={6} md={3}>
+                            <Grid item xs={12} sm={6} md={3}>
                                 <RadioDropDown
                                     labelText="Radio Station"
                                     id="radiostation"
@@ -121,7 +121,7 @@ function FilterEncodesReport({ closeDialog }) {
                                         onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, country: e.target.value })
                                     }}
                                 ></CountryDropDown>
-                            </Grid> */}
+                            </Grid>
 
                             <Grid item xs={12} sm={6} md={3}>
                                 <CustomDropDown
