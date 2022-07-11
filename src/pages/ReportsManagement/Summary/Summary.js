@@ -11,15 +11,36 @@ export default function Summary() {
 
     const { summaryCountStore } = useStore();
     log("count of summary", summaryCountStore?.encodesCount)
+    log("count of summary", summaryCountStore?.partnerCount)
 
     const columns = [
         {
             label: "Partner",
             name: "partner",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return <DataLoading 
+                    error={summaryCountStore?.partnerCount?.error}
+                     loading={summaryCountStore?.partnerCount?.loading}
+                     data={summaryCountStore?.partnerCount?.data}
+                     />
+                }
+            }
         },
         {
             label: "Company",
             name: "company",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return <DataLoading 
+                    error={summaryCountStore?.companyCount?.error}
+                     loading={summaryCountStore?.companyCount?.loading}
+                     data={summaryCountStore?.companyCount?.data}
+                     />
+                }
+            }
         },
         {
             label: "Encodes",

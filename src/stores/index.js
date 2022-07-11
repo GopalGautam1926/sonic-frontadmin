@@ -29,6 +29,8 @@ export const fetchInitialData = () => {
   releaseStore.fetchVersions()
   companyReportStore.fetchCompaniesReports()
   summaryCountStore.fetchEncodesCount()
+  summaryCountStore.fetchPartnersCount()
+  summaryCountStore.fetchCompanyCount()
 }
 
 export function withStore(WrapperComponent) {

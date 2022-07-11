@@ -139,19 +139,83 @@ class SummaryCountStore {
                     data: 0,
                 }
             });
+    }
 
-        // summaryCountHttps
-        //     .fetchPartnersCount(options)
-        //     .then(({ data }) => {
-        //         log("Encodes coundt", data);
-        //         this.encodesCount = data;
-        //         this.loading = false;
-        //     })
-        //     .catch((err) => {
-        //         log("encodes count error err", err);
-        //         this.encodesCount = false;
-        //         this.error = err?.message;
-        //     });
+    fetchPartnersCount() {
+        this.partnerCount = {
+            error: null,
+            loading: true, 
+            data: null,
+        }
+
+        let startDate = moment(this.dateRange.startDate).startOf("days").toISOString();
+        let endDate = moment(this.dateRange.endDate).endOf("days").toISOString();
+
+        const options = {
+            params: {
+                "createdAt>": `date(${startDate})` || undefined,
+                "createdAt<": `date(${endDate})` || undefined,
+                "relation_partner._id": this.filters.partnerName?._id || undefined,
+            },
+        }
+
+            summaryCountHttps
+            .fetchPartnersCount(options)
+            .then(({ data }) => {
+                log("Partners count", data);
+                this.partnerCount = {
+                    error: null,
+                    loading: false, 
+                    data: data,
+                }
+            })
+            .catch((err) => {
+                log("Partners count error err", err);
+                this.partnerCount = {
+                    error: err?.message,
+                    loading: false, 
+                    data: 0,
+                }
+            });
+    }
+
+    fetchCompanyCount() {
+        this.companyCount = {
+            error: null,
+            loading: true, 
+            data: null,
+        }
+
+        let startDate = moment(this.dateRange.startDate).startOf("days").toISOString();
+        let endDate = moment(this.dateRange.endDate).endOf("days").toISOString();
+
+        const options = {
+            params: {
+                "createdAt>": `date(${startDate})` || undefined,
+                "createdAt<": `date(${endDate})` || undefined,
+                "relation_partner._id": this.filters.partnerName?._id || undefined,
+                "relation_company._id": this.filters.companyName?._id || undefined,
+            },
+        }
+
+        summaryCountHttps
+            .fetchCompaniesCount(options)
+            .then(({ data }) => {
+                log("Company count", data);
+                this.companyCount = {
+                    error: null,
+                    loading: false, 
+                    data: data,
+                }
+            })
+            .catch((err) => {
+                log("Company count error err", err);
+                this.companyCount = {
+                    error: err?.message,
+                    loading: false, 
+                    data: 0,
+                }
+            });
     }
 }
 
