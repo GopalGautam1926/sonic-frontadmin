@@ -41,7 +41,7 @@ class CompanyReportStore {
         artist: "",
         radioStation: "",
         country: "",
-        channel: ""
+        channel: "ALL"
     };
 
     @action
@@ -100,6 +100,7 @@ class CompanyReportStore {
                 "relation_sonicKey.contentOwner": this.filters.artist ? `/${this.filters.artist}/i` : undefined,
                 "relation_radioStation.name": this.filters.radioStation ? `/${this.filters.radioStation}/i` : undefined,
                 "relation_country.name": this.filters.country ? `/${this.filters.country}/i` : undefined,
+                "channel": this.filters.channel !== "ALL" ? this.filters.channel : undefined,
             }
         }
 
