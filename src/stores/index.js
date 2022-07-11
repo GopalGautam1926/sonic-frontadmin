@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { useContext } from "react";
 import { createContext } from "react";
+import { summaryCountStore } from './core/summaryCount.store';
 import { rootStore } from './root/root.store';
 
 
@@ -27,6 +28,7 @@ export const fetchInitialData = () => {
   userStore.fetchUsers()
   releaseStore.fetchVersions()
   companyReportStore.fetchCompaniesReports()
+  summaryCountStore.fetchEncodesCount()
 }
 
 export function withStore(WrapperComponent) {
