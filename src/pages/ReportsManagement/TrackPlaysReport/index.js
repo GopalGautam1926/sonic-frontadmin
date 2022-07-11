@@ -270,7 +270,12 @@ export default function TrackPlaysReport() {
                     </FancyCard.CardHeader>
                 }
             >
-                <DetectionDateRange />
+                <DetectionDateRange
+                    startDate={reportsdetection?.getDateRange?.startDate}
+                    onChangeStartDate={(date) => reportsdetection?.changeDateRange({ ...reportsdetection?.getDateRange, startDate: date })}
+                    endDate={reportsdetection?.getDateRange?.endDate}
+                    onChangeEndDate={(date) => reportsdetection?.changeDateRange({ ...reportsdetection?.getDateRange, endDate: date })}
+                />
 
                 <FancyCard.CardContent style={{ zIndex: 0 }}>
                     <DataFetchingStateComponent
