@@ -5,7 +5,7 @@ import DataFetchingStateComponent from '../../../components/common/DataFetchingS
 import Table from '../../../components/Table/Table';
 import CustomPagination from '../../../components/common/CustomPagination';
 import DetectionFilter from '../components/DetectionFilter';
-import DetectionDateRange from '../components/DetectionDateRange';
+import ReportsDateRange from '../components/ReportsDateRange';
 
 export default function CountriesReport() {
     const { reportsdetection } = useStore();
@@ -66,7 +66,7 @@ export default function CountriesReport() {
         //         },
         //     },
         // },
-       
+
     ];
 
     const onPageChange = (page) => {
@@ -90,7 +90,12 @@ export default function CountriesReport() {
                     </FancyCard.CardHeader>
                 }
             >
-                <DetectionDateRange />
+                <ReportsDateRange
+                    startDate={reportsdetection?.getDateRange?.startDate}
+                    onChangeStartDate={(date) => reportsdetection?.changeDateRange({ ...reportsdetection?.getDateRange, startDate: date })}
+                    endDate={reportsdetection?.getDateRange?.endDate}
+                    onChangeEndDate={(date) => reportsdetection?.changeDateRange({ ...reportsdetection?.getDateRange, endDate: date })}
+                />
 
                 <FancyCard.CardContent style={{ zIndex: 0 }}>
                     <DataFetchingStateComponent
