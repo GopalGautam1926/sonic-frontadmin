@@ -144,13 +144,11 @@ export default function Company() {
                     <Table
                         title={
                             <Table.TableActions
-                                addPlusFilter
-                                // openDialogWhenClickAdd={true}
+                                filterOnly
                                 openDialogFilter={true}
                                 refreshButtonProps={{
                                     onClick: () => companyReportStore.fetchCompaniesReports(),
                                 }}
-                                // componentInsideDialog={<AddCompany />}
                                 componentInsideDialogFilter={<FilterCompanyReport />}
                             />
                         }
