@@ -30,22 +30,23 @@ class SonicKeyStore {
         endDate: new Date(),
     };
     @observable filters = {
-        sonickey: "",
-        artist: "",
-        track: "",
-        label: "",
-        distributor: "",
         partnerName: {},
         companyName: {},
-        userName: {},
+        track: "",
+        artist: "",
+        country: "",
+        radiostation: "",
+        channel: "ALL",
+        // sonickey: "",
+        // label: "",
+        // distributor: "",
         sonickeyTablePage: 1,
     };
     @observable sonickeyTablePage = 1;
 
-    constructor() {
-        // makeObservable(this);
-    }
+    constructor() { }
 
+    //DATE RANGE
     @computed
     get getDateRange() {
         return toJS(this.dateRange);
@@ -56,6 +57,7 @@ class SonicKeyStore {
         this.dateRange = dateRange;
     }
 
+    //FILTERS
     @computed
     get getFilters() {
         return toJS(this.filters);
@@ -66,6 +68,20 @@ class SonicKeyStore {
         this.filters = filters;
     }
 
+    @action
+    resetFilter() {
+        this.filters = {
+            partnerName: {},
+            companyName: {},
+            track: "",
+            artist: "",
+            country: "",
+            radiostation: "",
+            channel: "ALL",
+        }
+    }
+
+    //PAGINATION
     @computed
     get getSonicKeyTablePage() {
         return toJS(this.sonickeyTablePage);
@@ -76,23 +92,10 @@ class SonicKeyStore {
         this.sonickeyTablePage = page;
     }
 
+    //FETCH SONICKEYS
     @computed
     get getSonicKeys() {
         return toJS(this.sonickey);
-    }
-
-    @action
-    resetFilter() {
-        this.filters = {
-            sonickey: "",
-            artist: "",
-            track: "",
-            label: "",
-            distributor: "",
-            partnerName: {},
-            companyName: {},
-            userName: {},
-        }
     }
 
     /**
@@ -114,14 +117,16 @@ class SonicKeyStore {
                 skip: page > 1 ? (page - 1) * this.sonickey.limit : 0,
                 "createdAt>": `date(${startDate})` || undefined,
                 "createdAt<": `date(${endDate})` || undefined,
-                "sonicKey": this.filters.sonickey ? `/${this.filters.sonickey}/i` : undefined,
-                "contentOwner": this.filters.artist ? `/${this.filters.artist}/i` : undefined,
-                "track": this.filters.track || undefined,
-                "label": this.filters.label || undefined,
-                "distributor": this.filters.distributor || undefined,
                 "relation_partner._id": this.filters.partnerName?._id || undefined,
                 "relation_company._id": this.filters.companyName?._id || undefined,
-                "relation_filter": this.filters.userName ? { "$or": [{ "relation_owner._id": this.filters.userName?._id }, { "createdBy": this.filters.userName?._id }] } : undefined,
+                "contentOwner": this.filters.artist ? `/${this.filters.artist}/i` : undefined,
+                "track": this.filters.track || undefined,
+                channel: this.filters.channel !== "ALL" ? this.filters.channel : undefined,
+                "relation_radioStation.country": this.filters.country || undefined,
+                "relation_radioStation.name": this.filters.radiostation || undefined,
+                // "sonicKey": this.filters.sonickey ? `/${this.filters.sonickey}/i` : undefined,
+                // "label": this.filters.label || undefined,
+                // "distributor": this.filters.distributor || undefined,
             },
         }
 

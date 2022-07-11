@@ -6,11 +6,13 @@ import { useStore } from '../../../../stores';
 import FancyCard from '../../../../components/FancyCard/FancyCard';
 import AppTextInput from '../../../../components/AppTextInput/AppTextInput';
 import CustomDropDown from '../../../../components/AppTextInput/CustomDropDown';
-import { Distributor, Labels } from '../../../../constants';
+import { Channel, Distributor, Labels } from '../../../../constants';
 import PartnerPicker from '../../../../components/Picker/PartnerPicker';
 import CompanyPicker from '../../../../components/Picker/CompanyPicker';
 import UserPicker from '../../../../components/Picker/UserPicker/UserPicker';
 import AppButton from '../../../../components/AppButton/AppButton';
+import RadioDropDown from '../../../../components/AppTextInput/RadioDropDown';
+import CountryDropDown from '../../../../components/AppTextInput/CountryDropDown';
 
 function FilterEncodesReport({ closeDialog }) {
     const { sonickeyStore } = useStore();
@@ -44,32 +46,20 @@ function FilterEncodesReport({ closeDialog }) {
                     <FancyCard.CardContent>
                         <Grid container spacing={1}>
                             <Grid item xs={12} sm={6} md={3}>
-                                <AppTextInput
-                                    labelText="SonicKey"
-                                    id="sonickey"
-                                    formControlProps={{
-                                        fullWidth: true,
-                                    }}
-                                    inputProps={{
-                                        placeholder: "SonicKey",
-                                        value: sonickeyStore?.getFilters?.sonickey,
-                                        onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, sonickey: e.target.value })
-                                    }}
+                                <PartnerPicker
+                                    labelText="Partner"
+                                    placeholder="Search for partner"
+                                    value={sonickeyStore?.getFilters?.partnerName}
+                                    getSelectedValue={(partner) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, partnerName: partner })}
                                 />
                             </Grid>
 
                             <Grid item xs={12} sm={6} md={3}>
-                                <AppTextInput
-                                    labelText="Artist"
-                                    id="artist"
-                                    formControlProps={{
-                                        fullWidth: true,
-                                    }}
-                                    inputProps={{
-                                        placeholder: "Artist",
-                                        value: sonickeyStore?.getFilters?.artist,
-                                        onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, artist: e.target.value })
-                                    }}
+                                <CompanyPicker
+                                    labelText="Company"
+                                    placeholder="Search for company"
+                                    value={sonickeyStore?.getFilters?.companyName}
+                                    getSelectedValue={(company) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, companyName: company })}
                                 />
                             </Grid>
 
@@ -89,61 +79,63 @@ function FilterEncodesReport({ closeDialog }) {
                             </Grid>
 
                             <Grid item xs={12} sm={6} md={3}>
-                                <CustomDropDown
-                                    labelText="Label"
-                                    id="label"
+                                <AppTextInput
+                                    labelText="Artist"
+                                    id="artist"
                                     formControlProps={{
                                         fullWidth: true,
                                     }}
                                     inputProps={{
-                                        placeholder: "Label",
-                                        value: sonickeyStore?.getFilters?.label,
-                                        onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, label: e.target.value })
+                                        placeholder: "Artist",
+                                        value: sonickeyStore?.getFilters?.artist,
+                                        onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, artist: e.target.value })
                                     }}
-                                    data={Labels || []}
                                 />
                             </Grid>
 
-                            <Grid item xs={12} sm={6} md={3}>
-                                <CustomDropDown
-                                    labelText="Distributor"
-                                    id="distributor"
+                            {/* <Grid item xs={12} sm={6} md={3}>
+                                <RadioDropDown
+                                    labelText="Radio Station"
+                                    id="radiostation"
                                     formControlProps={{
                                         fullWidth: true,
                                     }}
                                     inputProps={{
-                                        placeholder: "Distributor",
-                                        value: sonickeyStore?.getFilters?.distributor,
-                                        onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, distributor: e.target.value })
+                                        placeholder: "Radio Station",
+                                        value: sonickeyStore?.getFilters?.radiostation,
+                                        onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, radiostation: e.target.value })
                                     }}
-                                    data={Distributor || []}
                                 />
                             </Grid>
 
                             <Grid item xs={12} sm={6} md={3}>
-                                <PartnerPicker
-                                    labelText="Associated Partner"
-                                    placeholder="Search for partner"
-                                    value={sonickeyStore?.getFilters?.partnerName}
-                                    getSelectedValue={(partner) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, partnerName: partner })}
-                                />
-                            </Grid>
+                                <CountryDropDown
+                                    labelText="Country"
+                                    id="country"
+                                    formControlProps={{
+                                        fullWidth: true,
+                                    }}
+                                    inputProps={{
+                                        placeholder: "Country",
+                                        value: sonickeyStore?.getFilters?.country,
+                                        onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, country: e.target.value })
+                                    }}
+                                ></CountryDropDown>
+                            </Grid> */}
 
                             <Grid item xs={12} sm={6} md={3}>
-                                <CompanyPicker
-                                    labelText="Associated Company"
-                                    placeholder="Search for company"
-                                    value={sonickeyStore?.getFilters?.companyName}
-                                    getSelectedValue={(company) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, companyName: company })}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12} sm={6} md={3}>
-                                <UserPicker
-                                    labelText="User"
-                                    placeholder="Search for user"
-                                    value={sonickeyStore?.getFilters?.userName}
-                                    getSelectedValue={(user) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, userName: user })}
+                                <CustomDropDown
+                                    labelText="Channel"
+                                    id="channel"
+                                    formControlProps={{
+                                        fullWidth: true,
+                                    }}
+                                    inputProps={{
+                                        placeholder: "Channel",
+                                        value: sonickeyStore?.getFilters?.channel,
+                                        onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, channel: e.target.value })
+                                    }}
+                                    data={Channel || []}
                                 />
                             </Grid>
                         </Grid>
