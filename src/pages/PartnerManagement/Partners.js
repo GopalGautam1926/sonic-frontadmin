@@ -47,33 +47,33 @@ export default function Partners() {
             label: "Status",
             name: "enabled",
             options: {
-              filter: false,
-              customBodyRender: (
-                value
-              ) => {
-                const statusItem = [];
-                if (value) {
-                  statusItem.push(
-                    <Badge color="success" size="small" label={<div style={{ fontSize: 11 }}>Active</div>} />
-                  );
-                }
-                else {
-                    statusItem.push(
-                        <Badge color="warning" size="small" label="Inactive" />
+                filter: false,
+                customBodyRender: (
+                    value
+                ) => {
+                    const statusItem = [];
+                    if (value) {
+                        statusItem.push(
+                            <Badge color="success" size="small" label={<div style={{ fontSize: 11 }}>Active</div>} />
+                        );
+                    }
+                    else {
+                        statusItem.push(
+                            <Badge color="warning" size="small" label="Inactive" />
+                        );
+                    }
+                    log("enable data = ", value);
+
+                    return (
+                        <RSpace style={{}}>
+                            {statusItem.map((status) => (
+                                <RSpace.Item>{status}</RSpace.Item>
+                            ))}
+                        </RSpace>
                     );
-                  }
-                log("enable data = ",value);
-      
-                return (
-                  <RSpace style={{}}>
-                    {statusItem.map((status) => (
-                      <RSpace.Item>{status}</RSpace.Item>
-                    ))}
-                  </RSpace>
-                );
-              },
+                },
             },
-          },
+        },
         {
             label: "Actions",
             name: "_id",
@@ -110,13 +110,13 @@ export default function Partners() {
         partnerStore.changePartnerTablePage(page);
     }
 
-    log("partner data ",partnerStore?.getPartner?.docs)
+    log("partner data ", partnerStore?.getPartner?.docs)
 
     return (
         <div>
             <FancyCard
                 cardHeader={
-                    <FancyCard.CardHeader color="purple">
+                    <FancyCard.CardHeader color="success">
                         {(headerClasses) => (
                             <>
                                 <h4 className={headerClasses.cardTitleWhite}>Partners</h4>

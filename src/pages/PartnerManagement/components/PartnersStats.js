@@ -25,7 +25,7 @@ export const PartnersStats = observer(() => {
                 <FancyCard.CardHeader icon>
                     {(headerClasses) => (
                         <>
-                            <FancyCard.CardIcon color="purple">
+                            <FancyCard.CardIcon color="success">
                                 <PersonAddIcon />
                             </FancyCard.CardIcon>
                             <div style={{ marginTop: 10, textAlign: "right" }}>
