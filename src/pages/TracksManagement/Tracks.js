@@ -15,7 +15,7 @@ export default function Tracks() {
 
   React.useEffect(() => {
     tracksStore.fetchTracks()
-  }, [tracksStore?.dateRange?.startDate,tracksStore?.dateRange?.endDate])
+  }, [tracksStore?.dateRange?.startDate, tracksStore?.dateRange?.endDate])
 
   const columns = [
     {
@@ -133,7 +133,7 @@ export default function Tracks() {
     <div>
       <FancyCard
         cardHeader={
-          <FancyCard.CardHeader color="success">
+          <FancyCard.CardHeader color="purple">
             {(headerClasses) => (
               <>
                 <h4 className={headerClasses.cardTitleWhite}>Tracks</h4>

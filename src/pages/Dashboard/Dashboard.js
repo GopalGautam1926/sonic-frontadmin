@@ -37,6 +37,10 @@ export default function Dashboard() {
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
+          <PartnersStats />
+        </Grid>
+
+        <Grid item xs={12} sm={6} md={3}>
           <EncodedStats />
         </Grid>
 
@@ -44,9 +48,6 @@ export default function Dashboard() {
           <PlaysStats />
         </Grid>
 
-        <Grid item xs={12} sm={6} md={3}>
-          <PartnersStats />
-        </Grid>
         <Grid item xs={12} sm={6} md={3}>
           <TracksStats />
         </Grid>

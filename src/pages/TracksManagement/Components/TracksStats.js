@@ -26,7 +26,7 @@ const TracksStats = () => {
                 <FancyCard.CardHeader icon>
                     {(headerClasses) => (
                         <>
-                            <FancyCard.CardIcon color="success">
+                            <FancyCard.CardIcon color="purple">
                                 <AudiotrackIcon />
                             </FancyCard.CardIcon>
                             <div style={{ marginTop: 10, textAlign: "right" }}>

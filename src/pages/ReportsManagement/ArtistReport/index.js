@@ -87,7 +87,7 @@ export default function ArtistReport() {
         <div>
             <FancyCard
                 cardHeader={
-                    <FancyCard.CardHeader color="success">
+                    <FancyCard.CardHeader color="purple">
                         {(headerClasses) => (
                             <>
                                 <h4 className={headerClasses.cardTitleWhite}>Artists Report</h4>

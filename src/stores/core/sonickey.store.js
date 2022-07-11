@@ -34,8 +34,6 @@ class SonicKeyStore {
         companyName: {},
         track: "",
         artist: "",
-        country: "",
-        radiostation: "",
         channel: "ALL",
         // sonickey: "",
         // label: "",
@@ -75,8 +73,6 @@ class SonicKeyStore {
             companyName: {},
             track: "",
             artist: "",
-            country: "",
-            radiostation: "",
             channel: "ALL",
         }
     }
@@ -121,9 +117,7 @@ class SonicKeyStore {
                 "relation_company._id": this.filters.companyName?._id || undefined,
                 "contentOwner": this.filters.artist ? `/${this.filters.artist}/i` : undefined,
                 "contentName": this.filters.track ? `/${this.filters.track}/i` : undefined,
-                channel: this.filters.channel !== "ALL" ? this.filters.channel : undefined,
-                "relation_radioStation.country": this.filters.country || undefined,
-                "relation_radioStation.name": this.filters.radiostation || undefined,
+                "channel": this.filters.channel !== "ALL" ? this.filters.channel : undefined,
                 // "sonicKey": this.filters.sonickey ? `/${this.filters.sonickey}/i` : undefined,
                 // "label": this.filters.label || undefined,
                 // "distributor": this.filters.distributor || undefined,

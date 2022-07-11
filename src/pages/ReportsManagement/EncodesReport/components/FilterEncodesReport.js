@@ -94,36 +94,6 @@ function FilterEncodesReport({ closeDialog }) {
                             </Grid>
 
                             <Grid item xs={12} sm={6} md={3}>
-                                <RadioDropDown
-                                    labelText="Radio Station"
-                                    id="radiostation"
-                                    formControlProps={{
-                                        fullWidth: true,
-                                    }}
-                                    inputProps={{
-                                        placeholder: "Radio Station",
-                                        value: sonickeyStore?.getFilters?.radiostation,
-                                        onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, radiostation: e.target.value })
-                                    }}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12} sm={6} md={3}>
-                                <CountryDropDown
-                                    labelText="Country"
-                                    id="country"
-                                    formControlProps={{
-                                        fullWidth: true,
-                                    }}
-                                    inputProps={{
-                                        placeholder: "Country",
-                                        value: sonickeyStore?.getFilters?.country,
-                                        onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, country: e.target.value })
-                                    }}
-                                ></CountryDropDown>
-                            </Grid>
-
-                            <Grid item xs={12} sm={6} md={3}>
                                 <CustomDropDown
                                     labelText="Channel"
                                     id="channel"

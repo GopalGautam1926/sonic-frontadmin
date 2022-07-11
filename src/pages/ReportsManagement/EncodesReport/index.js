@@ -240,7 +240,7 @@ export default function EncodesReport() {
                     <FancyCard.CardHeader color="purple">
                         {(headerClasses) => (
                             <>
-                                <h4 className={headerClasses.cardTitleWhite}>Encodes</h4>
+                                <h4 className={headerClasses.cardTitleWhite}>Encodes Report</h4>
                                 <p className={headerClasses.cardCategoryWhite}>
                                     List of all encoded sonickeys
                                 </p>
