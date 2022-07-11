@@ -116,7 +116,7 @@ class ReportsDetectionStore {
                 "relation_radioStation.country": this.filters.country || undefined,
                 "relation_radioStation.name": this.filters.radiostation || undefined,
                 "relation_sonicKey.contentOwner": this.filters.artist ? `/${this.filters.artist}/i` : undefined,
-                "relation_sonicKey.originalFileName": this.filters.track ? `/${this.filters.track}/i` : undefined,
+                "relation_sonicKey.contentName": this.filters.track ? `/${this.filters.track}/i` : undefined,
                 "relation_sonicKey.partner._id": this.filters.partnerName?._id || undefined,
                 "relation_sonicKey.company._id": this.filters.companyName?._id || undefined,
             },

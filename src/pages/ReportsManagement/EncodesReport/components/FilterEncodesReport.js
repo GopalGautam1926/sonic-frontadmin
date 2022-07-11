@@ -65,7 +65,7 @@ function FilterEncodesReport({ closeDialog }) {
 
                             <Grid item xs={12} sm={6} md={3}>
                                 <AppTextInput
-                                    labelText="Track"
+                                    labelText="Track Title"
                                     id="track"
                                     formControlProps={{
                                         fullWidth: true,

@@ -8,8 +8,6 @@ import RegisterUser from './components/RegisterUser';
 import { getRouteNames } from '../../routes/routes.data';
 import { useHistory } from 'react-router-dom';
 import FilterUser from './components/FilterUser';
-import { Grid } from '@material-ui/core';
-import DatePicker from '../../components/DatePicker/DatePicker';
 import { userRoles } from '../../constants';
 import Badge from '../../components/Badge/Badge';
 import RSpace from '../../components/rcomponents/RSpace';
@@ -37,7 +35,7 @@ export default function Users() {
             name: "email",
         },
         {
-            label: "Phone Number",
+            label: "PhoneNumber",
             name: "phone_number",
             options: {
                 customBodyRender: (value) => {
@@ -47,7 +45,7 @@ export default function Users() {
             }
         },
         {
-            label: "Account Type",
+            label: "AccountType",
             name: "userRole",
             options: {
                 customBodyRender: (value) => {
@@ -78,7 +76,7 @@ export default function Users() {
             }
         },
         {
-            label: "User Type",
+            label: "UserType",
             name: "userRole",
             options: {
                 customBodyRender: (value) => {
@@ -174,41 +172,6 @@ export default function Users() {
                     </FancyCard.CardHeader>
                 }
             >
-                <Grid container style={{ padding: "0px 20px", display: 'flex', justifyContent: 'flex-end', zIndex: 1 }}>
-                    <Grid item>
-                        <DatePicker
-                            label="Start Date"
-                            selected={userStore?.getDateRange?.startDate}
-                            onChange={(date) => userStore?.changeDateRange({ ...userStore?.getDateRange, startDate: date })}
-                            showYearDropdown
-                            dateFormat="dd/MM/yyyy"
-                            yearDropdownItemNumber={15}
-                            scrollableYearDropdown
-                            showMonthDropdown
-                            startDate={userStore?.getDateRange?.startDate}
-                            endDate={userStore?.getDateRange?.endDate}
-                        />
-                    </Grid>
-                    <Grid item className="mt-4 mx-3">
-                        <p style={{ fontSize: '14px' }}>TO</p>
-                    </Grid>
-
-                    <Grid item>
-                        <DatePicker
-                            label="End Date"
-                            selected={userStore?.getDateRange?.endDate}
-                            onChange={(date) => userStore?.changeDateRange({ ...userStore?.getDateRange, endDate: date })}
-                            showYearDropdown
-                            dateFormat="dd/MM/yyyy"
-                            yearDropdownItemNumber={15}
-                            scrollableYearDropdown
-                            showMonthDropdown
-                            startDate={userStore?.getDateRange?.startDate}
-                            endDate={userStore?.getDateRange?.endDate}
-                        />
-                    </Grid>
-                </Grid>
-
                 <FancyCard.CardContent style={{ zIndex: 0 }}>
                     <DataFetchingStateComponent
                         loading={userStore.loading}
@@ -226,6 +189,11 @@ export default function Users() {
                                     }}
                                     componentInsideDialog={<RegisterUser />}
                                     componentInsideDialogFilter={<FilterUser />}
+                                    dateRange={true}
+                                    startDate={userStore?.getDateRange?.startDate}
+                                    onChangeStartDate={(date) => userStore?.changeDateRange({ ...userStore?.getDateRange, startDate: date })}
+                                    endDate={userStore?.getDateRange?.endDate}
+                                    onChangeEndDate={(date) => userStore?.changeDateRange({ ...userStore?.getDateRange, endDate: date })}
                                 />
                             }
                             data={userStore?.getUsers?.docs || []}

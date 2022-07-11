@@ -9,7 +9,7 @@ import DataFetchingStateComponent from '../../../components/common/DataFetchingS
 import Table from '../../../components/Table/Table';
 import CustomPagination from '../../../components/common/CustomPagination';
 import DetectionFilter from '../components/DetectionFilter';
-import ReportsDateRange from '../components/ReportsDateRange';
+import { getSKSIDFromDetectionOrigin } from '../../../utils/general.utils';
 
 export default function TrackPlaysReport() {
     const { reportsdetection } = useStore();
@@ -157,16 +157,16 @@ export default function TrackPlaysReport() {
                 },
             },
         },
-        // {
-        //     label: "SK/SID",
-        //     name: "sonicKey",
-        //     options: {
-        //         filter: false,
-        //         customBodyRender: (value) => {
-        //             return value?.sonicKey || "---";
-        //         },
-        //     },
-        // },
+        {
+            label: "SK/SID",
+            name: "detectionOrigins",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return getSKSIDFromDetectionOrigin(value);
+                },
+            },
+        },
         {
             label: "Version",
             name: "sonicKey",
@@ -270,13 +270,6 @@ export default function TrackPlaysReport() {
                     </FancyCard.CardHeader>
                 }
             >
-                <ReportsDateRange
-                    startDate={reportsdetection?.getDateRange?.startDate}
-                    onChangeStartDate={(date) => reportsdetection?.changeDateRange({ ...reportsdetection?.getDateRange, startDate: date })}
-                    endDate={reportsdetection?.getDateRange?.endDate}
-                    onChangeEndDate={(date) => reportsdetection?.changeDateRange({ ...reportsdetection?.getDateRange, endDate: date })}
-                />
-
                 <FancyCard.CardContent style={{ zIndex: 0 }}>
                     <DataFetchingStateComponent
                         loading={reportsdetection.loading}
@@ -292,6 +285,11 @@ export default function TrackPlaysReport() {
                                         onClick: () => reportsdetection.fetchReportsDetection(reportsdetection?.getDetectionReports?.page, "RADIOSTATIONS"),
                                     }}
                                     componentInsideDialogFilter={<DetectionFilter title={"Track Plays"} />}
+                                    dateRange={true}
+                                    startDate={reportsdetection?.getDateRange?.startDate}
+                                    onChangeStartDate={(date) => reportsdetection?.changeDateRange({ ...reportsdetection?.getDateRange, startDate: date })}
+                                    endDate={reportsdetection?.getDateRange?.endDate}
+                                    onChangeEndDate={(date) => reportsdetection?.changeDateRange({ ...reportsdetection?.getDateRange, endDate: date })}
                                 />
                             }
                             data={reportsdetection?.getDetectionReports?.docs || []}

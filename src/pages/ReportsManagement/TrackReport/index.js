@@ -5,7 +5,6 @@ import DataFetchingStateComponent from '../../../components/common/DataFetchingS
 import Table from '../../../components/Table/Table';
 import CustomPagination from '../../../components/common/CustomPagination';
 import DetectionFilter from '../components/DetectionFilter';
-import ReportsDateRange from '../components/ReportsDateRange';
 
 export default function TrackReport() {
     const { reportsdetection } = useStore();
@@ -99,13 +98,6 @@ export default function TrackReport() {
                     </FancyCard.CardHeader>
                 }
             >
-                <ReportsDateRange
-                    startDate={reportsdetection?.getDateRange?.startDate}
-                    onChangeStartDate={(date) => reportsdetection?.changeDateRange({ ...reportsdetection?.getDateRange, startDate: date })}
-                    endDate={reportsdetection?.getDateRange?.endDate}
-                    onChangeEndDate={(date) => reportsdetection?.changeDateRange({ ...reportsdetection?.getDateRange, endDate: date })}
-                />
-
                 <FancyCard.CardContent style={{ zIndex: 0 }}>
                     <DataFetchingStateComponent
                         loading={reportsdetection.loading}
@@ -121,6 +113,11 @@ export default function TrackReport() {
                                         onClick: () => reportsdetection.fetchReportsDetection(reportsdetection?.getDetectionReports?.page, "TRACKS"),
                                     }}
                                     componentInsideDialogFilter={<DetectionFilter title={"Tracks"} playsBy={"TRACKS"} />}
+                                    dateRange={true}
+                                    startDate={reportsdetection?.getDateRange?.startDate}
+                                    onChangeStartDate={(date) => reportsdetection?.changeDateRange({ ...reportsdetection?.getDateRange, startDate: date })}
+                                    endDate={reportsdetection?.getDateRange?.endDate}
+                                    onChangeEndDate={(date) => reportsdetection?.changeDateRange({ ...reportsdetection?.getDateRange, endDate: date })}
                                 />
                             }
                             data={reportsdetection?.getDetectionReports?.docs || []}

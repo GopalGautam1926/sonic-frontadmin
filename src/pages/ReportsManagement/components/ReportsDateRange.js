@@ -4,7 +4,7 @@ import DatePicker from '../../../components/DatePicker/DatePicker'
 
 export default function ReportsDateRange({ startDate, onChangeStartDate, endDate, onChangeEndDate }) {
     return (
-        <Grid container style={{ padding: "0px 20px", display: "flex", justifyContent: "flex-end", zIndex: 1 }}>
+        <Grid container style={{ padding: "0px 20px", display: "flex", justifyContent: "flex-start", zIndex: 1 }}>
             <Grid item>
                 <DatePicker
                     label="Start Date"

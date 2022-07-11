@@ -7,7 +7,6 @@ import DataFetchingStateComponent from '../../../components/common/DataFetchingS
 import FancyCard from '../../../components/FancyCard/FancyCard';
 import Table from '../../../components/Table/Table';
 import { useStore } from '../../../stores';
-import ReportsDateRange from '../components/ReportsDateRange';
 import FilterEncodesReport from './components/FilterEncodesReport';
 
 export default function EncodesReport() {
@@ -20,6 +19,16 @@ export default function EncodesReport() {
 
     const columns = [
         {
+            label: "Track Id",
+            name: "track",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return value?._id || "---";
+                },
+            },
+        },
+        {
             label: "SonicKey",
             name: "sonicKey",
             options: {
@@ -27,47 +36,29 @@ export default function EncodesReport() {
             }
         },
         {
-            label: "Date",
-            name: "createdAt",
-            options: {
-                filter: false,
-                customBodyRender: (value) => {
-                    return value ? moment(value).utc().format("DD/MM/YYYY") : "---";
-                }
-            }
-        },
-        {
-            label: "Time",
-            name: "createdAt",
-            options: {
-                filter: false,
-                customBodyRender: (value) => {
-                    return value ? moment(value).utc().format("HH:mm") : "---";
-                }
-            }
-        },
-        {
-            label: "Duration",
-            name: "contentDuration",
-            options: {
-                filter: false,
-                customBodyRender: (value) => {
-                    return value ? moment.utc(value * 1000).format("mm:ss") : "---";
-                }
-            }
-        },
-        {
-            label: "Original Filename",
-            name: "originalFileName",
+            label: "Title",
+            name: "contentName",
             options: {
                 filter: false,
                 customBodyRender: (value) => {
                     const filename = value?.length > 20 ? value?.slice(0, 20) + "..." : value || "---";
-                    return <Tooltip title={value}>
-                        <div>{filename}</div>
-                    </Tooltip>;
-                }
-            }
+                    return (
+                        <Tooltip title={value || "---"}>
+                            <div>{filename}</div>
+                        </Tooltip>
+                    );
+                },
+            },
+        },
+        {
+            label: "Version",
+            name: "version",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return value || "---";
+                },
+            },
         },
         {
             label: "Artist",
@@ -79,6 +70,159 @@ export default function EncodesReport() {
                     return <Tooltip title={value}>
                         <div>{artist}</div>
                     </Tooltip>;
+                }
+            }
+        },
+        {
+            label: "MusicType",
+            name: "contentType",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return value || "---";
+                },
+            },
+        },
+        {
+            label: "ISRC",
+            name: "isrcCode",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return value || "---";
+                },
+            },
+        },
+        {
+            label: "ISWC",
+            name: "iswcCode",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return value || "---";
+                },
+            },
+        },
+        {
+            label: "TuneCode",
+            name: "tuneCode",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return value || "---";
+                },
+            },
+        },
+        {
+            label: "Label",
+            name: "label",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return value || "---";
+                },
+            },
+        },
+        {
+            label: "Distributor",
+            name: "distributor",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return value || "---";
+                },
+            },
+        },
+        {
+            label: "FileType",
+            name: "contentFileType",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return value || "---";
+                },
+            },
+        },
+        {
+            label: "AudioLength",
+            name: "contentDuration",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return value ? moment.utc(value * 1000).format("HH:mm:ss:SSS") || "---" : "---";
+                }
+            }
+        },
+        {
+            label: "AudioSize(MB)",
+            name: "contentSize",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return value ? (value / 1024).toFixed(3) : "---";
+                }
+            }
+        },
+        {
+            label: "UnderlyingEncodingofFile",
+            name: "contentEncoding",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return value || "---";
+                },
+            },
+        },
+        {
+            label: "SamplingFrequency",
+            name: "contentSamplingFrequency",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return value || "---";
+                },
+            },
+        },
+        {
+            label: "QualityGrade",
+            name: "contentQuality",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return value || "---";
+                },
+            },
+        },
+        {
+            label: "Description",
+            name: "contentDescription",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    const filename = value?.length > 20 ? value?.slice(0, 20) + "..." : value || "---";
+                    return <Tooltip title={value}>
+                        <div>{filename}</div>
+                    </Tooltip>;
+                }
+            }
+        },
+        {
+            label: "AdditionalMetadata",
+            name: "additionalMetadata",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return JSON.stringify(value) || "---";
+                },
+            },
+        },
+        {
+            label: "EncodedDate",
+            name: "createdAt",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return value ? moment(value).utc().format("DD/MM/YYYY") : "---";
                 }
             }
         },
@@ -105,13 +249,6 @@ export default function EncodesReport() {
                     </FancyCard.CardHeader>
                 }
             >
-                <ReportsDateRange
-                    startDate={sonickeyStore?.getDateRange?.startDate}
-                    onChangeStartDate={(date) => sonickeyStore?.changeDateRange({ ...sonickeyStore?.getDateRange, startDate: date })}
-                    endDate={sonickeyStore?.getDateRange?.endDate}
-                    onChangeEndDate={(date) => sonickeyStore?.changeDateRange({ ...sonickeyStore?.getDateRange, endDate: date })}
-                />
-
                 <FancyCard.CardContent style={{ zIndex: 0 }}>
                     <DataFetchingStateComponent
                         loading={sonickeyStore.loading}
@@ -127,6 +264,11 @@ export default function EncodesReport() {
                                         onClick: () => sonickeyStore.fetchSonicKeys(),
                                     }}
                                     componentInsideDialogFilter={<FilterEncodesReport />}
+                                    dateRange={true}
+                                    startDate={sonickeyStore?.getDateRange?.startDate}
+                                    onChangeStartDate={(date) => sonickeyStore?.changeDateRange({ ...sonickeyStore?.getDateRange, startDate: date })}
+                                    endDate={sonickeyStore?.getDateRange?.endDate}
+                                    onChangeEndDate={(date) => sonickeyStore?.changeDateRange({ ...sonickeyStore?.getDateRange, endDate: date })}
                                 />
                             }
                             data={sonickeyStore?.getSonicKeys?.docs || []}

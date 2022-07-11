@@ -8,6 +8,7 @@ import { useTheme } from "@material-ui/core/styles";
 import CountryDropDown from "../../AppTextInput/CountryDropDown";
 import StatusDropDown from "../../AppTextInput/StatusDropDown";
 import { useStore } from "../../../stores";
+import ReportsDateRange from "../../../pages/ReportsManagement/components/ReportsDateRange";
 
 const initialRadioStation = {
   country: "",
@@ -25,6 +26,8 @@ export default function TableActions({
   addButtonProps,
   openDialogWhenClickAdd = false,
   componentInsideDialog,
+  dateRange = false,
+  ...props
 }) {
   const theme = useTheme();
   const [radio, setRadioStation] = useState(initialRadioStation);
@@ -118,6 +121,17 @@ export default function TableActions({
             </AppButton>
           )}
         </Grid> : null}
+
+      {dateRange &&
+        <Grid item xs={12} sm={6} md={8} style={{ zIndex: 999 }}>
+          <ReportsDateRange
+            startDate={props?.startDate}
+            onChangeStartDate={props?.onChangeStartDate}
+            endDate={props?.endDate}
+            onChangeEndDate={props?.onChangeEndDate}
+          />
+        </Grid>
+      }
 
       {search && <Grid item xs={12} sm={3} md={3}>
         <CountryDropDown

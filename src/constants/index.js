@@ -12,6 +12,17 @@ export const userRoles = {
     COMPANY_USER: "CompanyUser"
 }
 
+export const detectionOrigins = {
+    SONICKEY: {
+        name: "SONICKEY",
+        shortName: "SK"
+    },
+    FINGERPRINT: {
+        name: "FINGERPRINT",
+        shortName: "SID"
+    }
+}
+
 export const Status = [
     "Active",
     "Suspended",

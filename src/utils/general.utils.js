@@ -1,26 +1,28 @@
+import { detectionOrigins } from "../constants";
+
 export function hasChildren(item) {
-    const { routes:children } = item;
-  
-    if (children === undefined) {
-      return false;
-    }
-  
-    if (children.constructor !== Array) {
-      return false;
-    }
-  
-    if (children.length === 0) {
-      return false;
-    }
-  
-    return true;
+  const { routes: children } = item;
+
+  if (children === undefined) {
+    return false;
   }
 
-  export function isExpired(date){
-    return new Date(date).getTime() < new Date().getTime()
+  if (children.constructor !== Array) {
+    return false;
   }
 
-  // ##############################
+  if (children.length === 0) {
+    return false;
+  }
+
+  return true;
+}
+
+export function isExpired(date) {
+  return new Date(date).getTime() < new Date().getTime()
+}
+
+// ##############################
 // // // Function that converts from hex color to rgb color
 // // // Example: input = #9c27b0 => output = 156, 39, 176
 // // // Example: input = 9c27b0 => output = 156, 39, 176
@@ -52,3 +54,16 @@ export const hexToRgb = (input) => {
     parseInt(last, 16)
   );
 };
+
+export const getSKSIDFromDetectionOrigin = (detectionOriginsArr) => {
+  var skSid = []
+  if (detectionOriginsArr && detectionOriginsArr?.length > 0) {
+    detectionOriginsArr.forEach(origin => {
+      if (origin === detectionOrigins.SONICKEY.name) skSid.push(detectionOrigins.SONICKEY.shortName)
+      if (origin === detectionOrigins.FINGERPRINT.name) skSid.push(detectionOrigins.FINGERPRINT.shortName)
+    });
+  } else {
+    skSid = [detectionOrigins.SONICKEY.shortName]
+  }
+  return skSid.join(", ")
+}
