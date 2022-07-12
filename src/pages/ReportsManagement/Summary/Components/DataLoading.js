@@ -11,7 +11,7 @@ function DataLoading({ error, loading, data }) {
     log("error, loading, data", error, loading, data)
 
     if (error) {
-        return <div>{error}</div>
+        return <div style={{ color: 'red' }}>{error}</div>
     } else if (loading) {
         return <div><CircularProgress size={18} /></div>
     } else {

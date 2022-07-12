@@ -18,7 +18,11 @@ const FilterCount = ({ closeDialog }) => {
 
     const onSummaryReportSubmit = (e) => {
         e.preventDefault();
-        summaryCountStore.fetchEncodesCount()
+        summaryCountStore.fetchPartnersCount();
+        summaryCountStore.fetchCompanyCount();
+        summaryCountStore.fetchEncodesCount();
+        summaryCountStore.fetchPlaysCount();
+        summaryCountStore.fetchTracksCount();
         closeDialog?.()
     }
 

@@ -110,7 +110,7 @@ class SummaryCountStore {
                 "relation_company._id": this.filters.companyName?._id || undefined,
                 "contentOwner": this.filters.artist ? `/${this.filters.artist}/i` : undefined,
                 "contentName": this.filters.track ? `/${this.filters.track}/i` : undefined,
-                channel: this.filters.channel !== "ALL" ? this.filters.channel : undefined,
+                "channel": this.filters.channel !== "ALL" ? this.filters.channel : undefined,
             },
         }
 
@@ -232,7 +232,9 @@ class SummaryCountStore {
                 "relation_company._id": this.filters.companyName?._id || undefined,
                 "contentOwner": this.filters.artist ? `/${this.filters.artist}/i` : undefined,
                 "contentName": this.filters.track ? `/${this.filters.track}/i` : undefined,
-                channel: this.filters.channel !== "ALL" ? this.filters.channel : undefined,
+                "channel": this.filters.channel !== "ALL" ? this.filters.channel : undefined,
+                "relation_radioStation.country": this.filters.country || undefined,
+                "relation_radioStation.name": this.filters.radiostation || undefined,
             },
         }
 
@@ -275,7 +277,7 @@ class SummaryCountStore {
                 "relation_company._id": this.filters.companyName?._id || undefined,
                 "contentOwner": this.filters.artist ? `/${this.filters.artist}/i` : undefined,
                 "contentName": this.filters.track ? `/${this.filters.track}/i` : undefined,
-                channel: this.filters.channel !== "ALL" ? this.filters.channel : undefined,
+                "channel": this.filters.channel !== "ALL" ? this.filters.channel : undefined,
             },
         }
 
@@ -286,7 +288,7 @@ class SummaryCountStore {
                 this.tracksCount = {
                     error: null,
                     loading: false,
-                    data: 0,
+                    data: data,
                 }
             })
             .catch((err) => {
