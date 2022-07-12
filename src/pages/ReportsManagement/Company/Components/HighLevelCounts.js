@@ -44,7 +44,7 @@ const HighLevelCounts = (props) => {
 
     if (props?.company?.highLevelCountError) {
         return (
-            <div>error</div>
+            <div style={{ color: "red" }}>error</div>
         )
     }
     else if (props?.company?.highLevelCountData) {
