@@ -1,8 +1,7 @@
 import { globalStore } from "../global"
-import { apiKeyStore, companyStore, licenseKeyStore, playsStore, radioStationStore, userStore, sonicKeyStore, partnerStore, profileStore, tracksStore, reportsdetectionStore, companyReportStore } from '../core';
+import { apiKeyStore, companyStore, licenseKeyStore, playsStore, radioStationStore, userStore, sonicKeyStore, partnerStore, profileStore, tracksStore, reportsdetectionStore, companyReportStore, summaryCountStore } from '../core';
 import { sessionStore } from '../session/session.store';
 import { releaseStore } from "../core/release.store"
-import { summaryCountStore } from "../core/summaryCount.store";
 
 class RootStore {
     globalStore = globalStore

@@ -11,3 +11,4 @@ export * from './profile.store'
 export * from "./tracks.store"
 export * from "./companyReport.store"
 export * from './reportsdetection.store'
+export * from "./summaryCount.store"

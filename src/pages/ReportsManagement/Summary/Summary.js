@@ -9,8 +9,6 @@ import FilterCount from './Components/FilterCount';
 
 export default function Summary() {
     const { summaryCountStore } = useStore();
-    log("Partner Count", summaryCountStore?.partnerCount)
-    log("Tracks Count", summaryCountStore?.tracksCount)
 
     const columns = [
         {
@@ -20,9 +18,9 @@ export default function Summary() {
                 filter: false,
                 customBodyRender: (value) => {
                     return <DataLoading
-                        error={summaryCountStore?.partnerCount?.error}
-                        loading={summaryCountStore?.partnerCount?.loading}
-                        data={summaryCountStore?.partnerCount?.data}
+                        error={value.error}
+                        loading={value.loading}
+                        data={value.data}
                     />
                 }
             }
@@ -34,9 +32,9 @@ export default function Summary() {
                 filter: false,
                 customBodyRender: (value) => {
                     return <DataLoading
-                        error={summaryCountStore?.companyCount?.error}
-                        loading={summaryCountStore?.companyCount?.loading}
-                        data={summaryCountStore?.companyCount?.data}
+                        error={value.error}
+                        loading={value.loading}
+                        data={value.data}
                     />
                 }
             }
@@ -48,9 +46,9 @@ export default function Summary() {
                 filter: false,
                 customBodyRender: (value) => {
                     return <DataLoading
-                        error={summaryCountStore?.encodesCount?.error}
-                        loading={summaryCountStore?.encodesCount?.loading}
-                        data={summaryCountStore?.encodesCount?.data}
+                        error={value.error}
+                        loading={value.loading}
+                        data={value.data}
                     />
                 }
             }
@@ -62,9 +60,9 @@ export default function Summary() {
                 filter: false,
                 customBodyRender: (value) => {
                     return <DataLoading
-                        error={summaryCountStore?.playsCount?.error}
-                        loading={summaryCountStore?.playsCount?.loading}
-                        data={summaryCountStore?.playsCount?.data}
+                        error={value.error}
+                        loading={value.loading}
+                        data={value.data}
                     />
                 }
             }
@@ -76,9 +74,9 @@ export default function Summary() {
                 filter: false,
                 customBodyRender: (value) => {
                     return <DataLoading
-                        error={summaryCountStore?.tracksCount?.error}
-                        loading={summaryCountStore?.tracksCount?.loading}
-                        data={summaryCountStore?.tracksCount?.data}
+                        error={value.error}
+                        loading={value.loading}
+                        data={value.data}
                     />
                 }
             }
@@ -129,7 +127,7 @@ export default function Summary() {
                             />
                         }
                         columns={columns}
-                        data={[{ "partner": "0", "company": "0", "encodes": "0", "plays": "0", "tracks": "0", }]}
+                        data={[{ "partner": summaryCountStore.partnerCount, "company": summaryCountStore.companyCount, "encodes": summaryCountStore.encodesCount, "plays": summaryCountStore.playsCount, "tracks": summaryCountStore.tracksCount, }]}
                     />
                 </DataFetchingStateComponent>
             </FancyCard.CardContent>

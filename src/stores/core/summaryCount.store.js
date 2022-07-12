@@ -91,7 +91,11 @@ class SummaryCountStore {
         };
     }
 
-    //ENCODES
+    /**
+    * @param {AxiosRequestConfig} options
+    * @returns {Promise<any>}
+    */
+    @action
     fetchEncodesCount() {
         this.encodesCount = {
             error: null,
@@ -134,7 +138,11 @@ class SummaryCountStore {
             });
     }
 
-    //PARTNER
+    /**
+     * @param {AxiosRequestConfig} options
+     * @returns {Promise<any>}
+     */
+    @action
     fetchPartnersCount() {
         this.partnerCount = {
             error: null,
@@ -173,7 +181,11 @@ class SummaryCountStore {
             });
     }
 
-    //COMPANY
+    /**
+     * @param {AxiosRequestConfig} options
+     * @returns {Promise<any>}
+     */
+    @action
     fetchCompanyCount() {
         this.companyCount = {
             error: null,
@@ -213,7 +225,11 @@ class SummaryCountStore {
             });
     }
 
-    //PLAYS
+    /**
+     * @param {AxiosRequestConfig} options
+     * @returns {Promise<any>}
+     */
+    @action
     fetchPlaysCount() {
         this.playsCount = {
             error: null,
@@ -258,7 +274,11 @@ class SummaryCountStore {
             });
     }
 
-    //TRACKS
+    /**
+     * @param {AxiosRequestConfig} options
+     * @returns {Promise<any>}
+     */
+    @action
     fetchTracksCount() {
         this.tracksCount = {
             error: null,

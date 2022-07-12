@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { useContext } from "react";
 import { createContext } from "react";
-import { summaryCountStore } from './core/summaryCount.store';
 import { rootStore } from './root/root.store';
 
 
@@ -16,7 +15,7 @@ export const useStore = () => {
 
 export const fetchInitialData = () => {
   const { licenseKeyStore, apiKeyStore, radioStationStore, sonickeyStore, companyStore, userStore,
-    releaseStore, playsStore, partnerStore, tracksStore, companyReportStore } = rootStore
+    releaseStore, playsStore, partnerStore, tracksStore, companyReportStore, summaryCountStore } = rootStore
   licenseKeyStore.fetchLicenseKeys()
   apiKeyStore.fetchApiKeys()
   radioStationStore.fetchRadioStations()

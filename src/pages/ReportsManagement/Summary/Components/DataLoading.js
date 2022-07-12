@@ -1,15 +1,8 @@
 import { CircularProgress } from '@material-ui/core';
-import { observer } from 'mobx-react-lite';
+import { observer } from 'mobx-react';
 import React from 'react'
-import { useStore } from '../../../../stores';
-import { log } from '../../../../utils/app.debug';
 
 function DataLoading({ error, loading, data }) {
-
-    const { summaryCountStore } = useStore();
-    log("count of summary", summaryCountStore)
-    log("error, loading, data", error, loading, data)
-
     if (error) {
         return <div style={{ color: 'red' }}>{error}</div>
     } else if (loading) {
