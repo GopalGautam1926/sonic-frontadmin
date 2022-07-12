@@ -69,20 +69,20 @@ export default function Summary() {
                 }
             }
         },
-        // {
-        //     label: "Tracks",
-        //     name: "tracks",
-        //     options: {
-        //         filter: false,
-        //         customBodyRender: (value) => {
-        //             return <DataLoading 
-        //             error={summaryCountStore?.tracksCount?.error}
-        //              loading={summaryCountStore?.tracksCount?.loading}
-        //              data={summaryCountStore?.tracksCount?.data}
-        //              />
-        //         }
-        //     }
-        // },
+        {
+            label: "Tracks",
+            name: "tracks",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return <DataLoading
+                        error={summaryCountStore?.tracksCount?.error}
+                        loading={summaryCountStore?.tracksCount?.loading}
+                        data={summaryCountStore?.tracksCount?.data}
+                    />
+                }
+            }
+        },
     ]
 
     const tryAgain = () => {
@@ -119,9 +119,7 @@ export default function Summary() {
                             <Table.TableActions
                                 filterOnly
                                 openDialogFilter={true}
-                                refreshButtonProps={{
-                                    onClick: tryAgain,
-                                }}
+                                refreshButtonProps={{ onClick: tryAgain }}
                                 componentInsideDialogFilter={<FilterCount />}
                             // dateRange={true}
                             // startDate={companyReportStore?.dateRange?.startDate}

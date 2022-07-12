@@ -28,9 +28,9 @@ export const fetchInitialData = () => {
   userStore.fetchUsers()
   releaseStore.fetchVersions()
   companyReportStore.fetchCompaniesReports()
-  summaryCountStore.fetchEncodesCount()
   summaryCountStore.fetchPartnersCount()
   summaryCountStore.fetchCompanyCount()
+  summaryCountStore.fetchEncodesCount()
   summaryCountStore.fetchPlaysCount()
   summaryCountStore.fetchTracksCount()
 }

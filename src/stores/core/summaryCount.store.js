@@ -286,7 +286,7 @@ class SummaryCountStore {
                 this.tracksCount = {
                     error: null,
                     loading: false,
-                    data: data,
+                    data: 0,
                 }
             })
             .catch((err) => {
