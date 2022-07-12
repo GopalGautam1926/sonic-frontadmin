@@ -104,7 +104,7 @@ const FilterCount = ({ closeDialog }) => {
                                 inputProps={{
                                     placeholder: "Radio Station",
                                     value: summaryCountStore?.getFilters?.radiostation,
-                                    onChange: (e) => summaryCountStore?.changeFilters({ ...summaryCountStore?.getFilters, radioStation: e.target.value })
+                                    onChange: (e) => summaryCountStore?.changeFilters({ ...summaryCountStore?.getFilters, radiostation: e.target.value })
                                 }}
                             />
                         </Grid>

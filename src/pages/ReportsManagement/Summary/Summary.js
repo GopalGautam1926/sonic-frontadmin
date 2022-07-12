@@ -90,6 +90,16 @@ export default function Summary() {
         summaryCountStore?.fetchPlaysCount();
         summaryCountStore?.fetchTracksCount();
     }
+    
+    const onSummaryStartDateChange = (date) => {
+        summaryCountStore?.changeDateRange({ ...summaryCountStore?.dateRange, startDate: date })
+        tryAgain()
+    }
+
+    const onSummaryEndDateChange = (date) => {
+        summaryCountStore?.changeDateRange({ ...summaryCountStore?.dateRange, endDate: date })
+        tryAgain()
+    }
 
     return (
         <FancyCard
@@ -119,11 +129,11 @@ export default function Summary() {
                                 openDialogFilter={true}
                                 refreshButtonProps={{ onClick: tryAgain }}
                                 componentInsideDialogFilter={<FilterCount />}
-                            // dateRange={true}
-                            // startDate={companyReportStore?.dateRange?.startDate}
-                            // onChangeStartDate={(date) => companyReportStore?.changeDateRange({ ...companyReportStore?.dateRange, startDate: date })}
-                            // endDate={companyReportStore?.dateRange?.endDate}
-                            // onChangeEndDate={(date) => companyReportStore?.changeDateRange({ ...companyReportStore?.dateRange, endDate: date })}
+                                dateRange={true}
+                                startDate={summaryCountStore?.dateRange?.startDate}
+                                onChangeStartDate={(date) => onSummaryStartDateChange(date)}
+                                endDate={summaryCountStore?.dateRange?.endDate}
+                                onChangeEndDate={(date) => onSummaryEndDateChange(date)}
                             />
                         }
                         columns={columns}
