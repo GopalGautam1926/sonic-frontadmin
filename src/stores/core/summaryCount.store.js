@@ -4,15 +4,18 @@ import {
     computed,
     toJS,
 } from "mobx";
-import { AxiosRequestConfig } from "axios";
 import { log } from "../../utils/app.debug";
 import moment from "moment";
-import sonickeysHttps from "../../services/https/resources/sonickeys.https";
 import summaryCountHttps from "../../services/https/resources/summaryCount.https";
 
 class SummaryCountStore {
-    
     @observable partnerCount = {
+        loading: false,
+        error: null,
+        data: null,
+    };
+
+    @observable companyCount = {
         loading: false,
         error: null,
         data: null,
@@ -24,22 +27,16 @@ class SummaryCountStore {
         data: null,
     };
 
-    @observable companyCount = {
-        loading: false,
-        error: null,
-        data: "0",
-    };
-
     @observable playsCount = {
         loading: false,
         error: null,
-        data: "0",
+        data: null,
     };
 
     @observable tracksCount = {
         loading: false,
         error: null,
-        data: "0",
+        data: null,
     };
 
     @observable dateRange = {
@@ -94,11 +91,11 @@ class SummaryCountStore {
         };
     }
 
-
+    //ENCODES
     fetchEncodesCount() {
         this.encodesCount = {
             error: null,
-            loading: true, 
+            loading: true,
             data: null,
         }
 
@@ -123,7 +120,7 @@ class SummaryCountStore {
                 log("Encodes count", data);
                 this.encodesCount = {
                     error: null,
-                    loading: false, 
+                    loading: false,
                     data: data,
                 }
             })
@@ -131,16 +128,17 @@ class SummaryCountStore {
                 log("encodes count error err", err);
                 this.encodesCount = {
                     error: err?.message,
-                    loading: false, 
+                    loading: false,
                     data: 0,
                 }
             });
     }
 
+    //PARTNER
     fetchPartnersCount() {
         this.partnerCount = {
             error: null,
-            loading: true, 
+            loading: true,
             data: null,
         }
 
@@ -155,13 +153,13 @@ class SummaryCountStore {
             },
         }
 
-            summaryCountHttps
+        summaryCountHttps
             .fetchPartnersCount(options)
             .then(({ data }) => {
                 log("Partners count", data);
                 this.partnerCount = {
                     error: null,
-                    loading: false, 
+                    loading: false,
                     data: data,
                 }
             })
@@ -169,16 +167,17 @@ class SummaryCountStore {
                 log("Partners count error err", err);
                 this.partnerCount = {
                     error: err?.message,
-                    loading: false, 
+                    loading: false,
                     data: 0,
                 }
             });
     }
 
+    //COMPANY
     fetchCompanyCount() {
         this.companyCount = {
             error: null,
-            loading: true, 
+            loading: true,
             data: null,
         }
 
@@ -200,7 +199,7 @@ class SummaryCountStore {
                 log("Company count", data);
                 this.companyCount = {
                     error: null,
-                    loading: false, 
+                    loading: false,
                     data: data,
                 }
             })
@@ -208,16 +207,17 @@ class SummaryCountStore {
                 log("Company count error err", err);
                 this.companyCount = {
                     error: err?.message,
-                    loading: false, 
+                    loading: false,
                     data: 0,
                 }
             });
     }
 
+    //PLAYS
     fetchPlaysCount() {
         this.playsCount = {
             error: null,
-            loading: true, 
+            loading: true,
             data: null,
         }
 
@@ -242,7 +242,7 @@ class SummaryCountStore {
                 log("plays count", data);
                 this.playsCount = {
                     error: null,
-                    loading: false, 
+                    loading: false,
                     data: data,
                 }
             })
@@ -250,16 +250,17 @@ class SummaryCountStore {
                 log("Plays count error err", err);
                 this.playsCount = {
                     error: err?.message,
-                    loading: false, 
+                    loading: false,
                     data: 0,
                 }
             });
     }
 
+    //TRACKS
     fetchTracksCount() {
         this.tracksCount = {
             error: null,
-            loading: true, 
+            loading: true,
             data: null,
         }
 
@@ -284,7 +285,7 @@ class SummaryCountStore {
                 log("Tracks count", data);
                 this.tracksCount = {
                     error: null,
-                    loading: false, 
+                    loading: false,
                     data: data,
                 }
             })
@@ -292,7 +293,7 @@ class SummaryCountStore {
                 log("Tracks count error err", err);
                 this.tracksCount = {
                     error: err?.message,
-                    loading: false, 
+                    loading: false,
                     data: 0,
                 }
             });

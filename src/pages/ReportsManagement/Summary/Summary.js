@@ -8,15 +8,9 @@ import DataLoading from './Components/DataLoading';
 import FilterCount from './Components/FilterCount';
 
 export default function Summary() {
-
     const { summaryCountStore } = useStore();
-    log("count of summary", summaryCountStore?.encodesCount)
-    log("count of PartnerCount", summaryCountStore?.partnerCount)
-    log("count of summary", summaryCountStore?.partnerCount)
-    log("count of plays", summaryCountStore?.playsCount)
-    log("count of Tracks", summaryCountStore?.tracksCount)
-
-
+    log("Partner Count", summaryCountStore?.partnerCount)
+    log("Tracks Count", summaryCountStore?.tracksCount)
 
     const columns = [
         {
@@ -25,11 +19,11 @@ export default function Summary() {
             options: {
                 filter: false,
                 customBodyRender: (value) => {
-                    return <DataLoading 
-                    error={summaryCountStore?.partnerCount?.error}
-                     loading={summaryCountStore?.partnerCount?.loading}
-                     data={summaryCountStore?.partnerCount?.data}
-                     />
+                    return <DataLoading
+                        error={summaryCountStore?.partnerCount?.error}
+                        loading={summaryCountStore?.partnerCount?.loading}
+                        data={summaryCountStore?.partnerCount?.data}
+                    />
                 }
             }
         },
@@ -39,11 +33,11 @@ export default function Summary() {
             options: {
                 filter: false,
                 customBodyRender: (value) => {
-                    return <DataLoading 
-                    error={summaryCountStore?.companyCount?.error}
-                     loading={summaryCountStore?.companyCount?.loading}
-                     data={summaryCountStore?.companyCount?.data}
-                     />
+                    return <DataLoading
+                        error={summaryCountStore?.companyCount?.error}
+                        loading={summaryCountStore?.companyCount?.loading}
+                        data={summaryCountStore?.companyCount?.data}
+                    />
                 }
             }
         },
@@ -53,11 +47,11 @@ export default function Summary() {
             options: {
                 filter: false,
                 customBodyRender: (value) => {
-                    return <DataLoading 
-                    error={summaryCountStore?.encodesCount?.error}
-                     loading={summaryCountStore?.encodesCount?.loading}
-                     data={summaryCountStore?.encodesCount?.data}
-                     />
+                    return <DataLoading
+                        error={summaryCountStore?.encodesCount?.error}
+                        loading={summaryCountStore?.encodesCount?.loading}
+                        data={summaryCountStore?.encodesCount?.data}
+                    />
                 }
             }
         },
@@ -67,29 +61,38 @@ export default function Summary() {
             options: {
                 filter: false,
                 customBodyRender: (value) => {
-                    return <DataLoading 
-                    error={summaryCountStore?.playsCount?.error}
-                     loading={summaryCountStore?.playsCount?.loading}
-                     data={summaryCountStore?.playsCount?.data}
-                     />
+                    return <DataLoading
+                        error={summaryCountStore?.playsCount?.error}
+                        loading={summaryCountStore?.playsCount?.loading}
+                        data={summaryCountStore?.playsCount?.data}
+                    />
                 }
             }
         },
-        {
-            label: "Tracks",
-            name: "tracks",
-            options: {
-                filter: false,
-                customBodyRender: (value) => {
-                    return <DataLoading 
-                    error={summaryCountStore?.tracksCount?.error}
-                     loading={summaryCountStore?.tracksCount?.loading}
-                     data={summaryCountStore?.tracksCount?.data}
-                     />
-                }
-            }
-        },
+        // {
+        //     label: "Tracks",
+        //     name: "tracks",
+        //     options: {
+        //         filter: false,
+        //         customBodyRender: (value) => {
+        //             return <DataLoading 
+        //             error={summaryCountStore?.tracksCount?.error}
+        //              loading={summaryCountStore?.tracksCount?.loading}
+        //              data={summaryCountStore?.tracksCount?.data}
+        //              />
+        //         }
+        //     }
+        // },
     ]
+
+    const tryAgain = () => {
+        summaryCountStore?.fetchPartnersCount();
+        summaryCountStore?.fetchCompanyCount();
+        summaryCountStore?.fetchEncodesCount();
+        summaryCountStore?.fetchPlaysCount();
+        summaryCountStore?.fetchTracksCount();
+    }
+
     return (
         <FancyCard
             cardHeader={
@@ -109,7 +112,7 @@ export default function Summary() {
                 <DataFetchingStateComponent
                     loading={false}
                     error={null}
-                    onClickTryAgain={() => summaryCountStore?.fetchEncodesCount()}
+                    onClickTryAgain={tryAgain}
                 >
                     <Table
                         title={
@@ -117,18 +120,18 @@ export default function Summary() {
                                 filterOnly
                                 openDialogFilter={true}
                                 refreshButtonProps={{
-                                    onClick: () => summaryCountStore?.fetchEncodesCount(),
+                                    onClick: tryAgain,
                                 }}
-                                componentInsideDialogFilter={<FilterCount/>}
-                                // dateRange={true}
-                                // startDate={companyReportStore?.dateRange?.startDate}
-                                // onChangeStartDate={(date) => companyReportStore?.changeDateRange({ ...companyReportStore?.dateRange, startDate: date })}
-                                // endDate={companyReportStore?.dateRange?.endDate}
-                                // onChangeEndDate={(date) => companyReportStore?.changeDateRange({ ...companyReportStore?.dateRange, endDate: date })}
+                                componentInsideDialogFilter={<FilterCount />}
+                            // dateRange={true}
+                            // startDate={companyReportStore?.dateRange?.startDate}
+                            // onChangeStartDate={(date) => companyReportStore?.changeDateRange({ ...companyReportStore?.dateRange, startDate: date })}
+                            // endDate={companyReportStore?.dateRange?.endDate}
+                            // onChangeEndDate={(date) => companyReportStore?.changeDateRange({ ...companyReportStore?.dateRange, endDate: date })}
                             />
                         }
                         columns={columns}
-                        data={[{"partner":"0","company":"0","encodes":"0","plays":"0","tracks":"0",}]}
+                        data={[{ "partner": "0", "company": "0", "encodes": "0", "plays": "0", "tracks": "0", }]}
                     />
                 </DataFetchingStateComponent>
             </FancyCard.CardContent>
