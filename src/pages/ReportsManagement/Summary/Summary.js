@@ -11,7 +11,12 @@ export default function Summary() {
 
     const { summaryCountStore } = useStore();
     log("count of summary", summaryCountStore?.encodesCount)
+    log("count of PartnerCount", summaryCountStore?.partnerCount)
     log("count of summary", summaryCountStore?.partnerCount)
+    log("count of plays", summaryCountStore?.playsCount)
+    log("count of Tracks", summaryCountStore?.tracksCount)
+
+
 
     const columns = [
         {
@@ -56,6 +61,34 @@ export default function Summary() {
                 }
             }
         },
+        {
+            label: "Plays",
+            name: "plays",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return <DataLoading 
+                    error={summaryCountStore?.playsCount?.error}
+                     loading={summaryCountStore?.playsCount?.loading}
+                     data={summaryCountStore?.playsCount?.data}
+                     />
+                }
+            }
+        },
+        {
+            label: "Tracks",
+            name: "tracks",
+            options: {
+                filter: false,
+                customBodyRender: (value) => {
+                    return <DataLoading 
+                    error={summaryCountStore?.tracksCount?.error}
+                     loading={summaryCountStore?.tracksCount?.loading}
+                     data={summaryCountStore?.tracksCount?.data}
+                     />
+                }
+            }
+        },
     ]
     return (
         <FancyCard
@@ -63,9 +96,9 @@ export default function Summary() {
                 <FancyCard.CardHeader color="purple">
                     {(headerClasses) => (
                         <>
-                            <h4 className={headerClasses.cardTitleWhite}>Companies</h4>
+                            <h4 className={headerClasses.cardTitleWhite}>Summary</h4>
                             <p className={headerClasses.cardCategoryWhite}>
-                                Reports of all companies
+                                Summary of all reports
                             </p>
                         </>
                     )}
@@ -95,7 +128,7 @@ export default function Summary() {
                             />
                         }
                         columns={columns}
-                        data={[{"partner":"0","company":"0","encodes":"03"},]}
+                        data={[{"partner":"0","company":"0","encodes":"0","plays":"0","tracks":"0",}]}
                     />
                 </DataFetchingStateComponent>
             </FancyCard.CardContent>

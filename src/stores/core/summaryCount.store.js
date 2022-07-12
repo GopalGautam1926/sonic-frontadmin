@@ -94,11 +94,7 @@ class SummaryCountStore {
         };
     }
 
-    /**
-     * @param {AxiosRequestConfig} options
-     * @returns {Promise<any>}
-     */
-    @action
+
     fetchEncodesCount() {
         this.encodesCount = {
             error: null,
@@ -211,6 +207,90 @@ class SummaryCountStore {
             .catch((err) => {
                 log("Company count error err", err);
                 this.companyCount = {
+                    error: err?.message,
+                    loading: false, 
+                    data: 0,
+                }
+            });
+    }
+
+    fetchPlaysCount() {
+        this.playsCount = {
+            error: null,
+            loading: true, 
+            data: null,
+        }
+
+        let startDate = moment(this.dateRange.startDate).startOf("days").toISOString();
+        let endDate = moment(this.dateRange.endDate).endOf("days").toISOString();
+
+        const options = {
+            params: {
+                "createdAt>": `date(${startDate})` || undefined,
+                "createdAt<": `date(${endDate})` || undefined,
+                "relation_partner._id": this.filters.partnerName?._id || undefined,
+                "relation_company._id": this.filters.companyName?._id || undefined,
+                "contentOwner": this.filters.artist ? `/${this.filters.artist}/i` : undefined,
+                "contentName": this.filters.track ? `/${this.filters.track}/i` : undefined,
+                channel: this.filters.channel !== "ALL" ? this.filters.channel : undefined,
+            },
+        }
+
+        summaryCountHttps
+            .fetchPlaysCount(options)
+            .then(({ data }) => {
+                log("plays count", data);
+                this.playsCount = {
+                    error: null,
+                    loading: false, 
+                    data: data,
+                }
+            })
+            .catch((err) => {
+                log("Plays count error err", err);
+                this.playsCount = {
+                    error: err?.message,
+                    loading: false, 
+                    data: 0,
+                }
+            });
+    }
+
+    fetchTracksCount() {
+        this.tracksCount = {
+            error: null,
+            loading: true, 
+            data: null,
+        }
+
+        let startDate = moment(this.dateRange.startDate).startOf("days").toISOString();
+        let endDate = moment(this.dateRange.endDate).endOf("days").toISOString();
+
+        const options = {
+            params: {
+                "createdAt>": `date(${startDate})` || undefined,
+                "createdAt<": `date(${endDate})` || undefined,
+                "relation_partner._id": this.filters.partnerName?._id || undefined,
+                "relation_company._id": this.filters.companyName?._id || undefined,
+                "contentOwner": this.filters.artist ? `/${this.filters.artist}/i` : undefined,
+                "contentName": this.filters.track ? `/${this.filters.track}/i` : undefined,
+                channel: this.filters.channel !== "ALL" ? this.filters.channel : undefined,
+            },
+        }
+
+        summaryCountHttps
+            .fetchTracksCount(options)
+            .then(({ data }) => {
+                log("Tracks count", data);
+                this.tracksCount = {
+                    error: null,
+                    loading: false, 
+                    data: data,
+                }
+            })
+            .catch((err) => {
+                log("Tracks count error err", err);
+                this.tracksCount = {
                     error: err?.message,
                     loading: false, 
                     data: 0,

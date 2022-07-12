@@ -31,6 +31,8 @@ export const fetchInitialData = () => {
   summaryCountStore.fetchEncodesCount()
   summaryCountStore.fetchPartnersCount()
   summaryCountStore.fetchCompanyCount()
+  summaryCountStore.fetchPlaysCount()
+  summaryCountStore.fetchTracksCount()
 }
 
 export function withStore(WrapperComponent) {
