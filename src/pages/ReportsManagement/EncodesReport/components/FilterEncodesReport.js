@@ -71,7 +71,7 @@ function FilterEncodesReport({ closeDialog }) {
                                         fullWidth: true,
                                     }}
                                     inputProps={{
-                                        placeholder: "Track",
+                                        placeholder: "Track Title",
                                         value: sonickeyStore?.getFilters?.track,
                                         onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, track: e.target.value })
                                     }}
@@ -106,6 +106,36 @@ function FilterEncodesReport({ closeDialog }) {
                                         onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, channel: e.target.value })
                                     }}
                                     data={Channel || []}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12} sm={6} md={3}>
+                                <AppTextInput
+                                    labelText="SonicKey"
+                                    id="sonickey"
+                                    formControlProps={{
+                                        fullWidth: true,
+                                    }}
+                                    inputProps={{
+                                        placeholder: "SonicKey",
+                                        value: sonickeyStore?.getFilters?.sonickey,
+                                        onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, sonickey: e.target.value })
+                                    }}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12} sm={6} md={3}>
+                                <AppTextInput
+                                    labelText="Track Id"
+                                    id="trackId"
+                                    formControlProps={{
+                                        fullWidth: true,
+                                    }}
+                                    inputProps={{
+                                        placeholder: "Track Id",
+                                        value: sonickeyStore?.getFilters?.trackId,
+                                        onChange: (e) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, trackId: e.target.value })
+                                    }}
                                 />
                             </Grid>
                         </Grid>

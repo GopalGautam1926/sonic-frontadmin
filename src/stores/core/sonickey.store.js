@@ -35,9 +35,8 @@ class SonicKeyStore {
         track: "",
         artist: "",
         channel: "ALL",
-        // sonickey: "",
-        // label: "",
-        // distributor: "",
+        sonickey: "",
+        trackId: "",
         sonickeyTablePage: 1,
     };
     @observable sonickeyTablePage = 1;
@@ -74,6 +73,8 @@ class SonicKeyStore {
             track: "",
             artist: "",
             channel: "ALL",
+            sonickey: "",
+            trackId: "",
         }
     }
 
@@ -108,6 +109,7 @@ class SonicKeyStore {
 
         const options = {
             params: {
+                sort: '-createdAt',
                 limit: this.sonickey.limit,
                 page: page,
                 skip: page > 1 ? (page - 1) * this.sonickey.limit : 0,
@@ -118,9 +120,8 @@ class SonicKeyStore {
                 "contentOwner": this.filters.artist ? `/${this.filters.artist}/i` : undefined,
                 "contentName": this.filters.track ? `/${this.filters.track}/i` : undefined,
                 "channel": this.filters.channel !== "ALL" ? this.filters.channel : undefined,
-                // "sonicKey": this.filters.sonickey ? `/${this.filters.sonickey}/i` : undefined,
-                // "label": this.filters.label || undefined,
-                // "distributor": this.filters.distributor || undefined,
+                "sonicKey": this.filters.sonickey || undefined,
+                "relation_track._id": this.filters.trackId || undefined,
             },
         }
 

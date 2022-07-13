@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import moment from 'moment';
 import { Tooltip } from '@material-ui/core';
-import { toast } from 'react-toastify';
 
 import { useStore } from '../../../stores';
 import FancyCard from '../../../components/FancyCard/FancyCard';
@@ -13,28 +12,11 @@ import { getSKSIDFromDetectionOrigin } from '../../../utils/general.utils';
 
 export default function TrackPlaysReport() {
     const { reportsdetection } = useStore();
-    const [state, setState] = useState({
-        deletigPlayId: "",
-        isDeletingPlay: false
-    });
 
     React.useEffect(() => {
         reportsdetection.changeDetectionTablePage(1);
         reportsdetection.fetchReportsDetection();
     }, [reportsdetection?.getDateRange?.startDate, reportsdetection?.getDateRange?.endDate]);
-
-    const deletePlay = (playId) => {
-        setState({ ...state, deletigPlayId: playId, isDeletingPlay: true })
-        reportsdetection.deletePlay(playId)
-            .then(data => {
-                setState({ ...state, deletigPlayId: '', isDeletingPlay: false })
-                toast.success("Deleted")
-            })
-            .catch(err => {
-                setState({ ...state, deletigPlayId: '', isDeletingPlay: false })
-                toast.error(err.message || "Error deleting play")
-            })
-    }
 
     const columns = [
         {

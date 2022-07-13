@@ -19,12 +19,13 @@ export default function EncodesReport() {
 
     const columns = [
         {
-            label: "Track Id",
+            label: "TrackId",
             name: "track",
             options: {
                 filter: false,
+                sort: false,
                 customBodyRender: (value) => {
-                    return value?._id || "---";
+                    return value._id || "---";
                 },
             },
         },
