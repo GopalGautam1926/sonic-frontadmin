@@ -6,13 +6,10 @@ import { useStore } from '../../../../stores';
 import FancyCard from '../../../../components/FancyCard/FancyCard';
 import AppTextInput from '../../../../components/AppTextInput/AppTextInput';
 import CustomDropDown from '../../../../components/AppTextInput/CustomDropDown';
-import { Channel, Distributor, Labels } from '../../../../constants';
+import { Channel } from '../../../../constants';
 import PartnerPicker from '../../../../components/Picker/PartnerPicker';
 import CompanyPicker from '../../../../components/Picker/CompanyPicker';
-import UserPicker from '../../../../components/Picker/UserPicker/UserPicker';
 import AppButton from '../../../../components/AppButton/AppButton';
-import RadioDropDown from '../../../../components/AppTextInput/RadioDropDown';
-import CountryDropDown from '../../../../components/AppTextInput/CountryDropDown';
 
 function FilterEncodesReport({ closeDialog }) {
     const { sonickeyStore } = useStore();

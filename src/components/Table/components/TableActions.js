@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid } from "@material-ui/core";
+import { Grid, MenuItem } from "@material-ui/core";
 import AppButton from "../../AppButton/AppButton";
 import { Container } from "@material-ui/core";
 import RDialog from "../../rcomponents/RDialog/RDialog";
@@ -9,6 +9,7 @@ import CountryDropDown from "../../AppTextInput/CountryDropDown";
 import StatusDropDown from "../../AppTextInput/StatusDropDown";
 import { useStore } from "../../../stores";
 import ReportsDateRange from "../../../pages/ReportsManagement/components/ReportsDateRange";
+import RPopover from "../../rcomponents/RPopover";
 
 const initialRadioStation = {
   country: "",
@@ -27,6 +28,8 @@ export default function TableActions({
   openDialogWhenClickAdd = false,
   componentInsideDialog,
   dateRange = false,
+  exportData = false,
+  handleExport,
   ...props
 }) {
   const theme = useTheme();
@@ -121,6 +124,45 @@ export default function TableActions({
             </AppButton>
           )}
         </Grid> : null}
+
+      {exportData &&
+        <Grid style={{ display: "flex", alignItems: "center" }}>
+          <RPopover
+            paperStyle={{ minWidth: 100 }}
+            TransitionProps={{
+              // onExit: () => setState({ ...state, newUsernameOrId: "" }),
+            }}
+            anchorElement={
+              <AppButton color="purple">
+                EXPORT
+              </AppButton>
+            }
+          >
+            {({ handleClose }) => (
+              <div>
+                <MenuItem
+                  value={"xlsx"}
+                  onClick={() => {
+                    handleClose();
+                    handleExport("xlsx");
+                  }}
+                >
+                  .xlsx file
+                </MenuItem>
+                <MenuItem
+                  value={"csv"}
+                  onClick={() => {
+                    handleClose();
+                    handleExport("csv");
+                  }}
+                >
+                  .csv file
+                </MenuItem>
+              </div>
+            )}
+          </RPopover>
+        </Grid>
+      }
 
       {dateRange &&
         <Grid item xs={12} sm={6} md={8} style={{ zIndex: 999 }}>

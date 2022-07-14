@@ -1,6 +1,6 @@
+import React from 'react'
 import { Tooltip } from '@material-ui/core';
 import moment from 'moment';
-import React from 'react'
 
 import CustomPagination from '../../../components/common/CustomPagination';
 import DataFetchingStateComponent from '../../../components/common/DataFetchingStateComponent';
@@ -11,21 +11,50 @@ import FilterEncodesReport from './components/FilterEncodesReport';
 
 export default function EncodesReport() {
     const { sonickeyStore } = useStore();
+    const [exportValue, setExportValue] = React.useState();
+    console.log(exportValue);
 
     React.useEffect(() => {
         sonickeyStore.changeSonicKeyTablePage(1);
         sonickeyStore.fetchSonicKeys();
     }, [sonickeyStore?.getDateRange?.startDate, sonickeyStore?.getDateRange?.endDate])
 
+    const stableTableData = () => {
+        const data = sonickeyStore?.getSonicKeys?.docs?.map((data) => {
+            return ({
+                trackId: data?.track?._id,
+                sonicKey: data?.sonicKey,
+                contentName: data?.contentName,
+                version: data?.version,
+                contentOwner: data?.contentOwner,
+                contentType: data?.contentType,
+                isrcCode: data?.isrcCode,
+                iswcCode: data?.iswcCode,
+                tuneCode: data?.tuneCode,
+                label: data?.label,
+                distributor: data?.distributor,
+                contentFileType: data?.contentFileType,
+                contentDuration: data?.contentDuration,
+                contentSize: data?.contentSize,
+                contentEncoding: data?.contentEncoding,
+                contentSamplingFrequency: data?.contentSamplingFrequency,
+                contentQuality: data?.contentQuality,
+                contentDescription: data?.contentDescription,
+                additionalMetadata: data?.additionalMetadata,
+                createdAt: data?.createdAt,
+            })
+        })
+        return data;
+    }
+
     const columns = [
         {
             label: "TrackId",
-            name: "track",
+            name: "trackId",
             options: {
                 filter: false,
-                sort: false,
                 customBodyRender: (value) => {
-                    return value._id || "---";
+                    return value || "---";
                 },
             },
         },
@@ -259,6 +288,8 @@ export default function EncodesReport() {
                         <Table
                             title={
                                 <Table.TableActions
+                                    exportData={true}
+                                    handleExport={(data) => setExportValue(data)}
                                     filterOnly
                                     openDialogFilter={true}
                                     refreshButtonProps={{
@@ -272,7 +303,7 @@ export default function EncodesReport() {
                                     onChangeEndDate={(date) => sonickeyStore?.changeDateRange({ ...sonickeyStore?.getDateRange, endDate: date })}
                                 />
                             }
-                            data={sonickeyStore?.getSonicKeys?.docs || []}
+                            data={stableTableData() || []}
                             columns={columns}
                             options={{
                                 count: sonickeyStore?.getSonicKeys?.totalDocs || 0,

@@ -18,36 +18,64 @@ export default function TrackPlaysReport() {
         reportsdetection.fetchReportsDetection();
     }, [reportsdetection?.getDateRange?.startDate, reportsdetection?.getDateRange?.endDate]);
 
+    const stableTableData = () => {
+        const data = reportsdetection?.getDetectionReports?.docs?.map((data) => {
+            return ({
+                companyName: data?.sonicKey?.company?.name,
+                companyType: data?.sonicKey?.company?.companyType,
+                contentOwner: data?.sonicKey?.contentOwner,
+                contentName: data?.sonicKey?.contentName,
+                radioStation: data?.radioStation?.name,
+                date: data?.detectedAt,
+                time: data?.detectedAt,
+                duration: data?.sonicKey?.contentDuration,
+                country: data?.radioStation?.country,
+                trackId: data?.sonicKey?.track?._id,
+                sonicKey: data?.sonicKey?.sonicKey,
+                detectionOrigins: data?.detectionOrigins,
+                version: data?.sonicKey?.version,
+                distributor: data?.sonicKey?.distributor,
+                label: data?.sonicKey?.label,
+                isrcCode: data?.sonicKey?.isrcCode,
+                iswcCode: data?.sonicKey?.iswcCode,
+                tuneCode: data?.sonicKey?.tuneCode,
+                contentDescription: data?.sonicKey?.contentDescription,
+                contentFileType: data?.sonicKey?.contentFileType,
+            })
+        })
+        return data;
+    }
+
     const columns = [
         {
             label: "Company",
-            name: "sonicKey",
+            name: "companyName",
             options: {
                 filter: false,
                 customBodyRender: (value) => {
-                    return value?.company?.name || "---";
+                    return value || "---";
                 },
             },
         },
         {
             label: "CompanyType",
-            name: "sonicKey",
+            name: "companyType",
             options: {
                 filter: false,
                 customBodyRender: (value) => {
-                    return value?.company?.companyType || "---";
+                    return value || "---";
                 },
             },
         },
         {
             label: "Artist",
-            name: "sonicKey",
+            name: "contentOwner",
             options: {
                 filter: false,
                 customBodyRender: (value) => {
-                    const artist = value?.contentOwner?.length > 20 ? value?.contentOwner?.slice(0, 20) + "..." : value?.contentOwner || "---";
+                    const artist = value?.length > 20 ? value?.slice(0, 20) + "..." : value || "---";
                     return (
-                        <Tooltip title={value?.contentOwner}>
+                        <Tooltip title={value}>
                             <div>{artist}</div>
                         </Tooltip>
                     );
@@ -56,13 +84,13 @@ export default function TrackPlaysReport() {
         },
         {
             label: "Title",
-            name: "sonicKey",
+            name: "contentName",
             options: {
                 filter: false,
                 customBodyRender: (value) => {
-                    const filename = value?.contentName?.length > 20 ? value?.contentName?.slice(0, 20) + "..." : value?.contentName || "---";
+                    const filename = value?.length > 20 ? value?.slice(0, 20) + "..." : value || "---";
                     return (
-                        <Tooltip title={value?.contentName || "---"}>
+                        <Tooltip title={value}>
                             <div>{filename}</div>
                         </Tooltip>
                     );
@@ -75,13 +103,13 @@ export default function TrackPlaysReport() {
             options: {
                 filter: false,
                 customBodyRender: (value) => {
-                    return value?.name || "---";
+                    return value || "---";
                 },
             },
         },
         {
             label: "Date",
-            name: "detectedAt",
+            name: "date",
             options: {
                 filter: false,
                 customBodyRender: (value) => {
@@ -91,7 +119,7 @@ export default function TrackPlaysReport() {
         },
         {
             label: "Time",
-            name: "detectedAt",
+            name: "time",
             options: {
                 filter: false,
                 customBodyRender: (value) => {
@@ -101,31 +129,31 @@ export default function TrackPlaysReport() {
         },
         {
             label: "Duration",
-            name: "sonicKey",
+            name: "duration",
             options: {
                 filter: false,
                 customBodyRender: (value) => {
-                    return value?.contentDuration ? moment.utc(value?.contentDuration * 1000).format("mm:ss") : "---";
+                    return value ? moment.utc(value * 1000).format("mm:ss") : "---";
                 },
             },
         },
         {
             label: "Country",
-            name: "radioStation",
+            name: "country",
             options: {
                 filter: false,
                 customBodyRender: (value) => {
-                    return value?.country || "---";
+                    return value || "---";
                 },
             },
         },
         {
-            label: "Track Id",
-            name: "sonicKey",
+            label: "TrackId",
+            name: "trackId",
             options: {
                 filter: false,
                 customBodyRender: (value) => {
-                    return value?.track?._id || "---";
+                    return value || "---";
                 },
             },
         },
@@ -135,7 +163,7 @@ export default function TrackPlaysReport() {
             options: {
                 filter: false,
                 customBodyRender: (value) => {
-                    return value?.sonicKey || "---";
+                    return value || "---";
                 },
             },
         },
@@ -151,81 +179,81 @@ export default function TrackPlaysReport() {
         },
         {
             label: "Version",
-            name: "sonicKey",
+            name: "version",
             options: {
                 filter: false,
                 customBodyRender: (value) => {
-                    return value?.version || "---";
+                    return value || "---";
                 },
             },
         },
         {
             label: "Distributor",
-            name: "sonicKey",
+            name: "distributor",
             options: {
                 filter: false,
                 customBodyRender: (value) => {
-                    return value?.distributor || "---";
+                    return value || "---";
                 },
             },
         },
         {
             label: "Label",
-            name: "sonicKey",
+            name: "label",
             options: {
                 filter: false,
                 customBodyRender: (value) => {
-                    return value?.label || "---";
+                    return value || "---";
                 },
             },
         },
         {
             label: "ISRC",
-            name: "sonicKey",
+            name: "isrcCode",
             options: {
                 filter: false,
                 customBodyRender: (value) => {
-                    return value?.isrcCode || "---";
+                    return value || "---";
                 },
             },
         },
         {
             label: "ISWC",
-            name: "sonicKey",
+            name: "iswcCode",
             options: {
                 filter: false,
                 customBodyRender: (value) => {
-                    return value?.iswcCode || "---";
+                    return value || "---";
                 },
             },
         },
         {
             label: "TuneCode",
-            name: "sonicKey",
+            name: "tuneCode",
             options: {
                 filter: false,
                 customBodyRender: (value) => {
-                    return value?.tuneCode || "---";
+                    return value || "---";
                 },
             },
         },
         {
             label: "Description",
-            name: "sonicKey",
+            name: "contentDescription",
             options: {
                 filter: false,
                 customBodyRender: (value) => {
-                    return value?.contentDescription || "---";
+                    return value || "---";
                 },
             },
         },
         {
             label: "FileType",
-            name: "sonicKey",
+            name: "contentFileType",
             options: {
                 filter: false,
                 customBodyRender: (value) => {
-                    return value?.contentFileType || "---";
+                    return value || "---";
                 },
             },
         },
@@ -274,7 +302,7 @@ export default function TrackPlaysReport() {
                                     onChangeEndDate={(date) => reportsdetection?.changeDateRange({ ...reportsdetection?.getDateRange, endDate: date })}
                                 />
                             }
-                            data={reportsdetection?.getDetectionReports?.docs || []}
+                            data={stableTableData() || []}
                             columns={columns}
                             options={{
                                 count: reportsdetection?.getDetectionReports?.totalDocs || 0,

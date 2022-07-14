@@ -70,7 +70,7 @@ export default function PartnerPicker({
             noOptionsText={state.error ? <UserFetchingError /> : <UserLoading />}
             options={state.data?.data?.docs || []}
             getOptionSelected={(option, value) => option.id === value.id}
-            getOptionLabel={(option) => option?.name}
+            getOptionLabel={(option) => option?.name || ""}
             onInputChange={getPartner}
             onChange={(e, v) => getSelectedValue(v)}
             renderInput={(params) =>
