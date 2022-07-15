@@ -289,6 +289,8 @@ export default function TrackPlaysReport() {
                         <Table
                             title={
                                 <Table.TableActions
+                                    exportData={true}
+                                    handleExport={(data) => reportsdetection.exportReportsDetectionData(data)}
                                     filterOnly
                                     openDialogFilter={true}
                                     refreshButtonProps={{

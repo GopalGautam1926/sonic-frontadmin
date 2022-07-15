@@ -107,6 +107,8 @@ export default function TrackReport() {
                         <Table
                             title={
                                 <Table.TableActions
+                                    exportData={true}
+                                    handleExport={(data) => reportsdetection.exportReportsDetectionData(data, "TRACKS")}
                                     filterOnly
                                     openDialogFilter={true}
                                     refreshButtonProps={{

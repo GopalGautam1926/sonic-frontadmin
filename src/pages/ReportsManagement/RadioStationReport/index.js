@@ -99,6 +99,8 @@ export default function RadioStationReport() {
                         <Table
                             title={
                                 <Table.TableActions
+                                    exportData={true}
+                                    handleExport={(data) => reportsdetection.exportReportsDetectionData(data, "RADIOSTATIONS")}
                                     filterOnly
                                     openDialogFilter={true}
                                     refreshButtonProps={{

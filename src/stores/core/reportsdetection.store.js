@@ -3,6 +3,8 @@ import { AxiosRequestConfig } from "axios";
 import { log } from "../../utils/app.debug";
 import moment from "moment";
 import reportsHttps from "../../services/https/resources/reports.https";
+import { toast } from "react-toastify";
+import fileDownload from "js-file-download";
 
 class ReportsDetectionStore {
     @observable loading = false;
@@ -132,6 +134,48 @@ class ReportsDetectionStore {
                 log("Detected Plays err", err);
                 this.loading = false;
                 this.error = err;
+            });
+    }
+
+
+    /**
+     * @param {AxiosRequestConfig} options
+     * @returns {Promise<any>}
+     */
+    @action
+    exportReportsDetectionData(format, playsBy) {
+        let startDate = moment(this.dateRange.startDate).startOf("days").toISOString();
+        let endDate = moment(this.dateRange.endDate).endOf("days").toISOString();
+
+        const options = {
+            params: {
+                playsBy: playsBy || undefined,
+                limit: 2000,
+                page: 1,
+                "detectedAt>": this.dateRange.startDate ? `date(${startDate})` : undefined,
+                "detectedAt<": this.dateRange.endDate ? `date(${endDate})` : undefined,
+                channel: this.filters.channel !== "ALL" ? this.filters.channel : undefined,
+                "relation_radioStation.country": this.filters.country || undefined,
+                "relation_radioStation.name": this.filters.radiostation || undefined,
+                "relation_sonicKey.contentOwner": this.filters.artist ? `/${this.filters.artist}/i` : undefined,
+                "relation_sonicKey.contentName": this.filters.track ? `/${this.filters.track}/i` : undefined,
+                "relation_sonicKey.partner._id": this.filters.partnerName?._id || undefined,
+                "relation_sonicKey.company._id": this.filters.companyName?._id || undefined,
+            },
+        };
+
+        reportsHttps.exportPlays(format, options)
+            .then(({ data }) => {
+                log("Export Detected Plays", data);
+                if (format === "xlsx") {
+                    fileDownload(data, `${playsBy || "Track-Plays"} Reports Export-xlsx-(${moment(startDate).format("YYYY_MM_DD")}-to-${moment(endDate).format("YYYY_MM_DD")}).xlsx`);
+                } else {
+                    fileDownload(data, `${playsBy || "Track-Plays"} Reports Export-csv-(${moment(startDate).format("YYYY_MM_DD")}-to-${moment(endDate).format("YYYY_MM_DD")}).csv`);
+                }
+            })
+            .catch((err) => {
+                log("Export Detected Plays err", err);
+                toast.error(err.message);
             });
     }
 
