@@ -174,7 +174,7 @@ class SonicKeyStore {
                 if (format === "xlsx") {
                     fileDownload(data, `Encodes Report Export-xlsx-(${moment(startDate).format("YYYY_MM_DD")}-to-${moment(endDate).format("YYYY_MM_DD")}).xlsx`);
                 } else {
-                    fileDownload(data, `Encodes Report Export-csv-(${moment(startDate).format("YYYY_MM_DD")}-to-${moment(endDate).format("YYYY_MM_DD")}).zip`);
+                    fileDownload(data, `Encodes Report Export-csv-(${moment(startDate).format("YYYY_MM_DD")}-to-${moment(endDate).format("YYYY_MM_DD")}).csv`);
                 }
             })
             .catch((err) => {

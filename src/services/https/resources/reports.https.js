@@ -66,7 +66,7 @@ class ReportsHttps {
     exportSonicKeys(format, options) {
         return AppWebRequest({
             method: "get",
-            url: `/detections/export/history-of-sonickey/${format}`,
+            url: `/sonic-keys/export-sonickeys/${format}`,
             responseType: "blob",
             ...options,
         });
