@@ -3,9 +3,9 @@ import DataFetchingStateComponent from '../../../components/common/DataFetchingS
 import FancyCard from '../../../components/FancyCard/FancyCard'
 import Table from '../../../components/Table/Table'
 import { useStore } from '../../../stores';
-import { log } from '../../../utils/app.debug';
 import DataLoading from './Components/DataLoading';
 import FilterCount from './Components/FilterCount';
+import { utils, writeFile } from 'xlsx';
 
 export default function Summary() {
     const { summaryCountStore } = useStore();
@@ -90,7 +90,7 @@ export default function Summary() {
         summaryCountStore?.fetchPlaysCount();
         summaryCountStore?.fetchTracksCount();
     }
-    
+
     const onSummaryStartDateChange = (date) => {
         summaryCountStore?.changeDateRange({ ...summaryCountStore?.dateRange, startDate: date })
         tryAgain()
@@ -99,6 +99,31 @@ export default function Summary() {
     const onSummaryEndDateChange = (date) => {
         summaryCountStore?.changeDateRange({ ...summaryCountStore?.dateRange, endDate: date })
         tryAgain()
+    }
+
+    const stableTableData = () => {
+        return [{
+            Partner: summaryCountStore.partnerCount.data,
+            Company: summaryCountStore.companyCount.data,
+            Encodes: summaryCountStore.encodesCount.data,
+            Plays: summaryCountStore.playsCount.data,
+            Tracks: summaryCountStore.tracksCount.data,
+        }]
+    }
+
+    const onExportFile = (file) => {
+        const headings = [['Partner', 'Company', 'Encodes', 'Plays', 'Tracks']];
+        const wb = utils.book_new();
+        const ws = utils.json_to_sheet([]);
+        utils.sheet_add_aoa(ws, headings);
+        utils.sheet_add_json(ws, stableTableData(), { origin: 'A2', skipHeader: true });
+        utils.book_append_sheet(wb, ws, 'Report');
+
+        if (file === "xlsx") {
+            writeFile(wb, 'Summary.xlsx');
+        } else {
+            writeFile(wb, 'Summary.csv');
+        }
     }
 
     return (
@@ -125,6 +150,8 @@ export default function Summary() {
                     <Table
                         title={
                             <Table.TableActions
+                                exportData={true}
+                                handleExport={(data) => onExportFile(data)}
                                 filterOnly
                                 openDialogFilter={true}
                                 refreshButtonProps={{ onClick: tryAgain }}

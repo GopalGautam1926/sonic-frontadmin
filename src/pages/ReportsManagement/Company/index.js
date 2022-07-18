@@ -4,14 +4,24 @@ import DataFetchingStateComponent from '../../../components/common/DataFetchingS
 import FancyCard from '../../../components/FancyCard/FancyCard'
 import Table from '../../../components/Table/Table'
 import { useStore } from '../../../stores';
-import { log } from '../../../utils/app.debug';
 import FilterCompanyReport from './Components/FilterCompanyReport';
 import HighLevelCounts from './Components/HighLevelCounts';
+import { utils, writeFile } from 'xlsx';
 
 export default function Company() {
     const { companyReportStore } = useStore();
 
-    log("Company Report Store", companyReportStore?.companyReport)
+    const stableTableData = () => {
+        const data = companyReportStore?.companyReport?.docs?.map((data) => {
+            return ({
+                Company: data?.name,
+                Encodes: data?.encodesCount,
+                // Plays: <HighLevelCounts company={data?._id} plays={true} />,
+                // Tracks: <HighLevelCounts company={data?._id} tracks={true} />,
+            })
+        })
+        return data;
+    }
 
     const columns = [
         {
@@ -83,6 +93,21 @@ export default function Company() {
         companyReportStore.fetchCompaniesReports(page)
     }
 
+    const onExportFile = (file) => {
+        const headings = [['Company', 'Encodes', 'Plays', 'Tracks', 'Artists', 'Radio Stations', 'Countries']];
+        const wb = utils.book_new();
+        const ws = utils.json_to_sheet([]);
+        utils.sheet_add_aoa(ws, headings);
+        utils.sheet_add_json(ws, stableTableData(), { origin: 'A2', skipHeader: true });
+        utils.book_append_sheet(wb, ws, 'Report');
+
+        if (file === "xlsx") {
+            writeFile(wb, 'Company Report.xlsx');
+        } else {
+            writeFile(wb, 'Company Report.csv');
+        }
+    }
+
     return (
         <FancyCard
             cardHeader={
@@ -107,6 +132,8 @@ export default function Company() {
                     <Table
                         title={
                             <Table.TableActions
+                                exportData={true}
+                                handleExport={(data) => onExportFile(data)}
                                 filterOnly
                                 openDialogFilter={true}
                                 refreshButtonProps={{
