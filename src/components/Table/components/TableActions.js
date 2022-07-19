@@ -126,7 +126,7 @@ export default function TableActions({
         </Grid> : null}
 
       {exportData &&
-        <Grid style={{ display: "flex", alignItems: "center" }}>
+        <Grid item style={{ display: "flex", alignItems: "center" }}>
           <RPopover
             paperStyle={{ minWidth: 100 }}
             TransitionProps={{
