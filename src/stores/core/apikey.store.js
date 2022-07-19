@@ -21,7 +21,7 @@ class ApiKeyStore {
     docs: [],
     totalDocs: 0,
     offset: 0,
-    limit: 0,
+    limit: 10,
     totalPages: 0,
     page: 0,
     pagingCounter: 0,
@@ -34,6 +34,20 @@ class ApiKeyStore {
     // makeObservable(this);
   }
 
+  @observable apiKeyTablePage = 1;
+
+  //Pagination
+  @computed
+  get getApiKeyTablePage() {
+      return toJS(this.apiKeyTablePage);
+  }
+
+  @action
+  changeApiKeyTablePage(page) {
+      this.apiKeyTablePage = page;
+  }
+  /* ----------------------------- */
+
   @computed
   get getApiKeys() {
     return toJS(this.apiKeys);
@@ -44,13 +58,15 @@ class ApiKeyStore {
    * @returns {Promise<any>}
    */
   @action
-  fetchApiKeys(options = {}) {
+  fetchApiKeys(page = 1, options = {}) {
     this.loading = true;
     this.error = null;
     const defaultOptions={
       params:{
         sort:'-createdAt',
-        limit:1000
+        limit: this.apiKeys.limit,
+        page: page,
+        skip: page > 1 ? (page - 1) * this.apiKeys.limit : 0,
       },
     }
     options=deepmerge(defaultOptions,options)

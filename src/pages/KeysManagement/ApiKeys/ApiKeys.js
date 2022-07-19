@@ -13,6 +13,7 @@ import DataFetchingStateComponent from "../../../components/common/DataFetchingS
 import apikeysHttps from "../../../services/https/resources/apikeys.https";
 import { toast } from "react-toastify";
 import Badge from '../../../components/Badge/Badge';
+import CustomPagination from "../../../components/common/CustomPagination";
 
 function ApiKeys() {
   const [state, setState] = useState({
@@ -153,6 +154,11 @@ function ApiKeys() {
       });
   };
 
+  const onPageChange = (page) => {
+    apiKeyStore.fetchApiKeys(page)
+    apiKeyStore.changeApiKeyTablePage(page);
+}
+
   return (
     <div>
       <FancyCard
@@ -188,7 +194,16 @@ function ApiKeys() {
               data={apiKeyStore.getApiKeys?.docs || []}
               columns={columns}
               options={{
-                count: apiKeyStore.getApiKeys.totalDocs
+                count: apiKeyStore.getApiKeys.totalDocs || 0,
+                customFooter: (count, page, rowsPerPage, changeRowsPerPage, changePage, textLabels) => {
+                    return (
+                        <CustomPagination
+                            totalPages={apiKeyStore?.getApiKeys?.totalPages}
+                            page={apiKeyStore?.apiKeyTablePage}
+                            onChange={(event, value) => onPageChange(value)}
+                        />
+                    );
+                }
               }}
             />
           </DataFetchingStateComponent>

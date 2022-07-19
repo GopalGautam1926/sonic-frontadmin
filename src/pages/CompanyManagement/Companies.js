@@ -1,6 +1,7 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import Badge from '../../components/Badge/Badge'
+import CustomPagination from '../../components/common/CustomPagination'
 import DataFetchingStateComponent from '../../components/common/DataFetchingStateComponent'
 import FancyCard from '../../components/FancyCard/FancyCard'
 import RSpace from '../../components/rcomponents/RSpace'
@@ -122,6 +123,11 @@ export default function Companies() {
         },
     ]
 
+    const onPageChange = (page) => {
+        companyStore.fetchCompanies(page)
+        companyStore.changeCompanyTablePage(page);
+    }
+
     return (
         <div>
             <FancyCard
@@ -160,7 +166,16 @@ export default function Companies() {
                             columns={columns}
                             data={companyStore?.getCompany?.docs || []}
                             options={{
-                                count: companyStore?.getCompany?.docs?.length
+                                count: companyStore?.getCompany?.docs?.length || 0,
+                                customFooter: (count, page, rowsPerPage, changeRowsPerPage, changePage, textLabels) => {
+                                    return (
+                                        <CustomPagination
+                                            totalPages={companyStore?.getCompany?.totalPages}
+                                            page={companyStore?.companyTablePage}
+                                            onChange={(event, value) => onPageChange(value)}
+                                        />
+                                    );
+                                }
                             }}
                         />
                     </DataFetchingStateComponent>
