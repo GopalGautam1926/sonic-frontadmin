@@ -42,7 +42,8 @@ class CompanyReportStore {
         radioStation: "",
         country: "",
         channel: "ALL",
-        isPartnerCustomerCompanyInc: false
+        isPartnerCustomerCompanyInc: false,
+        rowsPerPage: "",
     };
 
     @action
@@ -71,14 +72,15 @@ class CompanyReportStore {
             radioStation: "",
             country: "",
             channel: "",
-            isPartnerCustomerCompanyInc: false
+            isPartnerCustomerCompanyInc: false,
+            rowsPerPage: "",
         }
     }
 
     /**
- * @param {AxiosRequestConfig} options
- * @returns {Promise<any>}
- */
+    * @param {AxiosRequestConfig} options
+    * @returns {Promise<any>}
+    */
 
     @action
     fetchCompaniesReports(page = 1) {
@@ -90,9 +92,9 @@ class CompanyReportStore {
 
         let options = {
             params: {
-                limit: this?.companyReport?.limit,
+                limit: this.filters.rowsPerPage || 10,
                 page: page,
-                skip: page > 1 ? (page - 1) * this?.companyReport?.limit : 0,
+                skip: page > 1 ? (page - 1) * (this.filters.rowsPerPage || 10) : 0,
                 sort: "-createdAt",
                 "createdAt>": `date(${startDate})` || undefined,
                 "createdAt<": `date(${endDate})` || undefined,

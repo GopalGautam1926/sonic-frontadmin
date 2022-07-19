@@ -1,4 +1,4 @@
-import { Checkbox, FormControlLabel, Grid } from '@material-ui/core'
+import { Checkbox, FormControlLabel, FormHelperText, Grid } from '@material-ui/core'
 import { observer } from 'mobx-react'
 import React from 'react'
 import AppButton from '../../../../components/AppButton/AppButton'
@@ -11,7 +11,6 @@ import CompanyPicker from '../../../../components/Picker/CompanyPicker'
 import PartnerPicker from '../../../../components/Picker/PartnerPicker'
 import { Channel } from '../../../../constants'
 import { useStore } from '../../../../stores'
-import { log } from '../../../../utils/app.debug'
 
 const FilterCompanyReport = ({ closeDialog }) => {
     const { companyReportStore } = useStore();
@@ -132,6 +131,25 @@ const FilterCompanyReport = ({ closeDialog }) => {
                                 }}
                                 data={Channel || []}
                             />
+                        </Grid>
+
+                        <Grid item xs={12} sm={6} md={3}>
+                            <AppTextInput
+                                labelText="Rows Per Page"
+                                id="rowsPerPage"
+                                formControlProps={{
+                                    fullWidth: true,
+                                }}
+                                inputProps={{
+                                    // readOnly: license.isUnlimitedMonitor,
+                                    type: "number",
+                                    min: "0",
+                                    placeholder: "eg. 10",
+                                    value: companyReportStore.getFilters.rowsPerPage,
+                                    onChange: (e) => companyReportStore?.changeFilters({ ...companyReportStore?.getFilters, rowsPerPage: e.target.value })
+                                }}
+                            />
+                            <FormHelperText style={{ marginTop: '-10px' }}>Max. 2000</FormHelperText>
                         </Grid>
                     </Grid>
                     <FormControlLabel
