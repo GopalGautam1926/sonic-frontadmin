@@ -7,7 +7,9 @@ import {
 import { AxiosRequestConfig } from "axios";
 import { log } from "../../utils/app.debug";
 import moment from "moment";
-import sonickeysHttps from "../../services/https/resources/sonickeys.https";
+import reportsHttps from "../../services/https/resources/reports.https";
+import fileDownload from "js-file-download";
+import { toast } from "react-toastify";
 
 class SonicKeyStore {
     @observable loading = false;
@@ -125,7 +127,7 @@ class SonicKeyStore {
             },
         }
 
-        sonickeysHttps
+        reportsHttps
             .fetchSonicKeys(options)
             .then(({ data }) => {
                 log("Sonickey", data);
@@ -136,6 +138,48 @@ class SonicKeyStore {
                 log("Sonickey err", err);
                 this.loading = false;
                 this.error = err;
+            });
+    }
+
+    /**
+     * @param {AxiosRequestConfig} options
+     * @returns {Promise<any>}
+     */
+    @action
+    exportSonicKeysData(format) {
+        let startDate = moment(this.dateRange.startDate).startOf("days").toISOString();
+        let endDate = moment(this.dateRange.endDate).endOf("days").toISOString();
+
+        const options = {
+            params: {
+                sort: '-createdAt',
+                limit: 2000,
+                page: 1,
+                "createdAt>": `date(${startDate})` || undefined,
+                "createdAt<": `date(${endDate})` || undefined,
+                "relation_partner._id": this.filters.partnerName?._id || undefined,
+                "relation_company._id": this.filters.companyName?._id || undefined,
+                "contentOwner": this.filters.artist ? `/${this.filters.artist}/i` : undefined,
+                "contentName": this.filters.track ? `/${this.filters.track}/i` : undefined,
+                "channel": this.filters.channel !== "ALL" ? this.filters.channel : undefined,
+                "sonicKey": this.filters.sonickey || undefined,
+                "relation_track._id": this.filters.trackId || undefined,
+            },
+        }
+
+        reportsHttps
+            .exportSonicKeys(format, options)
+            .then(({ data }) => {
+                log("Export Sonickey", data);
+                if (format === "xlsx") {
+                    fileDownload(data, `Encodes Report Export-xlsx-(${moment(startDate).format("YYYY_MM_DD")}-to-${moment(endDate).format("YYYY_MM_DD")}).xlsx`);
+                } else {
+                    fileDownload(data, `Encodes Report Export-csv-(${moment(startDate).format("YYYY_MM_DD")}-to-${moment(endDate).format("YYYY_MM_DD")}).csv`);
+                }
+            })
+            .catch((err) => {
+                log("Export Sonickey err", err);
+                toast.error(err.message);
             });
     }
 }

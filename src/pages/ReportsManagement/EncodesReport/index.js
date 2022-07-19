@@ -11,7 +11,6 @@ import FilterEncodesReport from './components/FilterEncodesReport';
 
 export default function EncodesReport() {
     const { sonickeyStore } = useStore();
-    const [exportValue, setExportValue] = React.useState();
 
     React.useEffect(() => {
         sonickeyStore.changeSonicKeyTablePage(1);
@@ -287,8 +286,8 @@ export default function EncodesReport() {
                         <Table
                             title={
                                 <Table.TableActions
-                                    // exportData={true}
-                                    handleExport={(data) => setExportValue(data)}
+                                    exportData={true}
+                                    handleExport={(data) => sonickeyStore.exportSonicKeysData(data)}
                                     filterOnly
                                     openDialogFilter={true}
                                     refreshButtonProps={{

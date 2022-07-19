@@ -41,6 +41,36 @@ class ReportsHttps {
             ...options,
         });
     }
+
+    /**
+     * Export plays reports
+     * * @param {AxiosRequestConfig} options
+     * * @param {string} format
+     * * @returns {Promise<any>}
+     */
+    exportPlays(format, options) {
+        return AppWebRequest({
+            method: "get",
+            url: `/detections/export-plays-by/${format}`,
+            responseType: "blob",
+            ...options,
+        });
+    }
+
+    /**
+     * Export encodes reports
+     * * @param {AxiosRequestConfig} options
+     * * @param {string} format
+     * * @returns {Promise<any>}
+     */
+    exportSonicKeys(format, options) {
+        return AppWebRequest({
+            method: "get",
+            url: `/sonic-keys/export-sonickeys/${format}`,
+            responseType: "blob",
+            ...options,
+        });
+    }
 }
 
 export default new ReportsHttps();

@@ -108,6 +108,8 @@ export default function ArtistReport() {
                         <Table
                             title={
                                 <Table.TableActions
+                                    exportData={true}
+                                    handleExport={(data) => reportsdetection.exportReportsDetectionData(data, "ARTISTS")}
                                     filterOnly
                                     openDialogFilter={true}
                                     refreshButtonProps={{

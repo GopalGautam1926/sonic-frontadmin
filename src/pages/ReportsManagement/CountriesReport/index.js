@@ -98,6 +98,8 @@ export default function CountriesReport() {
                         <Table
                             title={
                                 <Table.TableActions
+                                    exportData={true}
+                                    handleExport={(data) => reportsdetection.exportReportsDetectionData(data, "COUNTRIES")}
                                     filterOnly
                                     openDialogFilter={true}
                                     refreshButtonProps={{
