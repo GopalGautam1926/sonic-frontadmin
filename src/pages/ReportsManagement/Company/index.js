@@ -11,18 +11,6 @@ import { utils, writeFile } from 'xlsx';
 export default function Company() {
     const { companyReportStore } = useStore();
 
-    const stableTableData = () => {
-        const data = companyReportStore?.companyReport?.docs?.map((data) => {
-            return ({
-                Company: data?.name,
-                Encodes: data?.encodesCount,
-                // Plays: <HighLevelCounts company={data?._id} plays={true} />,
-                // Tracks: <HighLevelCounts company={data?._id} tracks={true} />,
-            })
-        })
-        return data;
-    }
-
     const columns = [
         {
             label: "Company",
@@ -91,6 +79,21 @@ export default function Company() {
 
     const onPageChange = (page) => {
         companyReportStore.fetchCompaniesReports(page)
+    }
+
+    const stableTableData = () => {
+        const data = companyReportStore?.companyReport?.docs?.map((data) => {
+            return ({
+                Company: data?.name,
+                Encodes: data?.encodesCount,
+                Plays: data?.highLevelCountData?.myPlaysCount,
+                Tracks: data?.highLevelCountData?.myTracksCount,
+                Artists: data?.highLevelCountData?.myArtistsCount,
+                RadioStations: data?.highLevelCountData?.myRadioStationCount,
+                Countries: data?.highLevelCountData?.myCountriesCount,
+            })
+        })
+        return data;
     }
 
     const onExportFile = (file) => {
