@@ -23,7 +23,7 @@ class LicenseKeyStore {
     docs: [],
     totalDocs: 0,
     offset: 0,
-    limit: 0,
+    limit: 10,
     totalPages: 0,
     page: 0,
     pagingCounter: 0,
@@ -35,6 +35,20 @@ class LicenseKeyStore {
   constructor() {
     // makeObservable(this);
   }
+
+  @observable licenseKeyTablePage = 1;
+
+  //Pagination
+  @computed
+  get getLicenseKeyTablePage() {
+      return toJS(this.licenseKeyTablePage);
+  }
+
+  @action
+  changeLicenseKeyTablePage(page) {
+      this.licenseKeyTablePage = page;
+  }
+  /* ----------------------------- */
 
   @computed
   get getLicenseKeys() {
@@ -56,13 +70,15 @@ class LicenseKeyStore {
    * @returns {Promise<any>}
    */
   @action
-  fetchLicenseKeys(options = {}) {
+  fetchLicenseKeys(page = 1, options = {}) {
     this.loading = true;
     this.error = null;
     const defaultOptions={
       params:{
         sort:'-createdAt',
-        limit:1000
+        limit: this.licenseKeys.limit,
+        page: page,
+        skip: page > 1 ? (page - 1) * this.licenseKeys.limit : 0,
       },
     }
     options=deepmerge(defaultOptions,options)

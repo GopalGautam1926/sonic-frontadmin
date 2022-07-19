@@ -30,6 +30,20 @@ class CompanyStore {
         // makeObservable(this);
     }
 
+    @observable companyTablePage = 1;
+
+        //Pagination
+        @computed
+        get getCompanyTablePage() {
+            return toJS(this.companyTablePage);
+        }
+    
+        @action
+        changeCompanyTablePage(page) {
+            this.companyTablePage = page;
+        }
+        /* ----------------------------- */
+
     @observable dateRange = {
         startDate: new Date().setMonth(new Date().getMonth() - 1),
         endDate: new Date(),
@@ -84,7 +98,7 @@ class CompanyStore {
  */
 
     @action
-    fetchCompanies(options = {}) {
+    fetchCompanies(page = 1,options = {}) {
         this.error = null;
         this.loading = true;
 
@@ -94,6 +108,9 @@ class CompanyStore {
         let newOptions = {
             params: {
                 sort: "-createdAt",
+                limit: this.company.limit,
+                page: page,
+                skip: page > 1 ? (page - 1) * this.company.limit : 0,
                 // "createdAt>": `date(${startDate})` || undefined,
                 // "createdAt<": `date(${endDate})` || undefined,
                 "name": this.filters.name ? `/${this.filters.name}/i` : undefined,

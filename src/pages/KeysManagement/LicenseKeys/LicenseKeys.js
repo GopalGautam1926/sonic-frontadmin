@@ -14,6 +14,7 @@ import licensekeysHttps from "../../../services/https/resources/licensekeys.http
 import { toast } from "react-toastify";
 import Badge from '../../../components/Badge/Badge';
 import { log } from '../../../utils/app.debug';
+import CustomPagination from "../../../components/common/CustomPagination";
 function LicenseKeys() {
   const [state, setState] = useState({
     isDeleting: false,
@@ -197,6 +198,12 @@ function LicenseKeys() {
 
   log("companyStore data", licenseKeyStore.getLicenseKeys);
 
+
+  const onPageChange = (page) => {
+    licenseKeyStore.fetchLicenseKeys(page)
+    licenseKeyStore.changeLicenseKeyTablePage(page);
+}
+
   return (
     <div>
       <FancyCard
@@ -232,7 +239,16 @@ function LicenseKeys() {
               data={licenseKeyStore.createTableData()}
               columns={columns}
               options={{
-                count: licenseKeyStore.getLicenseKeys.totalDocs
+                count: licenseKeyStore.getLicenseKeys.totalDocs || 0,
+                customFooter: (count, page, rowsPerPage, changeRowsPerPage, changePage, textLabels) => {
+                    return (
+                        <CustomPagination
+                            totalPages={licenseKeyStore?.getLicenseKeys?.totalPages}
+                            page={licenseKeyStore?.licenseKeyTablePage}
+                            onChange={(event, value) => onPageChange(value)}
+                        />
+                    );
+                }
               }}
             />
           </DataFetchingStateComponent>

@@ -156,7 +156,7 @@ export default function Partners() {
                                     return (
                                         <CustomPagination
                                             totalPages={partnerStore?.getPartner?.totalPages}
-                                            page={partnerStore?.userTablePage}
+                                            page={partnerStore?.partnerTablePage}
                                             onChange={(event, value) => onPageChange(value)}
                                         />
                                     );

@@ -110,7 +110,7 @@ class PartnerStore {
                 sort: "-createdAt",
                 limit: this.partner.limit,
                 page: page,
-                skip: page > 1 ? (page - 1) * this.users.limit : 0,
+                skip: page > 1 ? (page - 1) * this.partner.limit : 0,
 
                 "name": this.filters.name ? `/${this.filters.name}/i` : undefined,
                 "partnerType": this.filters.partnerType ? `${this.filters.partnerType}` : undefined,
