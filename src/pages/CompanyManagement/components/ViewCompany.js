@@ -12,6 +12,7 @@ import { useStore } from '../../../stores';
 import CustomDropDown from '../../../components/AppTextInput/CustomDropDown';
 import { CompanyType } from '../../../constants';
 import { SwitchWithLabel } from '../../../components/Switch/Switch';
+import ChangeCompanyAdmin from './ChangeCompanyAdmin';
 
 export default function ViewCompany({ closeDialog }) {
     const [state, setState] = React.useState({
@@ -22,6 +23,9 @@ export default function ViewCompany({ closeDialog }) {
         company: {},
         disabled: false,
         deleteLoading: false,
+        changeAdminModal: {
+            open: false,
+        }
     });
     let { companyId } = useParams();
     const location = useLocation();
@@ -54,21 +58,21 @@ export default function ViewCompany({ closeDialog }) {
         setState({ ...state, editLoading: true });
 
         // if (state?.checkEmail) {
-            companyHttps
-                .updateCompany(companyId, company)
-                .then(({ data }) => {
-                    setState({
-                        ...state,
-                        editLoading: false,
-                        editMode: false,
-                        company: data,
-                    });
-                    toast.success("Updated successfully");
-                })
-                .catch((err) => {
-                    setState({ ...state, editLoading: false });
-                    toast.error(err.message || "Error while creating..");
+        companyHttps
+            .updateCompany(companyId, company)
+            .then(({ data }) => {
+                setState({
+                    ...state,
+                    editLoading: false,
+                    editMode: false,
+                    company: data,
                 });
+                toast.success("Updated successfully");
+            })
+            .catch((err) => {
+                setState({ ...state, editLoading: false });
+                toast.error(err.message || "Error while creating..");
+            });
     };
 
     return (
@@ -95,6 +99,19 @@ export default function ViewCompany({ closeDialog }) {
                             onClickTryAgain={() => getAndSetCompany()}
                         >
                             <RSpace justifyContent="flex-end">
+                                <RSpace.Item>
+                                    <AppButton
+                                        onClick={() => {
+                                            setState({ ...state, changeAdminModal: { ...state.changeAdminModal, open: true } })
+                                        }}
+                                        type="button"
+                                        color="success"
+                                        disabled={state.disabled}
+                                    >
+                                        Change company admin
+                                    </AppButton>
+                                </RSpace.Item>
+
                                 {state.editMode && (
                                     <RSpace.Item>
                                         <AppButton
@@ -117,7 +134,7 @@ export default function ViewCompany({ closeDialog }) {
                                             loading={state.editLoading}
                                             loadingText="Updating..."
                                             type="submit"
-                                            // onClick={validating}
+                                        // onClick={validating}
                                         >
                                             Update
                                         </AppButton>
@@ -137,7 +154,7 @@ export default function ViewCompany({ closeDialog }) {
                                         </AppButton>
                                     </RSpace.Item>
                                 )}
-                               
+
                             </RSpace>
 
                             <Grid container spacing={1}>
@@ -219,7 +236,7 @@ export default function ViewCompany({ closeDialog }) {
                                                 value: company?.owner?.username,
                                             }}
                                             labelProps={{
-                                                shrink:true,
+                                                shrink: true,
                                             }}
                                         />
                                     </FormControl>
@@ -227,24 +244,29 @@ export default function ViewCompany({ closeDialog }) {
                             </Grid>
                             <Grid container>
                                 <Grid item>
-                                <SwitchWithLabel
-                                    label={company.enabled ? "Active" : "Inactive"}
-                                    disabled={!state.editMode}
-                                    checked={company.enabled}
-                                    onChange={(e) =>
-                                        setCompany({
-                                        ...company,
-                                        enabled: e.target.checked,
-                                      })
-                                    }
-                                 />
+                                    <SwitchWithLabel
+                                        label={company.enabled ? "Active" : "Inactive"}
+                                        disabled={!state.editMode}
+                                        checked={company.enabled}
+                                        onChange={(e) =>
+                                            setCompany({
+                                                ...company,
+                                                enabled: e.target.checked,
+                                            })
+                                        }
+                                    />
                                 </Grid>
                             </Grid>
-                            
+
                         </DataFetchingStateComponent>
                     </FancyCard.CardContent>
                 </form>
             </FancyCard>
+            <ChangeCompanyAdmin
+                open={state.changeAdminModal?.open}
+                closeDialog={() => setState({ ...state, changeAdminModal: { ...state.changeAdminModal, open: false } })}
+                company={company}
+            />
         </div>
     );
 }

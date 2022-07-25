@@ -32,17 +32,17 @@ class CompanyStore {
 
     @observable companyTablePage = 1;
 
-        //Pagination
-        @computed
-        get getCompanyTablePage() {
-            return toJS(this.companyTablePage);
-        }
-    
-        @action
-        changeCompanyTablePage(page) {
-            this.companyTablePage = page;
-        }
-        /* ----------------------------- */
+    //Pagination
+    @computed
+    get getCompanyTablePage() {
+        return toJS(this.companyTablePage);
+    }
+
+    @action
+    changeCompanyTablePage(page) {
+        this.companyTablePage = page;
+    }
+    /* ----------------------------- */
 
     @observable dateRange = {
         startDate: new Date().setMonth(new Date().getMonth() - 1),
@@ -53,6 +53,7 @@ class CompanyStore {
         companyType: "",
         companyUrnOrId: "",
         owner: "",
+        partner: {}
     };
 
     @computed
@@ -83,6 +84,7 @@ class CompanyStore {
             companyType: "",
             companyUrnOrId: "",
             owner: "",
+            partner: {}
         }
     }
     /* ----------------------------- */
@@ -98,7 +100,7 @@ class CompanyStore {
  */
 
     @action
-    fetchCompanies(page = 1,options = {}) {
+    fetchCompanies(page = 1, options = {}) {
         this.error = null;
         this.loading = true;
 
@@ -117,6 +119,7 @@ class CompanyStore {
                 "companyType": this.filters.companyType ? `${this.filters.companyType}` : undefined,
                 "companyUrnOrId": this.filters.companyUrnOrId ? `/${this.filters.companyUrnOrId}/i` : undefined,
                 "relation_owner.username": this.filters.owner || undefined,
+                "relation_partner._id": this.filters.partner?._id || undefined,
             }
         }
 

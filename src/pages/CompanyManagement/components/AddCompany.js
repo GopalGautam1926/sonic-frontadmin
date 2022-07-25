@@ -10,6 +10,7 @@ import { useStore } from '../../../stores';
 import UserPicker from '../../../components/Picker/UserPicker/UserPicker';
 import CustomDropDown from '../../../components/AppTextInput/CustomDropDown';
 import { CompanyType } from '../../../constants';
+import PartnerPicker from '../../../components/Picker/PartnerPicker';
 
 const initialCompany = {
     loading: false,
@@ -29,6 +30,7 @@ const initialCompany = {
         },
         owner: ""
     },
+    partnerID: "",
     error: null
 }
 
@@ -38,7 +40,7 @@ export default function AddCompany({ closeDialog }) {
 
     const onCompanySubmit = (e) => {
         e.preventDefault()
-        const payload = { ...state.companyData }
+        const payload = { ...state.companyData, partner: state?.partnerID }
         if (payload.contactNo) {
             payload.contactNo = `${payload.countryCode}${payload.contactNo}`;
         }
@@ -164,6 +166,17 @@ export default function AddCompany({ closeDialog }) {
                                                     }
                                                 }),
                                         }}
+                                    />
+                                </FormControl>
+                            </Grid>
+
+
+                            <Grid item xs={12} sm={6} md={6}>
+                                <FormControl fullWidth component="fieldset" >
+                                    <PartnerPicker
+                                        labelText="Partner"
+                                        placeholder="Search for partner"
+                                        getSelectedValue={(user) => setState({ ...state, partnerID: user?._id })}
                                     />
                                 </FormControl>
                             </Grid>

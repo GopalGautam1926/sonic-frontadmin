@@ -7,6 +7,8 @@ import AppButton from '../../../components/AppButton/AppButton';
 import { useStore } from '../../../stores';
 import CustomDropDown from '../../../components/AppTextInput/CustomDropDown';
 import { CompanyType } from '../../../constants';
+import PartnerPicker from '../../../components/Picker/PartnerPicker';
+import { log } from '../../../utils/app.debug';
 
 function FilterCompany({ closeDialog }) {
     const { companyStore } = useStore();
@@ -39,7 +41,7 @@ function FilterCompany({ closeDialog }) {
                     <FancyCard.CardContent>
                         <Grid container spacing={1}>
                             <Grid item xs={12} sm={3} md={3}>
-                            <AppTextInput
+                                <AppTextInput
                                     labelText="Company Name"
                                     id="companyname"
                                     formControlProps={{
@@ -68,20 +70,20 @@ function FilterCompany({ closeDialog }) {
                             </Grid>
 
                             <Grid item xs={12} sm={3} md={3}>
-                                    <CustomDropDown
-                                            labelText="Company Type"
-                                            id="companyType"
-                                            formControlProps={{
-                                                fullWidth: true,
-                                            }}
-                                            inputProps={{
-                                                placeholder: "Company type",
-                                                value: companyStore?.getFilters?.companyType,
-                                                onChange: (e) =>
-                                                    companyStore?.changeFilters({ ...companyStore?.getFilters, companyType: e.target.value }),
-                                            }}
-                                            data={CompanyType || []}
-                                    />
+                                <CustomDropDown
+                                    labelText="Company Type"
+                                    id="companyType"
+                                    formControlProps={{
+                                        fullWidth: true,
+                                    }}
+                                    inputProps={{
+                                        placeholder: "Company type",
+                                        value: companyStore?.getFilters?.companyType,
+                                        onChange: (e) =>
+                                            companyStore?.changeFilters({ ...companyStore?.getFilters, companyType: e.target.value }),
+                                    }}
+                                    data={CompanyType || []}
+                                />
                             </Grid>
 
                             <Grid item xs={12} sm={3} md={3}>
@@ -96,6 +98,15 @@ function FilterCompany({ closeDialog }) {
                                         value: companyStore?.getFilters?.companyUrnOrId,
                                         onChange: (e) => companyStore?.changeFilters({ ...companyStore?.getFilters, companyUrnOrId: e.target.value })
                                     }}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12} sm={3} md={3}>
+                                <PartnerPicker
+                                    labelText="Partner"
+                                    value={companyStore?.getFilters?.partner}
+                                    placeholder="Search for partner"
+                                    getSelectedValue={(user) => companyStore?.changeFilters({ ...companyStore?.getFilters, partner: user })}
                                 />
                             </Grid>
                         </Grid>

@@ -85,6 +85,19 @@ class CompanyHttps {
             },
         });
     }
+
+    /**
+ * Fetch all sonickeys
+ * @param {AxiosRequestConfig} options
+ * @returns {Promise<any>}
+ */
+    changeCompanyAdmin(companyID, adminID) {
+        return AppWebRequest({
+            method: "put",
+            url: `/companies/${companyID}/change-company-admin-user`,
+            data: { user: adminID }
+        });
+    }
 }
 
 export default new CompanyHttps();
