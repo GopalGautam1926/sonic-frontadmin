@@ -1,26 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { Grid, MenuItem } from "@material-ui/core";
 import AppButton from "../../AppButton/AppButton";
 import { Container } from "@material-ui/core";
 import RDialog from "../../rcomponents/RDialog/RDialog";
 import AddIcon from "@material-ui/icons/Add";
 import { useTheme } from "@material-ui/core/styles";
-import CountryDropDown from "../../AppTextInput/CountryDropDown";
-import StatusDropDown from "../../AppTextInput/StatusDropDown";
-import { useStore } from "../../../stores";
 import ReportsDateRange from "../../../pages/ReportsManagement/components/ReportsDateRange";
 import RPopover from "../../rcomponents/RPopover";
-import CustomDropDown from "../../AppTextInput/CustomDropDown";
-
-const initialRadioStation = {
-  country: "",
-  status: "",
-  shortListed: true
-};
 
 export default function TableActions({
   refreshButtonProps,
-  search,
   addPlusFilter,
   filterOnly,
   filterButtonProps,
@@ -35,8 +24,6 @@ export default function TableActions({
   ...props
 }) {
   const theme = useTheme();
-  const [radio, setRadioStation] = useState(initialRadioStation);
-  const { radioStationStore } = useStore();
 
   return (
     <Grid container spacing={1} style={{ display: "flex", alignItems: "center" }}>
@@ -176,65 +163,6 @@ export default function TableActions({
           />
         </Grid>
       }
-
-      {search && <Grid item xs={12} sm={3} md={3}>
-        <CountryDropDown
-          labelText="Country"
-          id="country"
-          formControlProps={{
-            fullWidth: true,
-          }}
-          inputProps={{
-            required: true,
-            placeholder: "Country",
-            value: radio.country,
-            onChange: (e) =>
-              setRadioStation({ ...radio, country: e.target.value }),
-          }}
-        />
-      </Grid>}
-
-      {/* {search && <Grid item xs={12} sm={3} md={3}>
-        <StatusDropDown
-          labelText="Status"
-          id="status"
-          formControlProps={{
-            fullWidth: true,
-          }}
-          inputProps={{
-            required: true,
-            placeholder: "Status",
-            value: radio.status,
-            onChange: (e) =>
-              setRadioStation({ ...radio, status: e.target.value }),
-          }}
-        />
-      </Grid>} */}
-
-      {/* {
-        search && <Grid item xs={12} sm={3} md={3}>
-          <CustomDropDown
-            labelText="Shortlisted"
-            id="shortlisted"
-            formControlProps={{
-              fullWidth: true,
-            }}
-            inputProps={{
-              placeholder: "Shortlisted",
-              value: radio?.shortListed,
-              onChange: (e) =>
-                setRadioStation({ ...radio, shortListed: e.target.value }),
-            }}
-            data={["true", "false"]}
-          />
-        </Grid>
-      } */}
-
-      {search && <Grid item >
-        <AppButton onClick={() => {
-          radioStationStore.SearchByCountryAndStatus({ country: radio.country, status: radio.status, shortListed: radio?.shortListed })
-        }}>Search</AppButton>
-      </Grid>}
     </Grid>
   );
 }

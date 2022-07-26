@@ -101,6 +101,7 @@ export default function AddPartner({ closeDialog }) {
                             <Grid item xs={12} sm={6} md={6}>
                                 <FormControl fullWidth component="fieldset" >
                                     <UserPicker
+                                        required={true}
                                         labelText="Admin"
                                         placeholder="Admin username"
                                         getSelectedValue={(user) => setState({

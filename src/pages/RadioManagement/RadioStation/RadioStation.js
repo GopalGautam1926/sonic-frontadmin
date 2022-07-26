@@ -14,6 +14,7 @@ import Badge from '../../../components/Badge/Badge';
 import AddRadioStation from "./components/AddRadioStation";
 import { Box, CircularProgress, Dialog, DialogContent, Tooltip } from "@material-ui/core";
 import Timer from "./components/Timer";
+import FilterRadioStaion from "./components/FilterRadioStaion";
 
 function RadioStation() {
   const [state, setState] = useState({
@@ -264,12 +265,14 @@ function RadioStation() {
             <Table
               title={
                 <Table.TableActions
-                  search
+                  addPlusFilter
                   openDialogWhenClickAdd={true}
+                  openDialogFilter={true}
                   refreshButtonProps={{
                     onClick: () => radioStationStore.fetchRadioStations(),
                   }}
                   componentInsideDialog={<AddRadioStation />}
+                  componentInsideDialogFilter={<FilterRadioStaion />}
                 />
               }
               data={radioStationStore.getRadioStations?.docs || []}

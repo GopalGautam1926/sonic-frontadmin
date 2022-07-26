@@ -66,33 +66,33 @@ export default function Companies() {
             label: "Status",
             name: "enabled",
             options: {
-              filter: false,
-              customBodyRender: (
-                value
-              ) => {
-                const statusItem = [];
-                if (value) {
-                  statusItem.push(
-                    <Badge color="success" size="small" label={<div style={{ fontSize: 11 }}>Active</div>} />
-                  );
-                }
-                else {
-                    statusItem.push(
-                        <Badge color="warning" size="small" label="Inactive" />
+                filter: false,
+                customBodyRender: (
+                    value
+                ) => {
+                    const statusItem = [];
+                    if (value) {
+                        statusItem.push(
+                            <Badge color="success" size="small" label={<div style={{ fontSize: 11 }}>Active</div>} />
+                        );
+                    }
+                    else {
+                        statusItem.push(
+                            <Badge color="warning" size="small" label="Inactive" />
+                        );
+                    }
+
+                    return (
+                        <RSpace style={{}}>
+                            {statusItem.map((status) => (
+                                <RSpace.Item>{status}</RSpace.Item>
+                            ))}
+                        </RSpace>
                     );
-                  }
-      
-                return (
-                  <RSpace style={{}}>
-                    {statusItem.map((status) => (
-                      <RSpace.Item>{status}</RSpace.Item>
-                    ))}
-                  </RSpace>
-                );
-              },
+                },
             },
-          },
-          {
+        },
+        {
             label: "Actions",
             name: "_id",
             options: {
@@ -160,7 +160,7 @@ export default function Companies() {
                                         onClick: () => companyStore.fetchCompanies(),
                                     }}
                                     componentInsideDialog={<AddCompany />}
-                                componentInsideDialogFilter={<FilterCompany />}
+                                    componentInsideDialogFilter={<FilterCompany />}
                                 />
                             }
                             columns={columns}

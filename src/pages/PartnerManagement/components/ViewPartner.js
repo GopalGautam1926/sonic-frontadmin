@@ -13,6 +13,7 @@ import { PartnerTypes } from '../../../constants';
 import CustomDropDown from '../../../components/AppTextInput/CustomDropDown';
 import { SwitchWithLabel } from '../../../components/Switch/Switch';
 import { log } from '../../../utils/app.debug';
+import ChangePartnerAdmin from './ChangePartnerAdmin';
 
 export default function ViewPartner({ closeDialog }) {
     const [state, setState] = React.useState({
@@ -24,6 +25,9 @@ export default function ViewPartner({ closeDialog }) {
         disabled: false,
         deleteLoading: false,
         checkEmail: false,
+        changeAdminModal: {
+            open: false,
+        }
     });
     let { partnerId } = useParams();
     const location = useLocation();
@@ -94,23 +98,6 @@ export default function ViewPartner({ closeDialog }) {
         }
     };
 
-    // const onRemovePartner = () => {
-    //     setState({ ...state, disabled: true, deleteLoading: true });
-    //     companyHttps.deleteCompany(company?._id).then(({ data }) => {
-    //         setState({ ...state, disabled: false, deleteLoading: false })
-    //         companyStore.removeCompany(data);
-    //         toast.success("Deleted");
-    //         history.push({
-    //             pathname: `${getRouteNames()["cm_company"]}`
-    //         })
-    //     }).catch((error) => {
-    //         setState({ ...state, disabled: false, deleteLoading: false, error: error?.message })
-    //         toast.error(error?.message || "Error removing company...")
-    //     })
-    // }
-
-    log("Partner", partner)
-
     const validating = () => {
         let Emailverification = (new RegExp(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,15}/g).test(partner?.email));
         if (Emailverification === false) {
@@ -145,6 +132,18 @@ export default function ViewPartner({ closeDialog }) {
                             onClickTryAgain={() => getAndSetPartner()}
                         >
                             <RSpace justifyContent="flex-end">
+                                <RSpace.Item>
+                                    <AppButton
+                                        onClick={() => {
+                                            setState({ ...state, changeAdminModal: { ...state.changeAdminModal, open: true } })
+                                        }}
+                                        type="button"
+                                        color="success"
+                                        disabled={state.disabled}
+                                    >
+                                        Change partner admin
+                                    </AppButton>
+                                </RSpace.Item>
                                 {state.editMode && (
                                     <RSpace.Item>
                                         <AppButton
@@ -274,6 +273,11 @@ export default function ViewPartner({ closeDialog }) {
                     </FancyCard.CardContent>
                 </form>
             </FancyCard>
+            <ChangePartnerAdmin
+                open={state.changeAdminModal?.open}
+                closeDialog={() => setState({ ...state, changeAdminModal: { ...state.changeAdminModal, open: false } })}
+                partner={partner}
+            />
         </div>
     );
 }

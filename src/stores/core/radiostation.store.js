@@ -30,6 +30,12 @@ class RadioStationStore {
     prevPage: 0,
     nextPage: 0,
   };
+
+  @observable filters = {
+    country: "",
+    shortListed: true
+  };
+
   constructor() {
     // makeObservable(this);
   }
@@ -51,8 +57,8 @@ class RadioStationStore {
       params: {
         sort: 'name,-createdAt',
         limit: 5000,
-        shortListed: true
-        // country:'Russia',
+        country: this.filters?.country || undefined,
+        shortListed: this.filters?.shortListed === true || this.filters?.shortListed === "true" ? true : undefined
       },
     }
     options = deepmerge(defaultOptions, options)
@@ -60,17 +66,6 @@ class RadioStationStore {
       .fetchRadioStations(options)
       .then(({ data }) => {
         log("radioStations", data);
-        // data.docs = data.docs?.sort((a, b) => {
-        //   if (a.name > b.name) {
-        //     return 1
-        //   }
-        //   else if (a.name < b.name) {
-        //     return -1
-        //   }
-        //   else {
-        //     return 0
-        //   }
-        // })
         this.radioStations = data;
         this.loading = false;
       })
@@ -79,54 +74,24 @@ class RadioStationStore {
         this.loading = false;
         this.error = err;
       });
+  }
+
+  @computed
+  get getFilters() {
+    return toJS(this.filters);
   }
 
-  SearchByCountryAndStatus(options = {}) {
-    log("Options for search", options)
-    this.loading = true;
-    this.error = null;
-    const defaultOptions = {
-      params: {
-        sort: '-createdAt',
-        limit: 5000,
-        // shortListed: options?.shortListed === true || options?.shortListed === "true" ? true : undefined,
-        shortListed: true,
-        country: options.country,
-        // isStreamStarted: options.status === 'Listening' ? true : false,
-        // isError: options.status === 'Error' ? true : false,
-      },
+  @action
+  changeFilters(filters) {
+    this.filters = filters;
+  }
+
+  @action
+  resetFilter() {
+    this.filters = {
+      country: "",
+      shortListed: true
     }
-    switch (options.status) {
-      case 'Listening':
-        defaultOptions.params['isStreamStarted'] = true
-        defaultOptions.params['isError'] = false
-        break;
-
-      case 'Not Listening':
-        defaultOptions.params['isStreamStarted'] = false
-        break;
-
-      case 'Error':
-        defaultOptions.params['isError'] = true
-        defaultOptions.params['isStreamStarted'] = true
-        break;
-
-      default:
-        break;
-    }
-    options = deepmerge(defaultOptions, options)
-    radiostationHttps
-      .fetchRadioStations(options)
-      .then(({ data }) => {
-        log("radioStations", data);
-        this.radioStations = data;
-        this.loading = false;
-      })
-      .catch((err) => {
-        log("radioStations err", err);
-        this.loading = false;
-        this.error = err;
-      });
   }
 
   /**

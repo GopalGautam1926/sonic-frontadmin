@@ -81,6 +81,20 @@ class PartnerHttps {
             },
         });
     }
+
+
+    /**
+* Fetch all sonickeys
+* @param {AxiosRequestConfig} options
+* @returns {Promise<any>}
+*/
+    changePartnerAdmin(partnerID, adminID) {
+        return AppWebRequest({
+            method: "put",
+            url: `/partners/${partnerID}/change-partner-admin-user`,
+            data: { user: adminID }
+        });
+    }
 }
 
 export default new PartnerHttps();

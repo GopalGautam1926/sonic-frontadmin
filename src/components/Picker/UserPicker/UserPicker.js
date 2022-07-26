@@ -10,6 +10,7 @@ export default function UserPicker({
     labelText,
     placeholder,
     getSelectedValue,
+    required = false,
     ...props
 }) {
     const [state, setState] = React.useState({
@@ -80,6 +81,7 @@ export default function UserPicker({
                     fullWidth
                     placeholder={placeholder || ""}
                     label={labelText || ""}
+                    required={required}
                 />
             }
             freeSolo={state.open ? false : true}
