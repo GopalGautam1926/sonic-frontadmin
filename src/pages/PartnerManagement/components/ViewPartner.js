@@ -12,6 +12,7 @@ import partnerHttps from '../../../services/https/resources/partner.https';
 import { PartnerTypes } from '../../../constants';
 import CustomDropDown from '../../../components/AppTextInput/CustomDropDown';
 import { SwitchWithLabel } from '../../../components/Switch/Switch';
+import { log } from '../../../utils/app.debug';
 
 export default function ViewPartner({ closeDialog }) {
     const [state, setState] = React.useState({
@@ -31,7 +32,7 @@ export default function ViewPartner({ closeDialog }) {
     const [partner, setPartner] = React.useState({
         name: "",
         description: "",
-        partnerType:"",
+        partnerType: "",
         email: "",
         contactNo: "",
         owner: {
@@ -107,6 +108,8 @@ export default function ViewPartner({ closeDialog }) {
     //         toast.error(error?.message || "Error removing company...")
     //     })
     // }
+
+    log("Partner", partner)
 
     const validating = () => {
         let Emailverification = (new RegExp(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,15}/g).test(partner?.email));
@@ -199,7 +202,7 @@ export default function ViewPartner({ closeDialog }) {
                                                 readOnly: !state.editMode,
                                                 disabled: !state.editMode,
                                                 placeholder: "Name of the partner",
-                                                value: partner.name,
+                                                value: partner?.name,
                                                 required: true,
                                                 onChange: (e) =>
                                                     setPartner({ ...partner, name: e.target.value }),
@@ -220,7 +223,7 @@ export default function ViewPartner({ closeDialog }) {
                                                 readOnly: !state.editMode,
                                                 disabled: !state.editMode,
                                                 placeholder: "Partner Type",
-                                                value: partner.partnerType,
+                                                value: partner?.partnerType,
                                                 required: true,
                                                 onChange: (e) =>
                                                     setPartner({ ...partner, partnerType: e.target.value }),
@@ -242,7 +245,7 @@ export default function ViewPartner({ closeDialog }) {
                                                 readOnly: true,
                                                 disabled: true,
                                                 placeholder: "Admin",
-                                                value: partner.owner.username,
+                                                value: partner?.owner?.username,
                                                 onChange: (e) =>
                                                     setPartner({ ...partner, username: e.target.value }),
                                             }}
@@ -250,21 +253,21 @@ export default function ViewPartner({ closeDialog }) {
                                     </FormControl>
                                 </Grid>
 
-                                
+
                             </Grid>
                             <Grid container>
                                 <Grid item>
-                                <SwitchWithLabel
-                                    label={partner.enabled ? "Active" : "Inactive"}
-                                    disabled={!state.editMode}
-                                    checked={partner.enabled}
-                                    onChange={(e) =>
-                                        setPartner({
-                                        ...partner,
-                                        enabled: e.target.checked,
-                                      })
-                                    }
-                                 />
+                                    <SwitchWithLabel
+                                        label={partner.enabled ? "Active" : "Inactive"}
+                                        disabled={!state.editMode}
+                                        checked={partner.enabled}
+                                        onChange={(e) =>
+                                            setPartner({
+                                                ...partner,
+                                                enabled: e.target.checked,
+                                            })
+                                        }
+                                    />
                                 </Grid>
                             </Grid>
                         </DataFetchingStateComponent>

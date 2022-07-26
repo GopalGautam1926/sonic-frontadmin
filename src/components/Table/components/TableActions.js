@@ -10,10 +10,12 @@ import StatusDropDown from "../../AppTextInput/StatusDropDown";
 import { useStore } from "../../../stores";
 import ReportsDateRange from "../../../pages/ReportsManagement/components/ReportsDateRange";
 import RPopover from "../../rcomponents/RPopover";
+import CustomDropDown from "../../AppTextInput/CustomDropDown";
 
 const initialRadioStation = {
   country: "",
   status: "",
+  shortListed: true
 };
 
 export default function TableActions({
@@ -191,7 +193,8 @@ export default function TableActions({
           }}
         />
       </Grid>}
-      {search && <Grid item xs={12} sm={3} md={3}>
+
+      {/* {search && <Grid item xs={12} sm={3} md={3}>
         <StatusDropDown
           labelText="Status"
           id="status"
@@ -206,7 +209,27 @@ export default function TableActions({
               setRadioStation({ ...radio, status: e.target.value }),
           }}
         />
-      </Grid>}
+      </Grid>} */}
+
+      {/* {
+        search && <Grid item xs={12} sm={3} md={3}>
+          <CustomDropDown
+            labelText="Shortlisted"
+            id="shortlisted"
+            formControlProps={{
+              fullWidth: true,
+            }}
+            inputProps={{
+              placeholder: "Shortlisted",
+              value: radio?.shortListed,
+              onChange: (e) =>
+                setRadioStation({ ...radio, shortListed: e.target.value }),
+            }}
+            data={["true", "false"]}
+          />
+        </Grid>
+      } */}
+
       {search && <Grid item >
         <AppButton onClick={() => {
           radioStationStore.SearchByCountryAndStatus({ country: radio.country, status: radio.status })

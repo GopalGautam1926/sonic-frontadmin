@@ -170,7 +170,7 @@ export default function ViewCompany({ closeDialog }) {
                                                 readOnly: !state.editMode,
                                                 disabled: !state.editMode,
                                                 placeholder: "Name of the company",
-                                                value: company.name,
+                                                value: company?.name,
                                                 required: true,
                                                 onChange: (e) =>
                                                     setCompany({ ...company, name: e.target.value }),

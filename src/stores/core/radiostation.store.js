@@ -51,6 +51,7 @@ class RadioStationStore {
       params: {
         sort: 'name,-createdAt',
         limit: 5000,
+        shortListed: true
         // country:'Russia',
       },
     }
@@ -88,6 +89,7 @@ class RadioStationStore {
       params: {
         sort: '-createdAt',
         limit: 5000,
+        shortListed: true,
         country: options.country,
         // isStreamStarted: options.status === 'Listening' ? true : false,
         // isError: options.status === 'Error' ? true : false,

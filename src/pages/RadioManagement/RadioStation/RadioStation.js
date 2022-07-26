@@ -106,20 +106,20 @@ function RadioStation() {
             (itm) => itm._id == value
           );
           const statusItem = [];
-          if (rowData.isError) {
-            const errorMessage = rowData.error.message;
-            statusItem.push(
-              <Badge color="rose" size="small" style={{ cursor: "pointer" }} label={<Tooltip title={errorMessage}><div style={{ fontSize: 11 }}>Error</div></Tooltip>} />
-            );
-          } else if (rowData.isStreamStarted) {
-            statusItem.push(
-              <Badge color="success" size="small" label={<div style={{ fontSize: 11, marginLeft: 0 }}>Listening</div>} />
-            );
-          } else {
-            statusItem.push(
-              <Badge color="warning" size="small" label={<div style={{ fontSize: 11 }}>Not Listening</div>} />
-            );
-          }
+          // if (rowData.isError) {
+          //   const errorMessage = rowData.error.message;
+          //   statusItem.push(
+          //     <Badge color="rose" size="small" style={{ cursor: "pointer" }} label={<Tooltip title={errorMessage}><div style={{ fontSize: 11 }}>Error</div></Tooltip>} />
+          //   );
+          // } else if (rowData.isStreamStarted) {
+          statusItem.push(
+            <Badge color="success" size="small" label={<div style={{ fontSize: 11, marginLeft: 0 }}>Listening</div>} />
+          );
+          // } else {
+          //   statusItem.push(
+          //     <Badge color="warning" size="small" label={<div style={{ fontSize: 11 }}>Not Listening</div>} />
+          //   );
+          // }
 
           // if (rowData?.isStreamStarted === false && !rowData?.isError) {
           //   statusItem.push(
