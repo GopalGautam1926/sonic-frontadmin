@@ -232,7 +232,7 @@ export default function TableActions({
 
       {search && <Grid item >
         <AppButton onClick={() => {
-          radioStationStore.SearchByCountryAndStatus({ country: radio.country, status: radio.status })
+          radioStationStore.SearchByCountryAndStatus({ country: radio.country, status: radio.status, shortListed: radio?.shortListed })
         }}>Search</AppButton>
       </Grid>}
     </Grid>

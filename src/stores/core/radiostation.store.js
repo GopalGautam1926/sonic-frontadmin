@@ -89,6 +89,7 @@ class RadioStationStore {
       params: {
         sort: '-createdAt',
         limit: 5000,
+        // shortListed: options?.shortListed === true || options?.shortListed === "true" ? true : undefined,
         shortListed: true,
         country: options.country,
         // isStreamStarted: options.status === 'Listening' ? true : false,
