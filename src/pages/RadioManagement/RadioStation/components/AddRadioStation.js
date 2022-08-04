@@ -16,14 +16,14 @@ export default function AddRadioStation({ closeDialog }) {
     const inputRef = React.useRef(null);
 
     // triggers when file is selected with click
-    const handleChange = function (e) {
+    const handleImport = function (e) {
         e.preventDefault();
         if (e.target.files && e.target.files[0]) {
-            handleImport(e, 'import');
+            handleImportedSheet(e, 'import');
         }
     };
 
-    const handleImport = (e, type) => {
+    const handleImportedSheet = (e, type) => {
         const files = type === 'import' ? e.target.files : e.dataTransfer.files;
         if (files.length) {
             const file = files[0];
@@ -46,7 +46,7 @@ export default function AddRadioStation({ closeDialog }) {
         e.preventDefault();
         e.stopPropagation();
         if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-            handleImport(e, 'dragdrop');
+            handleImportedSheet(e, 'dragdrop');
         }
     };
 
@@ -119,7 +119,7 @@ export default function AddRadioStation({ closeDialog }) {
                                 id="input-file-upload"
                                 type="file"
                                 multiple={true}
-                                onChange={handleChange}
+                                onChange={handleImport}
                                 accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                             />
                             <Grid item style={{ width: '100%' }}>
