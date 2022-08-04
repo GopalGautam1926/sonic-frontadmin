@@ -36,25 +36,21 @@ function RadioStation() {
 
   const columns = [
     {
-      label: "Name",
-      name: "name",
-    },
-    {
-      label: "Logo",
+      label: "Radio Station Id",
       name: "_id",
       options: {
         filter: false,
-        customBodyRender: (value, { columnIndex }, updateValue) => {
-          const rowData = radioStationStore.getRadioStations.docs.find(
-            (itm) => itm._id == value
-          );
-          const favIconUrl = `https://s2.googleusercontent.com/s2/favicons?domain_url=${rowData.website || rowData.streamingUrl}`;
-          return <img src={favIconUrl} />;
+        customBodyRender: (value) => {
+          return value || "---";
         },
       },
     },
     {
-      label: "Streaming URL",
+      label: "Name",
+      name: "name",
+    },
+    {
+      label: "Streaming Url",
       name: "streamingUrl",
       options: {
         filter: false,
@@ -72,26 +68,88 @@ function RadioStation() {
       },
     },
     {
-      label: "Website",
-      name: "website",
+      label: "Sub Title",
+      name: "_id",
+      options: {
+        filter: false,
+        customBodyRender: (value) => {
+          return "---";
+        },
+      },
+    },
+    {
+      label: "Logo",
+      name: "_id",
       options: {
         filter: false,
         customBodyRender: (value, { columnIndex }, updateValue) => {
-          return <Tooltip title={value}><div style={{
-            whiteSpace: "nowrap",
-            textOverflow: "ellipsis",
-            maxWidth: 100,
-            wordWrap: "none",
-            cursor: "pointer",
-            overflow: "hidden",
-          }
-          }>{value}</div></Tooltip>;
+          const rowData = radioStationStore.getRadioStations.docs.find(
+            (itm) => itm._id == value
+          );
+          const favIconUrl = `https://s2.googleusercontent.com/s2/favicons?domain_url=${rowData.website || rowData.streamingUrl}`;
+          return <img src={favIconUrl} />;
+        },
+      },
+    },
+    {
+      label: "Continent",
+      name: "_id",
+      options: {
+        filter: false,
+        customBodyRender: (value) => {
+          return "---";
         },
       },
     },
     {
       label: "Country",
       name: "country",
+      options: {
+        filter: false,
+        customBodyRender: (value) => {
+          return value || "---";
+        },
+      },
+    },
+    {
+      label: "State",
+      name: "_id",
+      options: {
+        filter: false,
+        customBodyRender: (value) => {
+          return "---";
+        },
+      },
+    },
+    {
+      label: "City",
+      name: "_id",
+      options: {
+        filter: false,
+        customBodyRender: (value) => {
+          return "---";
+        },
+      },
+    },
+    {
+      label: "Genres",
+      name: "_id",
+      options: {
+        filter: false,
+        customBodyRender: (value) => {
+          return "---";
+        },
+      },
+    },
+    {
+      label: "Admin Email",
+      name: "_id",
+      options: {
+        filter: false,
+        customBodyRender: (value) => {
+          return "---";
+        },
+      },
     },
     {
       label: "Status",

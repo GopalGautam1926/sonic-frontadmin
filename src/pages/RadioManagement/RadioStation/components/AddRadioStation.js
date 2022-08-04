@@ -1,60 +1,80 @@
-import { CircularProgress, FormHelperText, Grid } from "@material-ui/core";
 import React, { useState } from "react";
+import { Grid, Tooltip, Typography } from "@material-ui/core";
 import AppButton from "../../../../components/AppButton/AppButton";
-import AppTextInput from "../../../../components/AppTextInput/AppTextInput";
 import FancyCard from "../../../../components/FancyCard/FancyCard";
-import RadioStationsHttps from "../../../../services/https/resources/radiostation.https";
-import { toast } from "react-toastify";
-import { useStore } from "../../../../stores";
-import VolumeDownIcon from '@material-ui/icons/VolumeDown';
-import CountryDropDown from "../../../../components/AppTextInput/CountryDropDown";
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import { log } from "../../../../utils/app.debug";
+import { read, utils } from "xlsx";
 
-
-const initialRadioStation = {
-    name: "",
-    country: "",
-    streamingUrl: "",
-    website: "",
-    adminEmail: "",
-};
 export default function AddRadioStation({ closeDialog }) {
-    const [radio, setRadioStation] = useState(initialRadioStation);
-    const [createButton, setCreateButton] = useState(false);
-    const { radioStationStore } = useStore();
     const [state, setState] = useState({
         loading: false,
         validateLoading: false,
+        file: '',
+        sheet: [],
     });
+    const inputRef = React.useRef(null);
 
-    const [checkInputs, setCheckInputs] = useState();
-
-    React.useEffect(() => {
-        if (radio === checkInputs) {
-            setCreateButton(true);
-        } else {
-            setCreateButton(false);
+    // triggers when file is selected with click
+    const handleChange = function (e) {
+        e.preventDefault();
+        if (e.target.files && e.target.files[0]) {
+            handleImport(e, 'import');
         }
-    }, [radio])
+    };
+
+    const handleImport = (e, type) => {
+        const files = type === 'import' ? e.target.files : e.dataTransfer.files;
+        if (files.length) {
+            const file = files[0];
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const wb = read(event.target.result);
+                const sheets = wb.SheetNames;
+
+                if (sheets.length) {
+                    const rows = utils.sheet_to_json(wb.Sheets[sheets[0]]);
+                    setState({ ...state, sheet: rows, file: file.name })
+                }
+            }
+            reader.readAsArrayBuffer(file);
+        }
+    }
+
+    // triggers when file is dropped
+    const handleDrop = function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+            handleImport(e, 'dragdrop');
+        }
+    };
+
+    log('Sheet', state.sheet)
+
+    // handle drag events
+    const handleDrag = function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+    };
 
     const onSubmit = (e) => {
         e.preventDefault();
         setState({ ...state, loading: true });
-        RadioStationsHttps
-            .createNewRadioStation(radio)
-            .then(({ data }) => {
-                setState({ ...state, loading: false });
-                setRadioStation(initialRadioStation)
-                toast.success("Created successfully");
-                closeDialog?.()
+        // RadioStationsHttps
+        //     .createNewRadioStation(radio)
+        //     .then(({ data }) => {
+        //         setState({ ...state, loading: false });
+        //         setRadioStation(initialRadioStation)
+        //         toast.success("Created successfully");
+        //         closeDialog?.()
 
-            })
-            .catch((err) => {
-                setState({ ...state, loading: false });
-                toast.error(err.message || "Error while creating..");
-            });
+        //     })
+        //     .catch((err) => {
+        //         setState({ ...state, loading: false });
+        //         toast.error(err.message || "Error while creating..");
+        //     });
     };
-
-    const createNewStation = document.getElementById('create');
 
     return (
         <div>
@@ -74,130 +94,70 @@ export default function AddRadioStation({ closeDialog }) {
                     </FancyCard.CardHeader>
                 }
             >
-                <form onSubmit={onSubmit}>
+                <form
+                    onSubmit={onSubmit}
+                    onDragEnter={handleDrag}
+                    onDragLeave={handleDrag}
+                    onDragOver={handleDrag}
+                    onDrop={handleDrop}
+                >
                     <FancyCard.CardContent>
-                        <Grid container spacing={1}>
-                            <Grid item xs={12} sm={3} md={3}>
-                                <AppTextInput
-                                    labelText="Admin Email"
-                                    id="adminEmail"
-                                    formControlProps={{
-                                        fullWidth: true,
-                                    }}
-                                    inputProps={{
-                                        required: true,
-                                        placeholder: "adminEmail",
-                                        value: radio.adminEmail,
-                                        onChange: (e) =>
-                                            setRadioStation({ ...radio, adminEmail: e.target.value }),
-                                    }}
-                                />
-                                <FormHelperText style={{ marginTop: '-10px' }}>Please provide a valid admin email in order to get notification upon error.</FormHelperText>
-                            </Grid>
-                            <Grid item xs={12} sm={3} md={3}>
-                                <AppTextInput
-                                    labelText="Name"
-                                    id="name"
-                                    formControlProps={{
-                                        fullWidth: true,
-                                    }}
-                                    inputProps={{
-                                        required: true,
-                                        placeholder: "Name",
-                                        value: radio.name,
-                                        onChange: (e) =>
-                                            setRadioStation({ ...radio, name: e.target.value }),
-                                    }}
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={3} md={3}>
-                                <CountryDropDown
-                                    labelText="Country"
-                                    id="country"
-                                    formControlProps={{
-                                        fullWidth: true,
-                                    }}
-                                    inputProps={{
-                                        required: true,
-                                        placeholder: "Country",
-                                        value: radio.country,
-                                        onChange: (e) =>
-                                            setRadioStation({ ...radio, country: e.target.value }),
-                                    }}
-                                ></CountryDropDown>
-                            </Grid>
+                        <Grid
+                            container
+                            style={{
+                                textAlign: 'center',
+                                padding: '20px 10px 10px 10px',
+                                width: '100%',
+                                borderWidth: '3px',
+                                borderStyle: 'dashed',
+                                borderColor: 'lightgray',
+                            }}
+                        >
+                            <input
+                                style={{ display: 'none' }}
+                                ref={inputRef}
+                                id="input-file-upload"
+                                type="file"
+                                multiple={true}
+                                onChange={handleChange}
+                                accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                            />
+                            <Grid item style={{ width: '100%' }}>
+                                <label htmlFor='input-file-upload'>
+                                    {
+                                        state.sheet.length > 0 ?
+                                            <Typography variant="h6">
+                                                {state?.file}
+                                            </Typography>
+                                            :
+                                            <Typography variant="h6">
+                                                Drag & Drop a file to upload or {" "}
+                                                <AppButton
+                                                    variant={"contained"}
+                                                    fontSize={"20px"}
+                                                    style={{ padding: "5px 10px" }}
+                                                    onClick={() => inputRef.current.click()}
+                                                >
+                                                    browse
+                                                </AppButton>
+                                            </Typography>
+                                    }
 
-                            <Grid item xs={12} sm={3} md={3}>
-                                <AppTextInput
-                                    labelText="Website"
-                                    id="website"
-                                    formControlProps={{
-                                        fullWidth: true,
-                                    }}
-                                    inputProps={{
-                                        required: true,
-                                        placeholder: "Website",
-                                        value: radio.website,
-                                        onChange: (e) =>
-                                            setRadioStation({ ...radio, website: e.target.value }),
-                                    }}
-                                />
+                                </label>
+                                <Grid container justifyContent='flex-end'>
+                                    <Tooltip title={"Please make sure you have correct format of data similar to the table format in the file."} placement={"bottom-end"}>
+                                        <HelpOutlineIcon style={{ fontSize: "15px" }} />
+                                    </Tooltip>
+                                </Grid>
                             </Grid>
                         </Grid>
-                        <Grid container spacing={1} style={{ display: 'flex', alignItems: 'center' }}>
-                            <Grid item xs={12} sm={3} md={3}>
-                                <AppTextInput
-                                    labelText="Streaming URL"
-                                    id="streaming-url"
-                                    formControlProps={{
-                                        fullWidth: true,
-                                    }}
-                                    inputProps={{
-                                        required: true,
-                                        placeholder: "Streaming URL",
-                                        value: radio.streamingUrl,
-                                        onChange: (e) =>
-                                            setRadioStation({ ...radio, streamingUrl: e.target.value }),
-                                    }}
-                                />
-                                <FormHelperText style={{ marginTop: '-10px' }}>Click on icon to validate the url</FormHelperText>
-
-                            </Grid>
-                            {state.validateLoading ? <CircularProgress size={20} /> : <VolumeDownIcon style={{ cursor: "pointer" }} onClick={(e) => {
-                                e.preventDefault();
-                                setState({ ...state, validateLoading: true });
-                                let Emailverification = (new RegExp(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,15}/g).test(radio.adminEmail));
-                                if (radio.name === "" || radio.country === "" || radio.streamingUrl == "" || radio.website === "" || radio.adminEmail === "" || Emailverification !== true) {
-                                    toast.error("Please fill all the fields and Valid Email");
-                                    setState({ ...state, validateLoading: false });
-                                } else {
-                                    setState({ ...state, validateLoading: true });
-                                    const audio = new Audio(radio.streamingUrl)
-                                    audio?.play().then(() => {
-                                        setState({ ...state, validateLoading: true });
-                                        toast.success("Streaming URL working");
-                                        setCheckInputs({ ...radio });
-                                        setTimeout(() => {
-                                            audio.pause();
-                                            setState({ ...state, validateLoading: false });
-                                        }, 5000);
-                                        setCreateButton(true);
-                                    }).catch(() => {
-                                        toast.error("Not valid URL");
-                                        setState({ ...state, validateLoading: false });
-                                    })
-                                }
-
-                            }} />}
-                        </Grid>
-
                     </FancyCard.CardContent>
 
                     <FancyCard.CardActions>
                         <AppButton color="danger" onClick={() => closeDialog?.()}>
                             Close
                         </AppButton>
-                        {createButton && <AppButton id="create" type="submit" loadingText="Creating.." loading={state.loading}>Create</AppButton>}
+                        {state.sheet.length > 0 && <AppButton id="create" type="submit" loadingText="Creating.." loading={state.loading}>Create</AppButton>}
                     </FancyCard.CardActions>
                 </form>
             </FancyCard>
