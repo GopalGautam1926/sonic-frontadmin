@@ -46,6 +46,16 @@ function RadioStation() {
       },
     },
     {
+      label: "AppGen Id",
+      name: "_id",
+      options: {
+        filter: false,
+        customBodyRender: (value) => {
+          return "---";
+        },
+      },
+    },
+    {
       label: "Name",
       name: "name",
     },

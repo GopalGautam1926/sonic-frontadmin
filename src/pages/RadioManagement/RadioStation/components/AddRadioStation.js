@@ -84,7 +84,7 @@ export default function AddRadioStation({ closeDialog }) {
                         {(headerClasses) => (
                             <>
                                 <h4 className={headerClasses.cardTitleWhite}>
-                                    Create New Radio Station
+                                    Import Radio Stations from excel
                                 </h4>
                                 <p className={headerClasses.cardCategoryWhite}>
                                     Add new Radio Station
@@ -106,7 +106,7 @@ export default function AddRadioStation({ closeDialog }) {
                             container
                             style={{
                                 textAlign: 'center',
-                                padding: '20px 10px 10px 10px',
+                                padding: '10px',
                                 width: '100%',
                                 borderWidth: '3px',
                                 borderStyle: 'dashed',
@@ -123,7 +123,10 @@ export default function AddRadioStation({ closeDialog }) {
                                 accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                             />
                             <Grid item style={{ width: '100%' }}>
-                                <label htmlFor='input-file-upload'>
+                                <label
+                                    htmlFor='input-file-upload'
+                                    style={{ padding: '30px 10px 20px 10px' }}
+                                >
                                     {
                                         state.sheet.length > 0 ?
                                             <Typography variant="h6">
@@ -144,7 +147,7 @@ export default function AddRadioStation({ closeDialog }) {
                                     }
 
                                 </label>
-                                <Grid container justifyContent='flex-end'>
+                                <Grid container justifyContent='flex-end' style={{}}>
                                     <Tooltip title={"Please make sure you have correct format of data similar to the table format in the file."} placement={"bottom-end"}>
                                         <HelpOutlineIcon style={{ fontSize: "15px" }} />
                                     </Tooltip>
@@ -157,7 +160,7 @@ export default function AddRadioStation({ closeDialog }) {
                         <AppButton color="danger" onClick={() => closeDialog?.()}>
                             Close
                         </AppButton>
-                        {state.sheet.length > 0 && <AppButton id="create" type="submit" loadingText="Creating.." loading={state.loading}>Create</AppButton>}
+                        {state.sheet.length > 0 && <AppButton id="create" type="submit" loadingText="Creating.." loading={state.loading}>Import</AppButton>}
                     </FancyCard.CardActions>
                 </form>
             </FancyCard>
