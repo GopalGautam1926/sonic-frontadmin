@@ -5,6 +5,8 @@ import FancyCard from "../../../../components/FancyCard/FancyCard";
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import { log } from "../../../../utils/app.debug";
 import { read, utils } from "xlsx";
+import { toast } from "react-toastify";
+import RadiostationHttps from "../../../../services/https/resources/radiostation.https";
 
 export default function AddRadioStation({ closeDialog }) {
     const [state, setState] = useState({
@@ -12,6 +14,7 @@ export default function AddRadioStation({ closeDialog }) {
         validateLoading: false,
         file: '',
         sheet: [],
+        importExcel: ''
     });
     const inputRef = React.useRef(null);
 
@@ -27,6 +30,7 @@ export default function AddRadioStation({ closeDialog }) {
         const files = type === 'import' ? e.target.files : e.dataTransfer.files;
         if (files.length) {
             const file = files[0];
+            log('Sheet', file)
             const reader = new FileReader();
             reader.onload = (event) => {
                 const wb = read(event.target.result);
@@ -34,7 +38,7 @@ export default function AddRadioStation({ closeDialog }) {
 
                 if (sheets.length) {
                     const rows = utils.sheet_to_json(wb.Sheets[sheets[0]]);
-                    setState({ ...state, sheet: rows, file: file.name })
+                    setState({ ...state, sheet: rows, file: file.name, importExcel: file })
                 }
             }
             reader.readAsArrayBuffer(file);
@@ -50,8 +54,6 @@ export default function AddRadioStation({ closeDialog }) {
         }
     };
 
-    log('Sheet', state.sheet)
-
     // handle drag events
     const handleDrag = function (e) {
         e.preventDefault();
@@ -61,19 +63,17 @@ export default function AddRadioStation({ closeDialog }) {
     const onSubmit = (e) => {
         e.preventDefault();
         setState({ ...state, loading: true });
-        // RadioStationsHttps
-        //     .createNewRadioStation(radio)
-        //     .then(({ data }) => {
-        //         setState({ ...state, loading: false });
-        //         setRadioStation(initialRadioStation)
-        //         toast.success("Created successfully");
-        //         closeDialog?.()
+        RadiostationHttps.createNewAppgenRadioStation(state?.importExcel)
+            .then(() => {
+                setState({ ...state, loading: false });
+                toast.success("Created successfully");
+                closeDialog?.()
 
-        //     })
-        //     .catch((err) => {
-        //         setState({ ...state, loading: false });
-        //         toast.error(err.message || "Error while creating..");
-        //     });
+            })
+            .catch((err) => {
+                setState({ ...state, loading: false });
+                toast.error(err.message || "Error while creating..");
+            });
     };
 
     return (
@@ -100,6 +100,7 @@ export default function AddRadioStation({ closeDialog }) {
                     onDragLeave={handleDrag}
                     onDragOver={handleDrag}
                     onDrop={handleDrop}
+                    enctype="multipart/form-data"
                 >
                     <FancyCard.CardContent>
                         <Grid
@@ -118,6 +119,7 @@ export default function AddRadioStation({ closeDialog }) {
                                 ref={inputRef}
                                 id="input-file-upload"
                                 type="file"
+                                name="uploaded_file"
                                 multiple={true}
                                 onChange={handleImport}
                                 accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
@@ -160,7 +162,11 @@ export default function AddRadioStation({ closeDialog }) {
                         <AppButton color="danger" onClick={() => closeDialog?.()}>
                             Close
                         </AppButton>
-                        {state.sheet.length > 0 && <AppButton id="create" type="submit" loadingText="Creating.." loading={state.loading}>Import</AppButton>}
+                        {state.sheet.length > 0 && <>
+                            <AppButton id="create" type="submit" loadingText="Creating.." loading={state.loading}>Import</AppButton>
+                            <span>(Importing {state.sheet.length} stations)</span>
+                        </>
+                        }
                     </FancyCard.CardActions>
                 </form>
             </FancyCard>
