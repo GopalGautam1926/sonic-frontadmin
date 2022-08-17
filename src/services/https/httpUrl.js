@@ -17,10 +17,10 @@ const baseUrls = {
   },
 };
 
-export default baseUrls["localhost"
-  // process.env.REACT_APP_ENV == "localhost"
-  //   ? "localhost"
-  //   : process.env.REACT_APP_ENV == "production"
-  //     ? "sonic"
-  //     : "arba"
+export default baseUrls[
+  process.env.REACT_APP_ENV == "localhost"
+    ? "localhost"
+    : process.env.REACT_APP_ENV == "production"
+      ? "sonic"
+      : "arba"
 ];

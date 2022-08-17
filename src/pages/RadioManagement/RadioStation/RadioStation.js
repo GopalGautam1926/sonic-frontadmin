@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import FancyCard from "../../../components/FancyCard/FancyCard";
 import Table from "../../../components/Table/Table";
 // import AddApiKey from "./components/AddApiKey";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { getRouteNames } from "../../../routes/routes.data";
 import RSpace from "../../../components/rcomponents/RSpace";
-import { log } from "../../../utils/app.debug";
 import { useStore } from "../../../stores";
 import DataFetchingStateComponent from "../../../components/common/DataFetchingStateComponent";
 import radiostationHttps from "../../../services/https/resources/radiostation.https";
@@ -36,7 +35,7 @@ function RadioStation() {
 
   const columns = [
     {
-      label: "Radio Station Id",
+      label: "RadioStation Id",
       name: "_id",
       options: {
         filter: false,
@@ -46,21 +45,27 @@ function RadioStation() {
       },
     },
     {
-      label: "AppGen Id",
-      name: "_id",
+      label: "AppGenId",
+      name: "appGenStationId",
       options: {
         filter: false,
         customBodyRender: (value) => {
-          return "---";
+          return value || "---";
         },
       },
     },
     {
       label: "Name",
       name: "name",
+      options: {
+        filter: false,
+        customBodyRender: (value) => {
+          return value || "---";
+        },
+      },
     },
     {
-      label: "Streaming Url",
+      label: "StreamingUrl",
       name: "streamingUrl",
       options: {
         filter: false,
@@ -78,12 +83,12 @@ function RadioStation() {
       },
     },
     {
-      label: "Sub Title",
-      name: "_id",
+      label: "SubTitle",
+      name: "subTitle",
       options: {
         filter: false,
         customBodyRender: (value) => {
-          return "---";
+          return value || "---";
         },
       },
     },
@@ -103,11 +108,11 @@ function RadioStation() {
     },
     {
       label: "Continent",
-      name: "_id",
+      name: "continent",
       options: {
         filter: false,
         customBodyRender: (value) => {
-          return "---";
+          return value || "---";
         },
       },
     },
@@ -123,41 +128,41 @@ function RadioStation() {
     },
     {
       label: "State",
-      name: "_id",
+      name: "state",
       options: {
         filter: false,
         customBodyRender: (value) => {
-          return "---";
+          return value || "---";
         },
       },
     },
     {
       label: "City",
-      name: "_id",
+      name: "city",
       options: {
         filter: false,
         customBodyRender: (value) => {
-          return "---";
+          return value || "---";
         },
       },
     },
     {
       label: "Genres",
-      name: "_id",
+      name: "genres",
       options: {
         filter: false,
         customBodyRender: (value) => {
-          return "---";
+          return value.join(", ") || "---";
         },
       },
     },
     {
       label: "Admin Email",
-      name: "_id",
+      name: "adminEmail",
       options: {
         filter: false,
         customBodyRender: (value) => {
-          return "---";
+          return value || "---";
         },
       },
     },

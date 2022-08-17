@@ -27,6 +27,10 @@ class RadioStationsHttps {
     return AppWebRequest({
       method: "post",
       url: "/radiostations/import-from-appgen-excel",
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'Accept': 'application/json'
+      },
       data: payload,
     })
     // .then((res) => {
