@@ -168,7 +168,7 @@ export default function AddRadioStation({ closeDialog }) {
 
                                 </label>
                                 <Grid container justifyContent='flex-end' style={{}}>
-                                    <Tooltip title={"Supports only xlsx file."} placement={"bottom-end"}>
+                                    <Tooltip title={"Only supports excel for now"} placement={"bottom-end"}>
                                         <HelpOutlineIcon style={{ fontSize: "15px" }} />
                                     </Tooltip>
                                 </Grid>

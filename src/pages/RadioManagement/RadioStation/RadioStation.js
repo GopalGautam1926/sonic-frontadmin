@@ -69,16 +69,19 @@ function RadioStation() {
       name: "streamingUrl",
       options: {
         filter: false,
-        customBodyRender: (value, { columnIndex }, updateValue) => {
-          return <Tooltip title={value}><div style={{
-            whiteSpace: "nowrap",
-            textOverflow: "ellipsis",
-            maxWidth: 100,
-            wordWrap: "none",
-            cursor: "pointer",
-            overflow: "hidden",
-          }
-          }>{value}</div></Tooltip>;
+        customBodyRender: (value) => {
+          return <Tooltip title={value}>
+            <div style={{
+              whiteSpace: "nowrap",
+              textOverflow: "ellipsis",
+              maxWidth: 100,
+              wordWrap: "none",
+              cursor: "pointer",
+              overflow: "hidden",
+            }}>
+              {value}
+            </div>
+          </Tooltip>;
         },
       },
     },
@@ -97,7 +100,7 @@ function RadioStation() {
       name: "_id",
       options: {
         filter: false,
-        customBodyRender: (value, { columnIndex }, updateValue) => {
+        customBodyRender: (value) => {
           const rowData = radioStationStore.getRadioStations.docs.find(
             (itm) => itm._id == value
           );
@@ -245,12 +248,12 @@ function RadioStation() {
                   });
                 },
               }}
-              startButtonProps={{
-                onClick: () => onStartRadio(value)
-              }}
-              stopButtonProps={{
-                onClick: () => onStopRadio(value)
-              }}
+              // startButtonProps={{
+              //   onClick: () => onStartRadio(value)
+              // }}
+              // stopButtonProps={{
+              //   onClick: () => onStopRadio(value)
+              // }}
               playPopConfirmProps={{
                 onClickYes: () => onPlayKey(value, rowData)
               }}
@@ -308,10 +311,10 @@ function RadioStation() {
 
     })
   }
+
   const closePlayingModal = () => {
     stop && setValues({ ...values, openPlayingModal: false })
   }
-
 
   return (
     <div>
