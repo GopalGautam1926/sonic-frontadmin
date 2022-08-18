@@ -14,6 +14,7 @@ import AddRadioStation from "./components/AddRadioStation";
 import { Box, CircularProgress, Dialog, DialogContent, Tooltip } from "@material-ui/core";
 import Timer from "./components/Timer";
 import FilterRadioStaion from "./components/FilterRadioStaion";
+import { log } from "../../../utils/app.debug";
 
 function RadioStation() {
   const [state, setState] = useState({
@@ -233,6 +234,7 @@ function RadioStation() {
           const rowData = radioStationStore.getRadioStations.docs.find(
             (itm) => itm._id == value
           );
+          log("Row data: ", rowData)
           return (
             <Table.RadioTableRowAction
               enableDelete={true}
