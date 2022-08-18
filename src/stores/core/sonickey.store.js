@@ -34,6 +34,7 @@ class SonicKeyStore {
     @observable filters = {
         partnerName: {},
         companyName: {},
+        userName: {},
         track: "",
         artist: "",
         channel: "ALL",
@@ -72,6 +73,7 @@ class SonicKeyStore {
         this.filters = {
             partnerName: {},
             companyName: {},
+            userName: {},
             track: "",
             artist: "",
             channel: "ALL",
@@ -119,6 +121,7 @@ class SonicKeyStore {
                 "createdAt<": `date(${endDate})` || undefined,
                 "relation_partner._id": this.filters.partnerName?._id || undefined,
                 "relation_company._id": this.filters.companyName?._id || undefined,
+                "createdBy": this.filters.userName?._id || undefined,
                 "contentOwner": this.filters.artist ? `/${this.filters.artist}/i` : undefined,
                 "contentName": this.filters.track ? `/${this.filters.track}/i` : undefined,
                 "channel": this.filters.channel !== "ALL" ? this.filters.channel : undefined,
