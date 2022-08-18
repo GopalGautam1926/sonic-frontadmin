@@ -35,6 +35,7 @@ class SonicKeyStore {
         partnerName: {},
         companyName: {},
         userName: {},
+        label:"",
         track: "",
         artist: "",
         channel: "ALL",
@@ -79,6 +80,7 @@ class SonicKeyStore {
             channel: "ALL",
             sonickey: "",
             trackId: "",
+            label:""
         }
     }
 
@@ -127,6 +129,7 @@ class SonicKeyStore {
                 "channel": this.filters.channel !== "ALL" ? this.filters.channel : undefined,
                 "sonicKey": this.filters.sonickey || undefined,
                 "relation_track._id": this.filters.trackId || undefined,
+                "label":this.filters.label || undefined
             },
         }
 
