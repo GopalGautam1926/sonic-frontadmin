@@ -165,11 +165,13 @@ class SonicKeyStore {
                 "createdAt<": `date(${endDate})` || undefined,
                 "relation_partner._id": this.filters.partnerName?._id || undefined,
                 "relation_company._id": this.filters.companyName?._id || undefined,
+                "createdBy": this.filters.userName?._id || undefined,
                 "contentOwner": this.filters.artist ? `/${this.filters.artist}/i` : undefined,
                 "contentName": this.filters.track ? `/${this.filters.track}/i` : undefined,
                 "channel": this.filters.channel !== "ALL" ? this.filters.channel : undefined,
                 "sonicKey": this.filters.sonickey || undefined,
                 "relation_track._id": this.filters.trackId || undefined,
+                "label":this.filters.label || undefined
             },
         }
 
