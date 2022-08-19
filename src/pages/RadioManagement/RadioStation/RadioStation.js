@@ -189,15 +189,16 @@ function RadioStation() {
           //   statusItem.push(
           //     <Badge color="rose" size="small" style={{ cursor: "pointer" }} label={<Tooltip title={errorMessage}><div style={{ fontSize: 11 }}>Error</div></Tooltip>} />
           //   );
-          // } else if (rowData.isStreamStarted) {
-          statusItem.push(
-            <Badge color="success" size="small" label={<div style={{ fontSize: 11, marginLeft: 0 }}>Listening</div>} />
-          );
-          // } else {
-          //   statusItem.push(
-          //     <Badge color="warning" size="small" label={<div style={{ fontSize: 11 }}>Not Listening</div>} />
-          //   );
-          // }
+          // } else 
+          if (rowData.isStreamStarted) {
+            statusItem.push(
+              <Badge color="success" size="small" label={<div style={{ fontSize: 11, marginLeft: 0 }}>Listening</div>} />
+            );
+          } else {
+            statusItem.push(
+              <Badge color="warning" size="small" label={<div style={{ fontSize: 11 }}>Not Listening</div>} />
+            );
+          }
 
           // if (rowData?.isStreamStarted === false && !rowData?.isError) {
           //   statusItem.push(
@@ -234,7 +235,7 @@ function RadioStation() {
           const rowData = radioStationStore.getRadioStations.docs.find(
             (itm) => itm._id == value
           );
-          log("Row data: ", rowData)
+
           return (
             <Table.RadioTableRowAction
               enableDelete={true}
@@ -250,17 +251,27 @@ function RadioStation() {
                   });
                 },
               }}
-              // startButtonProps={{
-              //   onClick: () => onStartRadio(value)
-              // }}
-              // stopButtonProps={{
-              //   onClick: () => onStopRadio(value)
-              // }}
+              enableStart={!rowData?.isStreamStarted ? true : false}
+              startButtonProps={{
+                loading: (state.onStart && value === state.startId)
+              }}
+              startPopConfirmProps={{
+                onClick: () => onStartRadio(value)
+              }}
+
+              enableStop={rowData?.isStreamStarted}
+              stopButtonProps={{
+                loading: (state.onStop && value === state.stopId)
+              }}
+              stopPopConfirmProps={{
+                onClick: () => onStopRadio(value)
+              }}
+
               playPopConfirmProps={{
                 onClickYes: () => onPlayKey(value, rowData)
               }}
               playButtonProps={{
-                loading: (state.isPlaying && value == state.playingKey),
+                loading: (state.isPlaying && value === state.playingKey),
               }}
             />
 
@@ -279,7 +290,7 @@ function RadioStation() {
         setState({ ...state, onStart: false, startId: '' });
       })
       .catch((err) => {
-        toast.error("Error while listening");
+        toast.error(err?.message || "Error while listening");
         setState({ ...state, onStart: false, startId: '' });
       });
   }
@@ -293,7 +304,7 @@ function RadioStation() {
         setState({ ...state, onStop: false, stopId: '' });
       })
       .catch((err) => {
-        toast.error("Error while radio stopped");
+        toast.error(err?.message || "Error while radio stopped");
         setState({ ...state, onStop: false, stopId: '' });
       });
   }

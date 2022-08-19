@@ -13,13 +13,15 @@ export default function RadioTableRowAction({
   viewButtonProps,
   startButton,
   startButtonProps,
-  playPopConfirmProps,
+  startPopConfirmProps,
   stopButton,
   stopButtonProps,
+  stopPopConfirmProps,
   playButton,
   playButtonProps,
-  enableStart = true,
-  enableStop = true,
+  playPopConfirmProps,
+  enableStart = false,
+  enableStop = false,
   enablePlay = true,
 }) {
   return (
@@ -47,19 +49,31 @@ export default function RadioTableRowAction({
       </RSpace.Item>}
 
       {enableStart && <RSpace.Item>
-        <Tooltip title={"start"}>
-          <AppButton asIconButton={true} color="primary" size="small" {...startButtonProps}>
-            {startButton || <PlayCircleFilledWhiteOutlinedIcon style={{ fontSize: 18 }} />}
-          </AppButton>
-        </Tooltip>
+        <RPopconfirm
+          anchorElement={
+            <Tooltip title={"start"}>
+              <AppButton asIconButton={true} color="primary" size="small" {...startButtonProps}>
+                {startButton || <PlayCircleFilledWhiteOutlinedIcon style={{ fontSize: 18 }} />}
+              </AppButton>
+            </Tooltip>
+          }
+          message="Start radio?"
+          {...startPopConfirmProps}
+        />
       </RSpace.Item>}
 
       {enableStop && <RSpace.Item>
-        <Tooltip title={"stop"}>
-          <AppButton asIconButton={true} color="danger" size="small" {...stopButtonProps}>
-            {stopButton || <StopIcon style={{ fontSize: 18 }} />}
-          </AppButton>
-        </Tooltip>
+        <RPopconfirm
+          anchorElement={
+            <Tooltip title={"stop"}>
+              <AppButton asIconButton={true} color="danger" size="small" {...stopButtonProps}>
+                {stopButton || <StopIcon style={{ fontSize: 18 }} />}
+              </AppButton>
+            </Tooltip>
+          }
+          message="Stop radio?"
+          {...stopPopConfirmProps}
+        />
       </RSpace.Item>}
     </RSpace>
   );
