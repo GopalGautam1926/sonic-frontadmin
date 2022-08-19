@@ -10,6 +10,7 @@ import { Channel } from '../../../../constants';
 import PartnerPicker from '../../../../components/Picker/PartnerPicker';
 import CompanyPicker from '../../../../components/Picker/CompanyPicker';
 import AppButton from '../../../../components/AppButton/AppButton';
+import UserPicker from '../../../../components/Picker/UserPicker/UserPicker';
 
 function FilterEncodesReport({ closeDialog }) {
     const { sonickeyStore } = useStore();
@@ -57,6 +58,15 @@ function FilterEncodesReport({ closeDialog }) {
                                     placeholder="Search for company"
                                     value={sonickeyStore?.getFilters?.companyName}
                                     getSelectedValue={(company) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, companyName: company })}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12} sm={6} md={3}>
+                                <UserPicker
+                                    labelText="User"
+                                    placeholder="Search for user"
+                                    value={sonickeyStore?.getFilters?.userName}
+                                    getSelectedValue={(user) => sonickeyStore?.changeFilters({ ...sonickeyStore?.getFilters, userName: user })}
                                 />
                             </Grid>
 
