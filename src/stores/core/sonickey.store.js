@@ -167,7 +167,7 @@ class SonicKeyStore {
         let startDate = moment(this.dateRange.startDate).startOf("days").toISOString();
         let endDate = moment(this.dateRange.endDate).endOf("days").toISOString();
 
-        const options = {
+        let options = {
             params: {
                 sort: '-createdAt',
                 limit: 2000,
@@ -176,7 +176,6 @@ class SonicKeyStore {
                 "createdAt<": `date(${endDate})` || undefined,
                 "relation_partner._id": this.filters.partnerName?._id || undefined,
                 "relation_company._id": this.filters.companyName?._id || undefined,
-                "createdBy": this.filters.userName?._id || undefined,
                 "contentOwner": this.filters.artist ? `/${this.filters.artist}/i` : undefined,
                 "contentName": this.filters.track ? `/${this.filters.track}/i` : undefined,
                 "channel": this.filters.channel !== "ALL" ? this.filters.channel : undefined,
@@ -184,6 +183,18 @@ class SonicKeyStore {
                 "relation_track._id": this.filters.trackId || undefined,
                 "label": this.filters.label || undefined
             },
+        }
+
+        if (this.filters.userName?._id) {
+            options = {
+                ...options,
+                params: {
+                    ...options.params,
+                    filter: {
+                        $or: [{ "createdBy": `${this.filters.userName?._id}` }, { "owner": `${this.filters.userName?._id}` }]
+                    }
+                },
+            }
         }
 
         reportsHttps
