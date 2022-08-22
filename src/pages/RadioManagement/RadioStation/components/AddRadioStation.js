@@ -82,9 +82,10 @@ export default function AddRadioStation({ closeDialog }) {
         RadiostationHttps.createNewAppgenRadioStation(formData)
             .then(({ data }) => {
                 setState({ ...state, loading: false, sheet: [], file: '' });
-                toast.success("Imported successfully");
                 if (data?.totalDuplicateStations?.length > 0) {
-                    toast.info(`${data?.totalDuplicateStations?.length} duplicate streamingUrl`)
+                    toast.info(`${data?.totalDuplicateStations?.length} duplicate stations`)
+                } else {
+                    toast.success("Imported successfully");
                 }
                 closeDialog?.()
             })
@@ -181,6 +182,7 @@ export default function AddRadioStation({ closeDialog }) {
                             Close
                         </AppButton>
                         {state.sheet.length > 0 && <>
+                            <AppButton color="warning" onClick={() => setState({ ...state, sheet: [], file: '' })}>Clear</AppButton>
                             <AppButton id="create" type="submit" loadingText="Creating.." loading={state.loading}>Import</AppButton>
                             <span>(Importing {state.totalStations} {state.totalStations > 1 ? 'stations' : 'station'})</span>
                         </>

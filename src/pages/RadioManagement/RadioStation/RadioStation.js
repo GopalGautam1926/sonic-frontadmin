@@ -238,7 +238,6 @@ function RadioStation() {
 
           return (
             <Table.RadioTableRowAction
-              enableDelete={true}
               viewButtonProps={{
                 onClick: () => {
                   const path = `${getRouteNames()["radio_station"]
@@ -251,12 +250,13 @@ function RadioStation() {
                   });
                 },
               }}
+
               enableStart={!rowData?.isStreamStarted ? true : false}
               startButtonProps={{
                 loading: (state.onStart && value === state.startId)
               }}
               startPopConfirmProps={{
-                onClick: () => onStartRadio(value)
+                onClickYes: () => onStartRadio(value)
               }}
 
               enableStop={rowData?.isStreamStarted}
@@ -264,7 +264,7 @@ function RadioStation() {
                 loading: (state.onStop && value === state.stopId)
               }}
               stopPopConfirmProps={{
-                onClick: () => onStopRadio(value)
+                onClickYes: () => onStopRadio(value)
               }}
 
               playPopConfirmProps={{
