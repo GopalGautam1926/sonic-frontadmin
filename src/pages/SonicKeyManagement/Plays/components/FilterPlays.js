@@ -65,6 +65,21 @@ function FilterPlays({ closeDialog }) {
 
                             <Grid item xs={12} sm={6} md={3}>
                                 <AppTextInput
+                                    labelText="Track ID"
+                                    id="trackId"
+                                    formControlProps={{
+                                        fullWidth: true,
+                                    }}
+                                    inputProps={{
+                                        placeholder: "Track ID",
+                                        value: playsStore?.getFilters?.trackId,
+                                        onChange: (e) => playsStore?.changeFilters({ ...playsStore?.getFilters, trackId: e.target.value })
+                                    }}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12} sm={6} md={3}>
+                                <AppTextInput
                                     labelText="SonicKey"
                                     id="sonickey"
                                     formControlProps={{
@@ -125,13 +140,13 @@ function FilterPlays({ closeDialog }) {
 
                             <Grid item xs={12} sm={6} md={3}>
                                 <AppTextInput
-                                    labelText="Track"
-                                    id="track"
+                                    labelText="Title"
+                                    id="title"
                                     formControlProps={{
                                         fullWidth: true,
                                     }}
                                     inputProps={{
-                                        placeholder: "Track",
+                                        placeholder: "Title",
                                         value: playsStore?.getFilters?.track,
                                         onChange: (e) => playsStore?.changeFilters({ ...playsStore?.getFilters, track: e.target.value })
                                     }}

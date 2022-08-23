@@ -108,41 +108,6 @@ export default function Encoded() {
                     </FancyCard.CardHeader>
                 }
             >
-                <Grid container style={{ padding: "0px 20px", display: 'flex', justifyContent: 'flex-end', zIndex: 1 }}>
-                    <Grid item>
-                        <DatePicker
-                            label="Start Date"
-                            selected={sonickeyStore?.getDateRange?.startDate}
-                            onChange={(date) => sonickeyStore?.changeDateRange({ ...sonickeyStore?.getDateRange, startDate: date })}
-                            showYearDropdown
-                            dateFormat="dd/MM/yyyy"
-                            yearDropdownItemNumber={15}
-                            scrollableYearDropdown
-                            showMonthDropdown
-                            startDate={sonickeyStore?.getDateRange?.startDate}
-                            endDate={sonickeyStore?.getDateRange?.endDate}
-                        />
-                    </Grid>
-                    <Grid item className="mt-4 mx-3">
-                        <p style={{ fontSize: '14px' }}>TO</p>
-                    </Grid>
-
-                    <Grid item>
-                        <DatePicker
-                            label="End Date"
-                            selected={sonickeyStore?.getDateRange?.endDate}
-                            onChange={(date) => sonickeyStore?.changeDateRange({ ...sonickeyStore?.getDateRange, endDate: date })}
-                            showYearDropdown
-                            dateFormat="dd/MM/yyyy"
-                            yearDropdownItemNumber={15}
-                            scrollableYearDropdown
-                            showMonthDropdown
-                            startDate={sonickeyStore?.getDateRange?.startDate}
-                            endDate={sonickeyStore?.getDateRange?.endDate}
-                        />
-                    </Grid>
-                </Grid>
-
                 <FancyCard.CardContent style={{ zIndex: 0 }}>
                     <DataFetchingStateComponent
                         loading={sonickeyStore.loading}
@@ -158,6 +123,11 @@ export default function Encoded() {
                                         onClick: () => sonickeyStore.fetchSonicKeys(),
                                     }}
                                     componentInsideDialogFilter={<FilterEncoded />}
+                                    dateRange={true}
+                                    startDate={sonickeyStore?.getDateRange?.startDate}
+                                    onChangeStartDate={(date) => sonickeyStore?.changeDateRange({ ...sonickeyStore?.getDateRange, startDate: date })}
+                                    endDate={sonickeyStore?.getDateRange?.endDate}
+                                    onChangeEndDate={(date) => sonickeyStore?.changeDateRange({ ...sonickeyStore?.getDateRange, endDate: date })}
                                 />
                             }
                             data={sonickeyStore?.getSonicKeys?.docs || []}

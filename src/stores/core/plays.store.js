@@ -26,6 +26,7 @@ class PlaysStore {
   };
   @observable filters = {
     channel: "ALL",
+    trackId: "",
     sonickey: "",
     country: "",
     radiostation: "",
@@ -85,6 +86,7 @@ class PlaysStore {
   resetFilter() {
     this.filters = {
       channel: "ALL",
+      trackId: "",
       sonickey: "",
       country: "",
       radiostation: "",
@@ -141,11 +143,12 @@ class PlaysStore {
         "detectedAt>": this.dateRange.startDate ? `date(${startDate})` : undefined,
         "detectedAt<": this.dateRange.endDate ? `date(${endDate})` : undefined,
         channel: this.filters.channel !== "ALL" ? this.filters.channel : undefined,
+        "relation_sonicKey.track._id": this.filters.trackId || undefined,
         "relation_sonicKey.sonicKey": this.filters.sonickey ? `/${this.filters.sonickey}/i` : undefined,
         "relation_radioStation.country": this.filters.country || undefined,
         "relation_radioStation.name": this.filters.radiostation || undefined,
         "relation_sonicKey.contentOwner": this.filters.artist ? `/${this.filters.artist}/i` : undefined,
-        "relation_sonicKey.originalFileName": this.filters.track ? `/${this.filters.track}/i` : undefined,
+        "relation_sonicKey.contentName": this.filters.track ? `/${this.filters.track}/i` : undefined,
         "relation_sonicKey.label": this.filters.label || undefined,
         "relation_sonicKey.distributor": this.filters.distributor || undefined,
         "relation_filter": this.filters.userName ? { "$or": [{ "relation_sonicKey.owner._id": this.filters.userName?._id }, { "createdBy": this.filters.userName?._id }] } : undefined,
