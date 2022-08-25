@@ -37,6 +37,7 @@ class PlaysStore {
     partnerName: {},
     companyName: {},
     userName: {},
+    sksid: "",
     startEncodedDate: "",
     endEncodedDate: "",
     playTablePage: 1,
@@ -97,6 +98,7 @@ class PlaysStore {
       partnerName: {},
       companyName: {},
       userName: {},
+      sksid: "",
       startEncodedDate: "",
       endEncodedDate: "",
     };
@@ -135,7 +137,7 @@ class PlaysStore {
     let startEndOfEncodedDate = moment(this.filters.startEncodedDate).endOf("days").toISOString();
     let endOfEncodedDate = moment(this.filters.endEncodedDate).endOf("days").toISOString();
 
-    const options = {
+    let options = {
       params: {
         limit: this.plays.limit,
         page: page,
@@ -143,6 +145,7 @@ class PlaysStore {
         "detectedAt>": this.dateRange.startDate ? `date(${startDate})` : undefined,
         "detectedAt<": this.dateRange.endDate ? `date(${endDate})` : undefined,
         channel: this.filters.channel !== "ALL" ? this.filters.channel : undefined,
+        "detectionOrigins": this.filters.sksid ? this.filters.sksid === "SK" ? "SONICKEY" : this.filters.sksid === "SID" ? "FINGERPRINT" : "SONICKEY,FINGERPRINT" : undefined,
         "relation_sonicKey.track._id": this.filters.trackId || undefined,
         "relation_sonicKey.sonicKey": this.filters.sonickey ? `/${this.filters.sonickey}/i` : undefined,
         "relation_radioStation.country": this.filters.country || undefined,
@@ -151,13 +154,36 @@ class PlaysStore {
         "relation_sonicKey.contentName": this.filters.track ? `/${this.filters.track}/i` : undefined,
         "relation_sonicKey.label": this.filters.label || undefined,
         "relation_sonicKey.distributor": this.filters.distributor || undefined,
-        "relation_filter": this.filters.userName ? { "$or": [{ "relation_sonicKey.owner._id": this.filters.userName?._id }, { "createdBy": this.filters.userName?._id }] } : undefined,
         "relation_sonicKey.partner._id": this.filters.partnerName?._id || undefined,
         "relation_sonicKey.company._id": this.filters.companyName?._id || undefined,
         "relation_sonicKey.createdAt>": this.filters.startEncodedDate ? `date(${startOfEncodedDate})` : undefined,
         "relation_sonicKey.createdAt<": this.filters.endEncodedDate ? `date(${endOfEncodedDate})` : this.filters.startEncodedDate ? `date(${startEndOfEncodedDate})` : undefined,
       },
     };
+
+    if (this.filters.userName?._id) {
+      options = {
+        ...options,
+        params: {
+          ...options.params,
+          "relation_filter": {
+            $or: [{ "sonicKey.createdBy": `${this.filters.userName?._id}` }, { "sonicKey.owner._id": `${this.filters.userName?._id}` }]
+          }
+        },
+      }
+    }
+
+    // if (this.filters.sksid) {
+    //   options = {
+    //     ...options,
+    //     params: {
+    //       ...options.params,
+    //       filter: {
+    //         "detectionOrigins": { $in: this.filters.sksid === "SK" ? ["SONICKEY"] : this.filters.sksid === "SID" ? ["FINGERPRINT"] : ["SONICKEY", "FINGERPRINT"] }
+    //       }
+    //     },
+    //   }
+    // }
 
     sonickeysHttps
       .fetchPlays(options)
