@@ -173,18 +173,6 @@ class PlaysStore {
       }
     }
 
-    // if (this.filters.sksid) {
-    //   options = {
-    //     ...options,
-    //     params: {
-    //       ...options.params,
-    //       filter: {
-    //         "detectionOrigins": { $in: this.filters.sksid === "SK" ? ["SONICKEY"] : this.filters.sksid === "SID" ? ["FINGERPRINT"] : ["SONICKEY", "FINGERPRINT"] }
-    //       }
-    //     },
-    //   }
-    // }
-
     sonickeysHttps
       .fetchPlays(options)
       .then(({ data }) => {
