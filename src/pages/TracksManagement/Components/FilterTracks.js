@@ -10,7 +10,7 @@ import { Distributor, Labels } from '../../../constants';
 import { useStore } from '../../../stores';
 
 function FilterTracks({ closeDialog }) {
-    const { tracksStore} = useStore();
+    const { tracksStore } = useStore();
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -41,7 +41,7 @@ function FilterTracks({ closeDialog }) {
                         <Grid container spacing={1}>
                             <Grid item xs={12} sm={6} md={3}>
                                 <AppTextInput
-                                    labelText="ID"
+                                    labelText="Track ID"
                                     id="id"
                                     formControlProps={{
                                         fullWidth: true,

@@ -6,12 +6,10 @@ import CountryDropDown from '../../../../components/AppTextInput/CountryDropDown
 import AppButton from '../../../../components/AppButton/AppButton'
 import { useStore } from '../../../../stores'
 import CustomDropDown from '../../../../components/AppTextInput/CustomDropDown'
-import CompanyDropDown from '../../../CompanyManagement/components/CompanyDropDown'
 import RadioDropDown from '../../../../components/AppTextInput/RadioDropDown'
 import { observer } from 'mobx-react'
 import DatePicker from '../../../../components/DatePicker/DatePicker'
-import { Channel, Distributor, Labels } from '../../../../constants'
-import PartnerDropDown from '../../../PartnerManagement/components/PartnerDropDown'
+import { Channel, Distributor, Labels, SkSId } from '../../../../constants'
 import PartnerPicker from '../../../../components/Picker/PartnerPicker'
 import CompanyPicker from '../../../../components/Picker/CompanyPicker'
 import UserPicker from '../../../../components/Picker/UserPicker/UserPicker'
@@ -65,6 +63,21 @@ function FilterPlays({ closeDialog }) {
 
                             <Grid item xs={12} sm={6} md={3}>
                                 <AppTextInput
+                                    labelText="Track ID"
+                                    id="trackId"
+                                    formControlProps={{
+                                        fullWidth: true,
+                                    }}
+                                    inputProps={{
+                                        placeholder: "Track ID",
+                                        value: playsStore?.getFilters?.trackId,
+                                        onChange: (e) => playsStore?.changeFilters({ ...playsStore?.getFilters, trackId: e.target.value })
+                                    }}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12} sm={6} md={3}>
+                                <AppTextInput
                                     labelText="SonicKey"
                                     id="sonickey"
                                     formControlProps={{
@@ -90,7 +103,7 @@ function FilterPlays({ closeDialog }) {
                                         value: playsStore?.getFilters?.country,
                                         onChange: (e) => playsStore?.changeFilters({ ...playsStore?.getFilters, country: e.target.value })
                                     }}
-                                ></CountryDropDown>
+                                />
                             </Grid>
 
                             <Grid item xs={12} sm={6} md={3}>
@@ -125,13 +138,13 @@ function FilterPlays({ closeDialog }) {
 
                             <Grid item xs={12} sm={6} md={3}>
                                 <AppTextInput
-                                    labelText="Track"
-                                    id="track"
+                                    labelText="Title"
+                                    id="title"
                                     formControlProps={{
                                         fullWidth: true,
                                     }}
                                     inputProps={{
-                                        placeholder: "Track",
+                                        placeholder: "Title",
                                         value: playsStore?.getFilters?.track,
                                         onChange: (e) => playsStore?.changeFilters({ ...playsStore?.getFilters, track: e.target.value })
                                     }}
@@ -194,6 +207,22 @@ function FilterPlays({ closeDialog }) {
                                     placeholder="Search for user"
                                     value={playsStore?.getFilters?.userName}
                                     getSelectedValue={(user) => playsStore?.changeFilters({ ...playsStore?.getFilters, userName: user })}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12} sm={6} md={3}>
+                                <CustomDropDown
+                                    labelText="SK/SID"
+                                    id="sksid"
+                                    formControlProps={{
+                                        fullWidth: true,
+                                    }}
+                                    inputProps={{
+                                        placeholder: "SK/SID",
+                                        value: playsStore?.getFilters?.sksid,
+                                        onChange: (e) => playsStore?.changeFilters({ ...playsStore?.getFilters, sksid: e.target.value })
+                                    }}
+                                    data={SkSId || []}
                                 />
                             </Grid>
 

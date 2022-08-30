@@ -23,6 +23,12 @@ export const detectionOrigins = {
     }
 }
 
+export const SkSId = [
+    "SK",
+    "SID",
+    "SK/SID",
+]
+
 export const Status = [
     "Active",
     "Suspended",
