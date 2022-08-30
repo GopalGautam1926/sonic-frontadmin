@@ -7,14 +7,15 @@ import * as xlsx from "xlsx";
 import { toast } from "react-toastify";
 import RadiostationHttps from "../../../../services/https/resources/radiostation.https";
 
+const initialState = {
+    loading: false,
+    file: '',
+    sheet: [],
+    totalStations: 0
+}
+
 export default function AddRadioStation({ closeDialog }) {
-    const [state, setState] = useState({
-        loading: false,
-        validateLoading: false,
-        file: '',
-        sheet: [],
-        totalStations: 0
-    });
+    const [state, setState] = useState(initialState);
     const inputRef = React.useRef(null);
 
     // handle drag events
@@ -81,7 +82,7 @@ export default function AddRadioStation({ closeDialog }) {
 
         RadiostationHttps.createNewAppgenRadioStation(formData)
             .then(({ data }) => {
-                setState({ ...state, loading: false, sheet: [], file: '' });
+                setState(initialState);
                 if (data?.totalDuplicateStations?.length > 0) {
                     toast.info(`${data?.totalDuplicateStations?.length} duplicate stations`)
                 } else {
@@ -90,7 +91,7 @@ export default function AddRadioStation({ closeDialog }) {
                 closeDialog?.()
             })
             .catch((err) => {
-                setState({ ...state, loading: false });
+                setState(initialState);
                 toast.error(err.message || "Error while creating..");
             });
     };
@@ -182,7 +183,7 @@ export default function AddRadioStation({ closeDialog }) {
                             Close
                         </AppButton>
                         {state.sheet.length > 0 && <>
-                            <AppButton color="warning" onClick={() => setState({ ...state, sheet: [], file: '' })}>Clear</AppButton>
+                            <AppButton color="warning" onClick={() => setState(initialState)}>Clear</AppButton>
                             <AppButton id="create" type="submit" loadingText="Creating.." loading={state.loading}>Import</AppButton>
                             <span>(Importing {state.totalStations} {state.totalStations > 1 ? 'stations' : 'station'})</span>
                         </>
