@@ -142,6 +142,7 @@ export default function AddRadioStation({ closeDialog }) {
                                 name="uploaded_file"
                                 multiple={true}
                                 onChange={handleImport}
+                                onClick={(e) => e.target.value = null}
                                 accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                             />
                             <Grid item style={{ width: '100%' }}>
