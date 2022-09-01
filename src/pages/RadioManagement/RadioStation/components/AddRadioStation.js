@@ -70,7 +70,7 @@ export default function AddRadioStation({ closeDialog }) {
         for (let i = 0; i < state.sheet.length; i++) {
             for (const appgenId of state.sheet[i]) {
                 if (!appgenId?.appGenStationId) {
-                    setState({ ...state, loading: false });
+                    setState(initialState);
                     toast.error("appGenStationId is missing for some stations")
                     return;
                 }
