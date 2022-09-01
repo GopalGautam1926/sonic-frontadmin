@@ -6,6 +6,7 @@ import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import * as xlsx from "xlsx";
 import { toast } from "react-toastify";
 import RadiostationHttps from "../../../../services/https/resources/radiostation.https";
+import { log } from "../../../../utils/app.debug";
 
 const initialState = {
     loading: false,
@@ -84,8 +85,10 @@ export default function AddRadioStation({ closeDialog }) {
             .then(({ data }) => {
                 setState(initialState);
                 if (data?.totalDuplicateStations?.length > 0) {
+                    log("Duplicate stations",data)
                     toast.info(`${data?.totalDuplicateStations?.length} duplicate stations`)
                 } else {
+                    log("Imported successfully",data)
                     toast.success("Imported successfully");
                 }
                 closeDialog?.()
