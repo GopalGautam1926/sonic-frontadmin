@@ -40,11 +40,13 @@ export default function AddCompany({ closeDialog }) {
 
     const onCompanySubmit = (e) => {
         e.preventDefault()
-        const payload = { ...state.companyData, partner: state?.partnerID }
+        let payload = { ...state.companyData, partner: state?.partnerID }
         if (payload.contactNo) {
             payload.contactNo = `${payload.countryCode}${payload.contactNo}`;
         }
         delete payload.countryCode
+
+        if(!state?.partnerID) payload = {...payload,partner:null}
 
         setState({ ...state, loading: true })
         companyHttps.createCompany(payload).then(({ data }) => {
