@@ -1,9 +1,9 @@
 import { makeStyles } from "@material-ui/styles";
-import { drawerWidth } from '../Layout/styles';
+import { drawerWidth } from "../Layout/styles";
 
 export default makeStyles((theme) => ({
   hide: {
-    display: 'none',
+    display: "none",
   },
   title: {
     flexGrow: 1,
@@ -11,59 +11,59 @@ export default makeStyles((theme) => ({
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
-    whiteSpace: 'nowrap'
+    whiteSpace: "nowrap",
   },
-  drawerPaper:{
+  drawerPaper: {
     // backgroundColor:theme.palette.primary.main,
     // color:'white'
   },
   drawerOpen: {
     width: drawerWidth,
-    transition: theme.transitions.create('width', {
+    transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
   drawerClose: {
-    transition: theme.transitions.create('width', {
+    transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    overflowX: 'hidden',
+    overflowX: "hidden",
     width: theme.spacing(7) + 1,
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up("sm")]: {
       width: theme.spacing(9) + 1,
     },
   },
   toolbar: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
   },
-  listItemRoot:{
-    textDecoration:'none',
-    color:theme.palette.other.grey[700],
-    '&:hover':{
-      color:theme.palette.primary.light,
+  listItemRoot: {
+    textDecoration: "none",
+    color: theme.palette.other.grey[700],
+    "&:hover": {
+      color: theme.palette.primary.light,
       "& .MuiListItemIcon-root": {
-        color: theme.palette.primary.light
-      }
+        color: theme.palette.primary.light,
+      },
     },
     "&$selected": {
       backgroundColor: "red",
       color: "white",
       "& .MuiListItemIcon-root": {
-        color: "white"
-      }
+        color: "white",
+      },
     },
   },
-  listItemSelected:{
-    color:theme.palette.primary.light,
+  listItemSelected: {
+    color: theme.palette.secondary.main,
     "& .MuiListItemIcon-root": {
-      color: theme.palette.primary.light
-    }
-  }
+      color: theme.palette.secondary.main,
+    },
+  },
 }));
