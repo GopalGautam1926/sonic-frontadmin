@@ -133,7 +133,7 @@ export default function Tracks() {
     <div>
       <FancyCard
         cardHeader={
-          <FancyCard.CardHeader color="purple">
+          <FancyCard.CardHeader >
             {(headerClasses) => (
               <>
                 <h4 className={headerClasses.cardTitleWhite}>Tracks</h4>
