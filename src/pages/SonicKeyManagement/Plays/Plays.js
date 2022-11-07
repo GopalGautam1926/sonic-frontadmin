@@ -166,9 +166,6 @@ export default function Plays() {
       options: {
         filter: false,
         customBodyRender: (value, { columnIndex }, updateValue) => {
-          //   const rowData = playsStore?.getPlays?.docs.find(
-          //     (itm) => itm._id == value
-          //   );
           return (
             <RSpace>
               <RSpace.Item>

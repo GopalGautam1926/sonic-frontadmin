@@ -153,14 +153,7 @@ export default function Encoded() {
               columns={columns}
               options={{
                 count: sonickeyStore?.getSonicKeys?.totalDocs || 0,
-                customFooter: (
-                  count,
-                  page,
-                  rowsPerPage,
-                  changeRowsPerPage,
-                  changePage,
-                  textLabels
-                ) => {
+                customFooter: () => {
                   return (
                     <CustomPagination
                       totalPages={sonickeyStore?.getSonicKeys?.totalPages}

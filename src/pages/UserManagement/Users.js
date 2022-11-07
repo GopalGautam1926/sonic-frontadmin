@@ -233,14 +233,7 @@ export default function Users() {
               columns={columns}
               options={{
                 count: userStore?.getUsers?.totalDocs || 0,
-                customFooter: (
-                  count,
-                  page,
-                  rowsPerPage,
-                  changeRowsPerPage,
-                  changePage,
-                  textLabels
-                ) => {
+                customFooter: () => {
                   return (
                     <CustomPagination
                       totalPages={userStore?.getUsers?.totalPages}
