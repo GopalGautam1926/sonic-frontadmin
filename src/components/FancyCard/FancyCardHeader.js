@@ -1,14 +1,8 @@
-import {
-  CardHeader,
-  Paper,
-  Card
-} from "@material-ui/core";
+import { CardHeader, Paper } from "@material-ui/core";
 import PropTypes from "prop-types";
-import React, { useEffect } from "react";
+import React from "react";
 import useStyle from "./styles";
 import { useTheme } from "@material-ui/core/styles";
-import classNames from "classnames";
-import { log } from "../../utils/app.debug";
 
 export default function FancyCardHeader({
   children,
@@ -28,24 +22,24 @@ export default function FancyCardHeader({
           display: "flex",
           justifyContent: "space-between",
           background: "transparent",
-          boxShadow:'none',
-          ...style
+          boxShadow: "none",
+          ...style,
         }}
       >
-        {typeof(children)=="function" ? children(classes) : children}
+        {typeof children == "function" ? children(classes) : children}
       </Paper>
     );
   }
 
   return (
     <Paper
-    style={{
-      padding:10, 
-      background: theme.palette[color]?.main,
-      ...style
-    }}
+      style={{
+        padding: 10,
+        background: theme.palette[color]?.main,
+        ...style,
+      }}
     >
-      {typeof(children)=="function" ? children(classes) : children}
+      {typeof children == "function" ? children(classes) : children}
     </Paper>
   );
 }
@@ -59,7 +53,7 @@ FancyCardHeader.propTypes = {
     "info",
     "primary",
     "rose",
-    "purple"
+    "purple",
   ]),
   plain: PropTypes.bool,
   stats: PropTypes.bool,

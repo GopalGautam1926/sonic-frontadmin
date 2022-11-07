@@ -1,6 +1,5 @@
 import {
   Card,
-  CardHeader,
   CardContent,
   CardActionArea,
   CardActions,
@@ -8,29 +7,27 @@ import {
   Paper,
 } from "@material-ui/core";
 import PropTypes from "prop-types";
-import React, { useEffect } from "react";
+import React from "react";
 import useStyle from "./styles";
-import { useTheme } from "@material-ui/core/styles";
 import classNames from "classnames";
-import { log } from "../../utils/app.debug";
-import FancyCardHeader from './FancyCardHeader';
-import FancyCardIcon from './FancyCardIcon';
+import FancyCardHeader from "./FancyCardHeader";
+import FancyCardIcon from "./FancyCardIcon";
 
-
-export default function FancyCard({
-  children,
-  cardHeader,
-  ...props
-}) {
+export default function FancyCard({ children, cardHeader, ...props }) {
   const classes = useStyle();
   return (
-    <Paper classes={{root:classes.card}} className={classes.card} elevation={3} {...props}>
+    <Paper
+      classes={{ root: classes.card }}
+      className={classes.card}
+      elevation={3}
+      {...props}
+    >
       {cardHeader && (
         <Card
           className={classNames({
-            [classes.cardHeader]: true
+            [classes.cardHeader]: true,
           })}
-          classes={{root:classes.cardHeader}}
+          classes={{ root: classes.cardHeader }}
         >
           {cardHeader}
         </Card>
