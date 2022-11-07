@@ -1,23 +1,23 @@
 import React from "react";
 import FancyCard from "../../../../components/FancyCard/FancyCard";
-import RadioIcon from '@material-ui/icons/Radio';
+import RadioIcon from "@material-ui/icons/Radio";
 import { getRouteNames } from "../../../../routes/routes.data";
-import { Link } from "react-router-dom";
 import { useStore } from "../../../../stores";
 import { observer } from "mobx-react";
 import { CircularProgress } from "@material-ui/core";
+import AppLink from "../../../../components/Link";
 
-export const  RadioStationStats = observer(()=> {
+export const RadioStationStats = observer(() => {
   const { radioStationStore } = useStore();
 
-  var count=0
-    if (radioStationStore.error) {
-      count= <span style={{ color: "red" }}>Error</span>;
-    }else if (radioStationStore.loading) {
-      count= <CircularProgress size={15} color="inherit" />;
-    }else{
-      count= radioStationStore.getRadioStations?.totalDocs || 0;
-    }
+  var count = 0;
+  if (radioStationStore.error) {
+    count = <span style={{ color: "red" }}>Error</span>;
+  } else if (radioStationStore.loading) {
+    count = <CircularProgress size={15} color="inherit" />;
+  } else {
+    count = radioStationStore.getRadioStations?.totalDocs || 0;
+  }
   return (
     <FancyCard
       cardHeader={
@@ -29,9 +29,7 @@ export const  RadioStationStats = observer(()=> {
               </FancyCard.CardIcon>
               <div style={{ marginTop: 10, textAlign: "right" }}>
                 <p className={headerClasses.cardCategory}>Radio Stations</p>
-                <h3 className={headerClasses.cardTitle}>
-                  {count}
-                </h3>
+                <h3 className={headerClasses.cardTitle}>{count}</h3>
               </div>
             </>
           )}
@@ -40,9 +38,10 @@ export const  RadioStationStats = observer(()=> {
     >
       <FancyCard.CardContent>
         <FancyCard.Divider />
-        <Link to={getRouteNames()["radio_station"]}>Add new radio station</Link>
+        <AppLink to={getRouteNames()["radio_station"]}>
+          Add new radio station
+        </AppLink>
       </FancyCard.CardContent>
     </FancyCard>
   );
-})
-
+});

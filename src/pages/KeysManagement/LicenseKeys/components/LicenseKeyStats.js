@@ -2,22 +2,22 @@ import React from "react";
 import FancyCard from "../../../../components/FancyCard/FancyCard";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import { getRouteNames } from "../../../../routes/routes.data";
-import { Link } from "react-router-dom";
 import { useStore } from "../../../../stores";
 import { observer } from "mobx-react";
 import { CircularProgress } from "@material-ui/core";
+import AppLink from "../../../../components/Link";
 
-export const  LicenseKeyStats = observer(()=> {
+export const LicenseKeyStats = observer(() => {
   const { licenseKeyStore } = useStore();
 
-  var count=0
-    if (licenseKeyStore.error) {
-      count= <span style={{ color: "red" }}>Error</span>;
-    }else if (licenseKeyStore.loading) {
-      count= <CircularProgress size={15} color="inherit" />;
-    }else{
-      count= licenseKeyStore.getLicenseKeys?.totalDocs || 0;
-    }
+  var count = 0;
+  if (licenseKeyStore.error) {
+    count = <span style={{ color: "red" }}>Error</span>;
+  } else if (licenseKeyStore.loading) {
+    count = <CircularProgress size={15} color="inherit" />;
+  } else {
+    count = licenseKeyStore.getLicenseKeys?.totalDocs || 0;
+  }
   return (
     <FancyCard
       cardHeader={
@@ -29,9 +29,7 @@ export const  LicenseKeyStats = observer(()=> {
               </FancyCard.CardIcon>
               <div style={{ marginTop: 10, textAlign: "right" }}>
                 <p className={headerClasses.cardCategory}>Licenses</p>
-                <h3 className={headerClasses.cardTitle}>
-                  {count}
-                </h3>
+                <h3 className={headerClasses.cardTitle}>{count}</h3>
               </div>
             </>
           )}
@@ -40,9 +38,8 @@ export const  LicenseKeyStats = observer(()=> {
     >
       <FancyCard.CardContent>
         <FancyCard.Divider />
-        <Link to={getRouteNames()["km_licensekeys"]}>Add new key</Link>
+        <AppLink to={getRouteNames()["km_licensekeys"]}>Add new key</AppLink>
       </FancyCard.CardContent>
     </FancyCard>
   );
-})
-
+});
