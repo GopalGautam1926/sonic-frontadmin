@@ -114,7 +114,7 @@ export default function Company() {
     return (
         <FancyCard
             cardHeader={
-                <FancyCard.CardHeader color="purple">
+                <FancyCard.CardHeader >
                     {(headerClasses) => (
                         <>
                             <h4 className={headerClasses.cardTitleWhite}>Company Report</h4>

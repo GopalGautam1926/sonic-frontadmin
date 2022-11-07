@@ -244,7 +244,7 @@ function RadioStation() {
     <div>
       <FancyCard
         cardHeader={
-          <FancyCard.CardHeader color="purple">
+          <FancyCard.CardHeader >
             {(headerClasses) => (
               <>
                 <h4 className={headerClasses.cardTitleWhite}>Radio Stations</h4>

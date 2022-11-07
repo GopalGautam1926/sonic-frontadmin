@@ -36,7 +36,7 @@ export default function TableActions({
           {openDialogFilter ? (
             <RDialog.CustomDialog
               anchorElement={
-                <AppButton color="warning">
+                <AppButton >
                   FILTER
                 </AppButton>
               }
@@ -66,7 +66,7 @@ export default function TableActions({
               }}
             </RDialog.CustomDialog>
           ) : (
-            <AppButton color="warning" {...filterButtonProps}>
+            <AppButton {...filterButtonProps}>
               FILTER
             </AppButton>
           )}
@@ -77,7 +77,7 @@ export default function TableActions({
           {openDialogWhenClickAdd ? (
             <RDialog.CustomDialog
               anchorElement={
-                <AppButton color="success">
+                <AppButton >
                   <AddIcon />
                 </AppButton>
               }
@@ -108,7 +108,7 @@ export default function TableActions({
               }}
             </RDialog.CustomDialog>
           ) : (
-            <AppButton color="success" {...addButtonProps}>
+            <AppButton  {...addButtonProps}>
               <AddIcon />
             </AppButton>
           )}
@@ -122,7 +122,7 @@ export default function TableActions({
               // onExit: () => setState({ ...state, newUsernameOrId: "" }),
             }}
             anchorElement={
-              <AppButton color="purple">
+              <AppButton >
                 EXPORT
               </AppButton>
             }

@@ -77,7 +77,7 @@ export default function CountriesReport() {
         <div>
             <FancyCard
                 cardHeader={
-                    <FancyCard.CardHeader color="purple">
+                    <FancyCard.CardHeader >
                         {(headerClasses) => (
                             <>
                                 <h4 className={headerClasses.cardTitleWhite}>Countries Report</h4>

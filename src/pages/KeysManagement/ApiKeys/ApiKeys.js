@@ -163,7 +163,7 @@ function ApiKeys() {
     <div>
       <FancyCard
         cardHeader={
-          <FancyCard.CardHeader color="success">
+          <FancyCard.CardHeader >
             {(headerClasses) => (
               <>
                 <h4 className={headerClasses.cardTitleWhite}>Api Keys</h4>
