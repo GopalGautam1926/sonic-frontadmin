@@ -8,19 +8,18 @@ import FilterPlays from "./components/FilterPlays";
 import { format } from "date-fns";
 import moment from "moment";
 import CustomPagination from "../../../components/common/CustomPagination";
-import DatePicker from "../../../components/DatePicker/DatePicker";
 import RSpace from "../../../components/rcomponents/RSpace";
 import RPopconfirm from "../../../components/rcomponents/RPopconfirm/RPopconfirm";
 import AppButton from "../../../components/AppButton/AppButton";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import { getSKSIDFromDetectionOrigin } from "../../../utils/general.utils";
 
 export default function Plays() {
   const { playsStore } = useStore();
   const [state, setState] = useState({
     deletigPlayId: "",
-    isDeletingPlay: false
+    isDeletingPlay: false,
   });
 
   React.useEffect(() => {
@@ -29,17 +28,18 @@ export default function Plays() {
   }, [playsStore?.getDateRange?.startDate, playsStore?.getDateRange?.endDate]);
 
   const deletePlay = (playId) => {
-    setState({ ...state, deletigPlayId: playId, isDeletingPlay: true })
-    playsStore.deletePlay(playId)
-      .then(data => {
-        setState({ ...state, deletigPlayId: '', isDeletingPlay: false })
-        toast.success("Deleted")
+    setState({ ...state, deletigPlayId: playId, isDeletingPlay: true });
+    playsStore
+      .deletePlay(playId)
+      .then((data) => {
+        setState({ ...state, deletigPlayId: "", isDeletingPlay: false });
+        toast.success("Deleted");
       })
-      .catch(err => {
-        setState({ ...state, deletigPlayId: '', isDeletingPlay: false })
-        toast.error(err.message || "Error deleting play")
-      })
-  }
+      .catch((err) => {
+        setState({ ...state, deletigPlayId: "", isDeletingPlay: false });
+        toast.error(err.message || "Error deleting play");
+      });
+  };
 
   const columns = [
     {
@@ -50,8 +50,8 @@ export default function Plays() {
         customBodyRender: (value) => {
           const trackId = value?.track?._id || "---";
           return trackId;
-        }
-      }
+        },
+      },
     },
     {
       label: "SonicKey",
@@ -116,9 +116,10 @@ export default function Plays() {
       options: {
         filter: false,
         customBodyRender: (value) => {
-          const artist = value?.contentOwner?.length > 20
-            ? value?.contentOwner?.slice(0, 20) + "..."
-            : value?.contentOwner || "---";
+          const artist =
+            value?.contentOwner?.length > 20
+              ? value?.contentOwner?.slice(0, 20) + "..."
+              : value?.contentOwner || "---";
           return (
             <Tooltip title={value?.contentOwner}>
               <div>{artist}</div>
@@ -173,7 +174,14 @@ export default function Plays() {
               <RSpace.Item>
                 <RPopconfirm
                   anchorElement={
-                    <AppButton loading={(state.deletigPlayId && value == state.deletigPlayId)} asIconButton={true} color="danger" size="small">
+                    <AppButton
+                      loading={
+                        state.deletigPlayId && value == state.deletigPlayId
+                      }
+                      asIconButton={true}
+                      color="danger"
+                      size="small"
+                    >
                       <DeleteIcon style={{ fontSize: 18 }} />
                     </AppButton>
                   }
@@ -197,7 +205,7 @@ export default function Plays() {
     <div>
       <FancyCard
         cardHeader={
-          <FancyCard.CardHeader color="success">
+          <FancyCard.CardHeader>
             {(headerClasses) => (
               <>
                 <h4 className={headerClasses.cardTitleWhite}>Plays</h4>
@@ -226,23 +234,26 @@ export default function Plays() {
                   componentInsideDialogFilter={<FilterPlays />}
                   dateRange={true}
                   startDate={playsStore?.getDateRange?.startDate}
-                  onChangeStartDate={(date) => playsStore?.changeDateRange({ ...playsStore?.getDateRange, startDate: date })}
+                  onChangeStartDate={(date) =>
+                    playsStore?.changeDateRange({
+                      ...playsStore?.getDateRange,
+                      startDate: date,
+                    })
+                  }
                   endDate={playsStore?.getDateRange?.endDate}
-                  onChangeEndDate={(date) => playsStore?.changeDateRange({ ...playsStore?.getDateRange, endDate: date })}
+                  onChangeEndDate={(date) =>
+                    playsStore?.changeDateRange({
+                      ...playsStore?.getDateRange,
+                      endDate: date,
+                    })
+                  }
                 />
               }
               data={playsStore?.getPlays?.docs || []}
               columns={columns}
               options={{
                 count: playsStore?.getPlays?.totalDocs || 0,
-                customFooter: (
-                  count,
-                  page,
-                  rowsPerPage,
-                  changeRowsPerPage,
-                  changePage,
-                  textLabels
-                ) => {
+                customFooter: () => {
                   return (
                     <CustomPagination
                       totalPages={playsStore?.getPlays?.totalPages}

@@ -27,7 +27,7 @@ const initialUserDetails = {
 };
 
 export default function RegisterUser({ closeDialog }) {
-  const { userStore } = useStore()
+  const { userStore } = useStore();
   const [newUser, setNewUser] = useState(initialUserDetails);
   const [state, setState] = useState({
     loading: false,
@@ -59,7 +59,7 @@ export default function RegisterUser({ closeDialog }) {
       .then(({ data }) => {
         setState({ ...state, loading: false });
         setNewUser(initialUserDetails);
-        userStore?.addNewUser(data)
+        userStore?.addNewUser(data);
         toast.success("User created successfully");
         closeDialog?.();
       })
@@ -73,7 +73,7 @@ export default function RegisterUser({ closeDialog }) {
     <div>
       <FancyCard
         cardHeader={
-          <FancyCard.CardHeader color="success">
+          <FancyCard.CardHeader>
             {(headerClasses) => (
               <>
                 <h4 className={headerClasses.cardTitleWhite}>
@@ -101,18 +101,25 @@ export default function RegisterUser({ closeDialog }) {
                     required: true,
                     placeholder: "Associated Role",
                     value: newUser.associatedRole,
-                    onChange: (e) => setNewUser({ ...newUser, associatedRole: e.target.value })
+                    onChange: (e) =>
+                      setNewUser({
+                        ...newUser,
+                        associatedRole: e.target.value,
+                      }),
                   }}
                   data={AssociatedRoles || []}
                 />
-              </Grid >
+              </Grid>
 
-              {(newUser.associatedRole === userRoles.PARTNER_ADMIN || newUser.associatedRole === userRoles.PARTNER_USER) &&
+              {(newUser.associatedRole === userRoles.PARTNER_ADMIN ||
+                newUser.associatedRole === userRoles.PARTNER_USER) && (
                 <Grid item xs={12} sm={6} md={6}>
                   <PartnerPicker
                     labelText="Associated Partner"
                     placeholder="Search for partner"
-                    getSelectedValue={(user) => setNewUser({ ...newUser, partnerName: user })}
+                    getSelectedValue={(user) =>
+                      setNewUser({ ...newUser, partnerName: user })
+                    }
                   />
                   {/* <PartnerDropDown
                     labelText="Associated Partner"
@@ -121,14 +128,17 @@ export default function RegisterUser({ closeDialog }) {
                     onChange={(e) => setNewUser({ ...newUser, partnerName: e.target.value })}
                   /> */}
                 </Grid>
-              }
+              )}
 
-              {(newUser.associatedRole === userRoles.COMPANY_ADMIN || newUser.associatedRole === userRoles.COMPANY_USER) &&
+              {(newUser.associatedRole === userRoles.COMPANY_ADMIN ||
+                newUser.associatedRole === userRoles.COMPANY_USER) && (
                 <Grid item xs={12} sm={6} md={6}>
                   <CompanyPicker
                     labelText="Associated Company"
                     placeholder="Search for company"
-                    getSelectedValue={(user) => setNewUser({ ...newUser, companyName: user })}
+                    getSelectedValue={(user) =>
+                      setNewUser({ ...newUser, companyName: user })
+                    }
                   />
                   {/* <CompanyDropDown
                     labelText="Associated Company"
@@ -137,7 +147,7 @@ export default function RegisterUser({ closeDialog }) {
                     onChange={(e) => setNewUser({ ...newUser, companyName: e.target.value })}
                   /> */}
                 </Grid>
-              }
+              )}
 
               <Grid item xs={12} sm={6} md={6}>
                 <AppTextInput
@@ -185,7 +195,7 @@ export default function RegisterUser({ closeDialog }) {
                   }
                 />
               </Grid>
-            </Grid >
+            </Grid>
 
             <Grid container spacing={1}>
               <Grid item xs={12} sm={6} md={6}>
@@ -203,7 +213,7 @@ export default function RegisterUser({ closeDialog }) {
                     onChange: (e) =>
                       setNewUser({ ...newUser, phoneNumber: e.target.value }),
                   }}
-                  onChangePhoneNumber={({ code, number }) => { }}
+                  onChangePhoneNumber={({ code, number }) => {}}
                   countrySelectProps={{
                     value: newUser.countryCode,
                     onChange: (e) =>
@@ -254,12 +264,10 @@ export default function RegisterUser({ closeDialog }) {
                 />
               </Grid>
             </Grid>
-          </FancyCard.CardContent >
+          </FancyCard.CardContent>
 
           <FancyCard.CardActions>
-            <AppButton color="danger" onClick={() => closeDialog?.()}>
-              Close
-            </AppButton>
+            <AppButton onClick={() => closeDialog?.()}>Close</AppButton>
             <AppButton
               type="submit"
               loadingText="Creating.."
@@ -268,8 +276,8 @@ export default function RegisterUser({ closeDialog }) {
               Register
             </AppButton>
           </FancyCard.CardActions>
-        </form >
-      </FancyCard >
-    </div >
+        </form>
+      </FancyCard>
+    </div>
   );
 }
