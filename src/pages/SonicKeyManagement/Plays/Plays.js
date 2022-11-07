@@ -111,7 +111,7 @@ export default function Plays() {
       },
     },
     {
-      label: "Original Filename",
+      label: "Artist",
       name: "sonicKey",
       options: {
         filter: false,
@@ -121,30 +121,21 @@ export default function Plays() {
               ? value?.contentOwner?.slice(0, 20) + "..."
               : value?.contentOwner || "---";
           return (
-            <Tooltip title={value?.originalFileName || value?.contentFileName}>
-              <div>{filename}</div>
+            <Tooltip title={value?.contentOwner}>
+              <div>{artist}</div>
             </Tooltip>
           );
         },
       },
     },
     {
-      label: "Artist",
+      label: "Title",
       name: "sonicKey",
       options: {
         filter: false,
         customBodyRender: (value) => {
-          const artist =
-            value?.contentOwner === ""
-              ? "---"
-              : value?.contentOwner?.length > 20
-              ? value?.contentOwner?.slice(0, 20) + "..."
-              : value?.contentOwner;
-          return (
-            <Tooltip title={value?.contentOwner}>
-              <div>{artist}</div>
-            </Tooltip>
-          );
+          const title = value?.contentName || "---";
+          return title;
         },
       },
     },
@@ -160,14 +151,24 @@ export default function Plays() {
       },
     },
     {
+      label: "SK/SID",
+      name: "detectionOrigins",
+      options: {
+        filter: false,
+        customBodyRender: (value) => {
+          return getSKSIDFromDetectionOrigin(value);
+        },
+      },
+    },
+    {
       label: "Actions",
       name: "_id",
       options: {
         filter: false,
         customBodyRender: (value, { columnIndex }, updateValue) => {
-        //   const rowData = playsStore?.getPlays?.docs.find(
-        //     (itm) => itm._id == value
-        //   );
+          //   const rowData = playsStore?.getPlays?.docs.find(
+          //     (itm) => itm._id == value
+          //   );
           return (
             <RSpace>
               <RSpace.Item>
@@ -185,7 +186,7 @@ export default function Plays() {
                     </AppButton>
                   }
                   message="Really want to delete this play?"
-                  onClickYes={()=>deletePlay(value)}
+                  onClickYes={() => deletePlay(value)}
                 />
               </RSpace.Item>
             </RSpace>
@@ -216,59 +217,6 @@ export default function Plays() {
           </FancyCard.CardHeader>
         }
       >
-        <Grid
-          container
-          style={{
-            padding: "0px 20px",
-            display: "flex",
-            justifyContent: "flex-end",
-            zIndex: 1,
-          }}
-        >
-          <Grid item>
-            <DatePicker
-              label="Start Date"
-              selected={playsStore?.getDateRange?.startDate}
-              onChange={(date) =>
-                playsStore?.changeDateRange({
-                  ...playsStore?.getDateRange,
-                  startDate: date,
-                })
-              }
-              showYearDropdown
-              dateFormat="dd/MM/yyyy"
-              yearDropdownItemNumber={15}
-              scrollableYearDropdown
-              showMonthDropdown
-              startDate={playsStore?.getDateRange?.startDate}
-              endDate={playsStore?.getDateRange?.endDate}
-            />
-          </Grid>
-          <Grid item className="mt-4 mx-3">
-            <p style={{ fontSize: "14px" }}>TO</p>
-          </Grid>
-
-          <Grid item>
-            <DatePicker
-              label="End Date"
-              selected={playsStore?.getDateRange?.endDate}
-              onChange={(date) =>
-                playsStore?.changeDateRange({
-                  ...playsStore?.getDateRange,
-                  endDate: date,
-                })
-              }
-              showYearDropdown
-              dateFormat="dd/MM/yyyy"
-              yearDropdownItemNumber={15}
-              scrollableYearDropdown
-              showMonthDropdown
-              startDate={playsStore?.getDateRange?.startDate}
-              endDate={playsStore?.getDateRange?.endDate}
-            />
-          </Grid>
-        </Grid>
-
         <FancyCard.CardContent style={{ zIndex: 0 }}>
           <DataFetchingStateComponent
             loading={playsStore.loading}
