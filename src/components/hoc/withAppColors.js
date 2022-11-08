@@ -6,8 +6,8 @@ export default function withAppColor(WrappedComponent) {
     return (
       <WrappedComponent
         style={{
-          backgroundColor: theme.palette[color].main,
-          color: theme.palette[color].contrastText,
+          backgroundColor: theme.palette.primary.main,
+          color: theme.palette.primary.contrastText,
           ...style,
         }}
         {...props}

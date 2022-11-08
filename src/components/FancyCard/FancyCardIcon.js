@@ -21,7 +21,7 @@ export default function FancyCardIcon({
         textAlign: "center",
         lineHeight: "78px",
         backgroundColor: theme.palette.primary.main,
-        color: theme.palette[color]?.contrastText,
+        color: theme.palette.primary.contrastText,
       }}
       {...props}
     >
