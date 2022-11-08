@@ -208,7 +208,7 @@ function LicenseKeys() {
     <div>
       <FancyCard
         cardHeader={
-          <FancyCard.CardHeader color="purple">
+          <FancyCard.CardHeader >
             {(headerClasses) => (
               <>
                 <h4 className={headerClasses.cardTitleWhite}>Licenses</h4>

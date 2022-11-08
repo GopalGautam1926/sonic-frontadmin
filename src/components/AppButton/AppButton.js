@@ -34,7 +34,7 @@ const AppButton = ({
       <IconButton
         style={{
           cursor: loading ? "default" : "pointer",
-          color: theme.palette[color].main,
+          color: theme.palette[color]?.main,
           ...style,
         }}
         type={loading ? "button" : type}
@@ -50,8 +50,8 @@ const AppButton = ({
     <StyledButton
       style={{
         cursor: loading ? "default" : "pointer",
-        backgroundColor: theme.palette[color].main,
-        color: theme.palette[color].contrastText,
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.primary.contrastText,
         ...style,
       }}
       startIcon={

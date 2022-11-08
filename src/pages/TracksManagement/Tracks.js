@@ -8,7 +8,7 @@ import CustomPagination from '../../components/common/CustomPagination'
 import TrackActions from './Components/TrackActions'
 import FilterTracks from './Components/FilterTracks'
 import DatePicker from '../../components/DatePicker/DatePicker'
-import { Grid, Tooltip } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 
 export default function Tracks() {
   const { tracksStore } = useStore()
@@ -19,22 +19,11 @@ export default function Tracks() {
 
   const columns = [
     {
-      label: "Track ID",
+      label: "TRACK ID",
       name: "_id"
     },
     {
-      label: "Artist",
-      name: "trackMetaData",
-      options: {
-        filter: false,
-        customBodyRender: (value) => {
-          const artist = value?.contentOwner || "---";
-          return artist;
-        },
-      },
-    },
-    {
-      label: "Title",
+      label: "TITLE",
       name: "trackMetaData",
       options: {
         filter: false,
@@ -45,7 +34,7 @@ export default function Tracks() {
       },
     },
     {
-      label: "Version",
+      label: "VERSION",
       name: "trackMetaData",
       options: {
         filter: false,
@@ -56,7 +45,18 @@ export default function Tracks() {
       },
     },
     {
-      label: "Distributor",
+      label: "ARTIST",
+      name: "trackMetaData",
+      options: {
+        filter: false,
+        customBodyRender: (value) => {
+          const artist = value?.contentOwner || "---";
+          return artist;
+        },
+      },
+    },
+    {
+      label: "DISTRIBUTOR",
       name: "trackMetaData",
       options: {
         filter: false,
@@ -67,7 +67,7 @@ export default function Tracks() {
       },
     },
     {
-      label: "FileType",
+      label: "FILE TYPE",
       name: "trackMetaData",
       options: {
         filter: false,
@@ -78,7 +78,7 @@ export default function Tracks() {
       },
     },
     {
-      label: "EncodedDate",
+      label: "ENCODED DATE",
       name: "createdAt",
       options: {
         filter: false,
@@ -88,10 +88,9 @@ export default function Tracks() {
       },
     },
     {
-      label: "System/Partner ID",
+      label: "SYSTEM/PARTNER ID",
       name: "_id",
       options: {
-        display: false,
         filter: false,
         customBodyRender: (value) => {
           const rowData = tracksStore?.tracks?.docs.find(
@@ -112,25 +111,7 @@ export default function Tracks() {
       },
     },
     {
-      label: "Description",
-      name: "trackMetaData",
-      options: {
-        display: false,
-        filter: false,
-        customBodyRender: (value) => {
-          const desc = value?.contentDescription?.length > 20
-            ? value?.contentDescription?.slice(0, 20) + "..."
-            : value?.contentDescription || "---" || "---";
-          return (
-            <Tooltip title={value?.contentDescription}>
-              <div>{desc}</div>
-            </Tooltip>
-          );
-        },
-      },
-    },
-    {
-      label: "Actions",
+      label: "ACTIONS",
       name: "_id",
       options: {
         filter: false,
@@ -152,7 +133,7 @@ export default function Tracks() {
     <div>
       <FancyCard
         cardHeader={
-          <FancyCard.CardHeader color="purple">
+          <FancyCard.CardHeader >
             {(headerClasses) => (
               <>
                 <h4 className={headerClasses.cardTitleWhite}>Tracks</h4>
@@ -164,6 +145,41 @@ export default function Tracks() {
           </FancyCard.CardHeader>
         }
       >
+        <Grid container style={{ padding: "0px 20px", display: 'flex', justifyContent: 'flex-end', zIndex: 1 }}>
+          <Grid item>
+            <DatePicker
+              label="Start Date"
+              selected={tracksStore?.dateRange?.startDate}
+              onChange={(date) => tracksStore?.changeDateRange({ ...tracksStore?.dateRange, startDate: date })}
+              showYearDropdown
+              dateFormat="dd/MM/yyyy"
+              yearDropdownItemNumber={15}
+              scrollableYearDropdown
+              showMonthDropdown
+              startDate={tracksStore?.dateRange?.startDate}
+              endDate={tracksStore?.dateRange?.endDate}
+            />
+          </Grid>
+          <Grid item className="mt-4 mx-3">
+            <p style={{ fontSize: '14px' }}>TO</p>
+          </Grid>
+
+          <Grid item>
+            <DatePicker
+              label="End Date"
+              selected={tracksStore?.dateRange?.endDate}
+              onChange={(date) => tracksStore?.changeDateRange({ ...tracksStore?.dateRange, endDate: date })}
+              showYearDropdown
+              dateFormat="dd/MM/yyyy"
+              yearDropdownItemNumber={15}
+              scrollableYearDropdown
+              showMonthDropdown
+              startDate={tracksStore?.dateRange?.startDate}
+              endDate={tracksStore?.dateRange?.endDate}
+            />
+          </Grid>
+        </Grid>
+
         <FancyCard.CardContent style={{ zIndex: 0 }}>
           <DataFetchingStateComponent
             loading={tracksStore?.loading}
@@ -179,12 +195,6 @@ export default function Tracks() {
                     onClick: () => tracksStore.fetchTracks(),
                   }}
                   componentInsideDialogFilter={<FilterTracks />}
-                  dateRange={true}
-                  startDate={tracksStore?.dateRange?.startDate}
-                  onChangeStartDate={(date) => tracksStore?.changeDateRange({ ...tracksStore?.dateRange, startDate: date })}
-                  endDate={tracksStore?.dateRange?.endDate}
-                  onChangeEndDate={(date) => tracksStore?.changeDateRange({ ...tracksStore?.dateRange, endDate: date })}
-
                 />
               }
               columns={columns}

@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FancyCard from "../../../components/FancyCard/FancyCard";
 import Table from "../../../components/Table/Table";
 // import AddApiKey from "./components/AddApiKey";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { getRouteNames } from "../../../routes/routes.data";
 import RSpace from "../../../components/rcomponents/RSpace";
+import { log } from "../../../utils/app.debug";
 import { useStore } from "../../../stores";
 import DataFetchingStateComponent from "../../../components/common/DataFetchingStateComponent";
 import radiostationHttps from "../../../services/https/resources/radiostation.https";
@@ -14,7 +15,6 @@ import AddRadioStation from "./components/AddRadioStation";
 import { Box, CircularProgress, Dialog, DialogContent, Tooltip } from "@material-ui/core";
 import Timer from "./components/Timer";
 import FilterRadioStaion from "./components/FilterRadioStaion";
-import { log } from "../../../utils/app.debug";
 
 function RadioStation() {
   const [state, setState] = useState({
@@ -36,72 +36,15 @@ function RadioStation() {
 
   const columns = [
     {
-      label: "RadioStation Id",
-      name: "_id",
-      options: {
-        filter: false,
-        customBodyRender: (value) => {
-          return value || "---";
-        },
-      },
-    },
-    {
-      label: "AppGenId",
-      name: "appGenStationId",
-      options: {
-        filter: false,
-        customBodyRender: (value) => {
-          return value || "---";
-        },
-      },
-    },
-    {
       label: "Name",
       name: "name",
-      options: {
-        filter: false,
-        customBodyRender: (value) => {
-          return value || "---";
-        },
-      },
-    },
-    {
-      label: "StreamingUrl",
-      name: "streamingUrl",
-      options: {
-        filter: false,
-        customBodyRender: (value) => {
-          return <Tooltip title={value}>
-            <div style={{
-              whiteSpace: "nowrap",
-              textOverflow: "ellipsis",
-              maxWidth: 100,
-              wordWrap: "none",
-              cursor: "pointer",
-              overflow: "hidden",
-            }}>
-              {value}
-            </div>
-          </Tooltip>;
-        },
-      },
-    },
-    {
-      label: "SubTitle",
-      name: "subTitle",
-      options: {
-        filter: false,
-        customBodyRender: (value) => {
-          return value || "---";
-        },
-      },
     },
     {
       label: "Logo",
       name: "_id",
       options: {
         filter: false,
-        customBodyRender: (value) => {
+        customBodyRender: (value, { columnIndex }, updateValue) => {
           const rowData = radioStationStore.getRadioStations.docs.find(
             (itm) => itm._id == value
           );
@@ -111,64 +54,44 @@ function RadioStation() {
       },
     },
     {
-      label: "Continent",
-      name: "continent",
+      label: "Streaming URL",
+      name: "streamingUrl",
       options: {
         filter: false,
-        customBodyRender: (value) => {
-          return value || "---";
+        customBodyRender: (value, { columnIndex }, updateValue) => {
+          return <Tooltip title={value}><div style={{
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+            maxWidth: 100,
+            wordWrap: "none",
+            cursor: "pointer",
+            overflow: "hidden",
+          }
+          }>{value}</div></Tooltip>;
+        },
+      },
+    },
+    {
+      label: "Website",
+      name: "website",
+      options: {
+        filter: false,
+        customBodyRender: (value, { columnIndex }, updateValue) => {
+          return <Tooltip title={value}><div style={{
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+            maxWidth: 100,
+            wordWrap: "none",
+            cursor: "pointer",
+            overflow: "hidden",
+          }
+          }>{value}</div></Tooltip>;
         },
       },
     },
     {
       label: "Country",
       name: "country",
-      options: {
-        filter: false,
-        customBodyRender: (value) => {
-          return value || "---";
-        },
-      },
-    },
-    {
-      label: "State",
-      name: "state",
-      options: {
-        filter: false,
-        customBodyRender: (value) => {
-          return value || "---";
-        },
-      },
-    },
-    {
-      label: "City",
-      name: "city",
-      options: {
-        filter: false,
-        customBodyRender: (value) => {
-          return value || "---";
-        },
-      },
-    },
-    {
-      label: "Genres",
-      name: "genres",
-      options: {
-        filter: false,
-        customBodyRender: (value) => {
-          return value.join(", ") || "---";
-        },
-      },
-    },
-    {
-      label: "Admin Email",
-      name: "adminEmail",
-      options: {
-        filter: false,
-        customBodyRender: (value) => {
-          return value || "---";
-        },
-      },
     },
     {
       label: "Status",
@@ -189,16 +112,15 @@ function RadioStation() {
           //   statusItem.push(
           //     <Badge color="rose" size="small" style={{ cursor: "pointer" }} label={<Tooltip title={errorMessage}><div style={{ fontSize: 11 }}>Error</div></Tooltip>} />
           //   );
-          // } else 
-          if (rowData.isStreamStarted) {
-            statusItem.push(
-              <Badge color="success" size="small" label={<div style={{ fontSize: 11, marginLeft: 0 }}>Listening</div>} />
-            );
-          } else {
-            statusItem.push(
-              <Badge color="warning" size="small" label={<div style={{ fontSize: 11 }}>Not Listening</div>} />
-            );
-          }
+          // } else if (rowData.isStreamStarted) {
+          statusItem.push(
+            <Badge color="success" size="small" label={<div style={{ fontSize: 11, marginLeft: 0 }}>Listening</div>} />
+          );
+          // } else {
+          //   statusItem.push(
+          //     <Badge color="warning" size="small" label={<div style={{ fontSize: 11 }}>Not Listening</div>} />
+          //   );
+          // }
 
           // if (rowData?.isStreamStarted === false && !rowData?.isError) {
           //   statusItem.push(
@@ -235,9 +157,9 @@ function RadioStation() {
           const rowData = radioStationStore.getRadioStations.docs.find(
             (itm) => itm._id == value
           );
-
           return (
             <Table.RadioTableRowAction
+              enableDelete={true}
               viewButtonProps={{
                 onClick: () => {
                   const path = `${getRouteNames()["radio_station"]
@@ -250,28 +172,17 @@ function RadioStation() {
                   });
                 },
               }}
-
-              enableStart={!rowData?.isStreamStarted ? true : false}
               startButtonProps={{
-                loading: (state.onStart && value === state.startId)
+                onClick: () => onStartRadio(value)
               }}
-              startPopConfirmProps={{
-                onClickYes: () => onStartRadio(value)
-              }}
-
-              enableStop={rowData?.isStreamStarted}
               stopButtonProps={{
-                loading: (state.onStop && value === state.stopId)
+                onClick: () => onStopRadio(value)
               }}
-              stopPopConfirmProps={{
-                onClickYes: () => onStopRadio(value)
-              }}
-
               playPopConfirmProps={{
                 onClickYes: () => onPlayKey(value, rowData)
               }}
               playButtonProps={{
-                loading: (state.isPlaying && value === state.playingKey),
+                loading: (state.isPlaying && value == state.playingKey),
               }}
             />
 
@@ -290,7 +201,7 @@ function RadioStation() {
         setState({ ...state, onStart: false, startId: '' });
       })
       .catch((err) => {
-        toast.error(err?.message || "Error while listening");
+        toast.error("Error while listening");
         setState({ ...state, onStart: false, startId: '' });
       });
   }
@@ -304,7 +215,7 @@ function RadioStation() {
         setState({ ...state, onStop: false, stopId: '' });
       })
       .catch((err) => {
-        toast.error(err?.message || "Error while radio stopped");
+        toast.error("Error while radio stopped");
         setState({ ...state, onStop: false, stopId: '' });
       });
   }
@@ -324,16 +235,16 @@ function RadioStation() {
 
     })
   }
-
   const closePlayingModal = () => {
     stop && setValues({ ...values, openPlayingModal: false })
   }
+
 
   return (
     <div>
       <FancyCard
         cardHeader={
-          <FancyCard.CardHeader color="purple">
+          <FancyCard.CardHeader >
             {(headerClasses) => (
               <>
                 <h4 className={headerClasses.cardTitleWhite}>Radio Stations</h4>

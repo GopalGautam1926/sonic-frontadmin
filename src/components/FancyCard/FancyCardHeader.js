@@ -22,6 +22,7 @@ export default function FancyCardHeader({
           display: "flex",
           justifyContent: "space-between",
           background: "transparent",
+          
           boxShadow: "none",
           ...style,
         }}
@@ -35,7 +36,7 @@ export default function FancyCardHeader({
     <Paper
       style={{
         padding: 10,
-        background: theme.palette[color]?.main,
+        background: theme.palette.primary.main,
         ...style,
       }}
     >

@@ -23,7 +23,7 @@ export default function TableRowAction({
   return (
     <RSpace justifyContent="flex-start" spacing={0}>
       <RSpace.Item>
-        <IconButton size="small" {...viewButtonProps}>
+        <IconButton color="secondary" size="small" {...viewButtonProps}>
           {viewButton || <VisibilityOutlinedIcon style={{ fontSize: 18 }} />}
         </IconButton>
       </RSpace.Item>
@@ -34,7 +34,7 @@ export default function TableRowAction({
               <AppButton
                 asIconButton={true}
                 size="small"
-                color="primary"
+                color="secondary"
                 {...downloadButtonProps}
               >
                 {downloadButton || (

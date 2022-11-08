@@ -18,26 +18,6 @@ class RadioStationsHttps {
     });
   }
 
-  /**
-   * create new radio station with appgen
-   * @param {object} payload
-   * @returns
-   */
-  createNewAppgenRadioStation(payload) {
-    return AppWebRequest({
-      method: "post",
-      url: "/radiostations/import-from-appgen-excel",
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        'Accept': 'application/json'
-      },
-      data: payload,
-    })
-    // .then((res) => {
-    //   radioStationStore.addRadioStation(res?.data);
-    //   return res;
-    // });
-  }
 
   /**
    * create new radio station

@@ -57,7 +57,7 @@ class RadioStationStore {
       params: {
         sort: 'name,-createdAt',
         limit: 5000,
-        country: `/${this.filters?.country}/i` || undefined,
+        country: this.filters?.country || undefined,
         shortListed: this.filters?.shortListed === true || this.filters?.shortListed === "true" ? true : undefined
       },
     }

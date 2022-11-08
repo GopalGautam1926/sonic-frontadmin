@@ -268,7 +268,7 @@ export default function TrackPlaysReport() {
         <div>
             <FancyCard
                 cardHeader={
-                    <FancyCard.CardHeader color="success">
+                    <FancyCard.CardHeader >
                         {(headerClasses) => (
                             <>
                                 <h4 className={headerClasses.cardTitleWhite}>Track Plays Report</h4>

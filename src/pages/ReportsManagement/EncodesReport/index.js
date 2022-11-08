@@ -265,7 +265,7 @@ export default function EncodesReport() {
         <div>
             <FancyCard
                 cardHeader={
-                    <FancyCard.CardHeader color="purple">
+                    <FancyCard.CardHeader >
                         {(headerClasses) => (
                             <>
                                 <h4 className={headerClasses.cardTitleWhite}>Encodes Report</h4>

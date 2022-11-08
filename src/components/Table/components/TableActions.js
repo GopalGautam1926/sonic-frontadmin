@@ -26,20 +26,20 @@ export default function TableActions({
   const theme = useTheme();
 
   return (
-    <Grid
-      container
-      spacing={1}
-      style={{ display: "flex", alignItems: "center" }}
-    >
+    <Grid container spacing={1} style={{ display: "flex", alignItems: "center" }}>
       <Grid item>
         <AppButton {...refreshButtonProps}>Refresh</AppButton>
       </Grid>
 
-      {filterOnly || addPlusFilter ? (
+      {filterOnly || addPlusFilter ?
         <Grid item>
           {openDialogFilter ? (
             <RDialog.CustomDialog
-              anchorElement={<AppButton>FILTER</AppButton>}
+              anchorElement={
+                <AppButton >
+                  FILTER
+                </AppButton>
+              }
               disableBackdropClick
               disableEscapeKeyDown
               fullWidth={true}
@@ -66,17 +66,18 @@ export default function TableActions({
               }}
             </RDialog.CustomDialog>
           ) : (
-            <AppButton {...filterButtonProps}>FILTER</AppButton>
+            <AppButton {...filterButtonProps}>
+              FILTER
+            </AppButton>
           )}
-        </Grid>
-      ) : null}
+        </Grid> : null}
 
-      {!filterOnly || addPlusFilter ? (
+      {!filterOnly || addPlusFilter ?
         <Grid item>
           {openDialogWhenClickAdd ? (
             <RDialog.CustomDialog
               anchorElement={
-                <AppButton>
+                <AppButton >
                   <AddIcon />
                 </AppButton>
               }
@@ -107,23 +108,24 @@ export default function TableActions({
               }}
             </RDialog.CustomDialog>
           ) : (
-            <AppButton color="success" {...addButtonProps}>
+            <AppButton  {...addButtonProps}>
               <AddIcon />
             </AppButton>
           )}
-        </Grid>
-      ) : null}
+        </Grid> : null}
 
-      {exportData && (
+      {exportData &&
         <Grid item style={{ display: "flex", alignItems: "center" }}>
           <RPopover
             paperStyle={{ minWidth: 100 }}
-            TransitionProps={
-              {
-                // onExit: () => setState({ ...state, newUsernameOrId: "" }),
-              }
+            TransitionProps={{
+              // onExit: () => setState({ ...state, newUsernameOrId: "" }),
+            }}
+            anchorElement={
+              <AppButton >
+                EXPORT
+              </AppButton>
             }
-            anchorElement={<AppButton color="purple">EXPORT</AppButton>}
           >
             {({ handleClose }) => (
               <div>
@@ -149,9 +151,9 @@ export default function TableActions({
             )}
           </RPopover>
         </Grid>
-      )}
+      }
 
-      {dateRange && (
+      {dateRange &&
         <Grid item xs={12} sm={6} md={8} style={{ zIndex: 999 }}>
           <ReportsDateRange
             startDate={props?.startDate}
@@ -160,7 +162,7 @@ export default function TableActions({
             onChangeEndDate={props?.onChangeEndDate}
           />
         </Grid>
-      )}
+      }
     </Grid>
   );
 }

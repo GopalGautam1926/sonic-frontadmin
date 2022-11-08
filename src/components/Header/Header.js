@@ -9,7 +9,7 @@ import {
   Menu,
   MenuItem,
   Divider,
-  Popover,
+  Popover
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import useStyles from "./styles";
@@ -70,12 +70,12 @@ const ProfileMenu = observer(() => {
         anchorEl={profileMenu}
         onClose={() => setProfileMenu(null)}
         anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "right",
+          vertical: 'bottom',
+          horizontal: 'right',
         }}
         transformOrigin={{
-          vertical: "top",
-          horizontal: "center",
+          vertical: 'top',
+          horizontal: 'center',
         }}
       >
         <Divider light />
