@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, useTheme } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import { observer } from "mobx-react";
 import FancyCard from "../../../components/FancyCard/FancyCard";
 import AppTextInput from "../../../components/AppTextInput/AppTextInput";
@@ -8,11 +8,9 @@ import { useStore } from "../../../stores";
 import CustomDropDown from "../../../components/AppTextInput/CustomDropDown";
 import { CompanyType } from "../../../constants";
 import PartnerPicker from "../../../components/Picker/PartnerPicker";
-import { log } from "../../../utils/app.debug";
 
 function FilterCompany({ closeDialog }) {
   const { companyStore } = useStore();
-  const theme = useTheme();
 
   const onSubmit = (e) => {
     e.preventDefault();

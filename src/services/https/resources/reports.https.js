@@ -1,8 +1,6 @@
-import { AxiosRequestConfig } from "axios";
 import { AppWebRequest } from "../NetworkManager";
 
 class ReportsHttps {
-    constructor() { }
 
     /**
      * Fetch all sonickeys detected plays

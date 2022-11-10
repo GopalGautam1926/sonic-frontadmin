@@ -11,7 +11,6 @@ import CompanyPicker from '../../../../components/Picker/CompanyPicker'
 import PartnerPicker from '../../../../components/Picker/PartnerPicker'
 import { Channel } from '../../../../constants'
 import { useStore } from '../../../../stores'
-import { log } from '../../../../utils/app.debug'
 
 const FilterCount = ({ closeDialog }) => {
     const { summaryCountStore } = useStore();

@@ -44,7 +44,7 @@ export default function withCognitoAuthenticotor(WrappedComponent) {
             break;
         }
       });
-    }, []);
+    }, []);// eslint-disable-line react-hooks/exhaustive-deps
 
     if (profileStore.loading) {
       return <Loading
@@ -54,7 +54,7 @@ export default function withCognitoAuthenticotor(WrappedComponent) {
     }
 
     if (
-      sessionStore.authState == AuthState.SignedIn &&
+      sessionStore.authState === AuthState.SignedIn &&
       sessionStore.getSession &&
       localStorage.getItem("user_info")
     ) {

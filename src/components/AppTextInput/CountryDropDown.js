@@ -2,10 +2,8 @@ import React from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
-import Input from "@material-ui/core/Input";
 // @material-ui/icons
 import Clear from "@material-ui/icons/Clear";
 import Check from "@material-ui/icons/Check";
@@ -13,7 +11,6 @@ import Check from "@material-ui/icons/Check";
 import useStyles from "./styles";
 import { Select } from "@material-ui/core";
 import countries from "../../constants/countries";
-import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 // ISO 3166-1 alpha-2

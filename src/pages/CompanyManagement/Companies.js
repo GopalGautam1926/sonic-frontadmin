@@ -17,7 +17,7 @@ export default function Companies() {
 
   React.useEffect(() => {
     companyStore.fetchCompanies();
-  }, [
+  }, [// eslint-disable-line react-hooks/exhaustive-deps
     companyStore?.getDateRange?.startDate,
     companyStore?.getDateRange?.endDate,
   ]);
@@ -103,7 +103,7 @@ export default function Companies() {
         filter: false,
         customBodyRender: (value, { columnIndex }, updateValue) => {
           const rowData = companyStore.getCompany.docs?.find(
-            (itm) => itm._id == value
+            (itm) => itm._id === value
           );
           return (
             <Table.TableRowAction

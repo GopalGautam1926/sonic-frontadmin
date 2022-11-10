@@ -5,7 +5,6 @@ import AppTextInput from "../../../../components/AppTextInput/AppTextInput";
 import FancyCard from "../../../../components/FancyCard/FancyCard";
 import RadioStationsHttps from "../../../../services/https/resources/radiostation.https";
 import { toast } from "react-toastify";
-import { useStore } from "../../../../stores";
 import VolumeDownIcon from '@material-ui/icons/VolumeDown';
 import CountryDropDown from "../../../../components/AppTextInput/CountryDropDown";
 
@@ -20,7 +19,6 @@ const initialRadioStation = {
 export default function AddRadioStation({ closeDialog }) {
     const [radio, setRadioStation] = useState(initialRadioStation);
     const [createButton, setCreateButton] = useState(false);
-    const { radioStationStore } = useStore();
     const [state, setState] = useState({
         loading: false,
         validateLoading: false,
@@ -34,7 +32,7 @@ export default function AddRadioStation({ closeDialog }) {
         } else {
             setCreateButton(false);
         }
-    }, [radio])
+    }, [radio])// eslint-disable-line react-hooks/exhaustive-deps
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -54,7 +52,6 @@ export default function AddRadioStation({ closeDialog }) {
             });
     };
 
-    const createNewStation = document.getElementById('create');
 
     return (
         <div>
@@ -167,7 +164,7 @@ export default function AddRadioStation({ closeDialog }) {
                                 e.preventDefault();
                                 setState({ ...state, validateLoading: true });
                                 let Emailverification = (new RegExp(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,15}/g).test(radio.adminEmail));
-                                if (radio.name === "" || radio.country === "" || radio.streamingUrl == "" || radio.website === "" || radio.adminEmail === "" || Emailverification !== true) {
+                                if (radio.name === "" || radio.country === "" || radio.streamingUrl === "" || radio.website === "" || radio.adminEmail === "" || Emailverification !== true) {
                                     toast.error("Please fill all the fields and Valid Email");
                                     setState({ ...state, validateLoading: false });
                                 } else {

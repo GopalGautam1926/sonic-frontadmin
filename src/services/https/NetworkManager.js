@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import axios from "axios";
 import { sessionStore } from "../../stores/session/session.store";
 import httpUrl from "./httpUrl";
 import { log } from "../../utils/app.debug";

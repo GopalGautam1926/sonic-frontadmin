@@ -40,7 +40,7 @@ const HighLevelCounts = (props) => {
                     })
                 })
         }
-    }, [])
+    }, [])// eslint-disable-line react-hooks/exhaustive-deps
 
     if (props?.company?.highLevelCountError) {
         return (

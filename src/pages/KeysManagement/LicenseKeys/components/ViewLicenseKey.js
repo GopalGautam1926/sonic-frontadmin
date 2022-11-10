@@ -21,14 +21,9 @@ import {
   List,
   ListItem,
   ListItemAvatar,
-  Typography,
 } from "@material-ui/core";
 import { Divider } from "@material-ui/core";
-import RDialog from "../../../../components/rcomponents/RDialog";
 import RPopover from "../../../../components/rcomponents/RPopover/index";
-import { InputAdornment } from "@material-ui/core";
-import usersHttps from "../../../../services/https/resources/users.https";
-import CompanyDropDown from "../../../CompanyManagement/components/CompanyDropDown";
 
 export default function ViewLicenseKey({ closeDialog }) {
   const [state, setState] = useState({
@@ -84,7 +79,7 @@ export default function ViewLicenseKey({ closeDialog }) {
 
   useEffect(() => {
     getAndSetLicense();
-  }, [licenseId]);
+  }, [licenseId]);// eslint-disable-line react-hooks/exhaustive-deps
 
   const onUpdateSubmit = (e) => {
     e.preventDefault();
@@ -352,7 +347,7 @@ export default function ViewLicenseKey({ closeDialog }) {
                         setLicense({ ...license, name: e.target.value }),
                     }}
                   />
-                  {license.type == "Company" && <AppTextInput
+                  {license.type === "Company" && <AppTextInput
                     labelText="Associated Company"
                     id="company"
                     formControlProps={{
@@ -552,7 +547,7 @@ export default function ViewLicenseKey({ closeDialog }) {
                       color="success"
                       size="small"
                     >
-                      {license.type == "Individual" && <AddIcon style={{ fontSize: 20 }} />}
+                      {license.type === "Individual" && <AddIcon style={{ fontSize: 20 }} />}
                     </AppButton>
                   }
                 >
@@ -599,14 +594,14 @@ export default function ViewLicenseKey({ closeDialog }) {
                       primary={user.username || user.sub}
                       secondary={user.email || "--"}
                     />
-                    {license.type == "Individual" && <RPopconfirm
+                    {license.type === "Individual" && <RPopconfirm
                       anchorElement={
                         <AppButton
                           asIconButton={true}
                           color="danger"
                           size="small"
                           loading={
-                            user.sub == state.removingUserId &&
+                            user.sub === state.removingUserId &&
                             state.removingUserLoading
                           }
                         >

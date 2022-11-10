@@ -1,9 +1,7 @@
-import { AxiosRequestConfig } from "axios";
 import { AppWebRequest } from "../NetworkManager";
 import { apiKeyStore } from "../../../stores/core/apikey.store";
 
 class ApiKeysHttps {
-  constructor() {}
 
   /**
    * Fetch all api keys

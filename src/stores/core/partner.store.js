@@ -4,11 +4,10 @@ import {
     computed,
     toJS
 } from "mobx";
-import { AxiosRequestConfig } from "axios";
+
 import { log } from "../../utils/app.debug";
 import partnerHttps from "../../services/https/resources/partner.https";
 import deepmerge from "deepmerge";
-import moment from "moment";
 
 class PartnerStore {
     @observable loading = false;
@@ -25,10 +24,6 @@ class PartnerStore {
         hasNextPage: false,
         prevPage: 0,
         nextPage: 0,
-    }
-
-    constructor() {
-        // makeObservable(this);
     }
 
     @observable partnerTablePage = 1;
@@ -147,7 +142,7 @@ class PartnerStore {
     */
     @action
     updatePartner(id, payload) {
-        const elementsIndex = this.partner.docs.findIndex(element => element._id == id)
+        const elementsIndex = this.partner.docs.findIndex(element => element._id === id)
         this.partner.docs[elementsIndex] = { ...this.partner.docs[elementsIndex], ...payload }
     }
 

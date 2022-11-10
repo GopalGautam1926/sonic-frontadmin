@@ -1,4 +1,4 @@
-import { Grid, IconButton } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import React from "react";
 import AppTextInput from "../AppTextInput/AppTextInput";
 import Chip from "@material-ui/core/Chip";
@@ -7,6 +7,7 @@ import AppButton from "../AppButton/AppButton";
 import AddIcon from "@material-ui/icons/Add";
 import { toast } from "react-toastify";
 
+//eslint-disable-next-line
 var formatForObjectProperty = /[ `!@#$%^&*()+\-=\[\]{};':"\\|,.<>\/?~]/;
 export function KeyValueRowItem({
   keyText,

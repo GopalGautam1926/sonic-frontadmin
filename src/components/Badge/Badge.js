@@ -1,4 +1,3 @@
-import React from 'react'
 import { Chip as MuiChip } from "@material-ui/core";
 import withAppColor from '../hoc/withAppColors';
 import { withStyles } from '@material-ui/core/styles';

@@ -4,12 +4,12 @@ import {
     computed,
     toJS,
 } from "mobx";
-import { AxiosRequestConfig } from "axios";
+// import { AxiosRequestConfig } from "axios";
 import { log } from "../../utils/app.debug";
 import usersHttps from "../../services/https/resources/users.https";
 import deepmerge from "deepmerge";
 import moment from "moment";
-import { userRoles } from "../../constants";
+
 
 class UserStore {
     @observable loading = false;
@@ -28,9 +28,9 @@ class UserStore {
         nextPage: 0,
     };
 
-    constructor() {
-        // makeObservable(this);
-    }
+    // constructor() {
+    //     // makeObservable(this);
+    // }
 
     @observable dateRange = {
         startDate: new Date().setMonth(new Date().getMonth() - 1),
@@ -165,7 +165,7 @@ class UserStore {
    */
     @action
     updateUser(id, payload) {
-        const elementsIndex = this.users.docs.findIndex(element => element._id == id)
+        const elementsIndex = this.users.docs.findIndex(element => element._id === id)
         this.users.docs[elementsIndex] = { ...this.users.docs[elementsIndex], ...payload }
     }
 

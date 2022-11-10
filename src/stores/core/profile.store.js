@@ -4,21 +4,16 @@ import {
     computed,
     toJS,
 } from "mobx";
-import { AxiosRequestConfig } from "axios";
+
 import { log } from "../../utils/app.debug";
 import usersHttps from "../../services/https/resources/users.https";
-import { toast } from "react-toastify";
-import { sessionStore } from "../session/session.store";
-import { fetchInitialData } from "..";
+
 
 class ProfileStore {
     @observable loading = false;
     @observable error = null;
     @observable profile = {};
 
-    constructor() {
-        // makeObservable(this);
-    }
 
     @computed
     get getProfile() {

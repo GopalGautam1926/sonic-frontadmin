@@ -1,9 +1,7 @@
-import { AxiosRequestConfig } from "axios";
 import { partnerStore } from "../../../stores/core";
 import { AppWebRequest } from "../NetworkManager";
 
 class PartnerHttps {
-    constructor() { }
 
     /**
      * Fetch all partners

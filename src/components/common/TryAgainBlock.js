@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Card, Button } from "@material-ui/core";
+import React from "react";
+import { Card } from "@material-ui/core";
 import AppButton from "../AppButton/AppButton";
 
 const TryAgainBlock = ({ containerStyle, onClickTryAgain, message }) => {

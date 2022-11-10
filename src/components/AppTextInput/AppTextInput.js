@@ -3,7 +3,6 @@ import classNames from "classnames";
 import PropTypes from "prop-types";
 // @material-ui/core components
 import FormHelperText from '@material-ui/core/FormHelperText';
-import { makeStyles } from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
@@ -14,10 +13,8 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 // core components
 import useStyles from "./styles";
-import { CountrySelect } from "./CountryDropDown";
 import { Select } from "@material-ui/core";
 import countries from "../../constants/countries";
-import { toast } from 'react-toastify';
 
 function AppPasswordInput({ inputProps, ...props }) {
   const [passwordVisibility, setPasswordVisibility] = useState(false);

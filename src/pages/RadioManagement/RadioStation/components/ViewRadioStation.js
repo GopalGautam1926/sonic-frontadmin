@@ -68,7 +68,7 @@ export default function ViewRadioStation({ closeDialog }) {
 
     useEffect(() => {
         getAndSetRadioStation();
-    }, [radioStationId]);
+    }, [radioStationId]);// eslint-disable-line react-hooks/exhaustive-deps
 
     const onUpdateSubmit = (e) => {
         e.preventDefault();
@@ -267,7 +267,7 @@ export default function ViewRadioStation({ closeDialog }) {
                                     e.preventDefault();
                                     setStateData({ ...stateData, validateLoading: true });
                                     let Emailverification = (new RegExp(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,15}/g).test(radioStation.adminEmail));
-                                    if (radioStation.name === "" || radioStation.country === "" || radioStation.streamingUrl == "" || radioStation.website === "" || radioStation.adminEmail === "" || Emailverification !== true) {
+                                    if (radioStation.name === "" || radioStation.country === "" || radioStation.streamingUrl === "" || radioStation.website === "" || radioStation.adminEmail === "" || Emailverification !== true) {
                                         toast.error("Please fill all the fields and Valid Email");
                                         setStateData({ ...stateData, validateLoading: false });
                                     } else {

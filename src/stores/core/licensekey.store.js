@@ -2,15 +2,9 @@ import {
   observable,
   action,
   computed,
-  toJS,
-  autorun,
-  reaction,
-  // makeObservable,
-  // makeAutoObservable,
-  when,
-  observe,
+  toJS
 } from "mobx";
-import { AxiosRequestConfig } from "axios";
+
 import { log } from "../../utils/app.debug";
 import licensekeysHttps from "../../services/https/resources/licensekeys.https";
 import deepmerge from 'deepmerge'
@@ -32,9 +26,7 @@ class LicenseKeyStore {
     prevPage: 0,
     nextPage: 0,
   };
-  constructor() {
-    // makeObservable(this);
-  }
+
 
   @observable licenseKeyTablePage = 1;
 
@@ -125,7 +117,7 @@ class LicenseKeyStore {
    */
    @action
    updateLicenseKey(key,payload) {
-    const elementsIndex = this.licenseKeys.docs.findIndex(element => element.key == key )
+    const elementsIndex = this.licenseKeys.docs.findIndex(element => element.key === key )
     this.licenseKeys.docs[elementsIndex]={...this.licenseKeys.docs[elementsIndex],...payload}
    }
 }

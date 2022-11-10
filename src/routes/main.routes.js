@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Redirect, Route, BrowserRouter } from "react-router-dom";
+import { Switch, Redirect, Route} from "react-router-dom";
 import { flattenRoutes } from "./routes.data";
 
 

@@ -21,9 +21,7 @@ class RootStore {
     reportsdetection = reportsdetectionStore
     summaryCountStore = summaryCountStore
 
-    constructor() {
-        //Do some initial stuffs
-    }
+
 }
 
 export const rootStore = new RootStore()

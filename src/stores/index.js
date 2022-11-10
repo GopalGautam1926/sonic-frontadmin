@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { useContext } from "react";
 import { createContext } from "react";
 import { rootStore } from './root/root.store';

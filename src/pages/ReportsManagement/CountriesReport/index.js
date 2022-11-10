@@ -12,7 +12,8 @@ export default function CountriesReport() {
     React.useEffect(() => {
         reportsdetection.changeDetectionTablePage(1);
         reportsdetection.fetchReportsDetection(1, "COUNTRIES");
-    }, [reportsdetection?.getDateRange?.startDate, reportsdetection?.getDateRange?.endDate]);
+    }, [// eslint-disable-line react-hooks/exhaustive-deps
+        reportsdetection?.getDateRange?.startDate, reportsdetection?.getDateRange?.endDate]);
 
     const columns = [
         {

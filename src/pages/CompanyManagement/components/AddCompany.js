@@ -28,7 +28,6 @@ const initialCompany = {
       line1: "",
       line2: "",
     },
-    owner: "",
   },
   partnerID: "",
   error: null,

@@ -4,7 +4,6 @@ import {
     computed,
     toJS
 } from "mobx";
-import { AxiosRequestConfig } from "axios";
 import { log } from "../../utils/app.debug";
 import companyHttps from "../../services/https/resources/company.https";
 import deepmerge from "deepmerge";
@@ -26,9 +25,7 @@ class CompanyStore {
         nextPage: 0,
     }
 
-    constructor() {
-        // makeObservable(this);
-    }
+
 
     @observable companyTablePage = 1;
 
@@ -149,7 +146,7 @@ class CompanyStore {
     */
     @action
     updateCompany(id, payload) {
-        const elementsIndex = this.company.docs.findIndex(element => element._id == id)
+        const elementsIndex = this.company.docs.findIndex(element => element._id === id)
         this.company.docs[elementsIndex] = { ...this.company.docs[elementsIndex], ...payload }
     }
 

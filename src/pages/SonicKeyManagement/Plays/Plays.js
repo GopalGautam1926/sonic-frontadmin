@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid, Tooltip } from "@material-ui/core";
+import {  Tooltip } from "@material-ui/core";
 import DataFetchingStateComponent from "../../../components/common/DataFetchingStateComponent";
 import FancyCard from "../../../components/FancyCard/FancyCard";
 import Table from "../../../components/Table/Table";
@@ -25,7 +25,8 @@ export default function Plays() {
   React.useEffect(() => {
     playsStore.changePlayTablePage(1);
     playsStore.fetchPlays();
-  }, [playsStore?.getDateRange?.startDate, playsStore?.getDateRange?.endDate]);
+  }, [// eslint-disable-line react-hooks/exhaustive-deps
+    playsStore?.getDateRange?.startDate, playsStore?.getDateRange?.endDate]);
 
   const deletePlay = (playId) => {
     setState({ ...state, deletigPlayId: playId, isDeletingPlay: true });
@@ -173,7 +174,7 @@ export default function Plays() {
                   anchorElement={
                     <AppButton
                       loading={
-                        state.deletigPlayId && value == state.deletigPlayId
+                        state.deletigPlayId && value === state.deletigPlayId
                       }
                       asIconButton={true}
                       color="danger"

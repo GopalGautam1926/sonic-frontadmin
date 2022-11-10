@@ -54,7 +54,7 @@ class SummaryCountStore {
         companyName: {},
     };
 
-    constructor() { }
+    // constructor() { }
 
     /** DATE RANGE */
     @computed

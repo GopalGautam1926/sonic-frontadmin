@@ -1,53 +1,50 @@
 import { Grid } from "@material-ui/core";
-import React, { useState, useEffect, version } from "react";
+import React, { useState, useEffect} from "react";
 import AppButton from "../../../components/AppButton/AppButton";
 import AppTextInput from "../../../components/AppTextInput/AppTextInput";
 import FancyCard from "../../../components/FancyCard/FancyCard";
 import RSpace from "../../../components/rcomponents/RSpace";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams} from "react-router-dom";
 import releaseHttps from "../../../services/https/resources/release.https";
 import DataFetchingStateComponent from "../../../components/common/DataFetchingStateComponent";
 import { toast } from "react-toastify";
 import { SwitchWithLabel } from "../../../components/Switch/Switch";
 import PlatformDropDown from "../../../components/AppTextInput/PlatformDropDown";
 import { releaseStore } from "../../../stores/core";
-//import TextAreaInput from "../../../components/AppTextInput/TextAreaInput";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
-  selectFile: {
-    fontSize: 14,
-    color: "#828282",
-  },
-  audioFile: {
-    height: 25,
-    width: "32vw",
-    marginRight: 30,
-    fontSize: 16,
-    color: "#212529",
-    borderBottom: "1px solid #ACACAC",
-  },
-  clue: {
-    paddingBottom: 20,
-    fontSize: 12,
-    color: "#ACACAC",
-  },
-  uploadBtn: {
-    height: 45,
-    padding: "0px 20px",
-    textTransform: "initial",
-    fontSize: 15,
-    fontFamily: 'Roboto-Bold',
-    color: "#343F84",
-    borderRadius: 8,
-    border: "2px solid #343F84",
-  },
-}));
+
+// const useStyles = makeStyles((theme) => ({
+//   selectFile: {
+//     fontSize: 14,
+//     color: "#828282",
+//   },
+//   audioFile: {
+//     height: 25,
+//     width: "32vw",
+//     marginRight: 30,
+//     fontSize: 16,
+//     color: "#212529",
+//     borderBottom: "1px solid #ACACAC",
+//   },
+//   clue: {
+//     paddingBottom: 20,
+//     fontSize: 12,
+//     color: "#ACACAC",
+//   },
+//   uploadBtn: {
+//     height: 45,
+//     padding: "0px 20px",
+//     textTransform: "initial",
+//     fontSize: 15,
+//     fontFamily: 'Roboto-Bold',
+//     color: "#343F84",
+//     borderRadius: 8,
+//     border: "2px solid #343F84",
+//   },
+// }));
 
 
 export default function ViewVersion({ closeDialog }) {
-  const classes = useStyles();
   const [state, setState] = useState({
     editMode: false,
     loading: true,
@@ -58,7 +55,7 @@ export default function ViewVersion({ closeDialog }) {
     oldVersion: {}
   });
   let { versionId } = useParams();
-  const [onEdit, setOnEdit] = useState(false);
+  const onEdit = useState(false);
   const [version, setVersion] = useState({
     versionCode: "",
     releaseNote: "",
@@ -80,7 +77,7 @@ export default function ViewVersion({ closeDialog }) {
 
   useEffect(() => {
     getAndSetVersion();
-  }, [versionId]);
+  }, [versionId]);// eslint-disable-line react-hooks/exhaustive-deps
 
   const onUpdateSubmit = (e) => {
     e.preventDefault();

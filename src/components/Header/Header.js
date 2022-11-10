@@ -6,7 +6,6 @@ import {
   IconButton,
   Typography,
   Button,
-  Menu,
   MenuItem,
   Divider,
   Popover
@@ -52,7 +51,6 @@ export default Header;
 
 const ProfileMenu = observer(() => {
   const [profileMenu, setProfileMenu] = React.useState(null);
-  const classes = useStyles();
   const { sessionStore } = useStore();
 
   return (

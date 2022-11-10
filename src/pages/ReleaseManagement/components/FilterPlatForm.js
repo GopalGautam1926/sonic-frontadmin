@@ -5,25 +5,19 @@ import FancyCard from '../../../components/FancyCard/FancyCard';
 import AppButton from '../../../components/AppButton/AppButton';
 import { useStore } from '../../../stores';
 import PlatformDropDown from "../../../components/AppTextInput/PlatformDropDown";
-import { makeStyles } from "@material-ui/core/styles";
-const useStyles = makeStyles((theme) => ({
-    PlatformDropDown: {
-        minWidth: "217px"
-    }
-}));
+
+
 
 function FilterPlatform({ closeDialog }) {
     const { releaseStore } = useStore();
-    const classes = useStyles();
+
 
     const onSubmit = (e) => {
         e.preventDefault();
         releaseStore.fetchVersions();
         closeDialog();
     }
-    const obChangePlatform = (e) => {
 
-    }
 
     return (
         <div>

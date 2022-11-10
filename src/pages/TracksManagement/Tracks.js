@@ -15,7 +15,8 @@ export default function Tracks() {
 
   React.useEffect(() => {
     tracksStore.fetchTracks()
-  }, [tracksStore?.dateRange?.startDate, tracksStore?.dateRange?.endDate])
+  }, [// eslint-disable-line react-hooks/exhaustive-deps
+    tracksStore?.dateRange?.startDate, tracksStore?.dateRange?.endDate])
 
   const columns = [
     {
@@ -94,7 +95,7 @@ export default function Tracks() {
         filter: false,
         customBodyRender: (value) => {
           const rowData = tracksStore?.tracks?.docs.find(
-            (itm) => itm._id == value
+            (itm) => itm._id === value
           );
           if (rowData?.partner?._id) {
             return rowData?.partner?._id

@@ -1,10 +1,9 @@
-import { FormControl, Grid } from "@material-ui/core";
+import { FormControl } from "@material-ui/core";
 import { Dialog } from "@material-ui/core";
 import cogoToast from "cogo-toast";
 import React from "react";
 import { useHistory } from "react-router-dom";
 import AppButton from "../../../components/AppButton/AppButton";
-import AppTextInput from "../../../components/AppTextInput/AppTextInput";
 import FancyCard from "../../../components/FancyCard/FancyCard";
 import UserPicker from "../../../components/Picker/UserPicker/UserPicker";
 import companyHttps from "../../../services/https/resources/company.https";

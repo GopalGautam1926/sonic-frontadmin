@@ -1,8 +1,7 @@
-import { AxiosRequestConfig } from "axios";
+
 import { AppWebRequest } from "../NetworkManager";
 
 class TracksHttps {
-    constructor() { }
 
     fetchTracks(params = {}) {
         return AppWebRequest({

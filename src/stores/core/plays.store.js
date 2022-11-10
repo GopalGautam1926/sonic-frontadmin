@@ -1,5 +1,4 @@
 import { observable, action, computed, toJS } from "mobx";
-import { AxiosRequestConfig } from "axios";
 import { log } from "../../utils/app.debug";
 import sonickeysHttps from "../../services/https/resources/sonickeys.https";
 import moment from "moment";
@@ -42,9 +41,6 @@ class PlaysStore {
   };
   @observable playTablePage = 1;
 
-  constructor() {
-    // makeObservable(this);
-  }
 
   @computed
   get getDateRange() {

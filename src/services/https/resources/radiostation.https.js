@@ -1,9 +1,7 @@
-import { AxiosRequestConfig } from "axios";
 import { AppWebRequest } from "../NetworkManager";
 import { radioStationStore } from "../../../stores/core/radiostation.store";
 
 class RadioStationsHttps {
-  constructor() { }
 
   /**
    * Fetch all license ids

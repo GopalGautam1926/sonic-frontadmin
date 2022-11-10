@@ -4,7 +4,7 @@ import {
     computed,
     toJS,
 } from "mobx";
-import { AxiosRequestConfig } from "axios";
+// import { AxiosRequestConfig } from "axios";
 import { log } from "../../utils/app.debug";
 import moment from "moment";
 import reportsHttps from "../../services/https/resources/reports.https";
@@ -45,7 +45,6 @@ class SonicKeyStore {
     };
     @observable sonickeyTablePage = 1;
 
-    constructor() { }
 
     //DATE RANGE
     @computed

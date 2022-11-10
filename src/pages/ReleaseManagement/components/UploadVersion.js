@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import AppButton from '../../../components/AppButton/AppButton'
 import FancyCard from '../../../components/FancyCard/FancyCard'
 import ReleaseHttps from "../../../services/https/resources/release.https";
 import AppTextInput from "../../../components/AppTextInput/AppTextInput";
 //import TextAreaInput from "../../../components/AppTextInput/TextAreaInput";
-import { SwitchWithLabel } from "../../../components/Switch/Switch";
 import { toast } from "react-toastify";
 import { useStore } from '../../../stores'
 import { Grid } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import PlatformDropDown from "../../../components/AppTextInput/PlatformDropDown";
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import { isNumber } from "lodash";
+
 
 const useStyles = makeStyles((theme) => ({
   selectFile: {
@@ -71,10 +69,7 @@ export default function UploadVersion({ closeDialog }) {
     const file = event.target.files[0]
     setVersion({ ...version, file: file, fileName: file.name });
   };
-  const handleChange = (e) => {
-    const value = e.target.value.replace(/\D/g, "");
-    //setAge(value);
-  };
+
 
   const onSubmit = (e) => {
     e.preventDefault();

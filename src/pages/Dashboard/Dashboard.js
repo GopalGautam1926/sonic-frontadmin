@@ -8,8 +8,6 @@ import { PartnersStats } from "../PartnerManagement/components/PartnersStats";
 import PlaysStats from "../SonicKeyManagement/Plays/components/PlaysStats";
 import { UserStats } from "../UserManagement/components/UserStats";
 import EncodedStats from "../SonicKeyManagement/Encoded/components/EncodedStats";
-import { useStore } from "../../stores";
-import { log } from "../../utils/app.debug";
 import TracksStats from "../TracksManagement/Components/TracksStats";
 
 export default function Dashboard() {

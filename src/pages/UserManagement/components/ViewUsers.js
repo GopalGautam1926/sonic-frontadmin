@@ -11,6 +11,7 @@ import RSpace from "../../../components/rcomponents/RSpace";
 import { userRoles } from "../../../constants";
 import { SwitchWithLabel } from "../../../components/Switch/Switch";
 
+
 const initialUserData = {
   editMode: false,
   editLoading: false,
@@ -49,7 +50,8 @@ export default function ViewUsers() {
 
   React.useEffect(() => {
     getAndSetUser();
-  }, [userId]);
+  }, [userId]);// eslint-disable-line react-hooks/exhaustive-deps
+
 
   const onUpdateSubmit = (e) => {
     e.preventDefault();

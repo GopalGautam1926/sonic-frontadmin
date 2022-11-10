@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import FancyCard from "../../../components/FancyCard/FancyCard";
 import Table from "../../../components/Table/Table";
 import AddApiKey from "./components/AddApiKey";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { getRouteNames } from "../../../routes/routes.data";
 import { format } from "date-fns";
 import { isExpired } from "../../../utils/general.utils";
 import RSpace from "../../../components/rcomponents/RSpace";
-import { log } from "../../../utils/app.debug";
 import { useStore } from "../../../stores";
 import DataFetchingStateComponent from "../../../components/common/DataFetchingStateComponent";
 import apikeysHttps from "../../../services/https/resources/apikeys.https";
@@ -69,7 +68,7 @@ function ApiKeys() {
           updateValue
         ) => {
           const rowData = apiKeyStore.getApiKeys.docs.find(
-            (itm) => itm._id == value
+            (itm) => itm._id === value
           );
           const statusItem = [];
           if (rowData?.disabled) {
@@ -87,7 +86,7 @@ function ApiKeys() {
               <Badge color="danger" size="small" label="Expired" />
             );
           }
-          if (statusItem.length == 0) {
+          if (statusItem.length === 0) {
             statusItem.push(
               <Badge color="success" size="small" label="Active" />
             );
@@ -110,7 +109,7 @@ function ApiKeys() {
         filter: false,
         customBodyRender: (value, { columnIndex }, updateValue) => {
           const rowData = apiKeyStore.getApiKeys.docs.find(
-            (itm) => itm._id == value
+            (itm) => itm._id === value
           );
           return (
             <Table.TableRowAction
@@ -131,7 +130,7 @@ function ApiKeys() {
                 onClickYes: () => onDeleteKey(value)
               }}
               deleteButtonProps={{
-                loading: (state.isDeleting && value == state.deletigKey),
+                loading: (state.isDeleting && value === state.deletigKey),
               }}
             />
           );

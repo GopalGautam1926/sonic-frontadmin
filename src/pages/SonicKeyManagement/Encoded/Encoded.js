@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Tooltip } from "@material-ui/core";
+import {Tooltip } from "@material-ui/core";
 import DataFetchingStateComponent from "../../../components/common/DataFetchingStateComponent";
 import FancyCard from "../../../components/FancyCard/FancyCard";
 import Table from "../../../components/Table/Table";
@@ -8,7 +8,6 @@ import { format } from "date-fns";
 import moment from "moment";
 import CustomPagination from "../../../components/common/CustomPagination";
 import FilterEncoded from "./components/FilterEncoded";
-import DatePicker from "../../../components/DatePicker/DatePicker";
 
 export default function Encoded() {
   const { sonickeyStore } = useStore();
@@ -16,7 +15,7 @@ export default function Encoded() {
   React.useEffect(() => {
     sonickeyStore.changeSonicKeyTablePage(1);
     sonickeyStore.fetchSonicKeys();
-  }, [
+  }, [// eslint-disable-line react-hooks/exhaustive-deps
     sonickeyStore?.getDateRange?.startDate,
     sonickeyStore?.getDateRange?.endDate,
   ]);

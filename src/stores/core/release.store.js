@@ -4,7 +4,7 @@ import {
     computed,
     toJS
 } from "mobx";
-import { AxiosRequestConfig } from "axios";
+
 import { log } from "../../utils/app.debug";
 import releaseHttps from "../../services/https/resources/release.https";
 import deepmerge from 'deepmerge'
@@ -25,9 +25,7 @@ class ReleaseStore {
         prevPage: 0,
         nextPage: 0,
       };
-      constructor() {
-        // makeObservable(this);
-    }
+
       @observable filters = {
         platform: "",
     };

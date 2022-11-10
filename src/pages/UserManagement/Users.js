@@ -19,7 +19,8 @@ export default function Users() {
   React.useEffect(() => {
     userStore.changeUserTablePage(1);
     userStore.fetchUsers();
-  }, [
+  },
+   [// eslint-disable-line react-hooks/exhaustive-deps
     userStore?.getDateRange?.startDate,
     userStore?.getDateRange?.endDate,
     userStore?.getUsers?.totalDocs,
@@ -68,7 +69,7 @@ export default function Users() {
       options: {
         customBodyRender: (value) => {
           const rowData = userStore.getUsers.docs.find(
-            (itm) => itm._id == value
+            (itm) => itm._id === value
           );
           if (
             rowData?.userRole === userRoles.PARTNER_ADMIN ||
@@ -151,7 +152,7 @@ export default function Users() {
         filter: false,
         customBodyRender: (value, { columnIndex }, updateValue) => {
           const rowData = userStore.getUsers.docs.find(
-            (itm) => itm._id == value
+            (itm) => itm._id === value
           );
           return (
             <Table.TableRowAction

@@ -1,6 +1,6 @@
 import React from "react";
 import { FormControl, Grid } from "@material-ui/core";
-import { useHistory, useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import AppButton from "../../../components/AppButton/AppButton";
 import DataFetchingStateComponent from "../../../components/common/DataFetchingStateComponent";
 import FancyCard from "../../../components/FancyCard/FancyCard";
@@ -8,7 +8,6 @@ import AppTextInput from "../../../components/AppTextInput/AppTextInput";
 import { toast } from "react-toastify";
 import RSpace from "../../../components/rcomponents/RSpace";
 import companyHttps from "../../../services/https/resources/company.https";
-import { useStore } from "../../../stores";
 import CustomDropDown from "../../../components/AppTextInput/CustomDropDown";
 import { CompanyType } from "../../../constants";
 import { SwitchWithLabel } from "../../../components/Switch/Switch";
@@ -29,8 +28,6 @@ export default function ViewCompany({ closeDialog }) {
   });
   let { companyId } = useParams();
   const location = useLocation();
-  const history = useHistory();
-  const { companyStore } = useStore();
   const [company, setCompany] = React.useState({});
 
   const getAndSetCompany = async () => {
@@ -51,7 +48,7 @@ export default function ViewCompany({ closeDialog }) {
 
   React.useEffect(() => {
     getAndSetCompany();
-  }, [companyId]);
+  }, [companyId]);// eslint-disable-line react-hooks/exhaustive-deps
 
   const onUpdateSubmit = (e) => {
     e.preventDefault();

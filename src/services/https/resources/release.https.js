@@ -1,10 +1,8 @@
-import { AxiosRequestConfig } from "axios";
+
 import { AppWebRequest } from "../NetworkManager";
 import { releaseStore } from "../../../stores/core/release.store";
-var FormData = require('form-data');
-var fs = require('fs');
+
 class ReleaseHttps {
-    constructor() { }
 
     /**
      * Fetch all sonickeys

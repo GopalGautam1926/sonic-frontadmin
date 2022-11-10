@@ -73,7 +73,7 @@ export default function ViewApiKey({ closeDialog }) {
 
   useEffect(() => {
     getAndSetApiKey();
-  }, [apiId]);
+  }, [apiId]);// eslint-disable-line react-hooks/exhaustive-deps
 
   const onUpdateSubmit = (e) => {
     e.preventDefault();
@@ -240,7 +240,7 @@ export default function ViewApiKey({ closeDialog }) {
 
               <Grid container spacing={1}>
                 <Grid item xs={12} sm={6} md={6}>
-                  {apiKey.type == "Individual" && (
+                  {apiKey.type === "Individual" && (
                     <AppTextInput
                       labelText="User Id"
                       id="customer"
@@ -258,7 +258,7 @@ export default function ViewApiKey({ closeDialog }) {
                       }}
                     />
                   )}
-                  {apiKey.type == "Company" && (
+                  {apiKey.type === "Company" && (
                     <AppTextInput
                       labelText="Company Id "
                       id="company"

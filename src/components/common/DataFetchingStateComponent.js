@@ -1,6 +1,3 @@
-import { CardContent, CircularProgress } from "@material-ui/core";
-import { Typography } from "@material-ui/core";
-import { Card } from "@material-ui/core";
 import React from "react";
 import Loading from "./Loading";
 import TryAgainBlock from "./TryAgainBlock";

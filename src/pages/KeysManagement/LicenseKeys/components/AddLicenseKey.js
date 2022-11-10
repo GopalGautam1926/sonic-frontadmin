@@ -7,10 +7,8 @@ import { SwitchWithLabel } from "../../../../components/Switch/Switch";
 import InputLabel from "@material-ui/core/InputLabel";
 import DatePicker from "../../../../components/DatePicker/DatePicker";
 import KeyValue from "../../../../components/KeyValue/KeyValue";
-import { log } from "../../../../utils/app.debug";
 import licensekeysHttps from "../../../../services/https/resources/licensekeys.https";
 import { toast } from "react-toastify";
-import { useStore } from "../../../../stores";
 import CompanyDropDown from "../../../CompanyManagement/components/CompanyDropDown";
 
 const initialLicense = {
@@ -31,7 +29,6 @@ const initialLicense = {
 };
 export default function AddLicenseKey({ closeDialog }) {
   const [license, setLicense] = useState(initialLicense);
-  const { licenseKeyStore } = useStore();
   const [state, setState] = useState({
     loading: false,
   });
@@ -107,7 +104,7 @@ export default function AddLicenseKey({ closeDialog }) {
             </Grid>
             <Grid container spacing={1}>
               <Grid item xs={12} sm={3} md={3}>
-                {license.type == "Company" && <CompanyDropDown
+                {license.type === "Company" && <CompanyDropDown
                   id="company"
                   labelText="Associated Company"
                   value={license.company}
@@ -117,7 +114,7 @@ export default function AddLicenseKey({ closeDialog }) {
                   }}
                 />}
 
-                {license.type == "Individual" && <AppTextInput
+                {license.type === "Individual" && <AppTextInput
                   labelText="User Id"
                   id="user"
                   formControlProps={{

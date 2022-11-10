@@ -12,7 +12,8 @@ export default function RadioStationReport() {
     React.useEffect(() => {
         reportsdetection.changeDetectionTablePage(1);
         reportsdetection.fetchReportsDetection(1, "RADIOSTATIONS");
-    }, [reportsdetection?.getDateRange?.startDate, reportsdetection?.getDateRange?.endDate]);
+    }, [// eslint-disable-line react-hooks/exhaustive-deps
+    reportsdetection?.getDateRange?.startDate, reportsdetection?.getDateRange?.endDate]);
 
     const columns = [
         {

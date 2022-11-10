@@ -1,8 +1,6 @@
 import React from "react";
 import RSpace from "../../rcomponents/RSpace/RSpace";
 import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
-import PlayCircleFilledWhiteOutlinedIcon from "@material-ui/icons/PlayCircleFilledWhiteOutlined";
-import PlayCircleFilledWhiteRoundedIcon from "@material-ui/icons/PlayCircleFilledWhiteRounded";
 import { IconButton } from "@material-ui/core";
 import RPopconfirm from "../../rcomponents/RPopconfirm";
 import AppButton from "../../AppButton/AppButton";

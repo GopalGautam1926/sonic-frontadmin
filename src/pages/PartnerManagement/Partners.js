@@ -18,7 +18,7 @@ export default function Partners() {
 
   React.useEffect(() => {
     partnerStore.fetchPartners();
-  }, [
+  }, [// eslint-disable-line react-hooks/exhaustive-deps
     partnerStore?.getDateRange?.startDate,
     partnerStore?.getDateRange?.endDate,
   ]);
@@ -85,7 +85,7 @@ export default function Partners() {
         filter: false,
         customBodyRender: (value, { columnIndex }, updateValue) => {
           const rowData = partnerStore?.getPartner?.docs?.find(
-            (itm) => itm._id == value
+            (itm) => itm._id === value
           );
           return (
             <Table.TableRowAction

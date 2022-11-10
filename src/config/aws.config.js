@@ -26,5 +26,5 @@ const awsConfigs = {
 
 export const awsConfig =
   awsConfigs[
-    process.env.REACT_APP_ENV == "production" ? "sonic" : "arba"
+    process.env.REACT_APP_ENV === "production" ? "sonic" : "arba"
   ];

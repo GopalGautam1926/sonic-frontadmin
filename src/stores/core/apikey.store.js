@@ -2,14 +2,9 @@ import {
   observable,
   action,
   computed,
-  toJS,
-  autorun,
-  reaction,
-  // makeObservable,
-  when,
-  observe,
+  toJS
 } from "mobx";
-import { AxiosRequestConfig } from "axios";
+
 import { log } from "../../utils/app.debug";
 import apikeysHttps from "../../services/https/resources/apikeys.https";
 import deepmerge from 'deepmerge'
@@ -30,9 +25,7 @@ class ApiKeyStore {
     prevPage: 0,
     nextPage: 0,
   };
-  constructor() {
-    // makeObservable(this);
-  }
+
 
   @observable apiKeyTablePage = 1;
 
@@ -112,7 +105,7 @@ class ApiKeyStore {
    */
    @action
    updateApiKey(key,payload) {
-    const elementsIndex = this.apiKeys.docs.findIndex(element => element._id == key )
+    const elementsIndex = this.apiKeys.docs.findIndex(element => element._id === key )
     this.apiKeys.docs[elementsIndex]={...this.apiKeys.docs[elementsIndex],...payload}
    }
 }

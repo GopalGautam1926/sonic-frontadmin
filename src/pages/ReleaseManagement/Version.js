@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import DataFetchingStateComponent from '../../components/common/DataFetchingStateComponent'
 import FancyCard from '../../components/FancyCard/FancyCard'
 import Table from '../../components/Table/Table'
 import { useStore } from '../../stores'
 import UploadVersion from './components/UploadVersion'
 import FilterPlatform from './components/FilterPlatForm'
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory} from "react-router-dom";
 import { getRouteNames } from "../../routes/routes.data";
 import ReleaseHttps from "../../services/https/resources/release.https";
 import { Tooltip } from "@material-ui/core";
@@ -37,7 +37,7 @@ export default function Release() {
           updateValue
         ) => {
           const rowData = releaseStore.getVersions.find(
-            (itm) => itm.versionCode == value
+            (itm) => itm.versionCode === value
           );
           const versionItems = [];
           if (rowData.latest) {
@@ -118,7 +118,7 @@ export default function Release() {
                 onClickYes: () => onDeleteVersion(value)
               }}
               deleteButtonProps={{
-                loading: (state.isDeleting && value == state.deleteVersion),
+                loading: (state.isDeleting && value === state.deleteVersion),
               }}
 
             />

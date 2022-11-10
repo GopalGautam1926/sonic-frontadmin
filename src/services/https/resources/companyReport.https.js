@@ -1,9 +1,6 @@
-import { AxiosRequestConfig } from "axios";
-import { companyStore } from "../../../stores/core";
 import { AppWebRequest } from "../NetworkManager";
 
 class CompanyReportsHttps {
-    constructor() { }
 
     /**
      * Fetch all sonickeys

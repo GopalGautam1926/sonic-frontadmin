@@ -2,7 +2,6 @@ import { userStore } from "../../../stores/core";
 import { AppWebRequest } from "../NetworkManager";
 
 class UsersHttps {
-  constructor() { }
 
   /**
    * Get Admin Profile

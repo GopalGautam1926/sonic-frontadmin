@@ -1,5 +1,5 @@
 import React, { forwardRef } from "react";
-import ReactDatePicker, { CalendarContainer } from "react-datepicker";
+import ReactDatePicker from "react-datepicker";
 import { InputAdornment } from "@material-ui/core";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import AppTextInput from "../AppTextInput/AppTextInput";

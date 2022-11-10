@@ -7,10 +7,8 @@ import AppButton from "../../../components/AppButton/AppButton";
 import { useStore } from "../../../stores";
 import CustomDropDown from "../../../components/AppTextInput/CustomDropDown";
 import {
-  AccountType,
   AssociatedRoles,
   Status,
-  UserType,
 } from "../../../constants";
 import CompanyPicker from "../../../components/Picker/CompanyPicker";
 import PartnerPicker from "../../../components/Picker/PartnerPicker";

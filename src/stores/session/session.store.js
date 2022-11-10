@@ -3,9 +3,7 @@ import {
   action,
   computed,
   toJS,
-  autorun,
-  reaction,
-  when,
+
   // makeObservable,
 } from "mobx";
 import Amplify from "aws-amplify";
@@ -15,9 +13,9 @@ class SessionStore {
   @observable session = null;
   @observable authState = "";
 
-  constructor() {
-    // makeObservable(this);
-  }
+  // constructor() {
+  //    makeObservable(this);
+  // }
 
   @computed
   get getSession() {

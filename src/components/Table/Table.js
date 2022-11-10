@@ -1,12 +1,9 @@
 import React from "react";
 import MUIDataTable from "mui-datatables";
-import useStyles from "./styles";
-import _ from "lodash";
 import { useTheme } from "@material-ui/core/styles";
 import RadioTableRowAction from "./components/RadioTableRowAction";
 import TableRowAction from './components/TableRowAction';
 import TableActions from './components/TableActions';
-import { log } from '../../utils/app.debug';
 import Empty from "../common/Empty";
 /**
  * Table component that will add default style and options to MUI DataTable
@@ -21,7 +18,6 @@ import Empty from "../common/Empty";
     },
  */
 export default function Table({ title, data, columns, options, components }) {
-  const classes = useStyles();
   const theme = useTheme();
   const defaultTableOptions = {
     selectableRows: false,

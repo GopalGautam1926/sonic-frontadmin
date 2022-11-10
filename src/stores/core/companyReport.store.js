@@ -4,7 +4,6 @@ import {
     computed,
     toJS
 } from "mobx";
-import { AxiosRequestConfig } from "axios";
 import { log } from "../../utils/app.debug";
 import CompanyReportsHttps from "../../services/https/resources/companyReport.https";
 import moment from "moment";
@@ -26,9 +25,6 @@ class CompanyReportStore {
         nextPage: 0,
     }
 
-    constructor() {
-        // makeObservable(this);
-    }
 
     @observable dateRange = {
         startDate: new Date().setMonth(new Date().getMonth() - 1),

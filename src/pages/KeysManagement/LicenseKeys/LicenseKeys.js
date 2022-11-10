@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import FancyCard from "../../../components/FancyCard/FancyCard";
 import Table from "../../../components/Table/Table";
 import AddLicenseKeys from "./components/AddLicenseKey";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory} from "react-router-dom";
 import { getRouteNames } from "../../../routes/routes.data";
 import { format } from "date-fns";
 import { isExpired } from "../../../utils/general.utils";
 import RSpace from "../../../components/rcomponents/RSpace";
-import useStyle from "./styles";
 import { useStore } from "../../../stores";
 import DataFetchingStateComponent from "../../../components/common/DataFetchingStateComponent";
 import licensekeysHttps from "../../../services/https/resources/licensekeys.https";
@@ -21,8 +20,7 @@ function LicenseKeys() {
     deletigKey: ''
   });
   const history = useHistory();
-  const { licenseKeyStore, companyStore } = useStore();
-  const classes = useStyle()
+  const { licenseKeyStore } = useStore();
   const columns = [
     {
       label: "Name",
@@ -111,7 +109,7 @@ function LicenseKeys() {
           updateValue
         ) => {
           const rowData = licenseKeyStore.getLicenseKeys.docs.find(
-            (itm) => itm.key == value
+            (itm) => itm.key === value
           );
           const statusItem = [];
           if (rowData?.disabled) {
@@ -129,7 +127,7 @@ function LicenseKeys() {
               <Badge color="danger" size="small" label={<div style={{ fontSize: 11 }}>Expired</div>} />
             );
           }
-          if (statusItem.length == 0) {
+          if (statusItem.length === 0) {
             statusItem.push(
               <Badge color="success" size="small" label={<div style={{ fontSize: 11 }}>Active</div>} />
             );
@@ -152,7 +150,7 @@ function LicenseKeys() {
         filter: false,
         customBodyRender: (value, { columnIndex }, updateValue) => {
           const rowData = licenseKeyStore.getLicenseKeys.docs.find(
-            (itm) => itm.key == value
+            (itm) => itm.key === value
           );
           return (
             <Table.TableRowAction
@@ -173,7 +171,7 @@ function LicenseKeys() {
                 onClickYes: () => onDeleteKey(value)
               }}
               deleteButtonProps={{
-                loading: (state.isDeleting && value == state.deletigKey),
+                loading: (state.isDeleting && value === state.deletigKey),
               }}
             />
           );

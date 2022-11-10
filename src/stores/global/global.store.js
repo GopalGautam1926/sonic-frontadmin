@@ -1,12 +1,12 @@
-import { computed,action, toJS, observable } from "mobx";
+import {action, observable } from "mobx";
 import { AppWebRequest } from "../../services/https/NetworkManager";
 import { log } from "../../utils/app.debug";
 
 export class GlobalStore {
   @observable text = "Hello";
-  constructor() {
-    // makeObservable(this);
-  }
+  // constructor() {
+  //   // makeObservable(this);
+  // }
 
   @action
   downloadAnyFile = (key) => {

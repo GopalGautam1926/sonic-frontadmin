@@ -7,7 +7,7 @@ import AppButton from '../../../components/AppButton/AppButton';
 import { log } from '../../../utils/app.debug';
 
 export default function TrackView({ isOpen, close, trackData = {} }) {
-    const [state, setState] = React.useState()
+
 
     log("Track Data", trackData)
 

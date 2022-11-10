@@ -22,7 +22,6 @@ import { hasChildren } from "../../utils/general.utils";
 // import { menudatasets } from './menudatasets';
 import { routesData } from "../../routes/routes.data";
 import { Link, useLocation, matchPath } from "react-router-dom";
-import { log } from '../../utils/app.debug';
 import { Tooltip } from "@material-ui/core";
 
 export default observer(({ open, handleDrawerClose, handleDrawerOpen }) => {
@@ -86,7 +85,7 @@ const SingleLevel = ({ route }) => {
       to={route.layout + route.path}
       classes={{ root: classes.listItemRoot, selected: classes.listItemSelected }}
       button
-      selected={location.pathname == `${route.layout}${route.path}`}
+      selected={location.pathname === `${route.layout}${route.path}`}
     >
       <ListItemIcon>{route.icon}</ListItemIcon>
       <ListItemText primary={route.name} />
@@ -109,7 +108,7 @@ const MultiLevel = ({ route }) => {
     if (matched) {
       setOpen(true)
     }
-  }, [location])
+  }, [location])// eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <React.Fragment>

@@ -1,10 +1,8 @@
-import { AxiosRequestConfig } from "axios";
 import { AppWebRequest } from "../NetworkManager";
 import { licenseKeyStore } from "../../../stores/core/licensekey.store";
 import { log } from "../../../utils/app.debug";
 
 class LicenseKeysHttps {
-  constructor() {}
 
   /**
    * Fetch all license keys

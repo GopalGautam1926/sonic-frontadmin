@@ -1,18 +1,16 @@
 import React from "react";
 import { FormControl, Grid } from "@material-ui/core";
-import { useHistory, useLocation, useParams } from "react-router-dom";
+import {  useLocation, useParams } from "react-router-dom";
 import AppButton from "../../../components/AppButton/AppButton";
 import DataFetchingStateComponent from "../../../components/common/DataFetchingStateComponent";
 import FancyCard from "../../../components/FancyCard/FancyCard";
 import AppTextInput from "../../../components/AppTextInput/AppTextInput";
 import { toast } from "react-toastify";
 import RSpace from "../../../components/rcomponents/RSpace";
-import { useStore } from "../../../stores";
 import partnerHttps from "../../../services/https/resources/partner.https";
 import { PartnerTypes } from "../../../constants";
 import CustomDropDown from "../../../components/AppTextInput/CustomDropDown";
 import { SwitchWithLabel } from "../../../components/Switch/Switch";
-import { log } from "../../../utils/app.debug";
 import ChangePartnerAdmin from "./ChangePartnerAdmin";
 
 export default function ViewPartner({ closeDialog }) {
@@ -31,8 +29,6 @@ export default function ViewPartner({ closeDialog }) {
   });
   let { partnerId } = useParams();
   const location = useLocation();
-  const history = useHistory();
-  const { partnerStore } = useStore();
   const [partner, setPartner] = React.useState({
     name: "",
     description: "",
@@ -48,7 +44,7 @@ export default function ViewPartner({ closeDialog }) {
       line1: "",
       line2: "",
     },
-    owner: "",
+    
     enabled: true,
     disabled: false,
   });
@@ -71,7 +67,7 @@ export default function ViewPartner({ closeDialog }) {
 
   React.useEffect(() => {
     getAndSetPartner();
-  }, [partnerId]);
+  }, [partnerId]);// eslint-disable-line react-hooks/exhaustive-deps
 
   const onUpdateSubmit = (e) => {
     e.preventDefault();

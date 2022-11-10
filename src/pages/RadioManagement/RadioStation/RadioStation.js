@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import FancyCard from "../../../components/FancyCard/FancyCard";
 import Table from "../../../components/Table/Table";
 // import AddApiKey from "./components/AddApiKey";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { getRouteNames } from "../../../routes/routes.data";
 import RSpace from "../../../components/rcomponents/RSpace";
-import { log } from "../../../utils/app.debug";
 import { useStore } from "../../../stores";
 import DataFetchingStateComponent from "../../../components/common/DataFetchingStateComponent";
 import radiostationHttps from "../../../services/https/resources/radiostation.https";
@@ -46,10 +45,10 @@ function RadioStation() {
         filter: false,
         customBodyRender: (value, { columnIndex }, updateValue) => {
           const rowData = radioStationStore.getRadioStations.docs.find(
-            (itm) => itm._id == value
+            (itm) => itm._id === value
           );
           const favIconUrl = `https://s2.googleusercontent.com/s2/favicons?domain_url=${rowData.website || rowData.streamingUrl}`;
-          return <img src={favIconUrl} />;
+          return <img src={favIconUrl} alt=""/>;
         },
       },
     },
@@ -103,9 +102,9 @@ function RadioStation() {
           { rowIndex, columnIndex, currentTableData },
           updateValue
         ) => {
-          const rowData = radioStationStore.getRadioStations.docs.find(
-            (itm) => itm._id == value
-          );
+          // const rowData = radioStationStore.getRadioStations.docs.find(
+          //   (itm) => itm._id == value
+          // );
           const statusItem = [];
           // if (rowData.isError) {
           //   const errorMessage = rowData.error.message;
@@ -155,7 +154,7 @@ function RadioStation() {
         filter: false,
         customBodyRender: (value, { columnIndex }, updateValue) => {
           const rowData = radioStationStore.getRadioStations.docs.find(
-            (itm) => itm._id == value
+            (itm) => itm._id === value
           );
           return (
             <Table.RadioTableRowAction
@@ -182,7 +181,7 @@ function RadioStation() {
                 onClickYes: () => onPlayKey(value, rowData)
               }}
               playButtonProps={{
-                loading: (state.isPlaying && value == state.playingKey),
+                loading: (state.isPlaying && value === state.playingKey),
               }}
             />
 

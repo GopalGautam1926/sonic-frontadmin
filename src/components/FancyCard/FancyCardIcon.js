@@ -1,7 +1,6 @@
 import { Card } from "@material-ui/core";
 import PropTypes from "prop-types";
 import React from "react";
-import useStyle from "./styles";
 import { useTheme } from "@material-ui/core/styles";
 
 export default function FancyCardIcon({
@@ -10,7 +9,6 @@ export default function FancyCardIcon({
   style,
   ...props
 }) {
-  const classes = useStyle();
   const theme = useTheme();
   return (
     <Card

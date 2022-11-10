@@ -15,7 +15,8 @@ export default function EncodesReport() {
     React.useEffect(() => {
         sonickeyStore.changeSonicKeyTablePage(1);
         sonickeyStore.fetchSonicKeys();
-    }, [sonickeyStore?.getDateRange?.startDate, sonickeyStore?.getDateRange?.endDate])
+    }, [// eslint-disable-line react-hooks/exhaustive-deps
+        sonickeyStore?.getDateRange?.startDate, sonickeyStore?.getDateRange?.endDate])
 
     const stableTableData = () => {
         const data = sonickeyStore?.getSonicKeys?.docs?.map((data) => {
