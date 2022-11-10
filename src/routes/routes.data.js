@@ -144,7 +144,7 @@ export const routesData = [
   },
   {
     icon: <VpnKeyIcon />,
-    name: "SonicKeys",
+    name: "AmazingTags",
     sidebar: true,
     parentPath: '/sonickeys-management',
     layout: "/admin",

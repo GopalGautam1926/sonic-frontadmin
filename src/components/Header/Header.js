@@ -16,6 +16,7 @@ import useStyles from "./styles";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import { observer } from "mobx-react";
 import { useStore } from "../../stores";
+import { companyTag } from "../../constants";
 
 function Header({ open, handleDrawerOpen }) {
   const classes = useStyles();
@@ -39,7 +40,7 @@ function Header({ open, handleDrawerOpen }) {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" noWrap className={classes.title}>
-          SonicData
+          {companyTag.companyName}
         </Typography>
         <ProfileMenu />
       </Toolbar>

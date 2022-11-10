@@ -33,7 +33,7 @@ function FilterEncodesReport({ closeDialog }) {
                                     Filter
                                 </h4>
                                 <p className={headerClasses.cardCategoryWhite}>
-                                    Filter by encoded sonickeys
+                                    Filter by encoded AmazingTag
                                 </p>
                             </>
                         )}
@@ -118,7 +118,7 @@ function FilterEncodesReport({ closeDialog }) {
 
                             <Grid item xs={12} sm={6} md={3}>
                                 <AppTextInput
-                                    labelText="SonicKey"
+                                    labelText="AmazingTag"
                                     id="sonickey"
                                     formControlProps={{
                                         fullWidth: true,

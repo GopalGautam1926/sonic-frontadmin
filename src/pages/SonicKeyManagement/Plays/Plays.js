@@ -54,7 +54,7 @@ export default function Plays() {
       },
     },
     {
-      label: "SonicKey",
+      label: "AmazingTag",
       name: "sonicKey",
       options: {
         filter: false,

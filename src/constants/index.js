@@ -3,6 +3,11 @@ export const MonitorGroupsEnum = Object.freeze({
   AFEM: "AFEM",
 });
 
+export const companyTag ={
+companyName:"Amazing Recognition",
+companyKey:"Amazing Tag"
+};
+
 export const userRoles = {
   ADMIN: "Admin",
   PORTAL_USER: "PortalUser",

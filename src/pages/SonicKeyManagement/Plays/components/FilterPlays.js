@@ -84,7 +84,7 @@ function FilterPlays({ closeDialog }) {
 
               <Grid item xs={12} sm={6} md={3}>
                 <AppTextInput
-                  labelText="SonicKey"
+                  labelText="AmazingTag"
                   id="sonickey"
                   formControlProps={{
                     fullWidth: true,

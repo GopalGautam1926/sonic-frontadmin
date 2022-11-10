@@ -57,7 +57,7 @@ export default function EncodesReport() {
             },
         },
         {
-            label: "SonicKey",
+            label: "AmazingTag",
             name: "sonicKey",
             options: {
                 filter: false,
@@ -270,7 +270,7 @@ export default function EncodesReport() {
                             <>
                                 <h4 className={headerClasses.cardTitleWhite}>Encodes Report</h4>
                                 <p className={headerClasses.cardCategoryWhite}>
-                                    List of all encoded sonickeys
+                                    List of all encoded AmazingTag
                                 </p>
                             </>
                         )}

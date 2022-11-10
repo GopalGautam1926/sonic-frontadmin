@@ -23,7 +23,7 @@ export default function Encoded() {
 
   const columns = [
     {
-      label: "SonicKey",
+      label: "AmazingTag",
       name: "sonicKey",
       options: {
         filter: false,
@@ -110,7 +110,7 @@ export default function Encoded() {
               <>
                 <h4 className={headerClasses.cardTitleWhite}>Encodes</h4>
                 <p className={headerClasses.cardCategoryWhite}>
-                  List of all encoded sonickeys
+                  List of all encoded AmazingTags
                 </p>
               </>
             )}
