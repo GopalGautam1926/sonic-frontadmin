@@ -46,7 +46,7 @@ export default observer(({ open, handleDrawerClose, handleDrawerOpen }) => {
       <div className={classes.toolbar}>
         <Logo />
         <IconButton
-          style={{ position: "absolute", right: 0 }}
+          style={{ position: "absolute", right: 0, color:theme.palette.secondary.main }}
           onClick={handleDrawerClose}
         >
           {theme.direction === "rtl" ? (

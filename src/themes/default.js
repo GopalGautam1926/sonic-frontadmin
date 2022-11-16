@@ -41,7 +41,7 @@ const defaultTheme = {
       // dark: tinycolor(secondary)
       //   .darken(darkenRate)
       //   .toHexString(),
-      light:"#E5F5F4",
+      light:"#fc030f",
       dark:"#006661",
       contrastText: "#FFFFFF",
     },

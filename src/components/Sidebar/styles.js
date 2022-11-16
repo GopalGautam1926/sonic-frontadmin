@@ -12,10 +12,12 @@ export default makeStyles((theme) => ({
     width: drawerWidth,
     flexShrink: 0,
     whiteSpace: "nowrap",
+    
   },
   drawerPaper: {
-    // backgroundColor:theme.palette.primary.main,
-    // color:'white'
+    backgroundColor:theme.palette.primary.main,
+    color:theme.palette.secondary.main,
+    
   },
   drawerOpen: {
     width: drawerWidth,
@@ -44,26 +46,34 @@ export default makeStyles((theme) => ({
     ...theme.mixins.toolbar,
   },
   listItemRoot: {
+    backgroundColor: theme.palette.primary.light,
     textDecoration: "none",
-    color: theme.palette.other.grey[700],
+    color: 'white',
     "&:hover": {
-      color: theme.palette.primary.light,
+      backgroundColor:theme.palette.primary.light,
+      color: theme.palette.secondary.main ,
       "& .MuiListItemIcon-root": {
-        color: theme.palette.primary.light,
+        color: theme.palette.secondary.main,
       },
     },
-    "&$selected": {
-      backgroundColor: "red",
-      color: "white",
-      "& .MuiListItemIcon-root": {
-        color: "white",
-      },
-    },
+    // "&$selected": {
+    //   color: theme.palette.secondary.light,
+    //   "& .MuiListItemIcon-root": {
+    //     backgroundColor:theme.palette.secondary.light,
+    //     color: theme.palette.secondary.light,
+    //   },
+    // },
   },
-  listItemSelected: {
+  listItemSelected: { 
     color: theme.palette.secondary.main,
-    "& .MuiListItemIcon-root": {
+    "&:hover":{
+      backgroundColor: theme.palette.primary.light,
       color: theme.palette.secondary.main,
     },
+    "& .MuiListItemIcon-root": {
+      
+      color: theme.palette.secondary.main,
+    },
+    
   },
 }));
