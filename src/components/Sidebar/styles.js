@@ -50,16 +50,19 @@ export default makeStyles((theme) => ({
   listItemRoot: {
     backgroundColor: theme.palette.primary.dark,
     textDecoration: "none",
-    color: theme.palette.grey[400],
+    color: theme.palette.grey[500],
+    "& .MuiListItemIcon-root": {
+      color:  theme.palette.grey[500],
+    },
     "&:hover": {
       backgroundColor:`${theme.palette.primary.light} !important`,
       color: theme.palette.primary.contrastText ,
       "& .MuiListItemIcon-root": {
-        color: `${theme.palette.secondary.main} !important`,
+        color: theme.palette.primary.contrastText,
       },
     },
     "& .MuiListItem-root. Mui-selected": {
-      color: theme.palette.secondary.main,
+      color: theme.palette.secondary.light,
     },
     "&.Mui-selected": {
       backgroundColor: `${theme.palette.primary.main} !important`,
@@ -73,27 +76,6 @@ export default makeStyles((theme) => ({
     },
     "& .MuiListItemIcon-root": {
       color: `${theme.palette.secondary.main} !important`,
-    },
-    
-  },
-
-  listItem:{
-    backgroundColor:theme.palette.primary.dark,
-    color:theme.palette.grey[400],
-    "&:hover": {
-      backgroundColor:`${theme.palette.primary.light} !important`,
-      color: theme.palette.secondary.main ,
-      "& .MuiListItemIcon-root": {
-        color: theme.palette.secondary.main,
-      },
-    },
-    "& .MuiListItem-root. Mui-selected": {
-      backgroundColor:`${theme.palette.secondary.light} !important`,
-      color: theme.palette.secondary.light,
-    },
-    "&.Mui-selected": {
-      backgroundColor: `${theme.palette.primary.main} !important`,
-      color: theme.palette.secondary.light
     },
   },
 }));

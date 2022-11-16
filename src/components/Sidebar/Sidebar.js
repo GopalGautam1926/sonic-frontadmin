@@ -112,7 +112,7 @@ const MultiLevel = ({ route }) => {
 
   return (
     <React.Fragment>
-      <ListItem className={classes.listItem} button onClick={handleClick}>
+      <ListItem className={classes.listItemRoot} button onClick={handleClick}>
         <ListItemIcon>{route.icon}</ListItemIcon>
         {/* <ListItemText primary={route.name} /> */}
         <ListItemText>
