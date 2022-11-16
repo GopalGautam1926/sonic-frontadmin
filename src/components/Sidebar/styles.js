@@ -15,7 +15,7 @@ export default makeStyles((theme) => ({
     
   },
   drawerPaper: {
-    backgroundColor:theme.palette.primary.main,
+    backgroundColor:theme.palette.primary.dark,
     color:theme.palette.secondary.main,
     
   },
