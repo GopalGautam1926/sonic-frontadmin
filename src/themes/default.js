@@ -1,8 +1,8 @@
 import tinycolor from "tinycolor2";
 import * as colors from '@material-ui/core/colors';
 
-const primary = "#1B1B1B";
-const secondary = "#EDE363";
+const primary = "#EDE363";
+const secondary = "#596CF7";
 const warning = "#FFA500";
 const success = "#4caf50";
 const info = "#9013FE";
@@ -29,9 +29,9 @@ const defaultTheme = {
       // dark: tinycolor(primary)
       //   .darken(darkenRate)
       //   .toHexString(),
-      light:"#282828",
-      dark:"#141414",
-      contrastText:white
+      light: "#efe776",
+      dark: "#eadf48",
+      contrastText: white
     },
     secondary: {
       main: secondary,
@@ -41,8 +41,8 @@ const defaultTheme = {
       // dark: tinycolor(secondary)
       //   .darken(darkenRate)
       //   .toHexString(),
-      light:"#fc030f",
-      dark:"#006661",
+      light: "#6d7df8",
+      dark: "#3c52f6",
       contrastText: "#FFFFFF",
     },
     warning: {
@@ -117,7 +117,11 @@ const defaultTheme = {
     },
     background: {
       default: "#F6F7FF",
-      light: "#F3F5FF",
+      light: '#F3F5FF',
+      dark1: '#141414',
+      dark2:'#232323',
+      dark3:'#282828',
+      dark4: '#424042',
     },
     other:colors
   },
