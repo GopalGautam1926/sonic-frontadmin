@@ -4,8 +4,8 @@ export const MonitorGroupsEnum = Object.freeze({
 });
 
 export const companyTag ={
-companyName:"Amazing Recognition",
-companyKey:"Amazing Tag"
+companyName:"Amazing",
+companyKey:"Amazing"
 };
 
 export const userRoles = {

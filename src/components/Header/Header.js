@@ -52,6 +52,7 @@ export default Header;
 const ProfileMenu = observer(() => {
   const [profileMenu, setProfileMenu] = React.useState(null);
   const { sessionStore } = useStore();
+  const classes = useStyles();
 
   return (
     <div>
@@ -60,7 +61,7 @@ const ProfileMenu = observer(() => {
         size="small"
         onClick={(e) => setProfileMenu(e.currentTarget)}
         endIcon={<ArrowDropDownIcon />}
-        style={{ textTransform: "none" }}
+        className={classes.headerAdminBtn}
       >
         {sessionStore.getUser?.username || "Guest"}
       </Button>

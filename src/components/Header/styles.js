@@ -8,6 +8,7 @@ export default makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
+    background: theme.palette.primary.dark
   },
   appBarShift: {
     marginLeft: drawerWidth,
@@ -38,4 +39,8 @@ export default makeStyles((theme) => ({
     // minWidth: 265,
     marginTop:40
   },
+  headerAdminBtn: {
+    textTransform: 'none',
+    background: theme.palette.primary.main,
+  }
 }));

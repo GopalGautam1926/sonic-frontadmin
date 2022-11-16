@@ -10,6 +10,9 @@ const useStyles = makeStyles((theme) =>
             textDecoration: 'underline',
             color:theme.palette.primary.main,
         }
+      },
+      body: {
+        backgroundColor: theme.palette.primary.main,
       }
     }
   })
