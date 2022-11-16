@@ -50,8 +50,8 @@ export default makeStyles((theme) => ({
     textDecoration: "none",
     color: 'white',
     "&:hover": {
-      backgroundColor:theme.palette.primary.light,
-      color: theme.palette.secondary.main ,
+      backgroundColor:`${theme.palette.primary.light} !important`,
+      color: theme.palette.primary.contrastText ,
       "& .MuiListItemIcon-root": {
         color: theme.palette.secondary.main,
       },
