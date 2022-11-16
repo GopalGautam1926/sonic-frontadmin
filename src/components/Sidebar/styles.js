@@ -15,7 +15,7 @@ export default makeStyles((theme) => ({
     
   },
   drawerPaper: {
-    backgroundColor:theme.palette.primary.main,
+    backgroundColor:theme.palette.primary.dark,
     color:theme.palette.secondary.main,
     
   },
@@ -45,24 +45,24 @@ export default makeStyles((theme) => ({
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
   },
+
+
   listItemRoot: {
-    backgroundColor: theme.palette.primary.light,
+    backgroundColor: theme.palette.primary.dark,
     textDecoration: "none",
-    color: 'white',
+    color: theme.palette.grey[400],
     "&:hover": {
       backgroundColor:`${theme.palette.primary.light} !important`,
       color: theme.palette.primary.contrastText ,
       "& .MuiListItemIcon-root": {
-        color: theme.palette.secondary.main,
+        color: `${theme.palette.secondary.main} !important`,
       },
     },
     "& .MuiListItem-root. Mui-selected": {
-      backgroundColor:theme.palette.secondary.light,
       color: theme.palette.secondary.main,
     },
     "&.Mui-selected": {
       backgroundColor: `${theme.palette.primary.main} !important`,
-      
     },
   },
   listItemSelected: { 
@@ -72,9 +72,30 @@ export default makeStyles((theme) => ({
       color: theme.palette.secondary.main,
     },
     "& .MuiListItemIcon-root": {
-      
-      color: theme.palette.secondary.main,
+      color: `${theme.palette.secondary.main} !important`,
     },
     
   },
+
+  listItem:{
+    backgroundColor:theme.palette.primary.dark,
+    color:theme.palette.grey[400],
+    "&:hover": {
+      backgroundColor:`${theme.palette.primary.light} !important`,
+      color: theme.palette.secondary.main ,
+      "& .MuiListItemIcon-root": {
+        color: theme.palette.secondary.main,
+      },
+    },
+    "& .MuiListItem-root. Mui-selected": {
+      backgroundColor:`${theme.palette.secondary.light} !important`,
+      color: theme.palette.secondary.light,
+    },
+    "&.Mui-selected": {
+      backgroundColor: `${theme.palette.primary.main} !important`,
+      color: theme.palette.secondary.light
+    },
+  },
 }));
+
+
