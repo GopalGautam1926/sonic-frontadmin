@@ -56,13 +56,14 @@ export default makeStyles((theme) => ({
         color: theme.palette.secondary.main,
       },
     },
-    // "&$selected": {
-    //   color: theme.palette.secondary.light,
-    //   "& .MuiListItemIcon-root": {
-    //     backgroundColor:theme.palette.secondary.light,
-    //     color: theme.palette.secondary.light,
-    //   },
-    // },
+    "& .MuiListItem-root. Mui-selected": {
+      backgroundColor:theme.palette.secondary.light,
+      color: theme.palette.secondary.main,
+    },
+    "&.Mui-selected": {
+      backgroundColor: `${theme.palette.primary.main} !important`,
+      
+    },
   },
   listItemSelected: { 
     color: theme.palette.secondary.main,
