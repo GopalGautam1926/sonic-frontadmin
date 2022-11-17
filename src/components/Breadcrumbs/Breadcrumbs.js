@@ -2,8 +2,9 @@ import React from "react";
 import { Link, useLocation, matchPath } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import MUIBreadcrumbs from "@material-ui/core/Breadcrumbs";
-import { Card } from "@material-ui/core";
+import { Card, useTheme } from "@material-ui/core";
 const Breadcrumbs = ({ routes }) => {
+  const theme = useTheme();
   const location = useLocation();
   const pathnames = location.pathname.split("/").filter((x) => x); //convert pathnames into array of paths
   const crumbs = [];
@@ -29,8 +30,8 @@ const Breadcrumbs = ({ routes }) => {
     }
   }
   return (
-    <Card style={{ padding: 8 }} elevation={0} id="app_breadcrumbs">
-      <MUIBreadcrumbs aria-label="breadcrumb">
+    <Card style={{ padding: 8, background: 'inherit' }} elevation={0} id="app_breadcrumbs">
+      <MUIBreadcrumbs aria-label="breadcrumb" style={{color: theme.palette.primary.contrastText}}>
         {crumbs.map((crumb, index) => {
           if (crumb.isLast) {
             return <Typography key={index} color="textPrimary">{crumb.name}</Typography>;

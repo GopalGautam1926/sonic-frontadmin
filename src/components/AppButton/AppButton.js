@@ -50,7 +50,7 @@ const AppButton = ({
     <StyledButton
       style={{
         cursor: loading ? "default" : "pointer",
-        backgroundColor: theme.palette.primary.main,
+        backgroundColor: theme.palette.secondary.main,
         color: theme.palette.primary.contrastText,
         ...style,
       }}

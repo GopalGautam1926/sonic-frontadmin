@@ -49,7 +49,7 @@ export default function TableActions({
                 style: {
                   minHeight: "60vh",
                   padding: 5,
-                  backgroundColor: theme.palette.primary.main,
+                  backgroundColor: theme.palette.background.dark3,
                 },
               }}
             >
@@ -90,7 +90,7 @@ export default function TableActions({
                 style: {
                   minHeight: "60vh",
                   padding: 5,
-                  backgroundColor: theme.palette.primary.main,
+                  backgroundColor: theme.palette.background.dark3,
                 },
               }}
             >

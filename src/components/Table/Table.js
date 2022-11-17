@@ -1,6 +1,5 @@
 import React from "react";
 import MUIDataTable from "mui-datatables";
-import { useTheme } from "@material-ui/core/styles";
 import RadioTableRowAction from "./components/RadioTableRowAction";
 import TableRowAction from './components/TableRowAction';
 import TableActions from './components/TableActions';
@@ -18,7 +17,6 @@ import Empty from "../common/Empty";
     },
  */
 export default function Table({ title, data, columns, options, components }) {
-  const theme = useTheme();
   const defaultTableOptions = {
     selectableRows: false,
     elevation: 0,
@@ -47,9 +45,9 @@ export default function Table({ title, data, columns, options, components }) {
         fontSize: 12
       },
     }),
-    setCellHeaderProps: (value) => ({
-      style: { color: theme.palette.primary.main},
-    }),
+    // setCellHeaderProps: (value) => ({
+    //   style: { color: theme.palette.primary.main},
+    // }),
   };
   var newColumns = columns?.map((col, index) => {
     if (typeof col == "string") {

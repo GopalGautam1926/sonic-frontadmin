@@ -7,7 +7,7 @@ export default makeStyles((theme) => ({
     flexDirection: "column",
     width: "100%",
     marginTop: 30,
-    backgroundColor: theme.palette.primary.light,
+    backgroundColor: theme.palette.background.dark4,
   },
   cardHeader: {
     margin: "-20px 15px 0px 15px",

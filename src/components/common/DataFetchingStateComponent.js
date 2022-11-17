@@ -1,3 +1,4 @@
+import { useTheme } from "@material-ui/core";
 import React from "react";
 import Loading from "./Loading";
 import TryAgainBlock from "./TryAgainBlock";
@@ -8,8 +9,10 @@ export default function DataFetchingStateComponent({
   loading,
   children,
   loadingComponentprops,
-  loadingComponent
+  loadingComponent,
 }) {
+  const theme = useTheme();
+
   if (error) {
     return (
       <TryAgainBlock
@@ -19,7 +22,17 @@ export default function DataFetchingStateComponent({
     );
   }
   if (loading) {
-    return loadingComponent || <Loading {...loadingComponentprops} />;
+    return (
+      loadingComponent || (
+        <Loading
+          contectContainerStyle={{
+            background: theme.palette.background.dark4,
+            color: theme.palette.primary.contrastText,
+          }}
+          {...loadingComponentprops}
+        />
+      )
+    );
   }
   return children;
 }
