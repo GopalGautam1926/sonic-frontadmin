@@ -15,7 +15,7 @@ export default makeStyles((theme) => ({
     
   },
   drawerPaper: {
-    backgroundColor:theme.palette.primary.dark,
+    backgroundColor:theme.palette.background.dark1,
     color:theme.palette.secondary.main,
     
   },
@@ -48,34 +48,37 @@ export default makeStyles((theme) => ({
 
 
   listItemRoot: {
-    backgroundColor: theme.palette.primary.dark,
+    backgroundColor: theme.palette.background.dark1,
     textDecoration: "none",
     color: theme.palette.grey[500],
     "& .MuiListItemIcon-root": {
       color:  theme.palette.grey[500],
     },
     "&:hover": {
-      backgroundColor:`${theme.palette.primary.light} !important`,
-      color: theme.palette.primary.contrastText ,
+      textDecoration: "underline",
+      textDecorationColor:theme.palette.secondary.main,
+      backgroundColor:`${theme.palette.background.dark2} !important`,
+      color: "white" ,
       "& .MuiListItemIcon-root": {
-        color: theme.palette.primary.contrastText,
+        color: "white",
       },
     },
     "& .MuiListItem-root. Mui-selected": {
+      
       color: theme.palette.secondary.light,
     },
     "&.Mui-selected": {
-      backgroundColor: `${theme.palette.primary.main} !important`,
+      textDecoration: "none",
+      backgroundColor: `${theme.palette.background.dark2} !important`,
     },
   },
   listItemSelected: { 
-    color: theme.palette.secondary.main,
+    color: theme.palette.primary.main,
     "&:hover":{
-      backgroundColor: theme.palette.primary.light,
-      color: theme.palette.secondary.main,
-    },
+      color: `${theme.palette.primary.main} !important`,
+    },  
     "& .MuiListItemIcon-root": {
-      color: `${theme.palette.secondary.main} !important`,
+      color: `${theme.palette.primary.main} !important`,
     },
   },
 }));
