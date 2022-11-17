@@ -6,6 +6,30 @@ const overrides = {
   typography: {
     fontSize: 14
   },
+  overrides: {
+    MUIDataTable: {
+      paper: {
+        backgroundColor: 'inherit',
+        color: defaultTheme.palette.primary.contrastText
+      }
+    },
+    MUIDataTableToolbar: {
+      icon: {
+        color: 'white'
+      }
+    },
+    MUIDataTableHeadCell: {
+      fixedHeader: {
+        backgroundColor: 'inherit',
+        borderColor: defaultTheme.palette.background.dark5
+      }
+    },
+    MUIDataTableBodyCell: {
+      root: {
+        borderColor: defaultTheme.palette.background.dark5
+      }
+    },
+  }
 };
 
 const themes = {

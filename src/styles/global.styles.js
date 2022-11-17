@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) =>
         }
       },
       body: {
-        backgroundColor: theme.palette.primary.main,
+        backgroundColor: theme.palette.background.dark3,
       }
     }
   })

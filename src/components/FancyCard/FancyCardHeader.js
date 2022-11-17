@@ -36,7 +36,7 @@ export default function FancyCardHeader({
     <Paper
       style={{
         padding: 10,
-        background: theme.palette.primary.main,
+        background: theme.palette.background.dark5,
         ...style,
       }}
     >

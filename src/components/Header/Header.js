@@ -19,6 +19,7 @@ import { companyTag } from "../../constants";
 
 function Header({ open, handleDrawerOpen }) {
   const classes = useStyles();
+  
   return (
     <AppBar
       position="fixed"

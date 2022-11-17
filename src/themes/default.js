@@ -119,9 +119,10 @@ const defaultTheme = {
       default: "#F6F7FF",
       light: '#F3F5FF',
       dark1: '#141414',
-      dark2:'#232323',
-      dark3:'#282828',
-      dark4: '#424042',
+      dark2: '#232323',
+      dark3: '#282828',
+      dark4: '#353435',
+      dark5: '#424042'
     },
     other:colors
   },
