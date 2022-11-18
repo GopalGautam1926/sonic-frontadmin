@@ -18,8 +18,8 @@ export default function FancyCardIcon({
         height: 78,
         textAlign: "center",
         lineHeight: "78px",
-        backgroundColor: theme.palette.background.dark5,
-        color: theme.palette.primary.contrastText,
+        backgroundColor: theme.palette.background.dark1,
+        color: theme.palette.primary.main,
       }}
       {...props}
     >
