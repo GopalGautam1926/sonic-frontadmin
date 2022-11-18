@@ -1,5 +1,4 @@
 import defaultTheme from "./default";
-
 import { createTheme,responsiveFontSizes } from "@material-ui/core/styles";
 
 const overrides = {

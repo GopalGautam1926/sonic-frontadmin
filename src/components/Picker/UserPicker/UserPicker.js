@@ -77,6 +77,7 @@ export default function UserPicker({
             onChange={(e, v) => getSelectedValue(v)}
             renderInput={(params) =>
                 <TextField
+                    style={{color: 'white'}}
                     {...params}
                     fullWidth
                     placeholder={placeholder || ""}

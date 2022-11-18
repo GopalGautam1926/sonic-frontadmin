@@ -15,6 +15,7 @@ export default makeStyles((theme) => ({
     "&:after": {
       borderColor: theme.palette.primary.main,
     },
+    color: theme.palette.primary.contrastText,
   },
   underlineError: {
     "&:after": {

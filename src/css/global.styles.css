@@ -12,12 +12,3 @@ code {
     monospace;
 }
 
-/* for login of cognito */
-:root{
-
-  --amplify-primary-color: #162252;
-  --amplify-primary-tint: #162252; 
-  --amplify-primary-shade: #162252;
-
-  }
-  
