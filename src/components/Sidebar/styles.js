@@ -69,10 +69,11 @@ export default makeStyles((theme) => ({
     },
     "&.Mui-selected": {
       textDecoration: "none",
-      backgroundColor: `${theme.palette.background.dark2} !important`,
+      backgroundColor: `${theme.palette.background.dark3} !important`,
     },
   },
   listItemSelected: { 
+    backgroundColor:theme.palette.primary.main,
     color: theme.palette.primary.main,
     "&:hover":{
       color: `${theme.palette.primary.main} !important`,
@@ -81,6 +82,16 @@ export default makeStyles((theme) => ({
       color: `${theme.palette.primary.main} !important`,
     },
   },
+  // listItem:{
+  //   backgroundColor: theme.palette.background.dark2,
+  //   textDecoration: "none",
+  //   color:theme.palette.secondary.main,
+  //   "& .MuiListItemIcon-root": {
+  //     color:  theme.palette.grey[500],
+  //   },
+   
+    
+  // }
 }));
 
 
