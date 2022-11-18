@@ -13,7 +13,16 @@ const useStyles = makeStyles((theme) =>
       },
       body: {
         backgroundColor: theme.palette.background.dark3,
-      }
+      },
+      /* for login of cognito */
+      ':root' : {
+        '--amplify-background-color': theme.palette.background.dark5,
+        '--amplify-primary-color': theme.palette.secondary.main,
+        '--amplify-primary-tint': theme.palette.secondary.main,
+        '--amplify-primary-shade': theme.palette.secondary.main,
+        '--amplify-secondary-color': '#bbbbbb',
+        '--amplify-secondary-contrast': theme.palette.background.dark5,
+      },
     }
   })
 );
