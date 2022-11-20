@@ -38,6 +38,7 @@ export default makeStyles((theme) => ({
     },
   },
   toolbar: {
+    backgroundColor:theme.palette.background.dark3,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -69,7 +70,7 @@ export default makeStyles((theme) => ({
     },
     "&.Mui-selected": {
       textDecoration: "none",
-      backgroundColor: `${theme.palette.background.dark3} !important`,
+      backgroundColor: `${theme.palette.background.dark4} !important`,
     },
   },
   listItemSelected: { 
