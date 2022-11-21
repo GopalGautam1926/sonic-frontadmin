@@ -1,4 +1,4 @@
-import { FormControl } from "@material-ui/core";
+import { FormControl, makeStyles, useTheme } from "@material-ui/core";
 import { Dialog } from "@material-ui/core";
 import cogoToast from "cogo-toast";
 import React from "react";
@@ -19,6 +19,7 @@ export default function ChangePartnerAdmin({ open, closeDialog, partner }) {
     },
   });
 
+  const classes = useStyles();
   const history = useHistory();
 
   log("partner", partner);
@@ -53,7 +54,12 @@ export default function ChangePartnerAdmin({ open, closeDialog, partner }) {
   };
 
   return (
-    <Dialog open={open} maxWidth="sm" fullWidth>
+    <Dialog
+      open={open}
+      maxWidth="sm"
+      fullWidth
+      className={classes.changeAdminDialog}
+    >
       <FancyCard
         cardHeader={
           <FancyCard.CardHeader>
@@ -100,3 +106,14 @@ export default function ChangePartnerAdmin({ open, closeDialog, partner }) {
     </Dialog>
   );
 }
+
+const useStyles = makeStyles(() => {
+  const theme = useTheme();
+  return {
+    changeAdminDialog: {
+      "& .MuiPaper-root": {
+        backgroundColor: `${theme.palette.background.dark4} !important`,
+      },
+    },
+  };
+});
