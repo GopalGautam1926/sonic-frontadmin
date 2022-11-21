@@ -10,13 +10,16 @@ const overrides = {
   overrides: {
     MuiInput: {
       root: {
+        '& input:disabled': {
+          color: defaultTheme.palette.grey[400],
+        },
         color: defaultTheme.palette.primary.contrastText,
       },
       underline: {
         '&:before': {
           borderColor: `${defaultTheme.palette.grey[400]} !important`,
         }
-      }
+      },
     },
     MUIDataTable: {
       paper: {

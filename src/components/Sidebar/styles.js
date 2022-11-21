@@ -58,7 +58,7 @@ export default makeStyles((theme) => ({
       color:  theme.palette.grey[500],
     },
     "&:hover": {
-      textDecoration: "underline",
+      textDecoration: "underline 4px",
       textDecorationColor:theme.palette.secondary.main,
       backgroundColor:`${theme.palette.background.dark2} !important`,
       color: "white" ,

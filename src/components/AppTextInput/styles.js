@@ -92,5 +92,10 @@ export default makeStyles((theme) => ({
     paddingBottom: "10px",
     position: "relative",
     verticalAlign: "unset",
+  },
+  customDropDownDisabled: {
+    '& .MuiSelect-select.Mui-disabled': {
+      color: theme.palette.grey[400],
+    }
   }
 }));
