@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import RSpace from "../../../components/rcomponents/RSpace";
 import { userRoles } from "../../../constants";
 import { SwitchWithLabel } from "../../../components/Switch/Switch";
-
+import { useTheme } from "@material-ui/core";
 
 const initialUserData = {
   editMode: false,
@@ -30,6 +30,7 @@ export default function ViewUsers() {
   let { userId } = useParams();
   const location = useLocation();
   const [user, setUser] = React.useState({});
+  const theme = useTheme();
 
   const getAndSetUser = async () => {
     try {
@@ -175,7 +176,7 @@ export default function ViewUsers() {
                 )}
               </RSpace>
 
-              <Typography style={{ fontWeight: "bold" }}>
+              <Typography style={{ fontWeight: "bold", color: theme.palette.primary.contrastText }}>
                 User Details
               </Typography>
               <Divider style={{ marginBottom: 20 }} />
@@ -269,7 +270,7 @@ export default function ViewUsers() {
 
               {getAccountType() !== null && (
                 <>
-                  <Typography style={{ marginTop: 20, fontWeight: "bold" }}>
+                  <Typography style={{ marginTop: 20, fontWeight: "bold", color: theme.palette.primary.contrastText }}>
                     {getAccountType()} Details
                   </Typography>
                   <Divider style={{ marginBottom: 20 }} />
@@ -347,7 +348,7 @@ export default function ViewUsers() {
                 </>
               )}
 
-              <Typography style={{ marginTop: 20, fontWeight: "bold" }}>
+              <Typography style={{ marginTop: 20, fontWeight: "bold", color: theme.palette.primary.contrastText }}>
                 Password
               </Typography>
               <Divider style={{ marginBottom: 20 }} />
@@ -395,7 +396,7 @@ export default function ViewUsers() {
                 </Grid>
               </Grid>
 
-              <Typography style={{ marginTop: 20, fontWeight: "bold" }}>
+              <Typography style={{ marginTop: 20, fontWeight: "bold", color: theme.palette.primary.contrastText }}>
                 Status
               </Typography>
               <Divider style={{ marginBottom: 20 }} />

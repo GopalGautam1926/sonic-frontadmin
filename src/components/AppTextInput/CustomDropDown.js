@@ -8,6 +8,7 @@ import Clear from "@material-ui/icons/Clear";
 import Check from "@material-ui/icons/Check";
 // core components
 import { Select } from "@material-ui/core";
+import useStyles from './styles.js';
 
 export default function CustomDropDown({
     formControlProps,
@@ -19,6 +20,8 @@ export default function CustomDropDown({
     success,
     data,
 }) {
+    const classes = useStyles();
+
     return (
         <FormControl style={{}}
             {...formControlProps}
@@ -31,8 +34,10 @@ export default function CustomDropDown({
                     {labelText}
                 </InputLabel>
             ) : null}
-            <Select style={{ boxShadow: "none" }}
+            <Select
+                style={{ boxShadow: "none" } }
                 id={id}
+                className={classes.customDropDownDisabled}
                 {...inputProps}
             >
                 {data?.map((data, index) => (
