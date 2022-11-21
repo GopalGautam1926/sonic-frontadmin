@@ -6,9 +6,11 @@ import { useStore } from "../../../../stores";
 import { observer } from "mobx-react";
 import { CircularProgress } from "@material-ui/core";
 import AppLink from "../../../../components/Link";
+import { useTheme } from "@material-ui/core";
 
 export const RadioStationStats = observer(() => {
   const { radioStationStore } = useStore();
+  const theme = useTheme();
 
   var count = 0;
   if (radioStationStore.error) {
@@ -25,7 +27,7 @@ export const RadioStationStats = observer(() => {
           {(headerClasses) => (
             <>
               <FancyCard.CardIcon color="purple">
-                <RadioIcon />
+                <RadioIcon style={{fontSize: theme.dashboardIconSize}} />
               </FancyCard.CardIcon>
               <div style={{ marginTop: 10, textAlign: "right" }}>
                 <p className={headerClasses.cardCategory}>Radio Stations</p>

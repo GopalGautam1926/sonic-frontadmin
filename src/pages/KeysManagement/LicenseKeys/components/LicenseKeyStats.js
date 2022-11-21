@@ -6,9 +6,11 @@ import { useStore } from "../../../../stores";
 import { observer } from "mobx-react";
 import { CircularProgress } from "@material-ui/core";
 import AppLink from "../../../../components/Link";
+import { useTheme } from "@material-ui/core";
 
 export const LicenseKeyStats = observer(() => {
   const { licenseKeyStore } = useStore();
+  const theme = useTheme();
 
   var count = 0;
   if (licenseKeyStore.error) {
@@ -24,8 +26,8 @@ export const LicenseKeyStats = observer(() => {
         <FancyCard.CardHeader icon>
           {(headerClasses) => (
             <>
-              <FancyCard.CardIcon color="purple">
-                <VpnKeyIcon />
+              <FancyCard.CardIcon color="purple" className='cardIconContainer'>
+                <VpnKeyIcon style={{fontSize: theme.dashboardIconSize}} />
               </FancyCard.CardIcon>
               <div style={{ marginTop: 10, textAlign: "right" }}>
                 <p className={headerClasses.cardCategory}>Licenses</p>

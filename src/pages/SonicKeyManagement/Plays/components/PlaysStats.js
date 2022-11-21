@@ -6,11 +6,13 @@ import { observer } from "mobx-react";
 import { useStore } from "../../../../stores";
 import { CircularProgress } from "@material-ui/core";
 import AppLink from "../../../../components/Link";
+import { useTheme } from "@material-ui/core";
 
 function PlaysStats() {
   const { playsStore } = useStore();
-
+  const theme = useTheme();
   var count = 0;
+  
   if (playsStore.error) {
     count = <span style={{ color: "red" }}>Error</span>;
   } else if (playsStore.loading) {
@@ -25,7 +27,7 @@ function PlaysStats() {
           {(headerClasses) => (
             <>
               <FancyCard.CardIcon color="success">
-                <VpnKeyIcon />
+                <VpnKeyIcon style={{fontSize: theme.dashboardIconSize}}/>
               </FancyCard.CardIcon>
               <div style={{ marginTop: 10, textAlign: "right" }}>
                 <p className={headerClasses.cardCategory}>Plays</p>

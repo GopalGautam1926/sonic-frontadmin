@@ -6,9 +6,11 @@ import { observer } from "mobx-react";
 import { useStore } from "../../../../stores";
 import { CircularProgress } from "@material-ui/core";
 import AppLink from "../../../../components/Link";
+import { useTheme } from "@material-ui/core";
 
 function EncodedStats() {
   const { sonickeyStore } = useStore();
+  const theme = useTheme();
 
   var count = 0;
   if (sonickeyStore.error) {
@@ -25,7 +27,7 @@ function EncodedStats() {
           {(headerClasses) => (
             <>
               <FancyCard.CardIcon color="purple">
-                <VpnKeyIcon />
+                <VpnKeyIcon style={{fontSize: theme.dashboardIconSize}} />
               </FancyCard.CardIcon>
               <div style={{ marginTop: 10, textAlign: "right" }}>
                 <p className={headerClasses.cardCategory}>Encodes</p>

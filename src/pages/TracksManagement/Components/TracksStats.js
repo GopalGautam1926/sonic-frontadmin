@@ -6,11 +6,13 @@ import { CircularProgress } from "@material-ui/core";
 import { observer } from "mobx-react";
 import AudiotrackIcon from "@material-ui/icons/Audiotrack";
 import AppLink from "../../../components/Link";
+import { useTheme } from "@material-ui/core";
 
 const TracksStats = () => {
   const { tracksStore } = useStore();
-
+  const theme = useTheme()
   var count = 0;
+  
   if (tracksStore.error) {
     count = <span style={{ color: "red" }}>Error</span>;
   } else if (tracksStore.loading) {
@@ -26,7 +28,7 @@ const TracksStats = () => {
           {(headerClasses) => (
             <>
               <FancyCard.CardIcon color="purple">
-                <AudiotrackIcon />
+                <AudiotrackIcon style={{fontSize: theme.dashboardIconSize}}/>
               </FancyCard.CardIcon>
               <div style={{ marginTop: 10, textAlign: "right" }}>
                 <p className={headerClasses.cardCategory}>Tracks</p>

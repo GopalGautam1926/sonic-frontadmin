@@ -20,6 +20,7 @@ export default function FancyCardIcon({
         lineHeight: "78px",
         backgroundColor: theme.palette.background.dark1,
         color: theme.palette.primary.main,
+        borderRadius: 10,
       }}
       {...props}
     >

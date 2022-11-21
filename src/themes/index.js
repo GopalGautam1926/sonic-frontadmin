@@ -8,6 +8,16 @@ const overrides = {
     
   },
   overrides: {
+    MuiInput: {
+      root: {
+        color: defaultTheme.palette.primary.contrastText,
+      },
+      underline: {
+        '&:before': {
+          borderColor: `${defaultTheme.palette.grey[400]} !important`,
+        }
+      }
+    },
     MUIDataTable: {
       paper: {
         backgroundColor: 'inherit',
@@ -16,20 +26,33 @@ const overrides = {
     },
     MUIDataTableToolbar: {
       icon: {
-        color: 'white'
+        color: defaultTheme.palette.primary.contrastText
       }
     },
     MUIDataTableHeadCell: {
       fixedHeader: {
         backgroundColor: 'inherit',
-        borderColor: defaultTheme.palette.background.dark5
+        // borderBottom: `1px solid ${defaultTheme.palette.primary.contrastText}`,
       }
     },
     MUIDataTableBodyCell: {
       root: {
-        borderColor: defaultTheme.palette.background.dark5
+        // borderBottom: `1px solid ${defaultTheme.palette.primary.contrastText}`,
+        // borderColor: defaultTheme.palette.primary.contrastText,
       }
     },
+    MUIDataTableViewCol: {
+      root: {
+        background: defaultTheme.palette.background.dark5,
+        color: defaultTheme.palette.primary.contrastText
+      },
+      title: {
+        color: 'inherit',
+      },
+      checked: {
+        color: `${defaultTheme.palette.secondary.main} !important`,
+      }
+    }
   }
 };
 

@@ -195,8 +195,8 @@ const defaultTheme = {
         marginLeft: 10
       }
     },
-
   },
+  dashboardIconSize: '30px',
 };
 
 export default defaultTheme;
