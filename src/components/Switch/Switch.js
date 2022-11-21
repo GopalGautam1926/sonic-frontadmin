@@ -2,6 +2,7 @@ import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import MuiSwitch from "@material-ui/core/Switch";
+import { useTheme } from "@material-ui/styles";
 
 const IOSSwitch = withStyles((theme) => ({
   root: {
@@ -16,7 +17,7 @@ const IOSSwitch = withStyles((theme) => ({
       transform: "translateX(16px)",
       color: theme.palette.common.white,
       "& + $track": {
-        backgroundColor: theme.palette.primary.main,
+        backgroundColor: theme.palette.secondary.main,
         opacity: 1,
         border: "none",
       },
@@ -59,10 +60,13 @@ const IOSSwitch = withStyles((theme) => ({
 export const Switch = IOSSwitch;
 
 export function SwitchWithLabel({ label, checked, onChange, ...rest }) {
+  const theme = useTheme();
+
   return (
     <FormControlLabel
       control={<IOSSwitch checked={checked} onChange={onChange} {...rest} />}
       label={label}
+      style={{color: theme.palette.primary.contrastText}}
     />
   );
 }

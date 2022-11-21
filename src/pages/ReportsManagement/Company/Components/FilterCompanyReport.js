@@ -11,8 +11,10 @@ import CompanyPicker from '../../../../components/Picker/CompanyPicker'
 import PartnerPicker from '../../../../components/Picker/PartnerPicker'
 import { Channel } from '../../../../constants'
 import { useStore } from '../../../../stores'
+import { useTheme } from '@material-ui/core'
 
 const FilterCompanyReport = ({ closeDialog }) => {
+    const theme = useTheme();
     const { companyReportStore } = useStore();
 
     const onCompanyReportSubmit = (e) => {
@@ -153,11 +155,12 @@ const FilterCompanyReport = ({ closeDialog }) => {
                         </Grid>
                     </Grid>
                     <FormControlLabel
+                        style={{color: theme.palette.primary.contrastText}}
                         control={
                             <Checkbox
                                 checked={companyReportStore?.getFilters?.isPartnerCustomerCompanyInc}
                                 onChange={(e) => companyReportStore?.changeFilters({ ...companyReportStore?.getFilters, isPartnerCustomerCompanyInc: e.target.checked })}
-                                color="primary"
+                                color="secondary"
                             />
                         }
                         label="Including Partner Customer Companies"

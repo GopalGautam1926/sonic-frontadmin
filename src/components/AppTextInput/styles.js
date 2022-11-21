@@ -15,7 +15,6 @@ export default makeStyles((theme) => ({
     "&:after": {
       borderColor: theme.palette.primary.main,
     },
-    color: theme.palette.primary.contrastText,
   },
   underlineError: {
     "&:after": {
@@ -29,7 +28,7 @@ export default makeStyles((theme) => ({
   },
   labelRoot: {
     // ...defaultFont,
-    color: theme.palette.grey[600] + " !important",
+    // color: theme.palette.grey[600] + " !important",
     fontWeight: "400",
     fontSize: "14px",
     lineHeight: "1.42857",

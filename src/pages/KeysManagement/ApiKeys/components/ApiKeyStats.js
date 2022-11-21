@@ -6,9 +6,11 @@ import { useStore } from "../../../../stores";
 import { observer } from "mobx-react";
 import { CircularProgress } from "@material-ui/core";
 import AppLink from "../../../../components/Link";
+import { useTheme } from "@material-ui/core";
 
 function ApiKeyStats() {
   const { apiKeyStore } = useStore();
+  const theme = useTheme();
   var count = 0;
   if (apiKeyStore.error) {
     count = <span style={{ color: "red" }}>Error</span>;
@@ -24,7 +26,7 @@ function ApiKeyStats() {
           {(headerClasses) => (
             <>
               <FancyCard.CardIcon color="success">
-                <VpnKeyIcon />
+                <VpnKeyIcon style={{fontSize: theme.dashboardIconSize}} />
               </FancyCard.CardIcon>
               <div style={{ marginTop: 10, textAlign: "right" }}>
                 <p className={headerClasses.cardCategory}>Api Keys</p>

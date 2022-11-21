@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import { RadioGroup, FormControlLabel } from "@material-ui/core";
 import { FormControl } from "@material-ui/core";
 import { FormLabel } from "@material-ui/core";
+import { useTheme } from "@material-ui/core";
 
 const initialApiKey = {
   customer: "",
@@ -27,6 +28,7 @@ export default function AddApiKey({ closeDialog }) {
   const [state, setState] = useState({
     loading: false,
   });
+  const theme = useTheme();
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -88,11 +90,13 @@ export default function AddApiKey({ closeDialog }) {
                     value="Individual"
                     control={<Radio />}
                     label="Individual"
+                    style={{color: theme.palette.primary.contrastText}}
                   />
                   <FormControlLabel
                     value="Company"
                     control={<Radio />}
                     label="Company"
+                    style={{color: theme.palette.primary.contrastText}}
                   />
                 </RadioGroup>
               </FormControl>

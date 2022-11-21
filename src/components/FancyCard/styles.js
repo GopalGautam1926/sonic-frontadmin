@@ -8,6 +8,7 @@ export default makeStyles((theme) => ({
     width: "100%",
     marginTop: 30,
     backgroundColor: theme.palette.background.dark4,
+    borderRadius: 10,
   },
   cardHeader: {
     margin: "-20px 15px 0px 15px",
@@ -22,7 +23,7 @@ export default makeStyles((theme) => ({
     boxShadow: "0 1px 4px 0 rgba(" + hexToRgb(theme.palette.black) + ", 0.14)",
   },
   cardCategory: {
-    color: theme.palette.other.grey[500],
+    color: theme.palette.primary.contrastText,
     margin: "0",
     fontSize: "14px",
     marginTop: "0",
@@ -37,7 +38,7 @@ export default makeStyles((theme) => ({
     marginBottom: "0",
   },
   cardTitle: {
-    color: theme.palette.other.grey[700],
+    color: theme.palette.primary.contrastText,
     marginTop: "0px",
     minHeight: "auto",
     fontWeight: "500",

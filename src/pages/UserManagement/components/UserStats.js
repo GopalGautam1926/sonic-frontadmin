@@ -6,9 +6,11 @@ import { useStore } from "../../../stores";
 import { CircularProgress } from "@material-ui/core";
 import { observer } from "mobx-react";
 import AppLink from "../../../components/Link";
+import { useTheme } from "@material-ui/core";
 
 export const UserStats = observer(() => {
   const { userStore } = useStore();
+  const theme = useTheme();
 
   var count = 0;
   if (userStore.error) {
@@ -26,7 +28,7 @@ export const UserStats = observer(() => {
           {(headerClasses) => (
             <>
               <FancyCard.CardIcon color="success">
-                <PeopleIcon />
+                <PeopleIcon style={{fontSize: theme.dashboardIconSize}} />
               </FancyCard.CardIcon>
               <div style={{ marginTop: 10, textAlign: "right" }}>
                 <p className={headerClasses.cardCategory}>Users</p>
