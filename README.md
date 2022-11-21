@@ -1,6 +1,6 @@
-# Sonic Admin Portal
+# Amazing Admin Portal
 
-Admin Portal for Sonic
+Admin Portal for Amazing
 
 ## Usage
 

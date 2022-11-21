@@ -67,6 +67,7 @@ export default makeStyles((theme) => ({
     cursor: 'pointer'
   },
   countrySelectOption: {
+    fontFamily:theme.fontFamily.bold,
     fontSize: 15,
     '& > span': {
       marginRight: 10,
@@ -88,6 +89,7 @@ export default makeStyles((theme) => ({
     marginTop: "16px",
   },
   formControl: {
+    fontFamily:theme.fontFamily.bold,
     paddingBottom: "10px",
     position: "relative",
     verticalAlign: "unset",

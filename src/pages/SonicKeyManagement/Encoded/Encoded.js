@@ -22,14 +22,14 @@ export default function Encoded() {
 
   const columns = [
     {
-      label: "AmazingTag",
+      label: "AMAZINGTAG",
       name: "sonicKey",
       options: {
         filter: false,
       },
     },
     {
-      label: "Date",
+      label: "DATE",
       name: "createdAt",
       options: {
         filter: false,
@@ -40,7 +40,7 @@ export default function Encoded() {
       },
     },
     {
-      label: "Time",
+      label: "TIME",
       name: "createdAt",
       options: {
         filter: false,
@@ -51,7 +51,7 @@ export default function Encoded() {
       },
     },
     {
-      label: "Duration",
+      label: "DURATION",
       name: "contentDuration",
       options: {
         filter: false,
@@ -62,7 +62,7 @@ export default function Encoded() {
       },
     },
     {
-      label: "Original Filename",
+      label: "ORIGINAL FILENAME",
       name: "originalFileName",
       options: {
         filter: false,
@@ -78,7 +78,7 @@ export default function Encoded() {
       },
     },
     {
-      label: "Artist",
+      label: "ARTIST",
       name: "contentOwner",
       options: {
         filter: false,

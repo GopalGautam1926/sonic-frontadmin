@@ -44,7 +44,7 @@ export default function Plays() {
 
   const columns = [
     {
-      label: "Track ID",
+      label: "TRACK ID",
       name: "sonicKey",
       options: {
         filter: false,
@@ -55,7 +55,7 @@ export default function Plays() {
       },
     },
     {
-      label: "AmazingTag",
+      label: "AMAZINGTAG",
       name: "sonicKey",
       options: {
         filter: false,
@@ -66,7 +66,7 @@ export default function Plays() {
       },
     },
     {
-      label: "Radio Station",
+      label: "RADIO STATION",
       name: "radioStation",
       options: {
         filter: false,
@@ -77,7 +77,7 @@ export default function Plays() {
       },
     },
     {
-      label: "Date",
+      label: "DATE",
       name: "detectedAt",
       options: {
         filter: false,
@@ -88,7 +88,7 @@ export default function Plays() {
       },
     },
     {
-      label: "Time",
+      label: "TIME",
       name: "detectedAt",
       options: {
         filter: false,
@@ -99,7 +99,7 @@ export default function Plays() {
       },
     },
     {
-      label: "Duration",
+      label: "DURATION",
       name: "sonicKey",
       options: {
         filter: false,
@@ -112,7 +112,7 @@ export default function Plays() {
       },
     },
     {
-      label: "Artist",
+      label: "ARTIST",
       name: "sonicKey",
       options: {
         filter: false,
@@ -130,7 +130,7 @@ export default function Plays() {
       },
     },
     {
-      label: "Title",
+      label: "TITLE",
       name: "sonicKey",
       options: {
         filter: false,
@@ -141,7 +141,7 @@ export default function Plays() {
       },
     },
     {
-      label: "Country",
+      label: "COUNTRY",
       name: "radioStation",
       options: {
         filter: false,
@@ -162,7 +162,7 @@ export default function Plays() {
       },
     },
     {
-      label: "Actions",
+      label: "ACTIONS",
       name: "_id",
       options: {
         filter: false,

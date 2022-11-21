@@ -23,11 +23,11 @@ function ApiKeys() {
   const { apiKeyStore } = useStore();
   const columns = [
     {
-      label: "Key",
+      label: "KEY",
       name: "_id",
     },
     {
-      label: "Customer",
+      label: "CUSTOMER",
       name: "customer",
       options: {
         filter: false,
@@ -37,7 +37,7 @@ function ApiKeys() {
       },
     },
     {
-      label: "Company",
+      label: "COMPANY",
       name: "company",
       options: {
         filter: false,
@@ -47,7 +47,7 @@ function ApiKeys() {
       },
     },
     {
-      label: "Validity",
+      label: "VALIDITY",
       name: "validity",
       options: {
         filter: false,
@@ -58,7 +58,7 @@ function ApiKeys() {
       },
     },
     {
-      label: "Status",
+      label: "STATUS",
       name: "_id",
       options: {
         filter: false,
@@ -103,7 +103,7 @@ function ApiKeys() {
       },
     },
     {
-      label: "Actions",
+      label: "ACTIONS",
       name: "_id",
       options: {
         filter: false,

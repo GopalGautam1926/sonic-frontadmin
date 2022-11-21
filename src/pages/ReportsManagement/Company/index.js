@@ -13,15 +13,15 @@ export default function Company() {
 
     const columns = [
         {
-            label: "Company",
+            label: "COMPANY",
             name: "name",
         },
         {
-            label: "Encodes",
+            label: "ENCODES",
             name: "encodesCount",
         },
         {
-            label: "Plays",
+            label: "PLAYS",
             name: "_id",
             options: {
                 filter: false,
@@ -32,7 +32,7 @@ export default function Company() {
             }
         },
         {
-            label: "Tracks",
+            label: "TRACKS",
             name: "_id",
             options: {
                 filter: false,
@@ -43,7 +43,7 @@ export default function Company() {
             }
         },
         {
-            label: "Artists",
+            label: "ARTISTS",
             name: "_id",
             options: {
                 filter: false,
@@ -54,7 +54,7 @@ export default function Company() {
             }
         },
         {
-            label: "Radio Stations",
+            label: "RADIO STATIONS",
             name: "_id",
             options: {
                 filter: false,
@@ -65,7 +65,7 @@ export default function Company() {
             }
         },
         {
-            label: "Countries",
+            label: "COUNTRIES",
             name: "_id",
             options: {
                 filter: false,

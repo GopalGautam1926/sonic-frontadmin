@@ -30,11 +30,26 @@ const Breadcrumbs = ({ routes }) => {
     }
   }
   return (
-    <Card style={{ padding: 8, background: 'inherit' }} elevation={0} id="app_breadcrumbs">
-      <MUIBreadcrumbs aria-label="breadcrumb" style={{color: theme.palette.primary.contrastText}}>
+    <Card
+      style={{ padding: 8, background: "inherit" }}
+      elevation={0}
+      id="app_breadcrumbs"
+    >
+      <MUIBreadcrumbs
+        aria-label="breadcrumb"
+        style={{ color: theme.palette.primary.contrastText }}
+      >
         {crumbs.map((crumb, index) => {
           if (crumb.isLast) {
-            return <Typography key={index} color="textPrimary">{crumb.name}</Typography>;
+            return (
+              <Typography
+                key={index}
+                color="textPrimary"
+                style={{ fontFamily: theme.fontFamily.medium }}
+              >
+                {crumb.name}
+              </Typography>
+            );
           } else {
             return (
               <Link key={index} color="inherit" to={crumb.to}>

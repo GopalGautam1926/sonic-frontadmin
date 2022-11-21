@@ -27,7 +27,7 @@ export default function Release() {
   const { releaseStore } = useStore()
   const columns = [
     {
-      label: "Version Code",
+      label: "VERSION CODE",
       name: "versionCode",
       options: {
         filter: false,
@@ -56,7 +56,7 @@ export default function Release() {
       }
     },
     {
-      label: "Release Note",
+      label: "RELEASE NOTES",
       name: "releaseNote",
       options: {
         filter: false,
@@ -74,7 +74,7 @@ export default function Release() {
       },
     },
     {
-      label: "Release Date",
+      label: "RELEASE DATE",
       name: "createdAt",
       options: {
         filter: false,
@@ -85,11 +85,11 @@ export default function Release() {
       },
     },
     {
-      label: "Platform",
+      label: "PLATFORM",
       name: "platform",
     },
     {
-      label: "Actions",
+      label: "ACTIONS",
       name: "_id",
       options: {
         filter: false,

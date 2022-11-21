@@ -25,19 +25,19 @@ export default function Partners() {
 
   const columns = [
     {
-      label: "Name",
+      label: "NAME",
       name: "name",
     },
     {
-      label: "Id",
+      label: "ID",
       name: "_id",
     },
     {
-      label: "Type",
+      label: "TYPE",
       name: "partnerType",
     },
     {
-      label: "Admin",
+      label: "ADMIN",
       name: "owner",
       options: {
         filter: false,
@@ -47,7 +47,7 @@ export default function Partners() {
       },
     },
     {
-      label: "Status",
+      label: "STATUS",
       name: "enabled",
       options: {
         filter: false,
@@ -79,7 +79,7 @@ export default function Partners() {
       },
     },
     {
-      label: "Actions",
+      label: "ACTIONS",
       name: "_id",
       options: {
         filter: false,

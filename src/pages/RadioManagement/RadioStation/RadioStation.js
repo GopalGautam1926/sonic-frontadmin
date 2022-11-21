@@ -35,11 +35,11 @@ function RadioStation() {
 
   const columns = [
     {
-      label: "Name",
+      label: "NAME",
       name: "name",
     },
     {
-      label: "Logo",
+      label: "LOGO",
       name: "_id",
       options: {
         filter: false,
@@ -53,7 +53,7 @@ function RadioStation() {
       },
     },
     {
-      label: "Streaming URL",
+      label: "STREAMING URL",
       name: "streamingUrl",
       options: {
         filter: false,
@@ -71,7 +71,7 @@ function RadioStation() {
       },
     },
     {
-      label: "Website",
+      label: "WEBSITE",
       name: "website",
       options: {
         filter: false,
@@ -89,11 +89,11 @@ function RadioStation() {
       },
     },
     {
-      label: "Country",
+      label: "COUNTRY",
       name: "country",
     },
     {
-      label: "Status",
+      label: "STATUS",
       name: "_id",
       options: {
         filter: false,
@@ -148,7 +148,7 @@ function RadioStation() {
       },
     },
     {
-      label: "Actions",
+      label: "ACTIONS",
       name: "_id",
       options: {
         filter: false,

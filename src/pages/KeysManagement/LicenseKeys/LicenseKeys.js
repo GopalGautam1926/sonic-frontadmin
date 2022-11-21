@@ -23,43 +23,43 @@ function LicenseKeys() {
   const { licenseKeyStore } = useStore();
   const columns = [
     {
-      label: "Name",
+      label: "NAME",
       name: "name",
     },
     {
-      label: "Key",
+      label: "KEY",
       name: "key",
     },
     {
-      label: "Max uses (encode)",
+      label: "MAX USES (ENCODE)",
       name: "maxEncodeUses",
       options: {
         display: true
       }
     },
     {
-      label: "Uses (encode)",
+      label: "USES (ENCODE)",
       name: "encodeUses",
       options: {
         display: true
       }
     },
     {
-      label: "Max uses (monitor)",
+      label: "MAX USES (MONITOR)",
       name: "maxMonitoringUses",
       options: {
         display: true
       }
     },
     {
-      label: "Uses (monitor)",
+      label: "USES (MONITOR)",
       name: "monitoringUses",
       options: {
         display: true
       }
     },
     {
-      label: "Type",
+      label: "TYPR",
       name: "type",
       options: {
         display: true,
@@ -70,7 +70,7 @@ function LicenseKeys() {
       }
     },
     {
-      label: "Company",
+      label: "COMPANY",
       name: "company",
       options: {
         display: true,
@@ -81,14 +81,14 @@ function LicenseKeys() {
       }
     },
     {
-      label: "Users",
+      label: "USERS",
       name: "totalUsers",
       options: {
         filter: false,
       }
     },
     {
-      label: "Validity",
+      label: "VALIDITY",
       name: "validity",
       options: {
         filter: false,
@@ -99,7 +99,7 @@ function LicenseKeys() {
       },
     },
     {
-      label: "Status",
+      label: "STATUS",
       name: "key",
       options: {
         filter: false,
@@ -144,7 +144,7 @@ function LicenseKeys() {
       },
     },
     {
-      label: "Actions",
+      label: "ACTIONS",
       name: "key",
       options: {
         filter: false,

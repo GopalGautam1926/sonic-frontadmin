@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
 import ReactDatePicker from "react-datepicker";
-import { InputAdornment } from "@material-ui/core";
+import { InputAdornment, makeStyles, useTheme } from "@material-ui/core";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import AppTextInput from "../AppTextInput/AppTextInput";
 
@@ -11,6 +11,8 @@ export default function DatePicker({
   onChange,
   ...props
 }) {
+  //  
+  const classes = useStyles();
   const ExampleCustomInput = forwardRef(
     ({ value, label, onClick, ...rest }, ref) => (
       <AppTextInput
@@ -19,6 +21,7 @@ export default function DatePicker({
         formControlProps={{
           fullWidth: true,
         }}
+        
         inputProps={{
           value: value,
           onClick: onClick,
@@ -35,6 +38,7 @@ export default function DatePicker({
   );
   return (
     <ReactDatePicker
+    calendarClassName={classes.calendarClassName}
       selected={selected}
       onChange={onChange}
       {...props}
@@ -42,3 +46,24 @@ export default function DatePicker({
     />
   );
 }
+const useStyles = makeStyles(() => {
+  const theme = useTheme();
+  return {
+    calendarClassName: {
+      backgroundColor: `${theme.palette.background.dark4} !important`,
+      color: `${theme.palette.background.contrastText} !important`,
+      fontFamily: theme.fontFamily.regular,
+      "& .react-datepicker__day": {
+        color: theme.palette.primary.contrastText,
+        "&:hover": {
+          color: theme.palette.background.dark1,
+        },
+      },
+      "& .react-datepicker__day--today": {
+        backgroundColor: `${theme.palette.background.dark1} !important`,
+        outline: `2px solid ${theme.palette.primary.main} !important`,
+      },
+    },
+  };
+});
+

@@ -12,7 +12,7 @@ export default function Summary() {
 
     const columns = [
         {
-            label: "Partner",
+            label: "PARTNER",
             name: "partner",
             options: {
                 filter: false,
@@ -26,7 +26,7 @@ export default function Summary() {
             }
         },
         {
-            label: "Company",
+            label: "COMPANY",
             name: "company",
             options: {
                 filter: false,
@@ -40,7 +40,7 @@ export default function Summary() {
             }
         },
         {
-            label: "Encodes",
+            label: "ENCODES",
             name: "encodes",
             options: {
                 filter: false,
@@ -54,7 +54,7 @@ export default function Summary() {
             }
         },
         {
-            label: "Plays",
+            label: "PLAYS",
             name: "plays",
             options: {
                 filter: false,
@@ -68,7 +68,7 @@ export default function Summary() {
             }
         },
         {
-            label: "Tracks",
+            label: "TRACKS",
             name: "tracks",
             options: {
                 filter: false,

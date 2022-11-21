@@ -17,7 +17,7 @@ export default function ArtistReport() {
 
     const columns = [
         {
-            label: "Artist",
+            label: "ARTIST",
             name: "artist",
             options: {
                 filter: false,
@@ -27,7 +27,7 @@ export default function ArtistReport() {
             },
         },
         {
-            label: "Plays",
+            label: "PLAYS",
             name: "playsCount",
             options: {
                 filter: false,
@@ -37,7 +37,7 @@ export default function ArtistReport() {
             },
         },
         {
-            label: "Tracks",
+            label: "TRACKS",
             name: "uniquePlaysCount",
             options: {
                 filter: false,
@@ -47,7 +47,7 @@ export default function ArtistReport() {
             },
         },
         {
-            label: "Radio Stations",
+            label: "RADIO STATIONS",
             name: "radioStationCount",
             options: {
                 filter: false,
@@ -57,7 +57,7 @@ export default function ArtistReport() {
             },
         },
         {
-            label: "Countries",
+            label: "COUNTRIES",
             name: "countriesCount",
             options: {
                 filter: false,

@@ -48,7 +48,7 @@ export default function EncodesReport() {
 
     const columns = [
         {
-            label: "TrackId",
+            label: "TRACKID",
             name: "trackId",
             options: {
                 filter: false,
@@ -58,14 +58,14 @@ export default function EncodesReport() {
             },
         },
         {
-            label: "AmazingTag",
+            label: "AMAZINGTAG",
             name: "sonicKey",
             options: {
                 filter: false,
             }
         },
         {
-            label: "Title",
+            label: "TITLE",
             name: "contentName",
             options: {
                 filter: false,
@@ -80,7 +80,7 @@ export default function EncodesReport() {
             },
         },
         {
-            label: "Version",
+            label: "VERSION",
             name: "version",
             options: {
                 filter: false,
@@ -90,7 +90,7 @@ export default function EncodesReport() {
             },
         },
         {
-            label: "Artist",
+            label: "ARTIST",
             name: "contentOwner",
             options: {
                 filter: false,
@@ -103,7 +103,7 @@ export default function EncodesReport() {
             }
         },
         {
-            label: "MusicType",
+            label: "MUSICTYPE",
             name: "contentType",
             options: {
                 filter: false,
@@ -133,7 +133,7 @@ export default function EncodesReport() {
             },
         },
         {
-            label: "TuneCode",
+            label: "TUNECODE",
             name: "tuneCode",
             options: {
                 filter: false,
@@ -143,7 +143,7 @@ export default function EncodesReport() {
             },
         },
         {
-            label: "Label",
+            label: "LABEL",
             name: "label",
             options: {
                 filter: false,
@@ -153,7 +153,7 @@ export default function EncodesReport() {
             },
         },
         {
-            label: "Distributor",
+            label: "DISTRIBUTOR",
             name: "distributor",
             options: {
                 filter: false,
@@ -163,7 +163,7 @@ export default function EncodesReport() {
             },
         },
         {
-            label: "FileType",
+            label: "FILETYPE",
             name: "contentFileType",
             options: {
                 filter: false,
@@ -173,7 +173,7 @@ export default function EncodesReport() {
             },
         },
         {
-            label: "AudioLength",
+            label: "AUDIOLENGTH",
             name: "contentDuration",
             options: {
                 filter: false,
@@ -183,7 +183,7 @@ export default function EncodesReport() {
             }
         },
         {
-            label: "AudioSize(MB)",
+            label: "AUDIOSIZE(MB)",
             name: "contentSize",
             options: {
                 filter: false,
@@ -193,7 +193,7 @@ export default function EncodesReport() {
             }
         },
         {
-            label: "UnderlyingEncodingofFile",
+            label: "UNDERLYING ENCODE OF FILE",
             name: "contentEncoding",
             options: {
                 filter: false,
@@ -203,7 +203,7 @@ export default function EncodesReport() {
             },
         },
         {
-            label: "SamplingFrequency",
+            label: "SAMPLING FREQUENCY",
             name: "contentSamplingFrequency",
             options: {
                 filter: false,
@@ -213,7 +213,7 @@ export default function EncodesReport() {
             },
         },
         {
-            label: "QualityGrade",
+            label: "QUALITY GRADE",
             name: "contentQuality",
             options: {
                 filter: false,
@@ -223,7 +223,7 @@ export default function EncodesReport() {
             },
         },
         {
-            label: "Description",
+            label: "DESCRIPTION",
             name: "contentDescription",
             options: {
                 filter: false,
@@ -236,7 +236,7 @@ export default function EncodesReport() {
             }
         },
         {
-            label: "AdditionalMetadata",
+            label: "ADDITIONAL METADATA",
             name: "additionalMetadata",
             options: {
                 filter: false,
@@ -246,7 +246,7 @@ export default function EncodesReport() {
             },
         },
         {
-            label: "EncodedDate",
+            label: "ENCODED DATE",
             name: "createdAt",
             options: {
                 filter: false,

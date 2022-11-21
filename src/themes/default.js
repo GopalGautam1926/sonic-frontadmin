@@ -122,9 +122,15 @@ const defaultTheme = {
       dark2: '#232323',
       dark3: '#282828',
       dark4: '#353435',
-      dark5: '#424042'
+      dark5: '#424042',
+
     },
     other:colors
+  },
+  fontFamily:{
+    bold:"FuturaBold",
+    regular:"FuturaRegular",
+    medium:"FuturaMedium",
   },
   customShadows: {
     widget:

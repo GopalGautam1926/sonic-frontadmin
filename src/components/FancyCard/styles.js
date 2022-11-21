@@ -8,6 +8,8 @@ export default makeStyles((theme) => ({
     width: "100%",
     marginTop: 30,
     backgroundColor: theme.palette.background.dark4,
+    fontFamily:theme.fontFamily.bold,
+
   },
   cardHeader: {
     margin: "-20px 15px 0px 15px",
@@ -16,20 +18,23 @@ export default makeStyles((theme) => ({
     position: "relative",
     backgroundColor: "transparent",
     boxShadow: "none",
+
   },
 
   cardIconContainer: {
     boxShadow: "0 1px 4px 0 rgba(" + hexToRgb(theme.palette.black) + ", 0.14)",
   },
   cardCategory: {
+    fontFamily:theme.fontFamily.medium,
     color: theme.palette.other.grey[500],
     margin: "0",
     fontSize: "14px",
-    marginTop: "0",
+    marginTop: "5px",
     paddingTop: "10px",
     marginBottom: "0",
   },
   cardCategoryWhite: {
+    fontFamily:theme.fontFamily.medium,
     color: "rgba(" + hexToRgb(theme.palette.white) + ",.62)",
     margin: "0",
     fontSize: "14px",
@@ -41,7 +46,7 @@ export default makeStyles((theme) => ({
     marginTop: "0px",
     minHeight: "auto",
     fontWeight: "500",
-    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
+    fontFamily:theme.fontFamily.bold,
     marginBottom: "3px",
     textDecoration: "none",
     "& small": {
@@ -55,7 +60,7 @@ export default makeStyles((theme) => ({
     marginTop: "0px",
     minHeight: "auto",
     fontWeight: "300",
-    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
+    fontFamily:theme.fontFamily.bold,
     marginBottom: "3px",
     textDecoration: "none",
     "& small": {

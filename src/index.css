@@ -1,0 +1,17 @@
+@font-face {
+    font-family: "FuturaBold";
+    src: local("FuturaBold"),
+      url("./assets/fonts/FuturaBold.otf") format("truetype");
+  }
+
+ @font-face {
+    font-family: "FuturaRegular";
+    src: local("FuturaRegular"),
+      url("./assets/fonts/FuturaRegular.otf") format("truetype");
+  }
+
+@font-face {
+    font-family: "FuturaMedium";
+    src: local("FuturaMedium"),
+      url("./assets/fonts/FuturaMedium.otf") format("truetype");
+  }

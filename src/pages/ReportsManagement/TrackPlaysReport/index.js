@@ -51,7 +51,7 @@ export default function TrackPlaysReport() {
 
   const columns = [
     {
-      label: "Company",
+      label: "COMPANY",
       name: "companyName",
       options: {
         filter: false,
@@ -61,7 +61,7 @@ export default function TrackPlaysReport() {
       },
     },
     {
-      label: "CompanyType",
+      label: "COMPANYTYPE",
       name: "companyType",
       options: {
         filter: false,
@@ -71,7 +71,7 @@ export default function TrackPlaysReport() {
       },
     },
     {
-      label: "Artist",
+      label: "ARTIST",
       name: "contentOwner",
       options: {
         filter: false,
@@ -87,7 +87,7 @@ export default function TrackPlaysReport() {
       },
     },
     {
-      label: "Title",
+      label: "TITLE",
       name: "contentName",
       options: {
         filter: false,
@@ -103,7 +103,7 @@ export default function TrackPlaysReport() {
       },
     },
     {
-      label: "RadioStation",
+      label: "RADIOSTATION",
       name: "radioStation",
       options: {
         filter: false,
@@ -113,7 +113,7 @@ export default function TrackPlaysReport() {
       },
     },
     {
-      label: "Date",
+      label: "DATE",
       name: "date",
       options: {
         filter: false,
@@ -123,7 +123,7 @@ export default function TrackPlaysReport() {
       },
     },
     {
-      label: "Time",
+      label: "TIME",
       name: "time",
       options: {
         filter: false,
@@ -133,7 +133,7 @@ export default function TrackPlaysReport() {
       },
     },
     {
-      label: "Duration",
+      label: "DURATION",
       name: "duration",
       options: {
         filter: false,
@@ -143,7 +143,7 @@ export default function TrackPlaysReport() {
       },
     },
     {
-      label: "Country",
+      label: "COUNTRY",
       name: "country",
       options: {
         filter: false,
@@ -153,7 +153,7 @@ export default function TrackPlaysReport() {
       },
     },
     {
-      label: "TrackId",
+      label: "TRACK ID",
       name: "trackId",
       options: {
         filter: false,
@@ -163,7 +163,7 @@ export default function TrackPlaysReport() {
       },
     },
     {
-      label: "SonicKey",
+      label: "AMAZINGTAG",
       name: "sonicKey",
       options: {
         filter: false,
@@ -183,7 +183,7 @@ export default function TrackPlaysReport() {
       },
     },
     {
-      label: "Version",
+      label: "VERSION",
       name: "version",
       options: {
         filter: false,
@@ -193,7 +193,7 @@ export default function TrackPlaysReport() {
       },
     },
     {
-      label: "Distributor",
+      label: "DISTRIBUTOR",
       name: "distributor",
       options: {
         filter: false,
@@ -203,7 +203,7 @@ export default function TrackPlaysReport() {
       },
     },
     {
-      label: "Label",
+      label: "LABEL",
       name: "label",
       options: {
         filter: false,
@@ -233,7 +233,7 @@ export default function TrackPlaysReport() {
       },
     },
     {
-      label: "TuneCode",
+      label: "TUNECODE",
       name: "tuneCode",
       options: {
         filter: false,
@@ -243,7 +243,7 @@ export default function TrackPlaysReport() {
       },
     },
     {
-      label: "Description",
+      label: "DESCRIPTION",
       name: "contentDescription",
       options: {
         filter: false,
@@ -253,7 +253,7 @@ export default function TrackPlaysReport() {
       },
     },
     {
-      label: "FileType",
+      label: "FILETYPE",
       name: "contentFileType",
       options: {
         filter: false,

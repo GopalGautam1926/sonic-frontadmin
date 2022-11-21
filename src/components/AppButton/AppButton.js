@@ -52,6 +52,7 @@ const AppButton = ({
         cursor: loading ? "default" : "pointer",
         backgroundColor: theme.palette.secondary.main,
         color: theme.palette.primary.contrastText,
+        fontFamily:theme.fontFamily.bold,
         ...style,
       }}
       startIcon={

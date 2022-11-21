@@ -25,9 +25,11 @@ export default makeStyles((theme) => ({
     display: 'none',
   },
   title: {
+    fontFamily:theme.fontFamily.bold,
     flexGrow: 1,
   },
   toolbar: {
+    fontFamily:theme.fontFamily.bold,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',

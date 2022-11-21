@@ -28,19 +28,19 @@ export default function Users() {
 
   const columns = [
     {
-      label: "Username",
+      label: "USERNAME",
       name: "username",
     },
     {
-      label: "Id",
+      label: "ID",
       name: "_id",
     },
     {
-      label: "Email",
+      label: "EMAIL",
       name: "email",
     },
     {
-      label: "PhoneNumber",
+      label: "PHONE NUMBER",
       name: "phone_number",
       options: {
         customBodyRender: (value) => {
@@ -50,7 +50,7 @@ export default function Users() {
       },
     },
     {
-      label: "AccountType",
+      label: "ACCOUNT TYPE",
       name: "userRole",
       options: {
         customBodyRender: (value) => {
@@ -64,7 +64,7 @@ export default function Users() {
       },
     },
     {
-      label: "Account Name",
+      label: "ACCOUNT NAME",
       name: "_id",
       options: {
         customBodyRender: (value) => {
@@ -87,7 +87,7 @@ export default function Users() {
       },
     },
     {
-      label: "UserType",
+      label: "USER TYPE",
       name: "userRole",
       options: {
         customBodyRender: (value) => {
@@ -110,7 +110,7 @@ export default function Users() {
       },
     },
     {
-      label: "Status",
+      label: "STATUS",
       name: "enabled",
       options: {
         filter: false,
@@ -146,7 +146,7 @@ export default function Users() {
       },
     },
     {
-      label: "Actions",
+      label: "ACTIONS",
       name: "_id",
       options: {
         filter: false,

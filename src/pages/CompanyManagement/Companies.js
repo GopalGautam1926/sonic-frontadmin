@@ -24,11 +24,11 @@ export default function Companies() {
 
   const columns = [
     {
-      label: "Name",
+      label: "NAME",
       name: "name",
     },
     {
-      label: "Type",
+      label: "TYPE",
       name: "companyType",
     },
     {
@@ -36,7 +36,7 @@ export default function Companies() {
       name: "companyUrnOrId",
     },
     {
-      label: "Admin",
+      label: "ADMIN",
       name: "owner",
       options: {
         filter: false,
@@ -46,7 +46,7 @@ export default function Companies() {
       },
     },
     {
-      label: "Email",
+      label: "EMAIL",
       name: "owner",
       options: {
         filter: false,
@@ -56,7 +56,7 @@ export default function Companies() {
       },
     },
     {
-      label: "Phone Number",
+      label: "PHONE NUMBER",
       name: "owner",
       options: {
         filter: false,
@@ -66,7 +66,7 @@ export default function Companies() {
       },
     },
     {
-      label: "Status",
+      label: "STATUS",
       name: "enabled",
       options: {
         filter: false,
@@ -97,7 +97,7 @@ export default function Companies() {
       },
     },
     {
-      label: "Actions",
+      label: "ACTIONS",
       name: "_id",
       options: {
         filter: false,

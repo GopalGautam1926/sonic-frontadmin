@@ -17,7 +17,6 @@ export default makeStyles((theme) => ({
   drawerPaper: {
     backgroundColor:theme.palette.background.dark1,
     color:theme.palette.secondary.main,
-    
   },
   drawerOpen: {
     width: drawerWidth,
@@ -39,6 +38,7 @@ export default makeStyles((theme) => ({
   },
   toolbar: {
     backgroundColor:theme.palette.background.dark3,
+    fontFamily:`${theme.fontFamily.bold} !important`,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -51,6 +51,8 @@ export default makeStyles((theme) => ({
   listItemRoot: {
     backgroundColor: theme.palette.background.dark1,
     textDecoration: "none",
+    textTransform: "uppercase",
+    fontFamily:`${theme.fontFamily.bold} !important`,
     color: theme.palette.grey[500],
     "& .MuiListItemIcon-root": {
       color:  theme.palette.grey[500],
@@ -64,18 +66,23 @@ export default makeStyles((theme) => ({
         color: "white",
       },
     },
+    "& .MuiTypography-body1":{
+      fontFamily:`${theme.fontFamily.bold} !important`,
+    },
     "& .MuiListItem-root. Mui-selected": {
       
       color: theme.palette.secondary.light,
     },
     "&.Mui-selected": {
       textDecoration: "none",
+      fontFamily:`${theme.fontFamily.bold} !important`, 
       backgroundColor: `${theme.palette.background.dark4} !important`,
     },
   },
   listItemSelected: { 
     backgroundColor:theme.palette.primary.main,
     color: theme.palette.primary.main,
+    
     "&:hover":{
       color: `${theme.palette.primary.main} !important`,
     },  
@@ -83,16 +90,6 @@ export default makeStyles((theme) => ({
       color: `${theme.palette.primary.main} !important`,
     },
   },
-  // listItem:{
-  //   backgroundColor: theme.palette.background.dark2,
-  //   textDecoration: "none",
-  //   color:theme.palette.secondary.main,
-  //   "& .MuiListItemIcon-root": {
-  //     color:  theme.palette.grey[500],
-  //   },
-   
-    
-  // }
 }));
 
 

@@ -1,9 +1,10 @@
 import React from "react";
 import MUIDataTable from "mui-datatables";
 import RadioTableRowAction from "./components/RadioTableRowAction";
-import TableRowAction from './components/TableRowAction';
-import TableActions from './components/TableActions';
+import TableRowAction from "./components/TableRowAction";
+import TableActions from "./components/TableActions";
 import Empty from "../common/Empty";
+// import { useTheme } from "@material-ui/core";
 /**
  * Table component that will add default style and options to MUI DataTable
  * We can change the color of pagination test and icon by adding below theme to muicreateTheme
@@ -17,6 +18,7 @@ import Empty from "../common/Empty";
     },
  */
 export default function Table({ title, data, columns, options, components }) {
+  // const theme = useTheme();
   const defaultTableOptions = {
     selectableRows: false,
     elevation: 0,
@@ -32,9 +34,9 @@ export default function Table({ title, data, columns, options, components }) {
     },
     textLabels: {
       body: {
-        noMatch:(<Empty/>)
+        noMatch: <Empty />,
       },
-    }
+    },
   };
 
   const defaultColumnOptions = {
@@ -42,20 +44,20 @@ export default function Table({ title, data, columns, options, components }) {
       style: {
         whiteSpace: "normal",
         wordWrap: "break-word",
-        fontSize: 12
+        fontSize: 12,
       },
     }),
-    // setCellHeaderProps: (value) => ({
-    //   style: { color: theme.palette.primary.main},
-    // }),
+    setCellHeaderProps: (value) => ({
+      // style: { color: theme.palette.primary.main },
+    }),
   };
   var newColumns = columns?.map((col, index) => {
     if (typeof col == "string") {
-     const newCol = {
+      const newCol = {
         label: col,
         options: defaultColumnOptions,
       };
-      return newCol
+      return newCol;
     } else {
       const { options, ...rest } = col;
       const newCol = {
@@ -84,6 +86,6 @@ export default function Table({ title, data, columns, options, components }) {
   );
 }
 
-Table.RadioTableRowAction=RadioTableRowAction
-Table.TableRowAction=TableRowAction
-Table.TableActions=TableActions
+Table.RadioTableRowAction = RadioTableRowAction;
+Table.TableRowAction = TableRowAction;
+Table.TableActions = TableActions;

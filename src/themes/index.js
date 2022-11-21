@@ -3,7 +3,9 @@ import { createTheme,responsiveFontSizes } from "@material-ui/core/styles";
 
 const overrides = {
   typography: {
-    fontSize: 14
+    fontSize: 14,
+    fontFamily: defaultTheme.fontFamily.regular,
+    
   },
   overrides: {
     MUIDataTable: {

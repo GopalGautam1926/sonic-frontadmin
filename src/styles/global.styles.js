@@ -5,6 +5,7 @@ const useStyles = makeStyles((theme) =>
     '@global': {
       'a': {
         textDecoration: 'none',
+        fontFamily:theme.fontFamily.regular, 
         color:theme.palette.primary.main,
         '&:hover':{
             textDecoration: 'underline',

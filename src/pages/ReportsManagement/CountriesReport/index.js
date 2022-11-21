@@ -17,7 +17,7 @@ export default function CountriesReport() {
 
     const columns = [
         {
-            label: "Country",
+            label: "COUNTRY",
             name: "country",
             options: {
                 filter: false,
@@ -27,7 +27,7 @@ export default function CountriesReport() {
             },
         },
         {
-            label: "Plays",
+            label: "PLAYS",
             name: "playsCount",
             options: {
                 filter: false,
@@ -37,7 +37,7 @@ export default function CountriesReport() {
             },
         },
         {
-            label: "Tracks",
+            label: "TRACKS",
             name: "uniquePlaysCount",
             options: {
                 filter: false,
@@ -47,7 +47,7 @@ export default function CountriesReport() {
             },
         },
         {
-            label: "Artist",
+            label: "ARTISTS",
             name: "artistsCount",
             options: {
                 filter: false,

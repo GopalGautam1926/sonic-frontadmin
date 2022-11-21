@@ -17,7 +17,7 @@ export default function RadioStationReport() {
 
     const columns = [
         {
-            label: "Radio Station",
+            label: "RADIO STATION",
             name: "radioStation",
             options: {
                 filter: false,
@@ -28,7 +28,7 @@ export default function RadioStationReport() {
             },
         },
         {
-            label: "Country",
+            label: "COUNTRY",
             name: "radioStation",
             options: {
                 filter: false,
@@ -39,7 +39,7 @@ export default function RadioStationReport() {
             },
         },
         {
-            label: "Plays",
+            label: "PLAYS",
             name: "playsCount",
             options: {
                 filter: false,
@@ -49,7 +49,7 @@ export default function RadioStationReport() {
             },
         },
         {
-            label: "Tracks",
+            label: "TRACKS",
             name: "uniquePlaysCount",
             options: {
                 filter: false,
@@ -59,7 +59,7 @@ export default function RadioStationReport() {
             },
         },
         {
-            label: "Artists",
+            label: "ARTISTS",
             name: "artistsCount",
             options: {
                 filter: false,

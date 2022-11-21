@@ -17,6 +17,10 @@ import { awsConfig } from './config/aws.config';
 import { ToastContainer} from 'react-toastify';
 import GlobalStyles from "./styles/global.styles";
 
+import "./assets/fonts/FuturaBold.otf";
+import "./assets/fonts/FuturaMedium.otf";
+import "./assets/fonts/FuturaRegular.otf";
+
 Amplify.configure(awsConfig)
 ReactDOM.render(
   <BrowserRouter>

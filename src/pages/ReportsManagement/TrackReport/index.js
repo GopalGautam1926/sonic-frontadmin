@@ -17,7 +17,7 @@ export default function TrackReport() {
 
     const columns = [
         {
-            label: "Title",
+            label: "TITLE",
             name: "trackName",
             options: {
                 filter: false,
@@ -27,7 +27,7 @@ export default function TrackReport() {
             },
         },
         {
-            label: "Plays",
+            label: "PLAYS",
             name: "playsCount",
             options: {
                 filter: false,
@@ -37,7 +37,7 @@ export default function TrackReport() {
             },
         },
         {
-            label: "Tracks",
+            label: "TRACKS",
             name: "uniquePlaysCount",
             options: {
                 filter: false,
@@ -47,7 +47,7 @@ export default function TrackReport() {
             },
         },
         {
-            label: "Artists",
+            label: "ARTISTS",
             name: "artistsCount",
             options: {
                 filter: false,
@@ -57,7 +57,7 @@ export default function TrackReport() {
             },
         },
         {
-            label: "Radio Station",
+            label: "RADIO STATIONS",
             name: "radioStationCount",
             options: {
                 filter: false,
@@ -67,7 +67,7 @@ export default function TrackReport() {
             },
         },
         {
-            label: "Countries",
+            label: "COUNTRIES",
             name: "countriesCount",
             options: {
                 filter: false,
